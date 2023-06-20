@@ -34,6 +34,7 @@ namespace BMOS.Controllers
             {
                 return NotFound();
             }
+            //change
 
             var tblProduct = await _context.TblProducts
                 .FirstOrDefaultAsync(m => m.ProductId == id);
