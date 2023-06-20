@@ -1,0 +1,138 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="stylesheet" href="css/reset.css">-->
+    <link rel="stylesheet" href="~/css/login.css">
+    <title>Đăng nhập tài khoản</title>
+</head>
+
+<body>
+    @if (ViewBag.Confirmed != null)
+    {   
+                <style>
+                    .alert {
+                        width: 40%;
+                        margin: 10px auto;
+                        padding: 20px;
+                        background-color: green;
+                        color: white;
+                        text-align: center;
+                    }
+
+                    .closebtn {
+                        margin-left: 15px;
+                        color: white;
+                        font-weight: bold;
+                        float: right;
+                        font-size: 1.4rem;
+                        line-height: 20px;
+                        cursor: pointer;
+                        transition: 0.3s;
+                    }              
+
+                    .closebtn:hover {
+                        color: black;
+                    }
+                </style>
+
+                <div class="alert success">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>  
+                    <strong>@ViewBag.Confirmed </strong> 
+                </div>
+    }
+    <div id="wrapper">
+        <div id="form-login">
+            
+            <div class="login-account">
+                <form action="~/Account/Login" method="post">
+                    <h2>Đăng nhập</h2>
+                    
+                    <style>
+                        .notice {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        .notice_text {
+                            width: 360px;
+                            color: red;
+                            text-align: center;
+                            font-family: Arial, Helvetica, sans-serif;
+                            font-style: normal;
+                            font-size: 1rem;
+                            margin-top: 15px;
+                        }
+                    </style>
+
+                    <div class="notice">
+                        @if (ViewBag.Notice != null)
+                        {
+                            <span class="notice_text">@ViewBag.Notice</span>
+                        }
+                        else if (ViewBag.EmailConfirm != null)
+                        {
+                            <span class="notice_text">@ViewBag.EmailConfirm</span>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username"></label>
+                        <input type="email" name="username" value="" class="input input--username" placeholder="E-mail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password"></label>
+                        <input type="password" name="password" value="" class="input input--password" placeholder="Mật khẩu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="action">
+                            <input type="submit" value="Đăng nhập" class="submit btn-login">
+                            <a href="~/Account/ForgotPassword" class="submit btn-forgot"><b>Quên mật khẩu</b></a>
+                        </div>
+                        
+                    </div>                  
+                </form>
+            </div>
+            
+
+            <div class="login-social">
+                <div class="recommend">
+                    <div class="line">
+                        <span class="text">Hoặc đăng nhập qua</span>
+                    </div>
+                </div>
+                <div class="icon">
+                    <a href="http://" class="login-icon"><img width="150px" height="40px" src="~/images/fb.png" alt=""></a>
+                    <a href="http://" class="login-icon"><img width="150px" height="40px" src="~/images/gg.png" alt=""></a>
+                </div>
+            </div>
+
+            <div class="others">
+                <div class="others-text">
+                    <p>
+                        Tạo tài khoản để quản lý đơn hàng, và các thông tin thanh toán, gửi hàng một cách đơn giản hơn.
+                    </p>
+                </div>
+                <div class="others-button">
+                        <a href="~/Account/Register" class="btn btn-name"><b>Tạo tài khoản mới</b></a>               
+                        <a href="~/Home/Index" class="btn btn-name"><b>Trở về Trang Chủ</b></a>             
+                </div>               
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+

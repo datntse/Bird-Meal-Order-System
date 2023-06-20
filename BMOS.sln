@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMOS", "BMOS\BMOS.csproj", "{591ABEFA-34FB-4EBD-9BD6-6694927A84D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{591ABEFA-34FB-4EBD-9BD6-6694927A84D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{591ABEFA-34FB-4EBD-9BD6-6694927A84D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{591ABEFA-34FB-4EBD-9BD6-6694927A84D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{591ABEFA-34FB-4EBD-9BD6-6694927A84D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E0770EF5-DE4D-44A0-88B1-E57DFA66ADF7}
+	EndGlobalSection
+EndGlobal
