@@ -13,7 +13,7 @@ using BMOS.Models;
 using BMOS.Models.Services;
 namespace BMOS.Controllers
 {
-    public class TblProductsController : Controller
+    public class ProductsController : Controller
     {
         private static string ApiKey = "AIzaSyAYLSdMSB9rr3mF2WBNrTNVaxTdMPF_cjo";
         private static string Bucket = "bmos-4bc92.appspot.com";
@@ -22,7 +22,7 @@ namespace BMOS.Controllers
 
         private readonly BmosContext _context;
 
-        public TblProductsController(BmosContext context)
+        public ProductsController(BmosContext context)
         {
             _context = context;
         }

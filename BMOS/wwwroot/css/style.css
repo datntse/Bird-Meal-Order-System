@@ -257,6 +257,9 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 2.4rem;
     font-weight: 700;
     color: var(--text-color);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
 
 .product-desc__price,
@@ -1017,3 +1020,225 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 5px;
     outline: none;
 }
+/*cart*/
+    :root {
+    --swiper-navigation-size: 44px;
+  }
+
+  
+  .cart__basket__item {
+    flex-wrap: wrap;
+  }
+  
+  .ux-card:hover {
+      cursor: pointer;
+      border-color: #efc15f;
+      background-color: #fff;
+  }
+  .product {
+    padding-left: 90px;
+  }
+  .ux-card {
+    border: 1px solid #E8E8E8;
+    background: #FCFCFC;
+    padding-left: 90px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+  .mb-4, .my-4 {
+    margin-bottom: 1.5rem !important;
+  }
+  .position-relative {
+    position: relative !important;
+  }
+  .d-flex {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+  }
+  .rounded {
+    border-radius: 0.5rem !important;
+  }
+  body {
+    color: #4c4c4c;
+  }
+  body {
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+  }
+  *, ::after, ::before {
+    box-sizing: border-box;
+  }
+  .clearfix::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+  *, ::after, ::before {
+    box-sizing: border-box;
+  }
+  .d-block {
+    display: block !important;
+  }
+  .border-0 {
+    border: 0 !important;
+  }
+  .m-0 {
+    margin: 0 !important;
+  }
+  
+  p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin-top: 0;
+    margin-bottom: 1.6rem;
+  }
+  .product img {
+    max-height: 85px;
+    max-width: 58px;
+    width: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 15px;
+  }
+  .btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+  }
+  
+  .product .remove {
+    font-size: 1.6rem;
+  }
+  .btn-outline-danger:hover {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+  .ml-auto, .mx-auto {
+      margin-left: auto !important;
+  }
+  .btn:focus, .btn:hover {
+    text-decoration: none;
+  }
+  .btn-outline-danger {
+    color: #dc3545;
+    background-color: transparent;
+    background-image: none;
+    border-color: #dc3545;
+  }
+  input[type="number" i] {
+    padding: 1px 2px;
+  }
+  div {
+    display: block;
+  }
+  .font-weight-bold {
+    font-weight: 700 !important;
+  }
+  .number-input button {
+    outline: none;
+    background-color: transparent;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+  .number-input * {
+    box-sizing: border-box;
+  }
+  img {
+    vertical-align: middle;
+    border-style: none;
+  }
+  .position-absolute {
+    position: absolute !important;
+  }
+  .summary .total {
+    background:#b86501;
+    color: #fff;
+    font-size: 1.6rem;
+    padding: 20px !important;
+  }
+  .summary .btn-checkout:hover {
+    background: #efc15f;
+    color: #fff;
+  }
+  .summary .btn-checkout {
+    background: #fff;
+    color: #efc15f;
+    border-color: #efc15f;
+    transition: all 0.3s ease;
+    font-size: 2rem;
+  }
+  .btn-block {
+    display: block;
+    width: 100%;
+  }
+  .col-12 {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .d-flex {
+    display: flex !important;
+  }
+  div {
+    display: block;
+  }
+  .col-md-4 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  .col-md-8 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+  .number-input input[type=number] {
+    max-width: 5rem;
+    border: solid #ddd;
+    border-width: 0 1px;
+    font-size: 1.6rem;
+    height: 2rem;
+  }
+  input[type="number" i] {
+    padding: 1px 2px;
+  }
+  button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  .text-center {
+    text-align: center !important;
+  }
+  .number-input * {
+    box-sizing: border-box;
+  }
+  .number-input button {
+    outline-color: initial;
+    outline-style: none;
+    outline-width: initial;
+    background-color: gr;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+  body{
+    display: block;
+  }

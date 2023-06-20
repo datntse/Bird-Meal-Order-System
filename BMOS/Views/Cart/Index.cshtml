@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "_Layout";
+}
+<div class="cart-layout pt-3">
+    <div class="container" style="min-height: 350px">
+        <div class="row js-cart">
+            <div class="basket cart__basket col-md-8">
+
+                <div class="d-flex cart__basket__item product mb-4 rounded ux-card position-relative clearfix">
+                    <img src="images/product-item.png" class="js-img position-absolute" alt="undefined">
+                    <div class="col-12 d-flex p-0">
+                        <p class="item-title clearfix mb-2">
+                            <a href="" title="" class=" font-weight-bold">Wild bird</a>
+                            <span class=" d-block">100 gr</span>
+                        </p>
+                        <span class=" price font-weight-bold ml-auto text-right clearfix">35.000&nbsp;₫</span>
+                    </div>
+                    <div class="number-input d-inline-flex rounded">
+                        <button class="position-relative m-0 border-0 step-down-qty">-</button>
+                        <input class=" text-center" readonly="" min="1" name="Lines" value="1" size="2" type="number" data-variantid="74502897">
+                        <button class="position-relative m-0 border-0 step-up-qty plus">+</button>
+                    </div>
+                    <button class="btn btn-outline-danger remove ml-auto " title="Xoá" data-variantid="74502897">Xoá</button>
+                </div>
+            </div>
+            <div class="summary cart__summary col-md-4">
+                <dl class="total mb-4 p-3 d-flex align-items-center clearfix flex-wrap justify-content-end rounded">
+                    <dt class="text-uppercase font-weight-bold roun">Tổng</dt>
+                    <dd class="cart__summary_total font-weight-bold ml-auto mb-0">475.000&nbsp;₫</dd>
+                </dl>
+                <a class="btn btn-block btn-checkout rounded mb-3 text-uppercase font-weight-bold" href="" role="button">Thanh toán</a>
+                <hr>
+                <a class="btn btn-block btn-clearcart js-clearcart btn-danger rounded w-100 font-weight-bold  mb-4" href="" role="button" title="Xoá tất cả">Quay lại mua sắm</a>
+            </div>
+        </div>
+        <div class="row cart__empty d-none">
+            <div class="col-md-12">
+                <div class="alert alert-warning" role="alert">Không có sản phẩm nào. Quay lại <a href="" class="alert-link">cửa hàng</a> để tiếp tục mua sắm.</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -26,7 +26,7 @@
                                 <!-- <div class="routing-warpper"> -->
                                 @foreach (var item in Model)
                                 {
-                                    <a class="product-item" asp-action="Details" asp-controller="Product" asp-route-id="@item.ProductId" style="text-decoration: none">
+                                    <a class="product-item" asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductId" style="text-decoration: none">
                                         <div class="product-content product-border">
                                             <div class="product-img-item" style="background-image: url(@Html.DisplayFor(modelItem => item.ImagelInk));"> </div>
                                             <div class="product-desc">
