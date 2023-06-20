@@ -119,7 +119,7 @@ namespace TestDemoBmos.Controllers
 
             if (check != null)
             {
-                await EmailSender.SendEmailAsync(username, "Quên mật khẩu", "Please confirm your account by clicking <a href=\"" + content + "\">click here</a>");
+                await EmailSender.SendEmailAsync(username, "Quên mật khẩu", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Thay đổi mật khẩu</a>");
                 ViewBag.ConfirmForgotSuccess = "*Vui lòng kiểm tra ";
                 return View();
             }
