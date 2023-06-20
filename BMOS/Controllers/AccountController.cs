@@ -11,7 +11,6 @@ namespace TestDemoBmos.Controllers
     public class AccountController : Controller
     {
         private BmosContext _db = new BmosContext();
-        private readonly UserManager<IdentityUser> _userManager;
         public IActionResult Login()
         {
             return View();
@@ -29,13 +28,19 @@ namespace TestDemoBmos.Controllers
                 var check = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password));
                 if (check.Count() > 0)
                 {
-                    var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).Select(p => p.IsConfirm).ToList();
-                    if (checkConfirm.Count() > 0)
+                    var checkStatus = _db.TblUsers.Where(p => p.Status == true);
+                    if (checkStatus.Count() > 0)
                     {
-                        HttpContext.Session.SetString("username", model.Username);
-                        return RedirectToAction("Index", "Home");
+                        var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).Select(p => p.IsConfirm).ToList();
+                        if (checkConfirm.Count() > 0)
+                        {
+                            HttpContext.Session.SetString("username", model.Username);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        ViewBag.EmailConfirm = "*Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra Email để xác nhận tài khoản.";
+                        return View();
                     }
-                    ViewBag.EmailConfirm = "*Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra Email để xác nhận tài khoản.";
+                    ViewBag.Block = "*Tài khoản của bạn đã bị khóa. Nếu có vấn đề cần giải đáp xin vui lòng liên hệ với chúng tôi.";
                     return View();
                 }
                 else

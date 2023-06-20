@@ -79,6 +79,10 @@
                         {
                             <span class="notice_text">@ViewBag.Notice</span>
                         }
+                        else if (ViewBag.Block != null)
+                        {
+                            <span class="notice_text">@ViewBag.Block</span>
+                        }
                         else if (ViewBag.EmailConfirm != null)
                         {
                             <span class="notice_text">@ViewBag.EmailConfirm</span>
@@ -97,7 +101,7 @@
 
                     <div class="form-group">
                         <div class="action">
-                            <input type="submit" value="Đăng nhập" class="submit btn-login">
+                            <button type="submit" id="submit" class="submit btn-login"><b>Đăng nhập</b></button>
                             <a href="~/Account/ForgotPassword" class="submit btn-forgot"><b>Quên mật khẩu</b></a>
                         </div>
                         
