@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using MimeKit;
 using MimeKit.Text;
 
-namespace Bmostest.Services
+namespace BMOS.Services
 {
     public class EmailSender
     {

@@ -5,14 +5,20 @@ using System.Text;
 using System.Text.Encodings.Web;
 using BMOS.Models.Entities;
 using Bmostest.Services;
+using Microsoft.AspNetCore.Http;
 
-namespace TestDemoBmos.Controllers
+namespace BMOS.Controllers
 {
     public class AccountController : Controller
     {
         private BmosContext _db = new BmosContext();
         public IActionResult Login()
         {
+            var session = HttpContext.Session.GetString("username");
+            if (session != null)
+            {
+                return RedirectToAction("UserProfile");
+            }
             return View();
         }
 
@@ -32,9 +38,11 @@ namespace TestDemoBmos.Controllers
                     if (checkStatus.Count() > 0)
                     {
                         var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).Select(p => p.IsConfirm).ToList();
+                        string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
+                        //string name = fullname.First();
                         if (checkConfirm.Count() > 0)
                         {
-                            HttpContext.Session.SetString("username", model.Username);
+                            HttpContext.Session.SetString("username", fullname);                           
                             return RedirectToAction("Index", "Home");
                         }
                         ViewBag.EmailConfirm = "*Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra Email để xác nhận tài khoản.";
@@ -60,6 +68,11 @@ namespace TestDemoBmos.Controllers
         }
         public IActionResult Register()
         {
+            var session = HttpContext.Session.GetString("username");
+            if (session != null)
+            {
+                return RedirectToAction("UserProfile");
+            }
             return View();
         }
 
@@ -92,9 +105,14 @@ namespace TestDemoBmos.Controllers
 
         public IActionResult ConfirmEmail(string userId, string code)
         {
+            var session = HttpContext.Session.GetString("username");
+            if (session != null)
+            {
+                return RedirectToAction("UserProfile");
+            }
             if (userId == null || code == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
             var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId);
@@ -109,6 +127,11 @@ namespace TestDemoBmos.Controllers
 
         public IActionResult ForgotPassword()
         {
+            var session = HttpContext.Session.GetString("username");
+            if (session != null)
+            {
+                return RedirectToAction("UserProfile");
+            }
             return View();
         }
 
@@ -139,9 +162,14 @@ namespace TestDemoBmos.Controllers
 
         public IActionResult ChangePassword(string userId, string code)
         {
+            var session = HttpContext.Session.GetString("username");
+            if (session != null)
+            {
+                return RedirectToAction("UserProfile");
+            }
             if (userId == null || code == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
             var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId);
@@ -166,9 +194,41 @@ namespace TestDemoBmos.Controllers
                 _db.SaveChanges();
                 string changeSucces = "Thay đổi mật khẩu thành công";
             }
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login");
         }
 
+        public IActionResult UserProfile()
+        {
+            var user = HttpContext.Session.GetString("username");
+            ViewBag.User = user;
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+            return View();
+        }
+
+        public IActionResult UserLocation()
+        {
+            var user = HttpContext.Session.GetString("username");
+            ViewBag.User = user;
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+            return View();
+        }
+
+        public IActionResult UserChangePassword()
+        {
+            var user = HttpContext.Session.GetString("username");
+            ViewBag.User = user;
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+            return View();
+        }
 
     }
 }
