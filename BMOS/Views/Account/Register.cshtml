@@ -1,4 +1,4 @@
-﻿@model TestDemoBmos.Controllers.AccountController;
+﻿@model BMOS.Controllers.AccountController;
 @{
     Layout = null;
 }
@@ -16,47 +16,47 @@
 
 <body>
     @if (ViewBag.RegisterSuccess != null)
-            {   
-                <style>
-                    .alert {
-                        width: 40%;
-                        margin: 10px auto;
-                        padding: 20px;
-                        background-color: green;
-                        color: white;
-                        text-align: center;
-                    }
+    {
+        <style>
+            .alert {
+                width: 40%;
+                margin: 10px auto;
+                padding: 20px;
+                background-color: #d4e9d8;
+                color: black;
+                text-align: center;
+            }
 
-                    .closebtn {
-                        margin-left: 15px;
-                        color: white;
-                        font-weight: bold;
-                        float: right;
-                        font-size: 1.4rem;
-                        line-height: 20px;
-                        cursor: pointer;
-                        transition: 0.3s;
-                    }
+            .closebtn {
+                margin-left: 15px;
+                color: black;
+                font-weight: bold;
+                float: right;
+                font-size: 1.4rem;
+                line-height: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
 
-                    .link {
-                        color: black;
-                        font-weight: bold;
-                        font-size: 1.4rem;
-                        line-height: 20px;
-                        cursor: pointer;
-                        text-decoration: none;
-                    }
+            .link {
+                color: black;
+                font-weight: bold;
+                font-size: 1.4rem;
+                line-height: 20px;
+                cursor: pointer;
+                text-decoration: none;
+            }
 
-                    .closebtn:hover {
-                        color: black;
-                    }
-                </style>
+            .closebtn:hover {
+                color: white;
+            }
+        </style>
 
                 <div class="alert success">
                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>  
-                    <strong>@ViewBag.RegisterSuccess <a href="https://mail.google.com/mail" class="link">Email</a> để kích hoạt tài khoản.</strong> 
+                    <span>@ViewBag.RegisterSuccess <a href="https://mail.google.com/mail" class="link">Email</a> để kích hoạt tài khoản.</span> 
                 </div>
-            }
+    }
     <div id="wrapper">
         
         <div id="form-register">

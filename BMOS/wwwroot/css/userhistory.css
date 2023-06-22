@@ -142,7 +142,6 @@ html {
 }
 
 
-
 .banner>img {
     height: 100px;
     width: 300px;
@@ -208,79 +207,37 @@ html {
     color: orange;
 }
 
-.user_changepass{
+.user_history{
     border: 2px solid black;
     border-radius: 20px;
     width: 99%;
     margin-top: 20px;
-    padding: 20px 0px 20px 20px;
 }
 
-.user_changepass h3{
-    font-size: 2.5rem;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.input {
-    border-radius: 20px;
-    padding: 0 20px;
-    border: solid 2px black;
-}
-
-.input::placeholder {
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: normal;
-}
-
-.user_changepass input{
-    width: 95%;
-    height: 5rem;
-    font-size: 1.6rem;
-    border-radius: 20px;
-}
-
-.action {
+.user_history_details{
     display: flex;
-    justify-content: space-between;
+    background-color: #888888;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin: 10px;
 }
 
-.user_changepass .btn-change{
-    width: 25%;
-    height: 5rem;
-    border-radius: 10px;
-    border: none;
-    background-color: orange;
-    font-weight: bold;
+.user_history_details h4{
+    padding: 10px 0px 10px 10px ;
+}
+
+.user_history h4{
     font-size: 2rem;
+    padding: 10px 0px 10px 10px ;
 }
 
-.btn-forgot {
-    width: 25%;
-    font-weight: bold;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: black;
+.user_history_details_price {
+    align-self: flex-end;
 }
-
-.btn-forgot:hover {
-    color: #b48010;
-}
-
-.user_changepass label {
-    font-size: 2rem;
-}
-
 .userinfo {
     display: flex;
 }
-.userprofile_bar img {
+.userprofile_bar img{
     width: 40px;
 }
 
@@ -298,7 +255,7 @@ html {
     margin: 0px 10px;
 }
 
-.userprofile_bar_profile a {
+.userprofile_bar_profile a{
     align-self: center;
     padding-left: 20px;
     font-weight: bold;
@@ -306,7 +263,7 @@ html {
     color: black;
     text-decoration: none;
 }
-.userprofile_bar_profile a:hover {
+.userprofile_bar_profile a:hover{
     color: rgb(248, 199, 107);
     background-color: transparent;
 }

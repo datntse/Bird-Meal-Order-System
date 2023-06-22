@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Text.Encodings.Web;
 using BMOS.Models.Entities;
-using Bmostest.Services;
+using BMOS.Services;
 using Microsoft.AspNetCore.Http;
+using Firebase.Auth;
 
 namespace BMOS.Controllers
 {
@@ -14,8 +15,8 @@ namespace BMOS.Controllers
         private BmosContext _db = new BmosContext();
         public IActionResult Login()
         {
-            var session = HttpContext.Session.GetString("username");
-            if (session != null)
+            var user = HttpContext.Session.GetString("username");
+            if (user != null)
             {
                 return RedirectToAction("UserProfile");
             }
@@ -38,11 +39,14 @@ namespace BMOS.Controllers
                     if (checkStatus.Count() > 0)
                     {
                         var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).Select(p => p.IsConfirm).ToList();
-                        string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
-                        //string name = fullname.First();
+                        //string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
+                        var user = _db.TblUsers.Where(p => p.Username.Equals(username)).First();
+                        string fullname = user.Firstname + " " + user.Lastname;
+
                         if (checkConfirm.Count() > 0)
                         {
-                            HttpContext.Session.SetString("username", fullname);                           
+                            HttpContext.Session.SetString("username", username);
+                            HttpContext.Session.SetString("fullname", fullname);                           
                             return RedirectToAction("Index", "Home");
                         }
                         ViewBag.EmailConfirm = "*Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra Email để xác nhận tài khoản.";
@@ -68,8 +72,8 @@ namespace BMOS.Controllers
         }
         public IActionResult Register()
         {
-            var session = HttpContext.Session.GetString("username");
-            if (session != null)
+            var user = HttpContext.Session.GetString("username");
+            if (user != null)
             {
                 return RedirectToAction("UserProfile");
             }
@@ -105,8 +109,8 @@ namespace BMOS.Controllers
 
         public IActionResult ConfirmEmail(string userId, string code)
         {
-            var session = HttpContext.Session.GetString("username");
-            if (session != null)
+            var user = HttpContext.Session.GetString("username");
+            if (user != null)
             {
                 return RedirectToAction("UserProfile");
             }
@@ -127,11 +131,11 @@ namespace BMOS.Controllers
 
         public IActionResult ForgotPassword()
         {
-            var session = HttpContext.Session.GetString("username");
-            if (session != null)
-            {
-                return RedirectToAction("UserProfile");
-            }
+            //var user = HttpContext.Session.GetString("username");
+            //if (user != null)
+            //{
+                //return RedirectToAction("UserProfile");
+            //}
             return View();
         }
 
@@ -162,11 +166,11 @@ namespace BMOS.Controllers
 
         public IActionResult ChangePassword(string userId, string code)
         {
-            var session = HttpContext.Session.GetString("username");
-            if (session != null)
-            {
-                return RedirectToAction("UserProfile");
-            }
+            //var user = HttpContext.Session.GetString("username");
+            //if (user != null)
+            //{
+                //return RedirectToAction("UserProfile");
+            //}
             if (userId == null || code == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -200,18 +204,21 @@ namespace BMOS.Controllers
         public IActionResult UserProfile()
         {
             var user = HttpContext.Session.GetString("username");
-            ViewBag.User = user;
+            var profile = _db.TblUsers.FirstOrDefault(p => p.Username.Equals(user));
+            ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             if (user == null)
             {
                 return RedirectToAction("Login");
-            }
-            return View();
+            }            
+            return View(profile);
         }
+
 
         public IActionResult UserLocation()
         {
             var user = HttpContext.Session.GetString("username");
             ViewBag.User = user;
+            ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             if (user == null)
             {
                 return RedirectToAction("Login");
@@ -221,6 +228,35 @@ namespace BMOS.Controllers
 
         public IActionResult UserChangePassword()
         {
+            var user = HttpContext.Session.GetString("username");
+            ViewBag.Fullname = HttpContext.Session.GetString("fullname");
+            ViewBag.User = user;
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult UserChangePassword(string username, string oldPassword, string password)
+        {
+            ViewBag.Fullname = HttpContext.Session.GetString("fullname");
+            var check = _db.TblUsers.FirstOrDefault(p => p.Username == username && p.Password == oldPassword);
+            if (check != null)
+            {
+                check.Password = password;
+                _db.SaveChanges();
+                ViewBag.ChangeSuccess = "*Thay đổi mật khẩu thành công.";
+                return View();
+            }
+            ViewBag.ChangeFail = "*Mật khẩu hiện tại không chính xác, vui lòng thử lại.";
+            return View();
+        }
+
+        public IActionResult UserHistoryOrder()
+        {
+            ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             var user = HttpContext.Session.GetString("username");
             ViewBag.User = user;
             if (user == null)
