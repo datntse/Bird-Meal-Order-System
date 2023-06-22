@@ -1,0 +1,296 @@
+﻿@model BMOS.Models.ProductInfoModel
+@{
+	Layout = "_HeaderFooter";
+	ViewData["Title"] = "Index";
+}
+
+<div class="content">
+	<div class="container">
+		<div class="content__navigation">
+			<div>
+				<a href="index.html">Trang chủ</a>/
+				<a href="routing.html">Lộ trình ăn/</a>
+				<a href="#">Chi tiết bữa ăn</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-8 product-detail">
+				<div class="product-detail__title">
+					Food bird super yummi
+				</div>
+				<div class="row g-0 product-detail__content">
+					<div class="col-6 product-detail__content--img">
+						<div class="card">
+							<!-- card left -->
+							<div class="product-detail-image">
+								<div class="img-display">
+									<div class="img-showcase">
+										@{
+											string url = @Model.UrlImage;
+											string[] delemeter = new string[] { "datnt" };
+											string[] image = url.Split(delemeter, StringSplitOptions.None);
+
+											for (var i = 0; i < image.Length - 1; i++)
+											{
+												<img src="@image[i]" alt="bird image">
+											}
+										}
+									</div>
+								</div>
+								<div class="img-select">
+
+									@{
+										var count = 1;
+									}
+									@for (var i = 0; i < image.Length - 1; i++)
+									{
+										<div class="img-item">
+											<a href="#" data-id="@count">
+												<img src="@image[i]" alt="bird image">
+											</a>
+										</div>
+										count++;
+									}
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-6 product-detail__content-desc">
+						<div class="product-detail__content--title product-detail--status">
+							<span>Status:</span>
+							<div class="product-detail--status_value">Available</div>
+						</div>
+						<div class="product-detail__content--title product-detail--price">
+							<span>Price:</span>
+							<div class="product-detail--price_value">100.00vnd</div>
+						</div>
+						<div class="product-detail__content--title product-detail--weight">
+							<span>Weight:</span>
+							<div class="product-detail--weight_value">500g</div>
+						</div>
+						<form>
+							<div class="product-detail__content edit-quantity-button">
+								<span>Quantity:</span>
+
+								<img src="/images/minus-icon.png" alt="" class="value-button minus" id="decrease" onclick="decreaseValue()"
+									 value="Decrease Value">
+								<input name="productQuantity" type="number" id="number" value="1" />
+								<img src="/images/plus-icon.png" alt="" class="value-button plus" id="increase" onclick="increaseValue()"
+									 value="Decrease Value">
+
+							</div>
+
+							<div class="col-12 product-detail__content rating-buy-star">
+								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+							</div>
+
+							<div class="col-12 product-detail__content routing-button add-to-cart--button">
+								<button data-id="@Model.ProductId" class="ajax-add-to-cart btn btn-primary button-action button-action--add-cart">
+									<i class="fa-solid fa-cart-shopping"></i>
+									Add to cart
+								</button>
+								<i class="fa-solid fa-heart heart-icon" style="color: #d32a17;"></i>
+							</div>
+							<div class="mt-2 col-12 product-detail__content routing-button buy-now--button ">
+								<button class="btn btn-primary button-action button-action--buy-now">
+									<i class="fa-sharp fa-solid fa-bag-shopping"></i>
+									Buy now
+								</button>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-4 recommend-list">
+				<span class="recommend-list__text">Recommend</span>
+				<div class="row g-0 recommend-list__item">
+					<div class="col-4 recommend-product__img">
+						<img src="/images/product-item.png" alt="" srcset="">
+					</div>
+
+					<div class="col-8 recommend-product__desc">
+						<div class="recommend-product__name">Thuc an cho chim</div>
+						<div class="recommend-product__price">100.000vnd</div>
+
+					</div>
+
+				</div>
+				<div class="row g-0 recommend-list__item">
+					<div class="col-4 recommend-product__img">
+						<img src="/images/product-item.png" alt="" srcset="">
+					</div>
+
+					<div class="col-8 recommend-product__desc">
+						<div class="recommend-product__name">Thuc an cho chim</div>
+						<div class="recommend-product__price">100.000vnd</div>
+
+					</div>
+
+				</div>
+				<div class="row g-0 recommend-list__item">
+					<div class="col-4 recommend-product__img">
+						<img src="/images/product-item.png" alt="" srcset="">
+					</div>
+
+					<div class="col-8 recommend-product__desc">
+						<div class="recommend-product__name">Thuc an cho chim</div>
+						<div class="recommend-product__price">100.000vnd</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="row product-detail__description">
+			<div class="col-12 product-detail__description--title">
+				Thông tin sản phẩm
+			</div>
+			<div class="col-12 product-detail__description--content">
+				<div class="product-detail__description--content-partition">
+					<span>Thành phần</span>
+					<span>
+						Trứng gà, đậu xanh, đậu tương, đậu đỏ, ngũ cốc, gạo lút, muỗi nước, kỳ tử, phấn hoa, mật ong, đường đào, Vitamin, khoáng tổng hợp.
+						HƯỚNG DẦN SỬ DỤNG
+					</span>
+				</div>
+				<div class="product-detail__description--content-partition">
+					<span>Thành phần</span>
+					<span>
+						Trứng gà, đậu xanh, đậu tương, đậu đỏ, ngũ cốc, gạo lút, muỗi nước, kỳ tử, phấn hoa, mật ong, đường đào, Vitamin, khoáng tổng hợp.
+						HƯỚNG DẦN SỬ DỤNG
+					</span>
+				</div>
+				<div class="product-detail__description--content-partition">
+					<span>Thành phần</span>
+					<span>Hàm lượng đạm cao hơn + đường + muối + chất xơ + canxi + khoáng chất + vitamin tổng hợp cao dùng cho chim đã thay xong lông, giúp chim hót tốt, căng lửa ổn định. CÁCH CHUYỂN CÁM Trộn cám đang dùng cùng cám mới ăn 2, 3 ngày rồi cho ăn thẳng. CÔNG DỤNG Là thức ăn hoàn chỉnh có đầy đủ các chất dinh dưỡng. Thức ăn tạo cho chim khỏe mạnh, lông mỏ bóng mượt, hót hay. BẢO QUẢN Để nơi khô ráo thoáng mát, tránh ánh nắng mặt trời. Buộc kín túi sau khi sử dụng. KLT: 200g Hạn dùng: 1 năm kể từ ngày SX</span>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="row g-0 feedback">
+			<div class="col-12 feedback_title">
+				<div class="feedback_title--text">Phản hồi</div>
+				<div class="feedback_title--star">5 trên 5</div>
+				<div class="col-12 product-detail__content rating-buy-star">
+					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+				</div>
+			</div>
+			<div class="row g-0 user_feedback align-items-center">
+				<div class="col-1 user_feedback_avt">
+					<i class="fa-sharp fa-solid fa-user"></i>
+				</div>
+				<div class="col-11 user_feedback_input">
+					<input type="text" placeholder="Ý kiến của bạn về sản phẩm">
+				</div>
+
+
+			</div>
+
+			<div class="row g-0 user_feedbacked">
+				<div class="col-1 user_feedbacked_avt">
+					<i class="fa-sharp fa-solid fa-user"></i>
+				</div>
+				<div class="col-11 user_feedbacked__content">
+					<div class="user_feedbacked__info">
+						<div class="user_feedbacked__name">Duy Khanh</div>
+						<div class="user_feedbacked__star">
+							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+						</div>
+						<div class="user_feedback__date">
+							23/11/2023
+						</div>
+					</div>
+					<div class="user_feedbacked__like">
+						<div class="liked-quantity">32</div>
+						<i class="fa-solid fa-heart heart-icon" style="color: #d32a17;"></i>
+					</div>
+				</div>
+				<div class="col-12 user_feedback__input">
+					<input type="text" value="Good Product! My bird love that!">
+				</div>
+			</div>
+
+			<div class="row g-0 user_feedbacked">
+				<div class="col-1 user_feedbacked_avt">
+					<i class="fa-sharp fa-solid fa-user"></i>
+				</div>
+				<div class="col-11 user_feedbacked__content">
+					<div class="user_feedbacked__info">
+						<div class="user_feedbacked__name">Duy Khanh</div>
+						<div class="user_feedbacked__star">
+							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+						</div>
+						<div class="user_feedback__date">
+							23/11/2023
+						</div>
+					</div>
+					<div class="user_feedbacked__like">
+						<div class="liked-quantity">32</div>
+						<i class="fa-solid fa-heart heart-icon" style="color: #d32a17;"></i>
+					</div>
+				</div>
+				<div class="col-12 user_feedback__input">
+					<input type="text" value="Good Product! My bird love that!">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section scripts {
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		$(document).ready(function () {
+			$('.ajax-add-to-cart').click(function (e) {
+				var _id = $(this).data("id");
+				e.preventDefault();
+				var quantity = $('input[name="productQuantity"]').val();
+				console.log(quantity);
+				$.ajax({
+					url: "/ShoppingCart/AddToCart",
+					data: {
+						id: _id,
+						productQuantity: quantity,
+						type: "ajax"
+					},
+					success: function (data) {
+						console.log(data)
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: 'Your work has been saved',
+							showConfirmButton: false,
+							timer: 1500
+						});
+						$(".cart-quantity").html(data.productQuantity);
+					},
+					error: function () {
+
+					}
+				});
+			});
+		});
+
+	</script>
+	}
+
