@@ -45,137 +45,26 @@ namespace BMOS.Controllers
 			return View(productDetail);
 		}
 
-		// GET: Products/Details/5
-		public async Task<IActionResult> Details(string id)
+		public IActionResult RelatedProduct(String id)
 		{
 			if (id == null || _context.TblProducts == null)
 			{
 				return NotFound();
 			}
 
-			var tblProduct = await _context.TblProducts
-				.FirstOrDefaultAsync(m => m.ProductId == id);
-			if (tblProduct == null)
+			var recom = _context.TblProducts.Find(id).Type;
+			var product = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom).Take(3).ToList();
+
+			if (product == null)
 			{
 				return NotFound();
 			}
-
-			return View(tblProduct);
-		}
-
-		// GET: Products/Create
-		public IActionResult Create()
-		{
-			return View();
-		}
-
-		// POST: Products/Create
-		// To protect from overposting attacks, enable the specific properties you want to bind to.
-		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("ProductId,Name,Quantity,Price,Description,Weight,IsAvailable,IsLoved,Status")] TblProduct tblProduct)
-		{
-			if (ModelState.IsValid)
+			var result = new RelatedProductModel
 			{
-				_context.Add(tblProduct);
-				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(Index));
-			}
-			return View(tblProduct);
-		}
-
-		// GET: Products/Edit/5
-		public async Task<IActionResult> Edit(string id)
-		{
-			if (id == null || _context.TblProducts == null)
-			{
-				return NotFound();
-			}
-
-			var tblProduct = await _context.TblProducts.FindAsync(id);
-			if (tblProduct == null)
-			{
-				return NotFound();
-			}
-			return View(tblProduct);
-		}
-
-		// POST: Products/Edit/5
-		// To protect from overposting attacks, enable the specific properties you want to bind to.
-		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(string id, [Bind("ProductId,Name,Quantity,Price,Description,Weight,IsAvailable,IsLoved,Status")] TblProduct tblProduct)
-		{
-			if (id != tblProduct.ProductId)
-			{
-				return NotFound();
-			}
-
-			if (ModelState.IsValid)
-			{
-				try
-				{
-					_context.Update(tblProduct);
-					await _context.SaveChangesAsync();
-				}
-				catch (DbUpdateConcurrencyException)
-				{
-					if (!TblProductExists(tblProduct.ProductId))
-					{
-						return NotFound();
-					}
-					else
-					{
-						throw;
-					}
-				}
-				return RedirectToAction(nameof(Index));
-			}
-			return View(tblProduct);
-		}
-
-		// GET: Products/Delete/5
-		public async Task<IActionResult> Delete(string id)
-		{
-			if (id == null || _context.TblProducts == null)
-			{
-				return NotFound();
-			}
-
-			var tblProduct = await _context.TblProducts
-				.FirstOrDefaultAsync(m => m.ProductId == id);
-			if (tblProduct == null)
-			{
-				return NotFound();
-			}
-
-			return View(tblProduct);
-		}
-
-		// POST: Products/Delete/5
-		[HttpPost, ActionName("Delete")]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> DeleteConfirmed(string id)
-		{
-			if (_context.TblProducts == null)
-			{
-				return Problem("Entity set 'BmosContext.TblProducts'  is null.");
-			}
-			var tblProduct = await _context.TblProducts.FindAsync(id);
-			if (tblProduct != null)
-			{
-				_context.TblProducts.Remove(tblProduct);
-			}
-
-			await _context.SaveChangesAsync();
-			return RedirectToAction(nameof(Index));
-		}
-
-		private bool TblProductExists(string id)
-		{
-			return (_context.TblProducts?.Any(e => e.ProductId == id)).GetValueOrDefault();
+				_id = id,
+				listProduct = product
+			};
+			return View(result);
 		}
 	}
 }
