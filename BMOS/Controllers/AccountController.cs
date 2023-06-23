@@ -32,13 +32,26 @@ namespace BMOS.Controllers
 
             if (username != null || password != null)
             {
-                var check = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password));
+                var check = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).Select(p => p.UserRoleId);
                 if (check.Count() > 0)
                 {
                     var checkStatus = _db.TblUsers.Where(p => p.Status == true);
-                    if (checkStatus.Count() > 0)
+                    var id = check.First();                   
+                    string sid = Convert.ToString(id);
+                    HttpContext.Session.SetString("id", sid);                   
+                    if (id == 1)
                     {
-                        var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).Select(p => p.IsConfirm).ToList();
+                        HttpContext.Session.SetString("username", username);
+                        return RedirectToAction("Index", "ProductManager");
+                    }
+                    if (id == 2 && checkStatus.Count() > 0)
+                    {
+                        HttpContext.Session.SetString("username", username);
+                        return RedirectToAction("Index", "ProductManager");
+                    }
+                    if (id == 3 && checkStatus.Count() > 0)
+                    {
+                        var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).ToList();
                         //string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
                         var user = _db.TblUsers.Where(p => p.Username.Equals(username)).First();
                         string fullname = user.Firstname + " " + user.Lastname;
@@ -46,12 +59,12 @@ namespace BMOS.Controllers
                         if (checkConfirm.Count() > 0)
                         {
                             HttpContext.Session.SetString("username", username);
-                            HttpContext.Session.SetString("fullname", fullname);                           
+                            HttpContext.Session.SetString("fullname", fullname);
                             return RedirectToAction("Index", "Home");
                         }
                         ViewBag.EmailConfirm = "*Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra Email để xác nhận tài khoản.";
                         return View();
-                    }
+                    }                                                            
                     ViewBag.Block = "*Tài khoản của bạn đã bị khóa. Nếu có vấn đề cần giải đáp xin vui lòng liên hệ với chúng tôi.";
                     return View();
                 }
@@ -68,6 +81,7 @@ namespace BMOS.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("fullname");
             return RedirectToAction("Index", "Home");
         }
         public IActionResult Register()
@@ -134,7 +148,7 @@ namespace BMOS.Controllers
             //var user = HttpContext.Session.GetString("username");
             //if (user != null)
             //{
-                //return RedirectToAction("UserProfile");
+            //return RedirectToAction("UserProfile");
             //}
             return View();
         }
@@ -169,7 +183,7 @@ namespace BMOS.Controllers
             //var user = HttpContext.Session.GetString("username");
             //if (user != null)
             //{
-                //return RedirectToAction("UserProfile");
+            //return RedirectToAction("UserProfile");
             //}
             if (userId == null || code == null)
             {
@@ -204,12 +218,13 @@ namespace BMOS.Controllers
         public IActionResult UserProfile()
         {
             var user = HttpContext.Session.GetString("username");
+            ViewBag.ID = HttpContext.Session.GetString("id");
             var profile = _db.TblUsers.FirstOrDefault(p => p.Username.Equals(user));
             ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             if (user == null)
             {
                 return RedirectToAction("Login");
-            }            
+            }
             return View(profile);
         }
 
@@ -217,6 +232,7 @@ namespace BMOS.Controllers
         public IActionResult UserLocation()
         {
             var user = HttpContext.Session.GetString("username");
+            ViewBag.ID = HttpContext.Session.GetString("id");
             ViewBag.User = user;
             ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             if (user == null)
@@ -229,6 +245,7 @@ namespace BMOS.Controllers
         public IActionResult UserChangePassword()
         {
             var user = HttpContext.Session.GetString("username");
+            ViewBag.ID = HttpContext.Session.GetString("id");
             ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             ViewBag.User = user;
             if (user == null)
@@ -241,6 +258,7 @@ namespace BMOS.Controllers
         [HttpPost]
         public IActionResult UserChangePassword(string username, string oldPassword, string password)
         {
+            ViewBag.ID = HttpContext.Session.GetString("id");
             ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             var check = _db.TblUsers.FirstOrDefault(p => p.Username == username && p.Password == oldPassword);
             if (check != null)
@@ -256,6 +274,7 @@ namespace BMOS.Controllers
 
         public IActionResult UserHistoryOrder()
         {
+            ViewBag.ID = HttpContext.Session.GetString("id");
             ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             var user = HttpContext.Session.GetString("username");
             ViewBag.User = user;
