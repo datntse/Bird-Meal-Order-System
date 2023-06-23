@@ -44,20 +44,25 @@ namespace BMOS.Controllers
         // GET: TblProducts/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.TblProducts == null)
-            {
-                return NotFound();
-            }
+			if (id == null || _context.TblProducts == null)
+			{
+				return NotFound();
+			}
 
-            var tblProduct = await _context.TblProducts
-                .FirstOrDefaultAsync(m => m.ProductId == id);
-            if (tblProduct == null)
-            {
-                return NotFound();
-            }
+			var recom = _context.TblProducts.Find(id).Type;
+			var product = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom).Take(4).ToList();
 
-            return View(tblProduct);
-        }
+			if (product == null)
+			{
+				return NotFound();
+			}
+			var result = new relatedProduct
+			{
+				_id = id,
+				listProduct = product
+			};
+			return View(result);
+		}
 
         // GET: TblProducts/Create
         public IActionResult Create()

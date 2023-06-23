@@ -17,51 +17,27 @@ namespace BMOS.Controllers
             _context = context;
         }
 
-        // GET: TblProducts
-        [HttpGet]
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
-        {
-            ViewBag.CurrentSort = sortOrder;
+		// GET: TblProducts
+		[HttpGet]
+        public async Task<IActionResult> Index(string searchString)
+		{
 
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-            int pageSize = 8;
-            int pageNumber = (page ?? 1);
-            ViewBag.CurrentFilter = searchString;
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				return RedirectToAction("ListProduct", "ProductList", new { searchString });
+			}
 
-            var products = from s in _context.TblProducts
-                           select s;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                products = products.Where(s => s.Name.Contains(searchString));
-                int count = products.Count();
-                if (count == 0)
-                {
-                    ViewBag.Message = "No matches found";
-                }
-                else
-                {
-                    ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
-                }
-                return RedirectToAction("ListProduct", "ProductList", new { searchString });
-                //return View("~/Views/ProductList/ListProduct.cshtml", students.ToPagedList(pageNumber, pageSize));
-            }
-
-            return _context.TblProducts != null ?
-           View(await _context.TblProducts.ToListAsync()) :
-           Problem("Entity set 'BmosContext.TblProducts'  is null.");
-        }
-
-        
+			return _context.TblProducts != null ?
+		   View(await _context.TblProducts.ToListAsync()) :
+		   Problem("Entity set 'BmosContext.TblProducts'  is null.");
+		}
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+
+
+
+
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
