@@ -26,16 +26,13 @@
                     <div class="col-12 sidebar__list-category--title">Category</div>
                     <ul class="col-12 container-sidebar__list--category">
                         <li class="sidebar__list--category-item">
-                            <a asp-area="" asp-controller="ProductList" asp-action="ThucAnHat">Thức ăn hạt</a>
+                            <a asp-area="" asp-controller="Products" asp-action="ThucAnHat">Thức ăn hạt</a>
                         </li>
                         <li class="sidebar__list--category-item">
-                            <a asp-area="" asp-controller="ProductList" asp-action="ThucAnTuNhien">Thức ăn tự nhiên</a>
+                            <a asp-area="" asp-controller="Products" asp-action="ThucAnTuNhien">Thức ăn tự nhiên</a>
                         </li>
                         <li class="sidebar__list--category-item">
-                            <a asp-area="" asp-controller="ProductList" asp-action="ThucAnKho">Thức ăn khô</a>
-                        </li>
-                        <li class="sidebar__list--category-item">
-                            <a asp-area="" asp-controller="ProductList" asp-action="ThucAnMem">Thức ăn Mềm</a>
+                            <a asp-area="" asp-controller="Products" asp-action="ThucAnKho">Thức ăn khô</a>
                         </li>
                     </ul>
                 </div>
@@ -109,25 +106,22 @@
             </div>
             <div class="col-9 content__routing-list content_product-list">
                 <div class="content__filter">
-                    <div>
-                        <h1 style="margin-left:1rem; font-size:5rem; ">Thức ăn Tu Nhien</h1>
-                    </div>
                     <ul class="content__fitler-list">
                         <span>Sắp xếp:</span>
                         <li>
-                            <a asp-action="ThucAnTuNhien" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">A-Z</a>
+                            <a asp-action="ThucAnHat" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">A-Z</a>
                         </li>
                         <li>
-                            <a asp-action="ThucAnTuNhien" asp-route-sortOrder="@ViewData["NameDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Z-A</a>
+                            <a asp-action="ThucAnHat" asp-route-sortOrder="@ViewData["NameDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Z-A</a>
                         </li>
                         <li class="content__filter-item">
-                            <a asp-action="ThucAnTuNhien" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Giá tăng dần</a>
+                            <a asp-action="ThucAnHat" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Giá tăng dần</a>
                         </li>
                         <li class="content__filter-item">
-                            <a asp-action="ThucAnTuNhien" asp-route-sortOrder="@ViewData["PriceDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Giá giảm dần</a>
+                            <a asp-action="ThucAnHat" asp-route-sortOrder="@ViewData["PriceDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Giá giảm dần</a>
                         </li>
                         <li>
-                            <a style="font-size: 1.5rem; text-decoration: none;margin-left:40rem;" asp-controller="ProductList" asp-action="ListProduct">Xóa tìm kiếm</a>
+                            <a style="font-size: 1.5rem; text-decoration: none;margin-left:40rem;" asp-controller="Products" asp-action="ListProduct">Xóa tìm kiếm</a>
                         </li>
                     </ul>
                 </div>
@@ -136,7 +130,7 @@
                     <div class="row g-0 product-list">
                         @foreach (var item in Model)
                         {
-                            <a class="col-3 product-item" asp-controller="Home" asp-action="ChiTiet" asp-route-id="@item.ProductId" style="text-decoration: none">
+                            <a class="col-3 product-item" asp-controller="Products" asp-action="Products" asp-route-id="@item.ProductId" style="text-decoration: none">
                                 <div class="product-content product-border">
                                     <div class="product-img-item" style="background-image: url(@Html.DisplayFor(modelItem => item.ImagelInk));"> </div>
                                     <div class="product-desc">
@@ -172,4 +166,4 @@
 
     </div>
 
-</div>
+</div>           

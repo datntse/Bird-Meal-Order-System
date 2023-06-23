@@ -15,7 +15,7 @@ using X.PagedList;
 
 namespace BMOS.Controllers
 {
-    public class TblProductsController : Controller
+    public class ProductsController : Controller
     {
         private static string ApiKey = "AIzaSyAYLSdMSB9rr3mF2WBNrTNVaxTdMPF_cjo";
         private static string Bucket = "bmos-4bc92.appspot.com";
@@ -24,7 +24,7 @@ namespace BMOS.Controllers
 
         private readonly BmosContext _context;
 
-        public TblProductsController(BmosContext context)
+        public ProductsController(BmosContext context)
         {
             _context = context;
         }
@@ -88,24 +88,203 @@ namespace BMOS.Controllers
 			return View(products.ToPagedList(pageNumber, pageSize));
 		}
 
-		public async Task<IActionResult> Details(string id)
+		public async Task<IActionResult> Products(string id)
         {
             if (id == null || _context.TblProducts == null)
             {
                 return NotFound();
             }
 
-            var tblProduct = await _context.TblProducts
-                .FirstOrDefaultAsync(m => m.ProductId == id);
-            if (tblProduct == null)
+            var recom = _context.TblProducts.Find(id).Type;
+            var product = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom).Take(4).ToList();
+
+            if (product == null)
             {
                 return NotFound();
             }
-
-            return View(tblProduct);
+            var result = new relatedProduct
+            {
+                _id = id,
+                listProduct = product
+            };
+            return View(result);
         }
 
-       
+		[HttpGet]
+		public async Task<IActionResult> ThucAnHat(string sortOrder, string currentFilter, string searchString, int? page)
+		{
+			ViewData["SearchParameter"] = searchString;
+			ViewBag.CurrentSort = sortOrder;
+			ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+			ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+			ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price" : "";
+			ViewData["PriceDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+
+			if (searchString != null)
+			{
+				page = 1;
+			}
+			else
+			{
+				searchString = currentFilter;
+			}
+
+			ViewBag.CurrentFilter = searchString;
+
+			var products = from s in _context.TblProducts.Where(s => s.Type == "1") select s;
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				products = products.Where(s => s.Name.Contains(searchString));
+				int count = products.Count();
+				if (count == 0)
+				{
+					ViewBag.Message = "No matches found";
+				}
+				else
+				{
+					ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
+				}
+			}
+
+			switch (sortOrder)
+			{
+				case "name":
+					products = products.OrderBy(s => s.Name);
+					break;
+				case "name_desc":
+					products = products.OrderByDescending(s => s.Name);
+					break;
+				case "price":
+					products = products.OrderBy(s => s.Price);
+					break;
+				case "price_desc":
+					products = products.OrderByDescending(s => s.Price);
+					break;
+				default:
+					products = products.OrderBy(s => s.ProductId);
+					break;
+			}
+			int pageSize = 8;
+			int pageNumber = (page ?? 1);
+			return View(products.ToPagedList(pageNumber, pageSize));
+		}
+
+        [HttpGet]
+        public async Task<IActionResult> ThucAnTuNhien(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewData["SearchParameter"] = searchString;
+            ViewBag.CurrentSort = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price" : "";
+            ViewData["PriceDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var products = from s in _context.TblProducts.Where(s => s.Type == "2") select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(s => s.Name.Contains(searchString));
+                int count = products.Count();
+                if (count == 0)
+                {
+                    ViewBag.Message = "No matches found";
+                }
+                else
+                {
+                    ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
+                }
+            }
+
+            switch (sortOrder)
+            {
+                case "name":
+                    products = products.OrderBy(s => s.Name);
+                    break;
+                case "name_desc":
+                    products = products.OrderByDescending(s => s.Name);
+                    break;
+                case "price":
+                    products = products.OrderBy(s => s.Price);
+                    break;
+                case "price_desc":
+                    products = products.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    products = products.OrderBy(s => s.ProductId);
+                    break;
+            }
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(products.ToPagedList(pageNumber, pageSize));
+        }
+
+        public async Task<IActionResult> ThucAnKho(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewData["SearchParameter"] = searchString;
+            ViewBag.CurrentSort = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price" : "";
+            ViewData["PriceDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var products = from s in _context.TblProducts.Where(s => s.Type == "3") select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(s => s.Name.Contains(searchString));
+                int count = products.Count();
+                if (count == 0)
+                {
+                    ViewBag.Message = "No matches found";
+                }
+                else
+                {
+                    ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
+                }
+            }
+
+            switch (sortOrder)
+            {
+                case "name":
+                    products = products.OrderBy(s => s.Name);
+                    break;
+                case "name_desc":
+                    products = products.OrderByDescending(s => s.Name);
+                    break;
+                case "price":
+                    products = products.OrderBy(s => s.Price);
+                    break;
+                case "price_desc":
+                    products = products.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    products = products.OrderBy(s => s.ProductId);
+                    break;
+            }
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(products.ToPagedList(pageNumber, pageSize));
+        }
 
         private bool TblProductExists(string id)
         {
