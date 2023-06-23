@@ -31,7 +31,7 @@
                                             <div class="product-img-item" style="background-image: url(@Html.DisplayFor(modelItem => item.ImagelInk));"> </div>
                                             <div class="product-desc">
                                                 <div class="product-desc__title">@Html.DisplayFor(modelItem => item.Name)</div>
-                                                <div class="product-desc__price">@Html.DisplayFor(modelItem => item.Price)</div>
+                                                <div class="product-desc__price">@string.Format("{0:#,0}", item.Price)vnd</div>
                                             </div>
                                         </div>
                                     </a>

@@ -142,7 +142,7 @@
 
 								<div class="product-detail__content--title product-detail--price">
 									<span>Price:</span>
-									<div class="product-detail--price_value">@mainProduct.Price</div>
+									<div class="product-detail--price_value">@string.Format("{0:#,0}", mainProduct.Price)vnd</div>
 								</div>
 								<div class="product-detail__content--title product-detail--weight">
 									<span>Weight:</span>
@@ -200,7 +200,7 @@
 
 								<div class="col-8 recommend-product__desc">
 									<div class="recommend-product__name">@item.Name</div>
-									<div class="recommend-product__price"> @item.Price</div>
+									<div class="recommend-product__price">@string.Format("{0:#,0}", item.Price)vnd</div>
 								</div>
 							</div>
 						}
