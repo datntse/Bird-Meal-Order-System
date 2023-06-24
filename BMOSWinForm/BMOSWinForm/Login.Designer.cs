@@ -102,6 +102,7 @@
             Controls.Add(txtUsername);
             MaximizeBox = false;
             Name = "Login";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Login";
             ResumeLayout(false);
             PerformLayout();
