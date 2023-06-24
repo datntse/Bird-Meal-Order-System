@@ -15,6 +15,7 @@ namespace BMOSWinForm
         public AccountManagement()
         {
             InitializeComponent();
+            //tam
         }
     }
 }

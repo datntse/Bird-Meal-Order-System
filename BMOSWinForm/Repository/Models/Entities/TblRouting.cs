@@ -14,5 +14,7 @@ namespace Repository.Models.Entities
         public int? Quantity { get; set; }
         public double? Price { get; set; }
         public bool? Status { get; set; }
+
+        public virtual TblProduct Product { get; set; }
     }
 }

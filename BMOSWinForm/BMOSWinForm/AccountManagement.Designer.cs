@@ -34,18 +34,19 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(517, 152);
+            label1.Location = new System.Drawing.Point(591, 203);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(52, 15);
+            label1.Size = new System.Drawing.Size(63, 20);
             label1.TabIndex = 0;
             label1.Text = "Account";
             // 
             // AccountManagement
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1123, 450);
+            ClientSize = new System.Drawing.Size(1283, 600);
             Controls.Add(label1);
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "AccountManagement";
             Text = "AccountManagement";
             ResumeLayout(false);

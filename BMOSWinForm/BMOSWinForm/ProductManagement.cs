@@ -15,6 +15,7 @@ namespace BMOSWinForm
         public ProductManagement()
         {
             InitializeComponent();
+            //PHAT
         }
     }
 }
