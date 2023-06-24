@@ -13,5 +13,7 @@ namespace Repository.Models.Entities
         public string Content { get; set; }
         public int? Star { get; set; }
         public DateTime? Date { get; set; }
+
+        public virtual TblProduct Product { get; set; }
     }
 }

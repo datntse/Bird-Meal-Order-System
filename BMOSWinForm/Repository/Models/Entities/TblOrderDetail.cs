@@ -13,5 +13,8 @@ namespace Repository.Models.Entities
         public int? Quantity { get; set; }
         public double? Price { get; set; }
         public DateTime? Date { get; set; }
+
+        public virtual TblOrder Order { get; set; }
+        public virtual TblProduct Product { get; set; }
     }
 }
