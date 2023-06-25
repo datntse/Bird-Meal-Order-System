@@ -128,15 +128,25 @@ namespace BMOSWinForm
             {
                 conn = new SqlConnection(connStr);
                 conn.Open();
+                if (
+                    txtId.Text.Length > 0 &&
+                    txtDate.Text.Length > 0 &&
+                    txtDesc.Text.Length > 0 &&
+                    txtName.Text.Length > 0)
+                {
 
 
-                string sqlStr = "INSERT INTO Tbl_Blog (blog_id,name,description,date,status) VALUES ('" + txtId.Text + "', '" + txtName.Text + "', '" + txtDesc.Text + "', '" + txtDate.Text + "', '" + cbStatus.Checked + "')";
-                comm = new SqlCommand(sqlStr, conn);
-                comm.ExecuteNonQuery();
 
-                conn.Close();
-                LoadData();
-                MessageBox.Show("Successfully");
+
+                    string sqlStr = "INSERT INTO Tbl_Blog (blog_id,name,description,date,status) VALUES ('" + txtId.Text + "', '" + txtName.Text + "', '" + txtDesc.Text + "', '" + txtDate.Text + "', '" + cbStatus.Checked + "')";
+                    comm = new SqlCommand(sqlStr, conn);
+                    comm.ExecuteNonQuery();
+
+                    conn.Close();
+                    LoadData();
+                    MessageBox.Show("Successfully");
+                }
+                else { MessageBox.Show("Please type in!"); }
             }
             catch
             {
@@ -180,11 +190,11 @@ namespace BMOSWinForm
 
         private void button_Clear(object sender, EventArgs e)
         {
-            txtId.Text = "Ex: 001, 002, ..., xxx";
-            txtName.Text = "Enter name...";
+            txtId.Text = null;
+            txtName.Text = null;
             cbStatus.Checked = false;
-            txtDate.Text = "Ex: mm/dd/yyyy";
-            txtDesc.Text = "Enter content...";
+            txtDate.Text = null;
+            txtDesc.Text = null;
             txtId.Enabled = true;
         }
     }
