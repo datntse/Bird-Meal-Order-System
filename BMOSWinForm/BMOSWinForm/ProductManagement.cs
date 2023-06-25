@@ -24,11 +24,6 @@ namespace BMOSWinForm
         private void ProductManagement_Load(object sender, EventArgs e)
         {
             dataGridViewProduct.DataSource = _db.TblProducts.ToList();
-            TblProduct obj = tblProductBindingSource.Current as TblProduct;
-            if (obj != null )
-            {
-                pb_product.Image = Image.FromFile( obj.ImagelInk );
-            }
 
         }
 
