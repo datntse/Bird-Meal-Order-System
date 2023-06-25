@@ -1,5 +1,5 @@
 ﻿using BMOS.Models.Entities;
-
+using System.Collections.Generic;
 namespace BMOS.Models
 {
     public class RelatedProductModel
