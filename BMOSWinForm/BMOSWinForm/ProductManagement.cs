@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Repository.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -108,8 +109,7 @@ namespace BMOSWinForm
 
         private void dataGridViewProduct_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
-            {
+           
                 var id = dataGridViewProduct.Rows[e.RowIndex].Cells[0].Value.ToString();
                 var product = _db.TblProducts.Find(id);
                 txt_id.Text = product.ProductId;
@@ -122,12 +122,9 @@ namespace BMOSWinForm
                 checkBox_status.Checked = product.Status.ToString() == "True";
                 btn_delete.Enabled = true;
                 btn_update.Enabled = true;
-            }
+            
 
-            catch
-            {
-                MessageBox.Show("Thao tac qua nhanh");
-            }
+        
 
         }
 
@@ -146,23 +143,10 @@ namespace BMOSWinForm
 
         }
 
-        private void btn_imgurl_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog() { Filter = "JPEG|*.jpg" })
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    pb_product.Image = Image.FromFile(dlg.FileName);
-                    TblProduct obj = tblProductBindingSource.Current as TblProduct;
-                    if (obj != null)
-                    {
-                        obj.ImagelInk = dlg.FileName;
-                    }
-                }
-        }
 
         private void btn_add_Click(object sender, EventArgs e)
         {
-            pb_product.Image = null;
+
             txt_id.Text = null;
             txt_price.Text = null;
             txt_decription.Text = null;
@@ -174,15 +158,100 @@ namespace BMOSWinForm
             txt_id.Focus();
             tblProductBindingSource.MoveLast();
         }
-        public void Search()
-        {
-
-        }
         private void btn_search_Click(object sender, EventArgs e)
         {
-
+            string searchKeyword = txt_search.Text.Trim();
+            if (!string.IsNullOrEmpty(searchKeyword))
+            {
+                var result = from product in _db.TblProducts
+                             where product.Name.Contains(searchKeyword)
+                             select new
+                             {
+                                 ProductID = product.ProductId,
+                                 Name = product.Name,
+                                 Price = product.Price,
+                                 Quantity = product.Quantity,
+                                 Type = product.Type,
+                                 Weight = product.Weight,
+                                 Status = product.Status
+                             };
+                dataGridViewProduct.DataSource = new BindingSource { DataSource = result.ToList() };
+            }
         }
 
-
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string sortOption = comboBox1.SelectedItem?.ToString() ?? "";
+            if (!string.IsNullOrEmpty(sortOption))
+            {
+                switch (sortOption)
+                {
+                    case "Sản Phẩm Còn Hàng":
+                        var statusTrueResult = from product in _db.TblProducts
+                                               where product.Status == true
+                                               orderby product.Name ascending
+                                               select new
+                                               {
+                                                   ProductID = product.ProductId,
+                                                   Name = product.Name,
+                                                   Price = product.Price,
+                                                   Quantity = product.Quantity,
+                                                   Type = product.Type,
+                                                   Weight = product.Weight,
+                                                   Status = product.Status
+                                               };
+                        dataGridViewProduct.DataSource = statusTrueResult.ToList();
+                        break;
+                    case "Thức ăn hạt":
+                        var type1Result = from product in _db.TblProducts
+                                          where product.Type == "1"
+                                          orderby product.Name ascending
+                                          select new
+                                          {
+                                              ProductID = product.ProductId,
+                                              Name = product.Name,
+                                              Price = product.Price,
+                                              Quantity = product.Quantity,
+                                              Type = product.Type,
+                                              Weight = product.Weight,
+                                              Status = product.Status
+                                          };
+                        dataGridViewProduct.DataSource = type1Result.ToList();
+                        break;
+                    case "Thức ăn tự nhiên":
+                        var type2Result = from product in _db.TblProducts
+                                          where product.Type == "2"
+                                          orderby product.Name ascending
+                                          select new
+                                          {
+                                              ProductID = product.ProductId,
+                                              Name = product.Name,
+                                              Price = product.Price,
+                                              Quantity = product.Quantity,
+                                              Type = product.Type,
+                                              Weight = product.Weight,
+                                              Status = product.Status
+                                          };
+                        dataGridViewProduct.DataSource = type2Result.ToList();
+                        break;
+                    case "Thức ăn hỗn hợp":
+                        var type3Result = from product in _db.TblProducts
+                                          where product.Type == "3"
+                                          orderby product.Name ascending
+                                          select new
+                                          {
+                                              ProductID = product.ProductId,
+                                              Name = product.Name,
+                                              Price = product.Price,
+                                              Quantity = product.Quantity,
+                                              Type = product.Type,
+                                              Weight = product.Weight,
+                                              Status = product.Status
+                                          };
+                        dataGridViewProduct.DataSource = type3Result.ToList();
+                        break;
+                }
+            }
+        }
     }
 }
