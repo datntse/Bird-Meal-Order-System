@@ -7,20 +7,14 @@ namespace BMOS.Models
         public string _id { get; set; }
         public List<TblProduct>? listProduct { get; set; }
 
-        public TblProduct getMainProduct()
+
+        public string getMainImage(string id)
         {
-            var result = listProduct.SingleOrDefault(x => x.ProductId.Equals(this._id));
-            return result;
-        }
-            
-        public List<TblProduct> getRelateProduct(string id)
-        {
-            List<TblProduct> listRelated = new List<TblProduct>();
             foreach (var item in listProduct)
             {
                 if (!item.ProductId.Equals(id))
                 {
-                    listRelated.Add(item);
+                    // get main image product.. add to view. and compete add to cart and check out.
                 }
             }
             return listRelated;

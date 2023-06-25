@@ -45,7 +45,7 @@ namespace BMOS.Controllers
 			return View(productDetail);
 		}
 
-		public IActionResult RelatedProduct(String id)
+		public IActionResult RelatedProducts(String id)
 		{
 			if (id == null || _context.TblProducts == null)
 			{
