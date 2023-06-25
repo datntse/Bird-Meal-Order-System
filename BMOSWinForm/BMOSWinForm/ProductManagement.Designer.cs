@@ -62,6 +62,10 @@
             txt_price = new System.Windows.Forms.TextBox();
             lb_price = new System.Windows.Forms.Label();
             checkBox_status = new System.Windows.Forms.CheckBox();
+            txt_search = new System.Windows.Forms.TextBox();
+            label5 = new System.Windows.Forms.Label();
+            btn_search = new System.Windows.Forms.Button();
+            lb_result = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProduct).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tblProductBindingSource).BeginInit();
             panel1.SuspendLayout();
@@ -76,13 +80,13 @@
             dataGridViewProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewProduct.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { productIdDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, quantityDataGridViewTextBoxColumn, weightDataGridViewTextBoxColumn, statusDataGridViewTextBoxColumn, priceDataGridViewTextBoxColumn, typeDataGridViewTextBoxColumn });
             dataGridViewProduct.DataSource = tblProductBindingSource;
-            dataGridViewProduct.Location = new System.Drawing.Point(12, 12);
+            dataGridViewProduct.Location = new System.Drawing.Point(12, 71);
             dataGridViewProduct.MultiSelect = false;
             dataGridViewProduct.Name = "dataGridViewProduct";
             dataGridViewProduct.ReadOnly = true;
             dataGridViewProduct.RowHeadersWidth = 51;
             dataGridViewProduct.RowTemplate.Height = 29;
-            dataGridViewProduct.Size = new System.Drawing.Size(890, 336);
+            dataGridViewProduct.Size = new System.Drawing.Size(890, 330);
             dataGridViewProduct.TabIndex = 0;
             dataGridViewProduct.CellClick += dataGridViewProduct_CellContentClick;
             // 
@@ -170,7 +174,7 @@
             // 
             txt_id.Location = new System.Drawing.Point(153, 28);
             txt_id.Name = "txt_id";
-            txt_id.Size = new System.Drawing.Size(459, 27);
+            txt_id.Size = new System.Drawing.Size(475, 27);
             txt_id.TabIndex = 1;
             // 
             // label2
@@ -186,7 +190,7 @@
             // 
             txt_name.Location = new System.Drawing.Point(153, 61);
             txt_name.Name = "txt_name";
-            txt_name.Size = new System.Drawing.Size(459, 27);
+            txt_name.Size = new System.Drawing.Size(475, 27);
             txt_name.TabIndex = 3;
             // 
             // label4
@@ -202,7 +206,7 @@
             // 
             txt_quantity.Location = new System.Drawing.Point(153, 94);
             txt_quantity.Name = "txt_quantity";
-            txt_quantity.Size = new System.Drawing.Size(459, 27);
+            txt_quantity.Size = new System.Drawing.Size(475, 27);
             txt_quantity.TabIndex = 5;
             // 
             // label3
@@ -218,7 +222,7 @@
             // 
             txt_decription.Location = new System.Drawing.Point(153, 160);
             txt_decription.Name = "txt_decription";
-            txt_decription.Size = new System.Drawing.Size(378, 27);
+            txt_decription.Size = new System.Drawing.Size(475, 27);
             txt_decription.TabIndex = 7;
             // 
             // label8
@@ -234,7 +238,7 @@
             // 
             txt_weight.Location = new System.Drawing.Point(153, 193);
             txt_weight.Name = "txt_weight";
-            txt_weight.Size = new System.Drawing.Size(459, 27);
+            txt_weight.Size = new System.Drawing.Size(475, 27);
             txt_weight.TabIndex = 9;
             // 
             // label7
@@ -250,7 +254,7 @@
             // 
             txt_type.Location = new System.Drawing.Point(153, 226);
             txt_type.Name = "txt_type";
-            txt_type.Size = new System.Drawing.Size(459, 27);
+            txt_type.Size = new System.Drawing.Size(475, 27);
             txt_type.TabIndex = 11;
             // 
             // label6
@@ -275,7 +279,7 @@
             // btn_update
             // 
             btn_update.Enabled = false;
-            btn_update.Location = new System.Drawing.Point(282, 306);
+            btn_update.Location = new System.Drawing.Point(253, 306);
             btn_update.Name = "btn_update";
             btn_update.Size = new System.Drawing.Size(94, 29);
             btn_update.TabIndex = 15;
@@ -286,7 +290,7 @@
             // btn_delete
             // 
             btn_delete.Enabled = false;
-            btn_delete.Location = new System.Drawing.Point(406, 306);
+            btn_delete.Location = new System.Drawing.Point(353, 306);
             btn_delete.Name = "btn_delete";
             btn_delete.Size = new System.Drawing.Size(94, 29);
             btn_delete.TabIndex = 16;
@@ -319,20 +323,18 @@
             panel1.Controls.Add(label2);
             panel1.Controls.Add(txt_id);
             panel1.Controls.Add(label1);
-            panel1.Location = new System.Drawing.Point(12, 354);
+            panel1.Location = new System.Drawing.Point(12, 407);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(890, 369);
+            panel1.Size = new System.Drawing.Size(890, 344);
             panel1.TabIndex = 1;
             // 
             // btn_add
             // 
-            btn_add.Enabled = false;
-            btn_add.Location = new System.Drawing.Point(518, 306);
+            btn_add.Location = new System.Drawing.Point(453, 306);
             btn_add.Name = "btn_add";
             btn_add.Size = new System.Drawing.Size(94, 29);
             btn_add.TabIndex = 23;
             btn_add.Text = "Thêm";
-            btn_add.Enabled = true;
             btn_add.UseVisualStyleBackColor = true;
             btn_add.Click += btn_add_Click;
             // 
@@ -358,11 +360,11 @@
             // 
             // btn_detail
             // 
-            btn_detail.Location = new System.Drawing.Point(537, 160);
+            btn_detail.Location = new System.Drawing.Point(553, 306);
             btn_detail.Name = "btn_detail";
             btn_detail.Size = new System.Drawing.Size(75, 29);
             btn_detail.TabIndex = 20;
-            btn_detail.Text = "Xem";
+            btn_detail.Text = "Chi Tiết";
             btn_detail.UseVisualStyleBackColor = true;
             btn_detail.Click += btn_detail_Click;
             // 
@@ -370,7 +372,7 @@
             // 
             txt_price.Location = new System.Drawing.Point(153, 127);
             txt_price.Name = "txt_price";
-            txt_price.Size = new System.Drawing.Size(459, 27);
+            txt_price.Size = new System.Drawing.Size(475, 27);
             txt_price.TabIndex = 19;
             // 
             // lb_price
@@ -391,11 +393,50 @@
             checkBox_status.TabIndex = 17;
             checkBox_status.UseVisualStyleBackColor = true;
             // 
+            // txt_search
+            // 
+            txt_search.Location = new System.Drawing.Point(144, 12);
+            txt_search.Name = "txt_search";
+            txt_search.Size = new System.Drawing.Size(459, 27);
+            txt_search.TabIndex = 2;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(68, 15);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(70, 20);
+            label5.TabIndex = 3;
+            label5.Text = "Tìm kiếm";
+            // 
+            // btn_search
+            // 
+            btn_search.Location = new System.Drawing.Point(609, 12);
+            btn_search.Name = "btn_search";
+            btn_search.Size = new System.Drawing.Size(75, 29);
+            btn_search.TabIndex = 21;
+            btn_search.Text = "Tìm";
+            btn_search.UseVisualStyleBackColor = true;
+            btn_search.Click += btn_search_Click;
+            // 
+            // lb_result
+            // 
+            lb_result.AutoSize = true;
+            lb_result.Location = new System.Drawing.Point(692, 19);
+            lb_result.Name = "lb_result";
+            lb_result.Size = new System.Drawing.Size(122, 20);
+            lb_result.TabIndex = 22;
+            lb_result.Text = "Kết quả tìm kiếm";
+            // 
             // ProductManagement
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(914, 754);
+            Controls.Add(lb_result);
+            Controls.Add(btn_search);
+            Controls.Add(label5);
+            Controls.Add(txt_search);
             Controls.Add(panel1);
             Controls.Add(dataGridViewProduct);
             Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -408,6 +449,7 @@
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pb_product).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -445,5 +487,9 @@
         private System.Windows.Forms.PictureBox pb_product;
         private System.Windows.Forms.Button btn_imgurl;
         private System.Windows.Forms.Button btn_add;
+        private System.Windows.Forms.TextBox txt_search;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btn_search;
+        private System.Windows.Forms.Label lb_result;
     }
 }

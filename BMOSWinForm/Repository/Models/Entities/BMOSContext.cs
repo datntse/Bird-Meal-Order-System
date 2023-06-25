@@ -298,6 +298,10 @@ namespace Repository.Models.Entities
                     .HasMaxLength(100)
                     .HasColumnName("name");
 
+                entity.Property(e => e.Photo)
+                    .HasColumnType("image")
+                    .HasColumnName("photo");
+
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");

@@ -26,6 +26,7 @@ namespace Repository.Models.Entities
         public double? Price { get; set; }
         public string ImagelInk { get; set; }
         public string Type { get; set; }
+        public byte[] Photo { get; set; }
 
         public virtual ICollection<TblFavouriteList> TblFavouriteLists { get; set; }
         public virtual ICollection<TblFeedback> TblFeedbacks { get; set; }
