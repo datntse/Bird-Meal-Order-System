@@ -93,7 +93,7 @@
             // 
             // blog_id
             // 
-            blog_id.DataPropertyName = "blog_id";
+            blog_id.DataPropertyName = "BlogId";
             blog_id.HeaderText = "Id";
             blog_id.Name = "blog_id";
             blog_id.ReadOnly = true;
@@ -101,7 +101,7 @@
             // 
             // name
             // 
-            name.DataPropertyName = "name";
+            name.DataPropertyName = "Name";
             name.HeaderText = "Name";
             name.Name = "name";
             name.ReadOnly = true;
@@ -109,7 +109,7 @@
             // 
             // date
             // 
-            date.DataPropertyName = "date";
+            date.DataPropertyName = "Date";
             date.HeaderText = "Date";
             date.Name = "date";
             date.ReadOnly = true;
@@ -117,7 +117,7 @@
             // 
             // status
             // 
-            status.DataPropertyName = "status";
+            status.DataPropertyName = "Status";
             status.HeaderText = "Status";
             status.Name = "status";
             status.ReadOnly = true;
@@ -340,10 +340,10 @@
         private System.Windows.Forms.TextBox txtDate;
         private System.Windows.Forms.TextBox txtDesc;
         private System.Windows.Forms.CheckBox cbStatus;
+        private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.DataGridViewTextBoxColumn blog_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn date;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
-        private System.Windows.Forms.Button btnClear;
     }
 }

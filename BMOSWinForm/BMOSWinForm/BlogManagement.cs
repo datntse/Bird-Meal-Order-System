@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Repository.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,34 +15,15 @@ namespace BMOSWinForm
 {
     public partial class BlogManagement : Form
     {
-        private string connStr = "Server=SMILEE\\SQLEXPRESS;Database=BMOS;User Id=sa;Password=12345;";
-        private SqlConnection conn;
-        private SqlDataAdapter myAdapter;
-        private SqlCommand comm;
-        private DataSet ds;
-        private DataTable dt;
+
+
+        BMOSContext _db;
         public BlogManagement()
         {
             InitializeComponent();
+            _db = new BMOSContext();
         }
-        private void LoadData()
-        {
-            conn = new SqlConnection(connStr);
-            conn.Open();
 
-            string sqlStr = "SELECT * FROM Tbl_Blog";
-            myAdapter = new SqlDataAdapter(sqlStr, conn);
-
-            ds = new DataSet();
-            myAdapter.Fill(ds, "Tbl_Blog");
-            dt = ds.Tables["Tbl_Blog"];
-            txtId.Enabled = false;
-
-            dgvBlog.AutoGenerateColumns = false;
-            dgvBlog.DataSource = dt;
-
-            conn.Close();
-        }
 
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -51,7 +33,8 @@ namespace BMOSWinForm
 
         private void BlogManagement_Load(object sender, EventArgs e)
         {
-            LoadData();
+            dgvBlog.DataSource = _db.TblBlogs.ToList();
+            txtId.Enabled = false;
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -78,20 +61,16 @@ namespace BMOSWinForm
         {
             try
             {
-                DialogResult res = MessageBox.Show("You surely want to delete?", "Notification", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (res == DialogResult.Yes)
+
+                var result = MessageBox.Show("Are you sure", "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
                 {
-                    conn = new SqlConnection(connStr);
-                    conn.Open();
-
-
-                    string sqlStr = "DELETE FROM Tbl_Blog WHERE blog_id='" + txtId.Text + "'";
-                    comm = new SqlCommand(sqlStr, conn);
-                    comm.ExecuteNonQuery();
-
-                    conn.Close();
-                    LoadData();
-                    MessageBox.Show("Successfully");
+                    var id = txtId.Text;
+                    var blogs = _db.TblBlogs.Find(id);
+                    _db.TblBlogs.Remove(blogs);
+                    _db.SaveChanges();
+                    dgvBlog.DataSource = _db.TblBlogs.ToList();
+                    MessageBox.Show("Thanh Cong");
                 }
             }
             catch
@@ -104,21 +83,20 @@ namespace BMOSWinForm
         {
             try
             {
-                conn = new SqlConnection(connStr);
-                conn.Open();
 
+                var blog = _db.TblBlogs.Find(txtId.Text);
+                blog.Name = txtName.Text;
+                blog.Description = txtDesc.Text;
+                blog.Status = cbStatus.Checked;
+                blog.Date = DateTime.Parse(txtDate.Text);
+                _db.SaveChanges();
+                dgvBlog.DataSource = _db.TblBlogs.ToList();
+                MessageBox.Show("Thanh Cong");
 
-                string sqlStr = "UPDATE Tbl_Blog SET name='" + txtName.Text + "', description='" + txtDesc.Text + "', date='" + txtDate.Text + "', status='" + cbStatus.Checked + "' WHERE blog_id='" + txtId.Text + "'";
-                comm = new SqlCommand(sqlStr, conn);
-                comm.ExecuteNonQuery();
-
-                conn.Close();
-                LoadData();
-                MessageBox.Show("Successfully");
             }
             catch
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Khong Thanh Cong");
             }
         }
 
@@ -126,8 +104,7 @@ namespace BMOSWinForm
         {
             try
             {
-                conn = new SqlConnection(connStr);
-                conn.Open();
+
                 if (
                     txtId.Text.Length > 0 &&
                     txtDate.Text.Length > 0 &&
@@ -135,16 +112,19 @@ namespace BMOSWinForm
                     txtName.Text.Length > 0)
                 {
 
+                    var blogs = new TblBlog
+                    {
+                        BlogId = txtId.Text,
+                        Name = txtName.Text,
+                        Description = txtDesc.Text,
+                        Date = DateTime.Parse(txtDate.Text),
+                        Status = cbStatus.Checked,
 
-
-
-                    string sqlStr = "INSERT INTO Tbl_Blog (blog_id,name,description,date,status) VALUES ('" + txtId.Text + "', '" + txtName.Text + "', '" + txtDesc.Text + "', '" + txtDate.Text + "', '" + cbStatus.Checked + "')";
-                    comm = new SqlCommand(sqlStr, conn);
-                    comm.ExecuteNonQuery();
-
-                    conn.Close();
-                    LoadData();
-                    MessageBox.Show("Successfully");
+                    };
+                    _db.TblBlogs.Add(blogs);
+                    _db.SaveChanges();
+                    dgvBlog.DataSource = _db.TblBlogs.ToList();
+                    MessageBox.Show("Thanh Cong");
                 }
                 else { MessageBox.Show("Please type in!"); }
             }
@@ -157,31 +137,9 @@ namespace BMOSWinForm
 
         private void button_Search(object sender, EventArgs e)
         {
-            conn = new SqlConnection(connStr);
-            conn.Open();
 
-            string sqlStr = "SELECT * FROM Tbl_Blog WHERE name = '" + txtSearch.Text + "'";
-            myAdapter = new SqlDataAdapter(sqlStr, conn);
-
-            ds = new DataSet();
-            myAdapter.Fill(ds, "Tbl_Blog");
-            dt = ds.Tables["Tbl_Blog"];
-            txtId.Enabled = false;
-
-            dgvBlog.AutoGenerateColumns = false;
-            dgvBlog.DataSource = dt;
-
-            conn.Close();
         }
-        private void dgvBlog_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            int row = e.RowIndex;
-            txtId.Text = dt.Rows[row]["blog_id"].ToString();
-            txtName.Text = dt.Rows[row]["name"].ToString();
-            cbStatus.Checked = dt.Rows[row]["status"].ToString() == "True";
-            txtDate.Text = dt.Rows[row]["date"].ToString();
-            txtDesc.Text = dt.Rows[row]["description"].ToString();
-        }
+
 
         private void dgvBlog_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -196,6 +154,28 @@ namespace BMOSWinForm
             txtDate.Text = null;
             txtDesc.Text = null;
             txtId.Enabled = true;
+            btnAdd.Enabled = true;
+        }
+
+        private void dgvBlog_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                btnAdd.Enabled = false;
+                txtId.Enabled = false;
+                var id = dgvBlog.Rows[e.RowIndex].Cells[0].Value.ToString();
+                var blog = _db.TblBlogs.Find(id);
+                txtId.Text = blog.BlogId;
+                txtName.Text = blog.Name;
+                txtDate.Text = blog.Date.ToString();
+                cbStatus.Checked = blog.Status.ToString() == "True";
+                txtDesc.Text = blog.Description;
+            }
+
+            catch
+            {
+                MessageBox.Show("Thao tac qua nhanh");
+            }
         }
     }
 }
