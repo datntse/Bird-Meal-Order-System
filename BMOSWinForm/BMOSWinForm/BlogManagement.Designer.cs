@@ -28,32 +28,322 @@
         /// </summary>
         private void InitializeComponent()
         {
+            txtSearch = new System.Windows.Forms.TextBox();
+            btnSearch = new System.Windows.Forms.Button();
+            dgvBlog = new System.Windows.Forms.DataGridView();
+            blog_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            btnAdd = new System.Windows.Forms.Button();
+            btnEdit = new System.Windows.Forms.Button();
+            btnExit = new System.Windows.Forms.Button();
+            btnDetail = new System.Windows.Forms.Button();
+            btnDelete = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            label6 = new System.Windows.Forms.Label();
+            txtId = new System.Windows.Forms.TextBox();
+            txtName = new System.Windows.Forms.TextBox();
+            txtDate = new System.Windows.Forms.TextBox();
+            txtDesc = new System.Windows.Forms.TextBox();
+            cbStatus = new System.Windows.Forms.CheckBox();
+            btnClear = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)dgvBlog).BeginInit();
             SuspendLayout();
+            // 
+            // txtSearch
+            // 
+            txtSearch.ForeColor = System.Drawing.SystemColors.MenuText;
+            txtSearch.Location = new System.Drawing.Point(84, 28);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new System.Drawing.Size(524, 23);
+            txtSearch.TabIndex = 0;
+            txtSearch.Text = "Enter key word...";
+            txtSearch.TextChanged += textBox1_TextChanged;
+            // 
+            // btnSearch
+            // 
+            btnSearch.BackColor = System.Drawing.Color.Orange;
+            btnSearch.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSearch.Location = new System.Drawing.Point(642, 19);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new System.Drawing.Size(75, 38);
+            btnSearch.TabIndex = 1;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = false;
+            btnSearch.Click += button_Search;
+            // 
+            // dgvBlog
+            // 
+            dgvBlog.AllowUserToAddRows = false;
+            dgvBlog.AllowUserToDeleteRows = false;
+            dgvBlog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvBlog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { blog_id, name, date, status });
+            dgvBlog.Location = new System.Drawing.Point(12, 79);
+            dgvBlog.Name = "dgvBlog";
+            dgvBlog.ReadOnly = true;
+            dgvBlog.RowTemplate.Height = 25;
+            dgvBlog.Size = new System.Drawing.Size(776, 330);
+            dgvBlog.TabIndex = 2;
+            dgvBlog.CellContentClick += dgvBlog_CellContentClick;
+            dgvBlog.RowEnter += dgvBlog_RowEnter;
+            // 
+            // blog_id
+            // 
+            blog_id.DataPropertyName = "blog_id";
+            blog_id.HeaderText = "Id";
+            blog_id.Name = "blog_id";
+            blog_id.ReadOnly = true;
+            blog_id.Width = 150;
+            // 
+            // name
+            // 
+            name.DataPropertyName = "name";
+            name.HeaderText = "Name";
+            name.Name = "name";
+            name.ReadOnly = true;
+            name.Width = 300;
+            // 
+            // date
+            // 
+            date.DataPropertyName = "date";
+            date.HeaderText = "Date";
+            date.Name = "date";
+            date.ReadOnly = true;
+            date.Width = 150;
+            // 
+            // status
+            // 
+            status.DataPropertyName = "status";
+            status.HeaderText = "Status";
+            status.Name = "status";
+            status.ReadOnly = true;
+            status.Width = 150;
+            // 
+            // btnAdd
+            // 
+            btnAdd.BackColor = System.Drawing.Color.Orange;
+            btnAdd.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnAdd.Location = new System.Drawing.Point(12, 835);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new System.Drawing.Size(75, 38);
+            btnAdd.TabIndex = 3;
+            btnAdd.Text = "Add";
+            btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += button_Add;
+            // 
+            // btnEdit
+            // 
+            btnEdit.BackColor = System.Drawing.Color.Orange;
+            btnEdit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnEdit.Location = new System.Drawing.Point(93, 835);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new System.Drawing.Size(75, 38);
+            btnEdit.TabIndex = 4;
+            btnEdit.Text = "Edit";
+            btnEdit.UseVisualStyleBackColor = false;
+            btnEdit.Click += button_Edit;
+            // 
+            // btnExit
+            // 
+            btnExit.BackColor = System.Drawing.Color.Orange;
+            btnExit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnExit.Location = new System.Drawing.Point(713, 835);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new System.Drawing.Size(75, 38);
+            btnExit.TabIndex = 5;
+            btnExit.Text = "Exit";
+            btnExit.UseVisualStyleBackColor = false;
+            btnExit.Click += button_Exit;
+            // 
+            // btnDetail
+            // 
+            btnDetail.BackColor = System.Drawing.Color.Orange;
+            btnDetail.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnDetail.Location = new System.Drawing.Point(255, 835);
+            btnDetail.Name = "btnDetail";
+            btnDetail.Size = new System.Drawing.Size(75, 38);
+            btnDetail.TabIndex = 7;
+            btnDetail.Text = "Detail";
+            btnDetail.UseVisualStyleBackColor = false;
+            btnDetail.Click += button_Detail;
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = System.Drawing.Color.Orange;
+            btnDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnDelete.Location = new System.Drawing.Point(174, 835);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new System.Drawing.Size(75, 38);
+            btnDelete.TabIndex = 6;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += button_Delete;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(374, 218);
+            label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label1.Location = new System.Drawing.Point(38, 446);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(31, 15);
-            label1.TabIndex = 1;
-            label1.Text = "Blog";
+            label1.Size = new System.Drawing.Size(49, 17);
+            label1.TabIndex = 8;
+            label1.Text = "Blog Id";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.Location = new System.Drawing.Point(38, 481);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(43, 17);
+            label2.TabIndex = 9;
+            label2.Text = "Name";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label3.Location = new System.Drawing.Point(38, 555);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(43, 17);
+            label3.TabIndex = 11;
+            label3.Text = "Status";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label4.Location = new System.Drawing.Point(38, 520);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(35, 17);
+            label4.TabIndex = 10;
+            label4.Text = "Date";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label6.Location = new System.Drawing.Point(38, 589);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(74, 17);
+            label6.TabIndex = 12;
+            label6.Text = "Description";
+            // 
+            // txtId
+            // 
+            txtId.ForeColor = System.Drawing.SystemColors.MenuText;
+            txtId.Location = new System.Drawing.Point(149, 445);
+            txtId.Name = "txtId";
+            txtId.Size = new System.Drawing.Size(427, 23);
+            txtId.TabIndex = 14;
+            // 
+            // txtName
+            // 
+            txtName.ForeColor = System.Drawing.SystemColors.MenuText;
+            txtName.Location = new System.Drawing.Point(149, 480);
+            txtName.Name = "txtName";
+            txtName.Size = new System.Drawing.Size(427, 23);
+            txtName.TabIndex = 15;
+            txtName.TextChanged += textBox3_TextChanged;
+            // 
+            // txtDate
+            // 
+            txtDate.ForeColor = System.Drawing.SystemColors.MenuText;
+            txtDate.Location = new System.Drawing.Point(149, 519);
+            txtDate.Name = "txtDate";
+            txtDate.Size = new System.Drawing.Size(427, 23);
+            txtDate.TabIndex = 16;
+            // 
+            // txtDesc
+            // 
+            txtDesc.ForeColor = System.Drawing.SystemColors.MenuText;
+            txtDesc.Location = new System.Drawing.Point(149, 588);
+            txtDesc.Multiline = true;
+            txtDesc.Name = "txtDesc";
+            txtDesc.Size = new System.Drawing.Size(427, 209);
+            txtDesc.TabIndex = 18;
+            // 
+            // cbStatus
+            // 
+            cbStatus.AutoSize = true;
+            cbStatus.Location = new System.Drawing.Point(149, 558);
+            cbStatus.Name = "cbStatus";
+            cbStatus.Size = new System.Drawing.Size(15, 14);
+            cbStatus.TabIndex = 19;
+            cbStatus.UseVisualStyleBackColor = true;
+            // 
+            // btnClear
+            // 
+            btnClear.BackColor = System.Drawing.Color.Orange;
+            btnClear.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnClear.Location = new System.Drawing.Point(336, 835);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new System.Drawing.Size(75, 38);
+            btnClear.TabIndex = 20;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += button_Clear;
             // 
             // BlogManagement
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(800, 450);
+            ClientSize = new System.Drawing.Size(800, 885);
+            Controls.Add(btnClear);
+            Controls.Add(cbStatus);
+            Controls.Add(txtDesc);
+            Controls.Add(txtDate);
+            Controls.Add(txtName);
+            Controls.Add(txtId);
+            Controls.Add(label6);
+            Controls.Add(label3);
+            Controls.Add(label4);
+            Controls.Add(label2);
             Controls.Add(label1);
+            Controls.Add(btnDetail);
+            Controls.Add(btnDelete);
+            Controls.Add(btnExit);
+            Controls.Add(btnEdit);
+            Controls.Add(btnAdd);
+            Controls.Add(dgvBlog);
+            Controls.Add(btnSearch);
+            Controls.Add(txtSearch);
             Name = "BlogManagement";
             Text = "BlogManagement";
+            Load += BlogManagement_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvBlog).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.DataGridView dgvBlog;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnDetail;
+        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtId;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.TextBox txtDate;
+        private System.Windows.Forms.TextBox txtDesc;
+        private System.Windows.Forms.CheckBox cbStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn blog_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn status;
+        private System.Windows.Forms.Button btnClear;
     }
 }
