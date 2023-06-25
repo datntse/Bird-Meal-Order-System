@@ -17,7 +17,7 @@ namespace BMOSWinForm
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ProductManagement());
+            Application.Run(new Management());
         }
     }
 }

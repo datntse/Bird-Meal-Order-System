@@ -30,25 +30,25 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Management));
             panel_control = new System.Windows.Forms.Panel();
-            pic2 = new System.Windows.Forms.PictureBox();
-            btnLogout = new System.Windows.Forms.Button();
-            btnAcc = new System.Windows.Forms.Button();
-            btnBlog = new System.Windows.Forms.Button();
-            btnOrder = new System.Windows.Forms.Button();
-            btnFeedback = new System.Windows.Forms.Button();
-            btnMsg = new System.Windows.Forms.Button();
-            pictureBox1 = new System.Windows.Forms.PictureBox();
-            btnProduct = new System.Windows.Forms.Button();
-            label1 = new System.Windows.Forms.Label();
+            pictureBox2 = new System.Windows.Forms.PictureBox();
             btnHome = new System.Windows.Forms.Button();
+            btnMsg = new System.Windows.Forms.Button();
+            btnProduct = new System.Windows.Forms.Button();
+            btnFeedback = new System.Windows.Forms.Button();
+            pic2 = new System.Windows.Forms.PictureBox();
+            btnBlog = new System.Windows.Forms.Button();
+            btnLogout = new System.Windows.Forms.Button();
+            btnOrder = new System.Windows.Forms.Button();
+            btnAcc = new System.Windows.Forms.Button();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            label1 = new System.Windows.Forms.Label();
             panel_body = new System.Windows.Forms.Panel();
             label2 = new System.Windows.Forms.Label();
-            pictureBox2 = new System.Windows.Forms.PictureBox();
             panel_control.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pic2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel_body.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // panel_control
@@ -69,138 +69,18 @@
             panel_control.Dock = System.Windows.Forms.DockStyle.Left;
             panel_control.Location = new System.Drawing.Point(0, 0);
             panel_control.Name = "panel_control";
-            panel_control.Size = new System.Drawing.Size(326, 597);
+            panel_control.Size = new System.Drawing.Size(326, 653);
             panel_control.TabIndex = 0;
             // 
-            // pic2
+            // pictureBox2
             // 
-            pic2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            pic2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            pic2.Image = (System.Drawing.Image)resources.GetObject("pic2.Image");
-            pic2.Location = new System.Drawing.Point(67, 154);
-            pic2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            pic2.Name = "pic2";
-            pic2.Size = new System.Drawing.Size(31, 36);
-            pic2.TabIndex = 6;
-            pic2.TabStop = false;
-            // 
-            // btnLogout
-            // 
-            btnLogout.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            btnLogout.FlatAppearance.BorderSize = 0;
-            btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnLogout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            btnLogout.Location = new System.Drawing.Point(0, 553);
-            btnLogout.Name = "btnLogout";
-            btnLogout.Size = new System.Drawing.Size(326, 44);
-            btnLogout.TabIndex = 5;
-            btnLogout.Text = "Đăng xuất";
-            btnLogout.UseVisualStyleBackColor = false;
-            btnLogout.Click += btnLogout_Click;
-            // 
-            // btnAcc
-            // 
-            btnAcc.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            btnAcc.FlatAppearance.BorderSize = 0;
-            btnAcc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnAcc.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            btnAcc.Location = new System.Drawing.Point(0, 141);
-            btnAcc.Name = "btnAcc";
-            btnAcc.Size = new System.Drawing.Size(326, 55);
-            btnAcc.TabIndex = 5;
-            btnAcc.Text = "Quản lý tài khoản";
-            btnAcc.UseVisualStyleBackColor = false;
-            btnAcc.Click += btnAcc_Click;
-            // 
-            // btnBlog
-            // 
-            btnBlog.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            btnBlog.FlatAppearance.BorderSize = 0;
-            btnBlog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnBlog.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            btnBlog.Location = new System.Drawing.Point(0, 319);
-            btnBlog.Name = "btnBlog";
-            btnBlog.Size = new System.Drawing.Size(326, 55);
-            btnBlog.TabIndex = 5;
-            btnBlog.Text = " Quản lý blog";
-            btnBlog.UseVisualStyleBackColor = false;
-            btnBlog.Click += btnBlog_Click;
-            // 
-            // btnOrder
-            // 
-            btnOrder.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            btnOrder.FlatAppearance.BorderSize = 0;
-            btnOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnOrder.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            btnOrder.Location = new System.Drawing.Point(0, 258);
-            btnOrder.Name = "btnOrder";
-            btnOrder.Size = new System.Drawing.Size(326, 55);
-            btnOrder.TabIndex = 5;
-            btnOrder.Text = " Quản lý đơn hàng";
-            btnOrder.UseVisualStyleBackColor = false;
-            btnOrder.Click += btnOrder_Click;
-            // 
-            // btnFeedback
-            // 
-            btnFeedback.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            btnFeedback.FlatAppearance.BorderSize = 0;
-            btnFeedback.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnFeedback.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            btnFeedback.Location = new System.Drawing.Point(3, 380);
-            btnFeedback.Name = "btnFeedback";
-            btnFeedback.Size = new System.Drawing.Size(326, 55);
-            btnFeedback.TabIndex = 5;
-            btnFeedback.Text = " Quản lý đánh giá";
-            btnFeedback.UseVisualStyleBackColor = false;
-            btnFeedback.Click += btnFeedback_Click;
-            // 
-            // btnMsg
-            // 
-            btnMsg.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            btnMsg.FlatAppearance.BorderSize = 0;
-            btnMsg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnMsg.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            btnMsg.Location = new System.Drawing.Point(0, 441);
-            btnMsg.Name = "btnMsg";
-            btnMsg.Size = new System.Drawing.Size(326, 55);
-            btnMsg.TabIndex = 5;
-            btnMsg.Text = " Quản lý liên hệ";
-            btnMsg.UseVisualStyleBackColor = false;
-            btnMsg.Click += btnMsg_Click;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(27, 35);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(27, 33);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
-            // btnProduct
-            // 
-            btnProduct.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            btnProduct.FlatAppearance.BorderSize = 0;
-            btnProduct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnProduct.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            btnProduct.Location = new System.Drawing.Point(0, 197);
-            btnProduct.Name = "btnProduct";
-            btnProduct.Size = new System.Drawing.Size(326, 55);
-            btnProduct.TabIndex = 5;
-            btnProduct.Text = " Quản lý sản phẩm";
-            btnProduct.UseVisualStyleBackColor = false;
-            btnProduct.Click += btnProduct_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Arial", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            label1.Location = new System.Drawing.Point(75, 35);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(232, 33);
-            label1.TabIndex = 0;
-            label1.Text = "Bảng điều khiển";
+            pictureBox2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            pictureBox2.Image = (System.Drawing.Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new System.Drawing.Point(75, 615);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new System.Drawing.Size(37, 35);
+            pictureBox2.TabIndex = 4;
+            pictureBox2.TabStop = false;
             // 
             // btnHome
             // 
@@ -216,12 +96,144 @@
             btnHome.UseVisualStyleBackColor = false;
             btnHome.Click += btnHome_Click;
             // 
+            // btnMsg
+            // 
+            btnMsg.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnMsg.FlatAppearance.BorderSize = 0;
+            btnMsg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnMsg.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            btnMsg.Location = new System.Drawing.Point(0, 441);
+            btnMsg.Name = "btnMsg";
+            btnMsg.Size = new System.Drawing.Size(326, 55);
+            btnMsg.TabIndex = 5;
+            btnMsg.Text = " Quản lý liên hệ";
+            btnMsg.UseVisualStyleBackColor = false;
+            btnMsg.Click += btnMsg_Click;
+            // 
+            // btnProduct
+            // 
+            btnProduct.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnProduct.FlatAppearance.BorderSize = 0;
+            btnProduct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnProduct.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            btnProduct.Location = new System.Drawing.Point(0, 197);
+            btnProduct.Name = "btnProduct";
+            btnProduct.Size = new System.Drawing.Size(326, 55);
+            btnProduct.TabIndex = 5;
+            btnProduct.Text = " Quản lý sản phẩm";
+            btnProduct.UseVisualStyleBackColor = false;
+            btnProduct.Click += btnProduct_Click;
+            // 
+            // btnFeedback
+            // 
+            btnFeedback.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnFeedback.FlatAppearance.BorderSize = 0;
+            btnFeedback.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnFeedback.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            btnFeedback.Location = new System.Drawing.Point(3, 380);
+            btnFeedback.Name = "btnFeedback";
+            btnFeedback.Size = new System.Drawing.Size(326, 55);
+            btnFeedback.TabIndex = 5;
+            btnFeedback.Text = " Quản lý đánh giá";
+            btnFeedback.UseVisualStyleBackColor = false;
+            btnFeedback.Click += btnFeedback_Click;
+            // 
+            // pic2
+            // 
+            pic2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            pic2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            pic2.Image = (System.Drawing.Image)resources.GetObject("pic2.Image");
+            pic2.Location = new System.Drawing.Point(75, 154);
+            pic2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pic2.Name = "pic2";
+            pic2.Size = new System.Drawing.Size(31, 36);
+            pic2.TabIndex = 6;
+            pic2.TabStop = false;
+            // 
+            // btnBlog
+            // 
+            btnBlog.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnBlog.FlatAppearance.BorderSize = 0;
+            btnBlog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnBlog.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            btnBlog.Location = new System.Drawing.Point(0, 319);
+            btnBlog.Name = "btnBlog";
+            btnBlog.Size = new System.Drawing.Size(326, 55);
+            btnBlog.TabIndex = 5;
+            btnBlog.Text = " Quản lý blog";
+            btnBlog.UseVisualStyleBackColor = false;
+            btnBlog.Click += btnBlog_Click;
+            // 
+            // btnLogout
+            // 
+            btnLogout.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnLogout.Dock = System.Windows.Forms.DockStyle.Bottom;
+            btnLogout.FlatAppearance.BorderSize = 0;
+            btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnLogout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            btnLogout.Location = new System.Drawing.Point(0, 609);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new System.Drawing.Size(326, 44);
+            btnLogout.TabIndex = 5;
+            btnLogout.Text = "Đăng xuất";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
+            // 
+            // btnOrder
+            // 
+            btnOrder.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnOrder.FlatAppearance.BorderSize = 0;
+            btnOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnOrder.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            btnOrder.Location = new System.Drawing.Point(0, 258);
+            btnOrder.Name = "btnOrder";
+            btnOrder.Size = new System.Drawing.Size(326, 55);
+            btnOrder.TabIndex = 5;
+            btnOrder.Text = " Quản lý đơn hàng";
+            btnOrder.UseVisualStyleBackColor = false;
+            btnOrder.Click += btnOrder_Click;
+            // 
+            // btnAcc
+            // 
+            btnAcc.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnAcc.FlatAppearance.BorderSize = 0;
+            btnAcc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnAcc.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            btnAcc.Location = new System.Drawing.Point(0, 141);
+            btnAcc.Name = "btnAcc";
+            btnAcc.Size = new System.Drawing.Size(326, 55);
+            btnAcc.TabIndex = 5;
+            btnAcc.Text = "Quản lý tài khoản";
+            btnAcc.UseVisualStyleBackColor = false;
+            btnAcc.Click += btnAcc_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new System.Drawing.Point(27, 35);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(27, 33);
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Arial", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            label1.Location = new System.Drawing.Point(75, 35);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(232, 33);
+            label1.TabIndex = 0;
+            label1.Text = "Bảng điều khiển";
+            // 
             // panel_body
             // 
             panel_body.Controls.Add(label2);
-            panel_body.Location = new System.Drawing.Point(343, 0);
+            panel_body.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel_body.Location = new System.Drawing.Point(326, 92);
             panel_body.Name = "panel_body";
-            panel_body.Size = new System.Drawing.Size(928, 597);
+            panel_body.Size = new System.Drawing.Size(1171, 561);
             panel_body.TabIndex = 2;
             // 
             // label2
@@ -233,32 +245,23 @@
             label2.TabIndex = 3;
             label2.Text = "dashboard";
             // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            pictureBox2.Image = (System.Drawing.Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new System.Drawing.Point(75, 559);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new System.Drawing.Size(37, 35);
-            pictureBox2.TabIndex = 4;
-            pictureBox2.TabStop = false;
-            // 
             // Management
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1271, 597);
+            ClientSize = new System.Drawing.Size(1497, 653);
             Controls.Add(panel_body);
             Controls.Add(panel_control);
+            MaximizeBox = false;
             Name = "Management";
             Text = "Management";
             panel_control.ResumeLayout(false);
             panel_control.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pic2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel_body.ResumeLayout(false);
             panel_body.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 

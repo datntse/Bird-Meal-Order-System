@@ -57,4 +57,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="panel_body.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="btnAdd.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="btnDetail.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dgvAccount.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="panel_top.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnSearch.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAD
+        3gAAA94B7kQnrgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAE4SURBVDhPhdK/
+        K8VhFMfxY0AKUSS7RWKUUfkDiDvYDdfMYpIyUPwHNkWKxcAoq7rlGvwaxOjHQDKQH1/v83Xu49ynp76n
+        Xt3nOefzfb7fp65kWRZQPVjDMV5wjW1M+Jz3vxCZwhN08ww95BLf1ttCh384f84eHsUPHjFZF/j7qj3o
+        5tDPbC6tuMUb+uJADbUBXcxEfSnZYM4PYlQ79IqVqC8r0FW/H6RQ+/hAo+vJLvT+TT6cQq1DF+GqWsvW
+        HPThFOoAnwgv0xqHrhZ9OEZ1Qf8b1agvzTjHO4b80IUasAPdlOpmFhjGF14xi5YQEBnAEXRzU+uHeViI
+        jOHOgnrPMzzYXt3b72rygHwj0oZ56OdeoYJNjEBnJ9DgUvKAIlQnqnbIQt6LQ0WoblzYIdPJUBGqF6ci
+        Uv4FT9HysvWS8pwAAAAASUVORK5CYII=
+</value>
+  </data>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>
