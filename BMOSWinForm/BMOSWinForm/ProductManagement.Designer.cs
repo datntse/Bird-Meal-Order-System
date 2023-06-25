@@ -432,7 +432,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(914, 754);
+            ClientSize = new System.Drawing.Size(919, 771);
             Controls.Add(lb_result);
             Controls.Add(btn_search);
             Controls.Add(label5);

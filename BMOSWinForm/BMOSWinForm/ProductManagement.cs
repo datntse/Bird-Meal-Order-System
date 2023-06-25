@@ -45,7 +45,6 @@ namespace BMOSWinForm
                     Price = float.Parse(txt_price.Text),
                     Weight = int.Parse(txt_weight.Text),
                     Type = txt_type.Text,
-
                     Status = checkBox_status.Checked,
 
                 };
