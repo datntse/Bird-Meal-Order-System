@@ -50,6 +50,7 @@ namespace BMOSWinForm
             dgvAccount.Columns[8].HeaderText = "Trạng thái";
 
             dgvAccount.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             dgvAccount.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dgvAccount.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgvAccount.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -63,12 +64,44 @@ namespace BMOSWinForm
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            string username = txtUsername.Text;
+            string type = "add";
+            if (username != null && username != "")
+            {
+                username = null;                
+                txtUsername.Text = "";
+                Form form = new AccountManagementDetail(username, type);
+                form.ShowDialog();
+            }
+            else
+            {
+                Form form = new AccountManagementDetail(username, type);
+                form.ShowDialog();
+            }
         }
 
         private void btnDetail_Click(object sender, EventArgs e)
         {
+            string username = txtUsername.Text;
+            if (username != null && username != "")
+            {
+                string type = "details";
+                txtUsername.Text = "";
+                Form form = new AccountManagementDetail(username, type);
+                form.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn dòng để thực hiện hành động này.", "Thông báo", MessageBoxButtons.OK);
+            }
+        }
 
+        private void dgvAccount_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1) return;
+            int index = e.RowIndex;
+            DataGridViewRow username = dgvAccount.Rows[index];
+            txtUsername.Text = username.Cells[2].Value.ToString();
         }
     }
 }
