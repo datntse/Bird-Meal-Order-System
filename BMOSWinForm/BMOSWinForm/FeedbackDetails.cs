@@ -46,8 +46,29 @@ namespace BMOSWinForm
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
+        {          
             this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var result = MessageBox.Show("Bạn có chắn chắc muốn xóa đánh giá này!!", "Confirm", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    var index = _context.TblFeedbacks.Where(i => i.FeedbackId == txtidfb.Text).FirstOrDefault();
+                    _context.TblFeedbacks.Remove(index);
+                    _context.SaveChanges();
+                    
+                    MessageBox.Show("Xóa thành công");    
+                    this.Close();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Xóa thất bại");
+            }
         }
     }
 }

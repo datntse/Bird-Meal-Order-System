@@ -119,7 +119,7 @@ namespace BMOSWinForm
                 product.Status = checkBox_status.Checked;
                 _db.SaveChanges();
                 dataGridViewProduct.DataSource = _db.TblProducts.ToList();
-                MessageBox.Show("Câp nhật sản phẩm "+ product.Name+" thành công", "Thông báo");
+                MessageBox.Show("Câp nhật sản phẩm thành công", "Thông báo");
 
             }
             catch
@@ -141,7 +141,7 @@ namespace BMOSWinForm
                     _db.TblProducts.Remove(product);
                     _db.SaveChanges();
                     dataGridViewProduct.DataSource = _db.TblProducts.ToList();
-                    MessageBox.Show("Sản phẩm " + product.Name+ "đã được xóa", "Thông báo");
+                    MessageBox.Show("Sản phẩm "+product.Name+" đã được xóa", "Thông báo");
                 }
 
 
@@ -168,6 +168,7 @@ namespace BMOSWinForm
                 checkBox_status.Checked = product.Status.ToString() == "True";
                 btn_delete.Enabled = true;
                 btn_update.Enabled = true;
+                txt_id.Enabled = false;
             }
 
             catch
