@@ -31,6 +31,10 @@
             txtSearch = new System.Windows.Forms.TextBox();
             btnSearch = new System.Windows.Forms.Button();
             dgvBlog = new System.Windows.Forms.DataGridView();
+            blog_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             btnAdd = new System.Windows.Forms.Button();
             btnEdit = new System.Windows.Forms.Button();
             btnExit = new System.Windows.Forms.Button();
@@ -48,10 +52,6 @@
             cbStatus = new System.Windows.Forms.CheckBox();
             btnClear = new System.Windows.Forms.Button();
             cbbSort = new System.Windows.Forms.ComboBox();
-            blog_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvBlog).BeginInit();
             SuspendLayout();
             // 
@@ -66,7 +66,7 @@
             // 
             // btnSearch
             // 
-            btnSearch.BackColor = System.Drawing.Color.Orange;
+            btnSearch.BackColor = System.Drawing.SystemColors.Control;
             btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnSearch.Location = new System.Drawing.Point(542, 12);
             btnSearch.Name = "btnSearch";
@@ -80,19 +80,55 @@
             // 
             dgvBlog.AllowUserToAddRows = false;
             dgvBlog.AllowUserToDeleteRows = false;
+            dgvBlog.AllowUserToResizeColumns = false;
+            dgvBlog.AllowUserToResizeRows = false;
             dgvBlog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvBlog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { blog_id, name, date, status });
             dgvBlog.Location = new System.Drawing.Point(12, 52);
             dgvBlog.Name = "dgvBlog";
             dgvBlog.ReadOnly = true;
+            dgvBlog.RowHeadersVisible = false;
             dgvBlog.RowTemplate.Height = 25;
+            dgvBlog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dgvBlog.Size = new System.Drawing.Size(479, 305);
             dgvBlog.TabIndex = 2;
             dgvBlog.RowEnter += dgvBlog_RowEnter;
             // 
+            // blog_id
+            // 
+            blog_id.DataPropertyName = "BlogId";
+            blog_id.HeaderText = "Mã blog";
+            blog_id.Name = "blog_id";
+            blog_id.ReadOnly = true;
+            blog_id.Width = 75;
+            // 
+            // name
+            // 
+            name.DataPropertyName = "Name";
+            name.HeaderText = "Tên";
+            name.Name = "name";
+            name.ReadOnly = true;
+            name.Width = 250;
+            // 
+            // date
+            // 
+            date.DataPropertyName = "Date";
+            date.HeaderText = "Thời gian";
+            date.Name = "date";
+            date.ReadOnly = true;
+            date.Width = 82;
+            // 
+            // status
+            // 
+            status.DataPropertyName = "Status";
+            status.HeaderText = "Trạng thái";
+            status.Name = "status";
+            status.ReadOnly = true;
+            status.Width = 85;
+            // 
             // btnAdd
             // 
-            btnAdd.BackColor = System.Drawing.Color.Orange;
+            btnAdd.BackColor = System.Drawing.SystemColors.Control;
             btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnAdd.Location = new System.Drawing.Point(12, 365);
             btnAdd.Name = "btnAdd";
@@ -104,7 +140,7 @@
             // 
             // btnEdit
             // 
-            btnEdit.BackColor = System.Drawing.Color.Orange;
+            btnEdit.BackColor = System.Drawing.SystemColors.Control;
             btnEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnEdit.Location = new System.Drawing.Point(93, 365);
             btnEdit.Name = "btnEdit";
@@ -116,7 +152,7 @@
             // 
             // btnExit
             // 
-            btnExit.BackColor = System.Drawing.Color.Orange;
+            btnExit.BackColor = System.Drawing.SystemColors.Control;
             btnExit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnExit.Location = new System.Drawing.Point(910, 365);
             btnExit.Name = "btnExit";
@@ -128,7 +164,7 @@
             // 
             // btnDetail
             // 
-            btnDetail.BackColor = System.Drawing.Color.Orange;
+            btnDetail.BackColor = System.Drawing.SystemColors.Control;
             btnDetail.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnDetail.Location = new System.Drawing.Point(255, 365);
             btnDetail.Name = "btnDetail";
@@ -140,7 +176,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.BackColor = System.Drawing.Color.Orange;
+            btnDelete.BackColor = System.Drawing.SystemColors.Control;
             btnDelete.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnDelete.Location = new System.Drawing.Point(174, 365);
             btnDelete.Name = "btnDelete";
@@ -244,7 +280,7 @@
             // 
             // btnClear
             // 
-            btnClear.BackColor = System.Drawing.Color.Orange;
+            btnClear.BackColor = System.Drawing.SystemColors.Control;
             btnClear.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnClear.Location = new System.Drawing.Point(336, 365);
             btnClear.Name = "btnClear";
@@ -264,38 +300,6 @@
             cbbSort.TabIndex = 21;
             cbbSort.Text = "Tất cả";
             cbbSort.SelectedIndexChanged += ccbSort_SelectedIndexChanged;
-            // 
-            // blog_id
-            // 
-            blog_id.DataPropertyName = "BlogId";
-            blog_id.HeaderText = "Mã blog";
-            blog_id.Name = "blog_id";
-            blog_id.ReadOnly = true;
-            blog_id.Width = 75;
-            // 
-            // name
-            // 
-            name.DataPropertyName = "Name";
-            name.HeaderText = "Tên";
-            name.Name = "name";
-            name.ReadOnly = true;
-            name.Width = 210;
-            // 
-            // date
-            // 
-            date.DataPropertyName = "Date";
-            date.HeaderText = "Thời gian";
-            date.Name = "date";
-            date.ReadOnly = true;
-            date.Width = 82;
-            // 
-            // status
-            // 
-            status.DataPropertyName = "Status";
-            status.HeaderText = "Trạng thái";
-            status.Name = "status";
-            status.ReadOnly = true;
-            status.Width = 85;
             // 
             // BlogManagement
             // 

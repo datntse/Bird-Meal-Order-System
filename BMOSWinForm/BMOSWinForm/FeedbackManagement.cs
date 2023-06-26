@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BMOSWinForm
 {
@@ -36,10 +37,12 @@ namespace BMOSWinForm
                                date = f.Date,
                            };
             dgvFeedbackList.DataSource = feedback.ToList();
+            dgvFeedbackList.DefaultCellStyle.SelectionBackColor = Color.Orange;
         }
 
         private void FeedbackManagement_Load(object sender, EventArgs e)
         {
+            comboBox1.SelectedItem = "Tất cả sản phẩm";
             getlist();
         }
 
@@ -59,7 +62,6 @@ namespace BMOSWinForm
                                };
                 feedback = feedback.Where(x => x.name.Contains(txtSearch.Text));
                 dgvFeedbackList.DataSource = feedback.ToList();
-                txtSearch.Clear();
 
             }
             catch (Exception ex)
@@ -70,6 +72,8 @@ namespace BMOSWinForm
 
         private void btrs_Click(object sender, EventArgs e)
         {
+            txtSearch.Clear();
+            comboBox1.SelectedItem = "Tất cả sản phẩm";
             getlist();
         }
 
@@ -77,19 +81,19 @@ namespace BMOSWinForm
         {
             try
             {
-                var result = MessageBox.Show("are you sure", "Confirm", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show("Bạn có chắn chắc muốn xóa đánh giá này!!", "Confirm", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     var index = _db.TblFeedbacks.Where(i => i.FeedbackId == txt_id.Text).FirstOrDefault();
                     _db.TblFeedbacks.Remove(index);
                     _db.SaveChanges();
                     getlist();
-                    MessageBox.Show("Thanh Cong");
+                    MessageBox.Show("Xóa thành công");
                 }
             }
             catch
             {
-                MessageBox.Show("Khong Thanh Cong");
+                MessageBox.Show("Xóa thất bại");
             }
         }
 
@@ -109,8 +113,9 @@ namespace BMOSWinForm
             {
                 string type = "details";
                 txt_id.Text = "";
-                Form form = new FeedbackDetails(id, type);
+                FeedbackDetails form = new FeedbackDetails(id, type);
                 form.ShowDialog();
+                getlist();
             }
             else
             {
@@ -124,6 +129,81 @@ namespace BMOSWinForm
             this.Close();
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string searchKeyword = txtSearch.Text.Trim();
+            string sortOption = comboBox1.SelectedItem?.ToString() ?? "";
+            if (!string.IsNullOrEmpty(sortOption))
+            {
+                switch (sortOption)
+                {
+                    case "A-Z":
+                        var az = from f in _db.TblFeedbacks
+                                 where f.Product.Name.Contains(searchKeyword)
+                                 select new
+                                 {
+                                     idfb = f.FeedbackId,
+                                     idpro = f.ProductId,
+                                     name = f.Product.Name,
+                                     content = f.Content,
+                                     star = f.Star,
+                                     date = f.Date,
+                                 };
+                        az = az.OrderBy(f => f.name);
+                        dgvFeedbackList.DataSource = az.ToList();
+                        break;
+                    case "Z-A":
+                        var za = from f in _db.TblFeedbacks
+                                 where f.Product.Name.Contains(searchKeyword)
+                                 select new
+                                 {
+                                     idfb = f.FeedbackId,
+                                     idpro = f.ProductId,
+                                     name = f.Product.Name,
+                                     content = f.Content,
+                                     star = f.Star,
+                                     date = f.Date,
+                                 };
+                        za = za.OrderByDescending(f => f.name);
+                        dgvFeedbackList.DataSource = za.ToList();
+                        break;
+                    case "Số sao giảm dần":
+                        var stardes = from f in _db.TblFeedbacks
+                                      where f.Product.Name.Contains(searchKeyword)
+                                      select new
+                                      {
+                                          idfb = f.FeedbackId,
+                                          idpro = f.ProductId,
+                                          name = f.Product.Name,
+                                          content = f.Content,
+                                          star = f.Star,
+                                          date = f.Date,
+                                      };
+                        stardes = stardes.OrderByDescending(f => f.star);
+                        dgvFeedbackList.DataSource = stardes.ToList();
+                        break;
+                    case "Số sao tăng dần":
+                        var starin = from f in _db.TblFeedbacks
+                                     where f.Product.Name.Contains(searchKeyword)
+                                     select new
+                                     {
+                                         idfb = f.FeedbackId,
+                                         idpro = f.ProductId,
+                                         name = f.Product.Name,
+                                         content = f.Content,
+                                         star = f.Star,
+                                         date = f.Date,
+                                     };
+                        starin = starin.OrderBy(f => f.star);
+                        dgvFeedbackList.DataSource = starin.ToList();
+                        break;
+                    default:
+                        comboBox1.SelectedItem = "Tất cả sản phẩm";
+                        getlist();
+                        break;
+                }
+            }
+        }
     }
 
 }
