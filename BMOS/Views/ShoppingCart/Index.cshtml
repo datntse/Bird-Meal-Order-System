@@ -2,60 +2,203 @@
 @{
 	ViewData["Title"] = "Cart";
 	Layout = "_HeaderFooter";
+	double? toltalPrice = 0;
 }
-
+<input type="hidden" id="cart-item-quantity" value="@Model.Count()" />
 @if (@Model.Count() == 0)
-
 {
 	<div style="background-image: url('images/empty_cart.svg'); background-size: contain; width: 800px; height: 50vh; background-repeat: no-repeat; background-position:center; margin: 0 auto;">
-		<a asp-controller="Home" asp-action="Index">Nhấn vào đây để trở lại mua hàng</a>
+		<div class="pt-5">
+			<h6 class="mb-0">
+				<a asp-controller="Home" asp-action="Index" class="text-body">
+					<i class="fas fa-long-arrow-alt-left me-2"></i>Nhấn vào đây để trở lại mua hàng
+				</a>
+			</h6>
+		</div>
 	</div>
 }
 else
 {
-	<div class="row form-group">
-		<table class="table">
-			<thead>
-				<tr>
+	<body>
+		<div class="container mt-3 cart-wrapper">
+			<div class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col-12">
+					<div class="card card-registration card-registration-2" style="border-radius: 15px;">
+						<div class="card-body p-0">
+							<div class="row g-0">
+								<div class="col-lg-8">
+									<div class="p-5">
+										<div class="d-flex justify-content-between align-items-center mb-5">
+											<h1 class="fw-bold mb-0 text-black">Giỏ Hàng</h1>
+											<h6 class="mb-0 text-muted">@Model.Count() items</h6>
+										</div>
+										<hr class="my-4">
+										@foreach (var item in Model)
+										{
+											var _priceProduct = item._getTotalPrice();
+											toltalPrice += _priceProduct;
+											<div class="row mb-4 d-flex justify-content-between align-items-center">
+												<div class="col-md-2 col-lg-2 col-xl-2">
+													<img src="@Html.DisplayFor(modelItem => item._productImage)" style="width: 50px; height: 50px" />
+												</div>
+												<div class="col-md-3 col-lg-3 col-xl-3">
+													<h6 class="text-muted">@Html.DisplayFor(xx => item._productName)</h6>
+												</div>
+												<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+													<button data-id="@item._productId" class="btn btn-link px-2 decrease-prodQuantity-btn"
+															onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+														<i class="fas fa-minus"></i>
+													</button>
 
-					<th scope="col">Image</th>
-					<th scope="col">Name</th>
-					<th scope="col">Price</th>
-					<th scope="col">Quantity</th>
-					<th scope="col">Total Price</th>
-					<th scope="col">Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var item in Model)
-				{
-					<tr>
-						<td>
-							<img src="@Html.DisplayFor(modelItem => item._productImage)" style="width: 50px; height: 50px" />
-						</td>
-						<td>
-							@Html.DisplayFor(xx => item._productName)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item._price)
-						</td>
-						<td>
-							<input type="number" value="@item._quantity" name="cartItemQuantity"/>
-						</td>
-						<td>
-							@item._getTotalPrice()
-						</td>
-						<td>
-							<a asp-action="Delete" asp-route-id="@item._productId">Delete</a>
-						</td>
-					</tr>
-				}
-			</tbody>
-		</table>
+													<input data-id="@item._productId" input type="number" value="@item._quantity" name="cartItemQuantity"
+														   class="form-control form-control-sm" />
 
-	</div>
+													<button data-id="@item._productId" class="btn btn-link px-2 increase-prodQuantity-btn"
+															onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+														<i class="fas fa-plus"></i>
+													</button>
+												</div>
+												<div class="col-md-3 col-lg-1 col-xl-1 offset-lg-1">
+													<h6 class="mb-0">@Html.DisplayFor(modelItem => item._price)</h6>
+												</div>
+												<div class="col-md-3 col-lg-1 col-xl-1 offset-lg-1">
+													<h6 class="mb-0">@_priceProduct</h6>
+												</div>
+												<div data-id="@item._productId" class="ajax-remove-item col-md-1 col-lg-1 col-xl-1 text-end">
+													<a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+												</div>
+											</div>
+										}
+
+										<hr class="my-4">
+
+										<div class="pt-5">
+											<h6 class="mb-0">
+												<a href="#!" class="text-body">
+													<i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop
+												</a>
+											</h6>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-4 bg-grey">
+									<div class="p-5">
+										<h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+										<hr class="my-4">
+
+										<div class="d-flex justify-content-between mb-4">
+											<h5 class="text-uppercase">TỔNG</h5>
+											<h5>@toltalPrice</h5>
+										</div>
+
+										<hr class="my-4">
+
+										<div class="d-flex justify-content-between mb-5">
+											<h5 class="text-uppercase">Total price</h5>
+											<h5>€ 137.00</h5>
+										</div>
+										<a asp-controller="ShoppingCart" asp-action="Checkout">
+										<button type="button" class="btn btn-dark btn-block btn-lg"
+												data-mdb-ripple-color="dark">
+											Thanh Toán
+										</button>
+										</a>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+
 
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-	console.log("Index Cart");
+	$(document).ready(function () {
+		$('.ajax-remove-item').click(function(e) {
+			var _id = $(this).data("id");
+			$.ajax({
+				url: "/ShoppingCart/RemoveItem",
+				data: {
+					id: _id,
+				},
+				type: "GET",
+				success: function (data) {
+					$(".cart-wrapper").html(data)
+				},
+			})
+		});
+
+		//continue fix.........!!
+		//var inputQuantity = $("input[name='cartItemQuantity']");
+
+		//item.change(function () {
+		//	item.blur(function () {
+		//		var _id = $(this).data("id");
+		//		var quantity = inputQuantity.val();
+		//		console.log("Quantiy ", quantity);
+		//		$.ajax({
+		//			url: "/ShoppingCart/UpdateCart",
+		//			data: {
+		//				id: _id,
+		//				productQuantity: quantity,
+		//				status: "input"
+		//			},
+		//			type: "GET",
+		//			success: function (data) {
+		//				$(".cart-wrapper").html(data);
+		//				$(".cart-quantity").html(quantity);
+		//			},
+		//		});
+		//	})
+		//});
+
+		//		//continue fix.........!!
+		var quantity = $("#cart-item-quantity").val();
+
+		$('.decrease-prodQuantity-btn').click(function (e) {
+			var _id = $(this).data("id");
+			e.stopPropagation();
+			$.ajax({
+				url: "/ShoppingCart/UpdateCart",
+				data: {
+					id: _id,
+					productQuantity: 1,
+					status: "decrease"
+				},
+				type: "GET",
+				success: function (data) {
+
+					$(".cart-wrapper").html(data);
+					$(".cart-quantity").html(quantity);
+
+				},
+
+			});
+		});
+
+		$('.increase-prodQuantity-btn').click(function (e) {
+			var _id = $(this).data("id");
+			e.stopPropagation();
+			$.ajax({
+				url: "/ShoppingCart/UpdateCart",
+				data: {
+					id: _id,
+					productQuantity: 1,
+					status: "increase"
+				},
+				type: "GET",
+				success: function (data) {
+					$(".cart-wrapper").html(data)
+				},
+
+			});
+		});
+	});
+
 </script>

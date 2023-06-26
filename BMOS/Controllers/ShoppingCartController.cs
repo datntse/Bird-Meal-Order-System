@@ -31,6 +31,54 @@ namespace BMOS.Controllers
             }
         }
 
+        public IActionResult Checkout()
+        {
+            return View(Cart);
+        }
+
+        public IActionResult RemoveItem(string id)
+        {
+            var myCart = Cart;
+            foreach(var item in myCart.ToList())
+            {
+                if(item._productId.Equals(id))
+                {
+                    myCart.Remove(item);
+                }
+            }
+            HttpContext?.Session.Set("Cart", myCart);
+            return RedirectToAction("UpdateCart");
+
+        }
+
+        public IActionResult UpdateCart(string id, string status, int productQuantity = 1)  {
+            var myCart = Cart;
+            foreach (var item in myCart.ToList()) 
+            {
+                if(item._productId.Equals(id))
+                {
+                    if (status.Equals("increase"))
+                    {
+                        item._quantity += productQuantity;
+                    } else if (status.Equals("decrease"))
+                    {
+                        item._quantity -= productQuantity;
+						if (item._quantity == 0)
+                        {
+                            myCart.Remove(item);
+                        }
+                    }
+					else if (status.Equals("input"))
+					{
+						item._quantity = productQuantity;
+					}
+				}
+            }
+			HttpContext?.Session.Set("Cart", myCart);
+			return PartialView(myCart);
+            //return RedirectToAction("Index");
+        }
+
         public IActionResult AddToCart(string id, int productQuantity = 1, string type = "Normal")
         {
             var myCart = Cart;
@@ -50,7 +98,8 @@ namespace BMOS.Controllers
                         _productId = id,
                         _productName = _product.Name,
                         _quantity = productQuantity,
-                        _price = _product.Price,
+                        _weight = _product.Weight,
+						_price = _product.Price,
                         _productImage = image[0],
                     };
                 }
