@@ -254,6 +254,7 @@
             Controls.Add(panel_control);
             MaximizeBox = false;
             Name = "Management";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Management";
             panel_control.ResumeLayout(false);
             panel_control.PerformLayout();
