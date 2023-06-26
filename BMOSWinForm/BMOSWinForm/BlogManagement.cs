@@ -38,15 +38,16 @@ namespace BMOSWinForm
 
         private void button_Detail(object sender, EventArgs e)
         {
-            try
+            string blogname = txtName.Text;
+            if (blogname != null && blogname != "")
             {
-                var id = txtId.Text;
-                var blog = _db.TblBlogs.Find(id);
-                MessageBox.Show(blog.Description);
+                string blogtype = "details";
+                Form form = new BlogDetail(blogname, blogtype);
+                form.ShowDialog();
             }
-            catch
+            else
             {
-                MessageBox.Show("Vui lòng chọn blog!");
+                MessageBox.Show("Vui lòng chọn blog để thực hiện hành động này.", "Thông báo", MessageBoxButtons.OK);
             }
         }
 
@@ -63,12 +64,12 @@ namespace BMOSWinForm
                     _db.TblBlogs.Remove(blogs);
                     _db.SaveChanges();
                     dgvBlog.DataSource = _db.TblBlogs.ToList();
-                    MessageBox.Show("Xóa blog thành công!");
+                    MessageBox.Show("Xóa blog thành công!", "Thông báo");
                 }
             }
             catch
             {
-                MessageBox.Show("Vui lòng chọn blog để xóa!");
+                MessageBox.Show("Vui lòng chọn blog để xóa!", "Thông báo");
             }
         }
 
@@ -84,12 +85,12 @@ namespace BMOSWinForm
                 blog.Date = DateTime.Parse(txtDate.Text);
                 _db.SaveChanges();
                 dgvBlog.DataSource = _db.TblBlogs.ToList();
-                MessageBox.Show("Chỉnh sửa blog thành công!");
+                MessageBox.Show("Chỉnh sửa blog thành công!", "Thông báo");
 
             }
             catch
             {
-                MessageBox.Show("Vui lòng chọn blog để chỉnh sửa!");
+                MessageBox.Show("Vui lòng chọn blog để chỉnh sửa!", "Thông báo");
             }
         }
 
@@ -117,13 +118,13 @@ namespace BMOSWinForm
                     _db.TblBlogs.Add(blogs);
                     _db.SaveChanges();
                     dgvBlog.DataSource = _db.TblBlogs.ToList();
-                    MessageBox.Show("Thêm blog thành công!");
+                    MessageBox.Show("Thêm blog thành công!", "Thông báo");
                 }
-                else { MessageBox.Show("Vui lòng điền dữ liệu!"); }
+                else { MessageBox.Show("Vui lòng điền dữ liệu!", "Thông báo"); }
             }
             catch
             {
-                MessageBox.Show("Thêm blog thất bại!");
+                MessageBox.Show("Thêm blog thất bại!", "Thông báo");
             }
         }
 
@@ -179,7 +180,7 @@ namespace BMOSWinForm
 
             catch
             {
-                MessageBox.Show("Thao tác quá nhanh vui lòng thử lại!");
+                MessageBox.Show("Thao tác quá nhanh vui lòng thử lại!", "Thông báo");
             }
         }
 
