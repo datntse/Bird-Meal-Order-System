@@ -54,7 +54,16 @@ namespace BMOSWinForm
 
         private void button_Detail(object sender, EventArgs e)
         {
-
+            try
+            {
+                var id = txtId.Text;
+                var blog = _db.TblBlogs.Find(id);
+                MessageBox.Show(blog.Description);
+            }
+            catch
+            {
+                MessageBox.Show("Chon Blog");
+            }
         }
 
         private void button_Delete(object sender, EventArgs e)
@@ -70,7 +79,7 @@ namespace BMOSWinForm
                     _db.TblBlogs.Remove(blogs);
                     _db.SaveChanges();
                     dgvBlog.DataSource = _db.TblBlogs.ToList();
-                    MessageBox.Show("Thanh Cong");
+                    MessageBox.Show("Xoa thanh Cong");
                 }
             }
             catch
@@ -91,12 +100,12 @@ namespace BMOSWinForm
                 blog.Date = DateTime.Parse(txtDate.Text);
                 _db.SaveChanges();
                 dgvBlog.DataSource = _db.TblBlogs.ToList();
-                MessageBox.Show("Thanh Cong");
+                MessageBox.Show("Sua thanh Cong");
 
             }
             catch
             {
-                MessageBox.Show("Khong Thanh Cong");
+                MessageBox.Show("Sua khong Thanh Cong");
             }
         }
 
@@ -124,13 +133,13 @@ namespace BMOSWinForm
                     _db.TblBlogs.Add(blogs);
                     _db.SaveChanges();
                     dgvBlog.DataSource = _db.TblBlogs.ToList();
-                    MessageBox.Show("Thanh Cong");
+                    MessageBox.Show("Them thanh Cong");
                 }
                 else { MessageBox.Show("Please type in!"); }
             }
             catch
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Them khong thanh cong");
             }
         }
 
