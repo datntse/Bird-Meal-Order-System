@@ -1,4 +1,5 @@
-﻿@model BMOS.Models.ProductInfoModel
+﻿@using Microsoft.EntityFrameworkCore;
+@model BMOS.Models.ProductInfoModel
 @{
 	Layout = "_HeaderFooter";
 	ViewData["Title"] = "Index";
@@ -106,7 +107,11 @@
 					</div>
 				</div>
 			</div>
-	
+			<div class="col-4 recommend-list">
+                @{
+				<partial name="_RelatedProduct" model="@Model.relatedProductModels" />
+			}
+			</div>
 			
 		</div>
 		<div class="row product-detail__description">

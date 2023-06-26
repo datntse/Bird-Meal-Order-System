@@ -16,6 +16,8 @@ namespace BMOS.Models
 
 		public bool? IsLoved { get; set; }
 
-		public string? UrlImage { get; set; } 
+		public string? UrlImage { get; set; }
+
+		public List<RelatedProductModel>? relatedProductModels { get; set; }
 	}
 }

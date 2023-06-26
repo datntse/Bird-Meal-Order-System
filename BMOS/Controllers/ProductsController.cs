@@ -23,6 +23,19 @@ namespace BMOS.Controllers
 		// GET: Products
 		public async Task<IActionResult> Product(String id)
 		{
+			var recom = _context.TblProducts.Find(id).Type;
+			var _relatedProduct = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom && x.ProductId != id).Take(3);
+			var result = from img in _context.TblImages
+						 from prod in _relatedProduct
+						 where prod.ProductId == img.RelationId
+						 select (new RelatedProductModel
+						 {
+							 _id = id,
+							 _prodName = prod.Name,
+							 _prodPrice = prod.Price,
+							 _image = img.Url
+						 });
+			var _listProductRelated = result.ToList();
 			//from product in _context.TblProducts where product.Status != false select product;
 			var productItem = from product in _context.TblProducts
 							  from image in _context.TblImages
@@ -35,7 +48,8 @@ namespace BMOS.Controllers
 								  Description = product.Description,
 								  IsAvailable = product.IsAvailable,
 								  IsLoved = product.IsLoved,
-								  UrlImage = image.Url
+								  UrlImage = image.Url,
+								  relatedProductModels = _listProductRelated
 							  };
 			var productDetail = await productItem.FirstOrDefaultAsync(item => item.ProductId.Equals(id));
 			if (productDetail == null)
@@ -43,28 +57,7 @@ namespace BMOS.Controllers
 				return NotFound();
 			}
 			return View(productDetail);
-		}
+		}	
 
-		public IActionResult RelatedProducts(String id)
-		{
-			if (id == null || _context.TblProducts == null)
-			{
-				return NotFound();
-			}
-
-			var recom = _context.TblProducts.Find(id).Type;
-			var product = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom).Take(3).ToList();
-
-			if (product == null)
-			{
-				return NotFound();
-			}
-			var result = new RelatedProductModel
-			{
-				_id = id,
-				listProduct = product
-			};
-			return View(result);
-		}
 	}
 }
