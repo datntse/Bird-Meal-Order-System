@@ -77,6 +77,7 @@
             // 
             dataGridViewProduct.AllowUserToAddRows = false;
             dataGridViewProduct.AllowUserToDeleteRows = false;
+            dataGridViewProduct.AllowUserToOrderColumns = true;
             dataGridViewProduct.AutoGenerateColumns = false;
             dataGridViewProduct.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewProduct.BackgroundColor = System.Drawing.SystemColors.Window;
