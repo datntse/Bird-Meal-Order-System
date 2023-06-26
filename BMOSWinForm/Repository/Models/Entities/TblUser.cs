@@ -15,10 +15,10 @@ namespace Repository.Models.Entities
         public string Lastname { get; set; }
         public string Numberphone { get; set; }
         public string Address { get; set; }
-        public DateTime? DateCreate { get; set; }
+        public DateTime? DateCreate { get; set; } = DateTime.Now;
         public DateTime? LastActivitty { get; set; }
-        public double? Point { get; set; }
+        public double? Point { get; set; } = 0;
         public bool? Status { get; set; }
-        public int? UserRoleId { get; set; }
+        public int? UserRoleId { get; set; } = 2;
     }
 }
