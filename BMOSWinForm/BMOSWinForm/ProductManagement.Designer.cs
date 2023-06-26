@@ -55,9 +55,8 @@
             btn_update = new System.Windows.Forms.Button();
             btn_delete = new System.Windows.Forms.Button();
             panel1 = new System.Windows.Forms.Panel();
+            btn_viewproduct = new System.Windows.Forms.Button();
             btn_add = new System.Windows.Forms.Button();
-            btn_imgurl = new System.Windows.Forms.Button();
-            pb_product = new System.Windows.Forms.PictureBox();
             btn_detail = new System.Windows.Forms.Button();
             txt_price = new System.Windows.Forms.TextBox();
             lb_price = new System.Windows.Forms.Label();
@@ -65,11 +64,10 @@
             txt_search = new System.Windows.Forms.TextBox();
             label5 = new System.Windows.Forms.Label();
             btn_search = new System.Windows.Forms.Button();
-            lb_result = new System.Windows.Forms.Label();
+            comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProduct).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tblProductBindingSource).BeginInit();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pb_product).BeginInit();
             SuspendLayout();
             // 
             // dataGridViewProduct
@@ -86,7 +84,7 @@
             dataGridViewProduct.ReadOnly = true;
             dataGridViewProduct.RowHeadersWidth = 51;
             dataGridViewProduct.RowTemplate.Height = 29;
-            dataGridViewProduct.Size = new System.Drawing.Size(890, 330);
+            dataGridViewProduct.Size = new System.Drawing.Size(1142, 260);
             dataGridViewProduct.TabIndex = 0;
             dataGridViewProduct.CellClick += dataGridViewProduct_CellContentClick;
             // 
@@ -174,7 +172,7 @@
             // 
             txt_id.Location = new System.Drawing.Point(153, 28);
             txt_id.Name = "txt_id";
-            txt_id.Size = new System.Drawing.Size(475, 27);
+            txt_id.Size = new System.Drawing.Size(375, 27);
             txt_id.TabIndex = 1;
             // 
             // label2
@@ -190,7 +188,7 @@
             // 
             txt_name.Location = new System.Drawing.Point(153, 61);
             txt_name.Name = "txt_name";
-            txt_name.Size = new System.Drawing.Size(475, 27);
+            txt_name.Size = new System.Drawing.Size(375, 27);
             txt_name.TabIndex = 3;
             // 
             // label4
@@ -206,13 +204,13 @@
             // 
             txt_quantity.Location = new System.Drawing.Point(153, 94);
             txt_quantity.Name = "txt_quantity";
-            txt_quantity.Size = new System.Drawing.Size(475, 27);
+            txt_quantity.Size = new System.Drawing.Size(375, 27);
             txt_quantity.TabIndex = 5;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(56, 163);
+            label3.Location = new System.Drawing.Point(637, 34);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(72, 20);
             label3.TabIndex = 6;
@@ -220,15 +218,15 @@
             // 
             // txt_decription
             // 
-            txt_decription.Location = new System.Drawing.Point(153, 160);
+            txt_decription.Location = new System.Drawing.Point(734, 31);
             txt_decription.Name = "txt_decription";
-            txt_decription.Size = new System.Drawing.Size(475, 27);
+            txt_decription.Size = new System.Drawing.Size(289, 27);
             txt_decription.TabIndex = 7;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(56, 196);
+            label8.Location = new System.Drawing.Point(637, 67);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(74, 20);
             label8.TabIndex = 8;
@@ -236,15 +234,15 @@
             // 
             // txt_weight
             // 
-            txt_weight.Location = new System.Drawing.Point(153, 193);
+            txt_weight.Location = new System.Drawing.Point(734, 64);
             txt_weight.Name = "txt_weight";
-            txt_weight.Size = new System.Drawing.Size(475, 27);
+            txt_weight.Size = new System.Drawing.Size(375, 27);
             txt_weight.TabIndex = 9;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(56, 229);
+            label7.Location = new System.Drawing.Point(637, 100);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(37, 20);
             label7.TabIndex = 10;
@@ -252,15 +250,15 @@
             // 
             // txt_type
             // 
-            txt_type.Location = new System.Drawing.Point(153, 226);
+            txt_type.Location = new System.Drawing.Point(734, 97);
             txt_type.Name = "txt_type";
-            txt_type.Size = new System.Drawing.Size(475, 27);
+            txt_type.Size = new System.Drawing.Size(375, 27);
             txt_type.TabIndex = 11;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(56, 262);
+            label6.Location = new System.Drawing.Point(637, 133);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(72, 20);
             label6.TabIndex = 12;
@@ -268,7 +266,7 @@
             // 
             // btn_save
             // 
-            btn_save.Location = new System.Drawing.Point(153, 306);
+            btn_save.Location = new System.Drawing.Point(57, 171);
             btn_save.Name = "btn_save";
             btn_save.Size = new System.Drawing.Size(94, 29);
             btn_save.TabIndex = 14;
@@ -279,7 +277,7 @@
             // btn_update
             // 
             btn_update.Enabled = false;
-            btn_update.Location = new System.Drawing.Point(253, 306);
+            btn_update.Location = new System.Drawing.Point(157, 171);
             btn_update.Name = "btn_update";
             btn_update.Size = new System.Drawing.Size(94, 29);
             btn_update.TabIndex = 15;
@@ -290,7 +288,7 @@
             // btn_delete
             // 
             btn_delete.Enabled = false;
-            btn_delete.Location = new System.Drawing.Point(353, 306);
+            btn_delete.Location = new System.Drawing.Point(257, 171);
             btn_delete.Name = "btn_delete";
             btn_delete.Size = new System.Drawing.Size(94, 29);
             btn_delete.TabIndex = 16;
@@ -300,9 +298,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btn_viewproduct);
             panel1.Controls.Add(btn_add);
-            panel1.Controls.Add(btn_imgurl);
-            panel1.Controls.Add(pb_product);
             panel1.Controls.Add(btn_detail);
             panel1.Controls.Add(txt_price);
             panel1.Controls.Add(lb_price);
@@ -323,14 +320,24 @@
             panel1.Controls.Add(label2);
             panel1.Controls.Add(txt_id);
             panel1.Controls.Add(label1);
-            panel1.Location = new System.Drawing.Point(12, 407);
+            panel1.Location = new System.Drawing.Point(12, 337);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(890, 344);
+            panel1.Size = new System.Drawing.Size(1142, 206);
             panel1.TabIndex = 1;
+            // 
+            // btn_viewproduct
+            // 
+            btn_viewproduct.Location = new System.Drawing.Point(457, 171);
+            btn_viewproduct.Name = "btn_viewproduct";
+            btn_viewproduct.Size = new System.Drawing.Size(94, 29);
+            btn_viewproduct.TabIndex = 24;
+            btn_viewproduct.Text = "Chi tiết";
+            btn_viewproduct.UseVisualStyleBackColor = true;
+            btn_viewproduct.Click += btn_viewproduct_Click;
             // 
             // btn_add
             // 
-            btn_add.Location = new System.Drawing.Point(453, 306);
+            btn_add.Location = new System.Drawing.Point(357, 171);
             btn_add.Name = "btn_add";
             btn_add.Size = new System.Drawing.Size(94, 29);
             btn_add.TabIndex = 23;
@@ -338,33 +345,13 @@
             btn_add.UseVisualStyleBackColor = true;
             btn_add.Click += btn_add_Click;
             // 
-            // btn_imgurl
-            // 
-            btn_imgurl.Location = new System.Drawing.Point(708, 258);
-            btn_imgurl.Name = "btn_imgurl";
-            btn_imgurl.Size = new System.Drawing.Size(94, 29);
-            btn_imgurl.TabIndex = 22;
-            btn_imgurl.Text = "Chọn ảnh";
-            btn_imgurl.UseVisualStyleBackColor = true;
-            btn_imgurl.Click += btn_imgurl_Click;
-            // 
-            // pb_product
-            // 
-            pb_product.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            pb_product.Location = new System.Drawing.Point(674, 28);
-            pb_product.Name = "pb_product";
-            pb_product.Size = new System.Drawing.Size(165, 221);
-            pb_product.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            pb_product.TabIndex = 21;
-            pb_product.TabStop = false;
-            // 
             // btn_detail
             // 
-            btn_detail.Location = new System.Drawing.Point(553, 306);
+            btn_detail.Location = new System.Drawing.Point(1034, 31);
             btn_detail.Name = "btn_detail";
             btn_detail.Size = new System.Drawing.Size(75, 29);
             btn_detail.TabIndex = 20;
-            btn_detail.Text = "Chi Tiết";
+            btn_detail.Text = "Xem";
             btn_detail.UseVisualStyleBackColor = true;
             btn_detail.Click += btn_detail_Click;
             // 
@@ -372,7 +359,7 @@
             // 
             txt_price.Location = new System.Drawing.Point(153, 127);
             txt_price.Name = "txt_price";
-            txt_price.Size = new System.Drawing.Size(475, 27);
+            txt_price.Size = new System.Drawing.Size(375, 27);
             txt_price.TabIndex = 19;
             // 
             // lb_price
@@ -387,7 +374,7 @@
             // checkBox_status
             // 
             checkBox_status.AutoSize = true;
-            checkBox_status.Location = new System.Drawing.Point(153, 265);
+            checkBox_status.Location = new System.Drawing.Point(734, 136);
             checkBox_status.Name = "checkBox_status";
             checkBox_status.Size = new System.Drawing.Size(18, 17);
             checkBox_status.TabIndex = 17;
@@ -399,6 +386,7 @@
             txt_search.Name = "txt_search";
             txt_search.Size = new System.Drawing.Size(459, 27);
             txt_search.TabIndex = 2;
+            txt_search.TextChanged += txt_search_TextChanged;
             // 
             // label5
             // 
@@ -411,7 +399,7 @@
             // 
             // btn_search
             // 
-            btn_search.Location = new System.Drawing.Point(609, 12);
+            btn_search.Location = new System.Drawing.Point(611, 12);
             btn_search.Name = "btn_search";
             btn_search.Size = new System.Drawing.Size(75, 29);
             btn_search.TabIndex = 21;
@@ -419,21 +407,23 @@
             btn_search.UseVisualStyleBackColor = true;
             btn_search.Click += btn_search_Click;
             // 
-            // lb_result
+            // comboBox1
             // 
-            lb_result.AutoSize = true;
-            lb_result.Location = new System.Drawing.Point(692, 19);
-            lb_result.Name = "lb_result";
-            lb_result.Size = new System.Drawing.Size(122, 20);
-            lb_result.TabIndex = 22;
-            lb_result.Text = "Kết quả tìm kiếm";
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Sản phẩm còn hàng", "Sản phẩm hết hàng", "Thức ăn hạt", "Thức ăn tự nhiên", "Thức ăn hỗn hợp" });
+            comboBox1.Location = new System.Drawing.Point(692, 13);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new System.Drawing.Size(151, 28);
+            comboBox1.TabIndex = 22;
+            comboBox1.Text = "Lọc";
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // ProductManagement
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(919, 771);
-            Controls.Add(lb_result);
+            ClientSize = new System.Drawing.Size(1196, 565);
+            Controls.Add(comboBox1);
             Controls.Add(btn_search);
             Controls.Add(label5);
             Controls.Add(txt_search);
@@ -447,7 +437,6 @@
             ((System.ComponentModel.ISupportInitialize)tblProductBindingSource).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pb_product).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -484,12 +473,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btn_detail;
-        private System.Windows.Forms.PictureBox pb_product;
-        private System.Windows.Forms.Button btn_imgurl;
         private System.Windows.Forms.Button btn_add;
         private System.Windows.Forms.TextBox txt_search;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btn_search;
-        private System.Windows.Forms.Label lb_result;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button btn_viewproduct;
     }
 }
