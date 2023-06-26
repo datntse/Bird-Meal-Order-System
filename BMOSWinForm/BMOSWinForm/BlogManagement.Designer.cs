@@ -72,7 +72,7 @@
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new System.Drawing.Size(75, 23);
             btnSearch.TabIndex = 1;
-            btnSearch.Text = "Search";
+            btnSearch.Text = "Tìm kiếm";
             btnSearch.UseVisualStyleBackColor = false;
             btnSearch.Click += button_Search;
             // 
@@ -125,60 +125,60 @@
             // btnAdd
             // 
             btnAdd.BackColor = System.Drawing.Color.Orange;
-            btnAdd.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnAdd.Location = new System.Drawing.Point(12, 365);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new System.Drawing.Size(75, 38);
             btnAdd.TabIndex = 3;
-            btnAdd.Text = "Add";
+            btnAdd.Text = "Thêm";
             btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += button_Add;
             // 
             // btnEdit
             // 
             btnEdit.BackColor = System.Drawing.Color.Orange;
-            btnEdit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnEdit.Location = new System.Drawing.Point(93, 365);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new System.Drawing.Size(75, 38);
             btnEdit.TabIndex = 4;
-            btnEdit.Text = "Edit";
+            btnEdit.Text = "Chỉnh sửa";
             btnEdit.UseVisualStyleBackColor = false;
             btnEdit.Click += button_Edit;
             // 
             // btnExit
             // 
             btnExit.BackColor = System.Drawing.Color.Orange;
-            btnExit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnExit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnExit.Location = new System.Drawing.Point(910, 365);
             btnExit.Name = "btnExit";
             btnExit.Size = new System.Drawing.Size(75, 38);
             btnExit.TabIndex = 5;
-            btnExit.Text = "Exit";
+            btnExit.Text = "Thoát";
             btnExit.UseVisualStyleBackColor = false;
             btnExit.Click += button_Exit;
             // 
             // btnDetail
             // 
             btnDetail.BackColor = System.Drawing.Color.Orange;
-            btnDetail.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnDetail.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnDetail.Location = new System.Drawing.Point(255, 365);
             btnDetail.Name = "btnDetail";
             btnDetail.Size = new System.Drawing.Size(75, 38);
             btnDetail.TabIndex = 7;
-            btnDetail.Text = "Detail";
+            btnDetail.Text = "Nội dung";
             btnDetail.UseVisualStyleBackColor = false;
             btnDetail.Click += button_Detail;
             // 
             // btnDelete
             // 
             btnDelete.BackColor = System.Drawing.Color.Orange;
-            btnDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnDelete.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnDelete.Location = new System.Drawing.Point(174, 365);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new System.Drawing.Size(75, 38);
             btnDelete.TabIndex = 6;
-            btnDelete.Text = "Delete";
+            btnDelete.Text = "Xóa";
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += button_Delete;
             // 
@@ -188,9 +188,9 @@
             label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label1.Location = new System.Drawing.Point(446, 53);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(49, 17);
+            label1.Size = new System.Drawing.Size(58, 17);
             label1.TabIndex = 8;
-            label1.Text = "Blog Id";
+            label1.Text = "Mã blog";
             // 
             // label2
             // 
@@ -198,9 +198,9 @@
             label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label2.Location = new System.Drawing.Point(446, 86);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(43, 17);
+            label2.Size = new System.Drawing.Size(28, 17);
             label2.TabIndex = 9;
-            label2.Text = "Name";
+            label2.Text = "Tên";
             // 
             // label3
             // 
@@ -208,9 +208,9 @@
             label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label3.Location = new System.Drawing.Point(446, 157);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(43, 17);
+            label3.Size = new System.Drawing.Size(66, 17);
             label3.TabIndex = 11;
-            label3.Text = "Status";
+            label3.Text = "Trạng thái";
             // 
             // label4
             // 
@@ -218,9 +218,9 @@
             label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label4.Location = new System.Drawing.Point(446, 122);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(35, 17);
+            label4.Size = new System.Drawing.Size(62, 17);
             label4.TabIndex = 10;
-            label4.Text = "Date";
+            label4.Text = "Thời gian";
             // 
             // label6
             // 
@@ -228,9 +228,9 @@
             label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label6.Location = new System.Drawing.Point(446, 191);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(74, 17);
+            label6.Size = new System.Drawing.Size(52, 17);
             label6.TabIndex = 12;
-            label6.Text = "Description";
+            label6.Text = "Miêu tả";
             // 
             // txtId
             // 
@@ -239,7 +239,6 @@
             txtId.Name = "txtId";
             txtId.Size = new System.Drawing.Size(427, 23);
             txtId.TabIndex = 14;
-            txtId.TextChanged += txtId_TextChanged;
             // 
             // txtName
             // 
@@ -248,7 +247,6 @@
             txtName.Name = "txtName";
             txtName.Size = new System.Drawing.Size(427, 23);
             txtName.TabIndex = 15;
-            txtName.TextChanged += txtName_TextChanged;
             // 
             // txtDate
             // 
@@ -264,7 +262,7 @@
             txtDesc.Location = new System.Drawing.Point(558, 190);
             txtDesc.Multiline = true;
             txtDesc.Name = "txtDesc";
-            txtDesc.Size = new System.Drawing.Size(247, 167);
+            txtDesc.Size = new System.Drawing.Size(427, 167);
             txtDesc.TabIndex = 18;
             // 
             // cbStatus
@@ -279,24 +277,24 @@
             // btnClear
             // 
             btnClear.BackColor = System.Drawing.Color.Orange;
-            btnClear.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnClear.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnClear.Location = new System.Drawing.Point(336, 365);
             btnClear.Name = "btnClear";
             btnClear.Size = new System.Drawing.Size(75, 38);
             btnClear.TabIndex = 20;
-            btnClear.Text = "Clear";
+            btnClear.Text = "Làm mới";
             btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += button_Clear;
             // 
             // cbbSort
             // 
             cbbSort.FormattingEnabled = true;
-            cbbSort.Items.AddRange(new object[] { "All", "From A to Z", "Blog true", "Blog false" });
+            cbbSort.Items.AddRange(new object[] { "Tất cả", "Từ A đến Z", "Blog hoạt động", "Blog không hoạt động" });
             cbbSort.Location = new System.Drawing.Point(667, 12);
             cbbSort.Name = "cbbSort";
             cbbSort.Size = new System.Drawing.Size(121, 23);
             cbbSort.TabIndex = 21;
-            cbbSort.Text = "All";
+            cbbSort.Text = "Tất cả";
             cbbSort.SelectedIndexChanged += ccbSort_SelectedIndexChanged;
             // 
             // BlogManagement
