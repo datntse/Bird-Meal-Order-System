@@ -16,17 +16,38 @@ namespace BMOSWinForm
     {
         BMOSContext _context;
         private string _fbId;
-        public FeedbackDetails(string fbid)
+        private string _type;
+        public FeedbackDetails(string fbid, string type)
         {
+            _type = type;
             _fbId = fbid;
             _context = new BMOSContext();
             InitializeComponent();
+            if (_type.Equals("details"))
+            {
+                txtidfb.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.FeedbackId).First();
+                txtidsp.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.ProductId).First();
+                txtname.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.Product.Name).First();
+                txtcontent.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.Content).First();
+                txtstar.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.Star).First().ToString();
+                txtdate.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.Date).First().ToString();
+
+                txtidfb.Enabled = false;
+                txtidsp.Enabled = false;
+                txtname.Enabled = false;
+                txtcontent.Enabled = false;
+                txtstar.Enabled = false;
+                txtdate.Enabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn dòng để thực hiện hành động này.", "Thông báo", MessageBoxButtons.OK);
+            }
         }
 
-        private void FeedbackDetails_Load(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
-            textBox1.Text = _fbId;
+            this.Close();
         }
     }
 }

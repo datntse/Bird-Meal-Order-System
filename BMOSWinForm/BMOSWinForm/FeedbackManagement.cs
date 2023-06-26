@@ -93,32 +93,25 @@ namespace BMOSWinForm
         private void dgvFeedbackList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             txt_id.Enabled = false;
-            var orderId = dgvFeedbackList[0, e.RowIndex].Value;
-            var order = _db.TblFeedbacks.Where(o => o.FeedbackId.Equals(orderId)).FirstOrDefault();
-            if (order != null)
-            {
-                txt_id.Text = order.FeedbackId;
-            }
+            if (e.RowIndex == -1) return;
+            int index = e.RowIndex;
+            DataGridViewRow username = dgvFeedbackList.Rows[index];
+            txt_id.Text = username.Cells[0].Value.ToString();
         }
 
         private void txtdetails_Click(object sender, EventArgs e)
         {
-            try
+            string id = txt_id.Text;
+            if (id != null && id != "")
             {
-                if (txt_id.Text == null)
-                {
-                    var fbId = txt_id.Text;
-                    FeedbackDetails fbdetails = new FeedbackDetails(fbId);
-                    fbdetails.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Khong Thanh Cong");
-                }
+                string type = "details";
+                txt_id.Text = "";
+                Form form = new FeedbackDetails(id, type);
+                form.ShowDialog();
             }
-            catch
+            else
             {
-                MessageBox.Show("Khong Thanh Cong");
+                MessageBox.Show("Vui lòng chọn dòng để thực hiện hành động này.", "Thông báo", MessageBoxButtons.OK);
             }
 
         }
