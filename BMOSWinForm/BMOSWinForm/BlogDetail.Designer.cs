@@ -198,6 +198,7 @@
             Controls.Add(label1);
             Controls.Add(btnExit);
             Name = "BlogDetail";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "BlogDetail";
             Load += BlogDetail_Load;
             ResumeLayout(false);
