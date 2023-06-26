@@ -77,12 +77,15 @@ namespace BMOSWinForm
         {
             try
             {
-                MessageBox.Show("are you sure", "Confirm", MessageBoxButtons.YesNo);
-                var index = _db.TblFeedbacks.Where(i => i.FeedbackId == txt_id.Text).FirstOrDefault();
-                _db.TblFeedbacks.Remove(index);
-                _db.SaveChanges();
-                getlist();
-                MessageBox.Show("Thanh Cong");
+                var result = MessageBox.Show("are you sure", "Confirm", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    var index = _db.TblFeedbacks.Where(i => i.FeedbackId == txt_id.Text).FirstOrDefault();
+                    _db.TblFeedbacks.Remove(index);
+                    _db.SaveChanges();
+                    getlist();
+                    MessageBox.Show("Thanh Cong");
+                }
             }
             catch
             {
@@ -120,6 +123,7 @@ namespace BMOSWinForm
         {
             this.Close();
         }
+
     }
 
 }
