@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BMOSWinForm
 {
@@ -24,27 +25,10 @@ namespace BMOSWinForm
             _db = new BMOSContext();
         }
 
-
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void BlogManagement_Load(object sender, EventArgs e)
         {
             dgvBlog.DataSource = _db.TblBlogs.ToList();
             txtId.Enabled = false;
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button_Exit(object sender, EventArgs e)
@@ -54,7 +38,16 @@ namespace BMOSWinForm
 
         private void button_Detail(object sender, EventArgs e)
         {
-
+            try
+            {
+                var id = txtId.Text;
+                var blog = _db.TblBlogs.Find(id);
+                MessageBox.Show(blog.Description);
+            }
+            catch
+            {
+                MessageBox.Show("Vui lòng chọn blog!");
+            }
         }
 
         private void button_Delete(object sender, EventArgs e)
@@ -62,7 +55,7 @@ namespace BMOSWinForm
             try
             {
 
-                var result = MessageBox.Show("Are you sure", "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = MessageBox.Show("Bạn có chắc chắc muốn xóa blog?", "Xác nhận", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     var id = txtId.Text;
@@ -70,12 +63,12 @@ namespace BMOSWinForm
                     _db.TblBlogs.Remove(blogs);
                     _db.SaveChanges();
                     dgvBlog.DataSource = _db.TblBlogs.ToList();
-                    MessageBox.Show("Thanh Cong");
+                    MessageBox.Show("Xóa blog thành công!");
                 }
             }
             catch
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Vui lòng chọn blog để xóa!");
             }
         }
 
@@ -91,12 +84,12 @@ namespace BMOSWinForm
                 blog.Date = DateTime.Parse(txtDate.Text);
                 _db.SaveChanges();
                 dgvBlog.DataSource = _db.TblBlogs.ToList();
-                MessageBox.Show("Thanh Cong");
+                MessageBox.Show("Chỉnh sửa blog thành công!");
 
             }
             catch
             {
-                MessageBox.Show("Khong Thanh Cong");
+                MessageBox.Show("Vui lòng chọn blog để chỉnh sửa!");
             }
         }
 
@@ -124,30 +117,39 @@ namespace BMOSWinForm
                     _db.TblBlogs.Add(blogs);
                     _db.SaveChanges();
                     dgvBlog.DataSource = _db.TblBlogs.ToList();
-                    MessageBox.Show("Thanh Cong");
+                    MessageBox.Show("Thêm blog thành công!");
                 }
-                else { MessageBox.Show("Please type in!"); }
+                else { MessageBox.Show("Vui lòng điền dữ liệu!"); }
             }
             catch
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Thêm blog thất bại!");
             }
         }
 
 
         private void button_Search(object sender, EventArgs e)
         {
-
-        }
-
-
-        private void dgvBlog_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            string searchKeyword = txtSearch.Text.Trim();
+            if (!string.IsNullOrEmpty(searchKeyword))
+            {
+                var result = from blog in _db.TblBlogs
+                             where blog.Name.Contains(searchKeyword)
+                             select new
+                             {
+                                 BlogId = blog.BlogId,
+                                 Name = blog.Name,
+                                 Description = blog.Description,
+                                 Date = blog.Date,
+                                 Status = blog.Status
+                             };
+                dgvBlog.DataSource = new BindingSource { DataSource = result.ToList() };
+            }
         }
 
         private void button_Clear(object sender, EventArgs e)
         {
+            dgvBlog.DataSource = _db.TblBlogs.ToList();
             txtId.Text = null;
             txtName.Text = null;
             cbStatus.Checked = false;
@@ -155,7 +157,10 @@ namespace BMOSWinForm
             txtDesc.Text = null;
             txtId.Enabled = true;
             btnAdd.Enabled = true;
+            txtSearch.Text = null;
+            cbbSort.SelectedIndex = 0;
         }
+
 
         private void dgvBlog_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
@@ -174,8 +179,104 @@ namespace BMOSWinForm
 
             catch
             {
-                MessageBox.Show("Thao tac qua nhanh");
+                MessageBox.Show("Thao tác quá nhanh vui lòng thử lại!");
             }
         }
+
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string searchKeyword = txtSearch.Text.Trim();
+            if (!string.IsNullOrEmpty(searchKeyword))
+            {
+                var result = from blog in _db.TblBlogs
+                             where blog.Name.Contains(searchKeyword)
+                             select new
+                             {
+                                 BlogId = blog.BlogId,
+                                 Name = blog.Name,
+                                 Description = blog.Description,
+                                 Date = blog.Date,
+                                 Status = blog.Status
+                             };
+                dgvBlog.DataSource = new BindingSource { DataSource = result.ToList() };
+            }
+        }
+
+        private void ccbSort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string sortOption = cbbSort.SelectedItem?.ToString() ?? "";
+            if (!string.IsNullOrEmpty(sortOption))
+            {
+                switch (sortOption)
+                {
+                    case "Blog true":
+                        var statusTrueResult = from blog in _db.TblBlogs
+                                               where blog.Status == true
+                                               orderby blog.BlogId ascending
+                                               select new
+                                               {
+                                                   BlogId = blog.BlogId,
+                                                   Name = blog.Name,
+                                                   Description = blog.Description,
+                                                   Date = blog.Date,
+                                                   Status = blog.Status
+                                               };
+                        dgvBlog.DataSource = statusTrueResult.ToList();
+                        break;
+                    case "Blog false":
+                        var statusFalseResult = from blog in _db.TblBlogs
+                                                where blog.Status == false
+                                                orderby blog.BlogId ascending
+                                                select new
+                                                {
+                                                    BlogId = blog.BlogId,
+                                                    Name = blog.Name,
+                                                    Description = blog.Description,
+                                                    Date = blog.Date,
+                                                    Status = blog.Status
+                                                };
+                        dgvBlog.DataSource = statusFalseResult.ToList();
+                        break;
+                    case "All":
+                        var statusAllResult = from blog in _db.TblBlogs
+                                              select new
+                                              {
+                                                  BlogId = blog.BlogId,
+                                                  Name = blog.Name,
+                                                  Description = blog.Description,
+                                                  Date = blog.Date,
+                                                  Status = blog.Status
+                                              };
+                        dgvBlog.DataSource = statusAllResult.ToList();
+                        break;
+                    case "From A to Z":
+                        var statusFromAtoZResult = from blog in _db.TblBlogs
+
+                                                   orderby blog.Name ascending
+                                                   select new
+                                                   {
+                                                       BlogId = blog.BlogId,
+                                                       Name = blog.Name,
+                                                       Description = blog.Description,
+                                                       Date = blog.Date,
+                                                       Status = blog.Status
+                                                   };
+                        dgvBlog.DataSource = statusFromAtoZResult.ToList();
+                        break;
+                }
+            }
+        }
+
+        private void txtId_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
+
 }
