@@ -205,14 +205,15 @@ namespace BMOSWinForm
 
         private void ccbSort_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string searchKeyword = txtSearch.Text.Trim();
             string sortOption = cbbSort.SelectedItem?.ToString() ?? "";
             if (!string.IsNullOrEmpty(sortOption))
             {
                 switch (sortOption)
                 {
-                    case "Blog true":
+                    case "Blog hoạt động":
                         var statusTrueResult = from blog in _db.TblBlogs
-                                               where blog.Status == true
+                                               where blog.Status == true && blog.Name.Contains(searchKeyword)
                                                orderby blog.BlogId ascending
                                                select new
                                                {
@@ -224,9 +225,9 @@ namespace BMOSWinForm
                                                };
                         dgvBlog.DataSource = statusTrueResult.ToList();
                         break;
-                    case "Blog false":
+                    case "Blog không hoạt động":
                         var statusFalseResult = from blog in _db.TblBlogs
-                                                where blog.Status == false
+                                                where blog.Status == false && blog.Name.Contains(searchKeyword)
                                                 orderby blog.BlogId ascending
                                                 select new
                                                 {
@@ -238,7 +239,7 @@ namespace BMOSWinForm
                                                 };
                         dgvBlog.DataSource = statusFalseResult.ToList();
                         break;
-                    case "All":
+                    case "Tất cả":
                         var statusAllResult = from blog in _db.TblBlogs
                                               select new
                                               {
@@ -250,9 +251,9 @@ namespace BMOSWinForm
                                               };
                         dgvBlog.DataSource = statusAllResult.ToList();
                         break;
-                    case "From A to Z":
+                    case "Từ A đến Z":
                         var statusFromAtoZResult = from blog in _db.TblBlogs
-
+                                                   where blog.Name.Contains(searchKeyword)
                                                    orderby blog.Name ascending
                                                    select new
                                                    {
@@ -266,16 +267,6 @@ namespace BMOSWinForm
                         break;
                 }
             }
-        }
-
-        private void txtId_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtName_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 
