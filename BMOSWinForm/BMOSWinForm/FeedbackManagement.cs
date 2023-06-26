@@ -73,6 +73,7 @@ namespace BMOSWinForm
         private void btrs_Click(object sender, EventArgs e)
         {
             txtSearch.Clear();
+            comboBox1.SelectedItem = "Tất cả sản phẩm";
             getlist();
         }
 
@@ -112,8 +113,9 @@ namespace BMOSWinForm
             {
                 string type = "details";
                 txt_id.Text = "";
-                Form form = new FeedbackDetails(id, type);
+                FeedbackDetails form = new FeedbackDetails(id, type);
                 form.ShowDialog();
+                getlist();
             }
             else
             {
