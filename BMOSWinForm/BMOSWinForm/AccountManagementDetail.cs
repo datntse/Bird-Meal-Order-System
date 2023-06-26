@@ -1,6 +1,7 @@
 ﻿using Azure.Identity;
 using Microsoft.VisualBasic.ApplicationServices;
 using Repository.Models.Entities;
+using Repository.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,11 +21,13 @@ namespace BMOSWinForm
         private string _username;
         private string _type;
         BMOSContext _db;
+        TblUserServices _userServices;
         TblUser _user;
         public AccountManagementDetail()
         {
             InitializeComponent();
             _db = new BMOSContext();
+            _userServices = new TblUserServices();
             _user = new TblUser();
         }
 
@@ -55,7 +59,7 @@ namespace BMOSWinForm
                     txtRole.Text = "Khách hàng";
                 }
 
-                bool status = (bool)_db.TblUsers.Where(p => p.Username.Equals(_username)).Select(p => p.Status).First();
+                bool status = (bool) _db.TblUsers.Where(p => p.Username.Equals(_username)).Select(p => p.Status).First();
                 if (status)
                 {
                     txtStatus.Text = "Hoạt động";
@@ -148,25 +152,26 @@ namespace BMOSWinForm
         }
 
         private void btnAddReal_Click(object sender, EventArgs e)
-        {          
+        {
             _user.Firstname = txtFirst.Text;
             _user.Lastname = txtLast.Text;
             _user.Address = txtAddress.Text;
             _user.Numberphone = txtPhone.Text;
             _user.Username = txtEmail.Text;
             _user.Password = txtPass.Text;
-            _user.UserRoleId = 2;
-            _user.Status = true;
-            _user.DateCreate = DateTime.Now;
-            _user.LastActivitty = DateTime.Now;
-            _user.Point = 0;
 
             _db.TblUsers.Add(_user);
             _db.SaveChanges();
-            
+
             this.Hide();
             Form form = new Management();
             form.ShowDialog();
+        }
+
+        private void txtStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string option = txtStatus.SelectedItem.ToString();
+
         }
     }
 }

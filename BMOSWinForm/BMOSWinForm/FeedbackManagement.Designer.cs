@@ -28,25 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             label2 = new System.Windows.Forms.Label();
             txt_id = new System.Windows.Forms.TextBox();
             button3 = new System.Windows.Forms.Button();
             btndelete = new System.Windows.Forms.Button();
             dgvFeedbackList = new System.Windows.Forms.DataGridView();
+            tblFeedbackBindingSource = new System.Windows.Forms.BindingSource(components);
             groupBox1 = new System.Windows.Forms.GroupBox();
             btrs = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             searchBtn = new System.Windows.Forms.Button();
             txtSearch = new System.Windows.Forms.TextBox();
             txtdetails = new System.Windows.Forms.Button();
-            mafb = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            masp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            content = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            star = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            tblFeedbackBindingSource1 = new System.Windows.Forms.BindingSource(components);
+            feedbackIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            productIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            productDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            contentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            starDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvFeedbackList).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tblFeedbackBindingSource).BeginInit();
             groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tblFeedbackBindingSource1).BeginInit();
             SuspendLayout();
             // 
             // label2
@@ -91,18 +96,28 @@
             // 
             // dgvFeedbackList
             // 
+            dgvFeedbackList.AllowUserToAddRows = false;
+            dgvFeedbackList.AllowUserToDeleteRows = false;
+            dgvFeedbackList.AutoGenerateColumns = false;
             dgvFeedbackList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dgvFeedbackList.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             dgvFeedbackList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvFeedbackList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { mafb, masp, name, content, star, date });
+            dgvFeedbackList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { feedbackIdDataGridViewTextBoxColumn, productIdDataGridViewTextBoxColumn, productDataGridViewTextBoxColumn, contentDataGridViewTextBoxColumn, starDataGridViewTextBoxColumn, dateDataGridViewTextBoxColumn });
+            dgvFeedbackList.DataSource = tblFeedbackBindingSource1;
             dgvFeedbackList.Location = new System.Drawing.Point(11, 99);
             dgvFeedbackList.Margin = new System.Windows.Forms.Padding(2);
             dgvFeedbackList.Name = "dgvFeedbackList";
+            dgvFeedbackList.ReadOnly = true;
             dgvFeedbackList.RowHeadersWidth = 62;
             dgvFeedbackList.RowTemplate.Height = 33;
             dgvFeedbackList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dgvFeedbackList.Size = new System.Drawing.Size(895, 383);
             dgvFeedbackList.TabIndex = 6;
             dgvFeedbackList.CellContentClick += dgvFeedbackList_CellContentClick;
+            // 
+            // tblFeedbackBindingSource
+            // 
+            tblFeedbackBindingSource.DataSource = typeof(Repository.Models.Entities.TblFeedback);
             // 
             // groupBox1
             // 
@@ -168,53 +183,57 @@
             txtdetails.UseVisualStyleBackColor = true;
             txtdetails.Click += txtdetails_Click;
             // 
-            // mafb
+            // tblFeedbackBindingSource1
             // 
-            mafb.DataPropertyName = "idfb";
-            mafb.FillWeight = 30F;
-            mafb.HeaderText = "Mã Feedback";
-            mafb.MinimumWidth = 6;
-            mafb.Name = "mafb";
+            tblFeedbackBindingSource1.DataSource = typeof(Repository.Models.Entities.TblFeedback);
             // 
-            // masp
+            // feedbackIdDataGridViewTextBoxColumn
             // 
-            masp.DataPropertyName = "idpro";
-            masp.FillWeight = 32F;
-            masp.HeaderText = "Mã sản phẩm";
-            masp.MinimumWidth = 6;
-            masp.Name = "masp";
+            feedbackIdDataGridViewTextBoxColumn.DataPropertyName = "FeedbackId";
+            feedbackIdDataGridViewTextBoxColumn.HeaderText = "FeedbackId";
+            feedbackIdDataGridViewTextBoxColumn.MinimumWidth = 6;
+            feedbackIdDataGridViewTextBoxColumn.Name = "feedbackIdDataGridViewTextBoxColumn";
+            feedbackIdDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // name
+            // productIdDataGridViewTextBoxColumn
             // 
-            name.DataPropertyName = "name";
-            name.FillWeight = 74.00011F;
-            name.HeaderText = "Tên sản phẩm";
-            name.MinimumWidth = 6;
-            name.Name = "name";
+            productIdDataGridViewTextBoxColumn.DataPropertyName = "ProductId";
+            productIdDataGridViewTextBoxColumn.HeaderText = "ProductId";
+            productIdDataGridViewTextBoxColumn.MinimumWidth = 6;
+            productIdDataGridViewTextBoxColumn.Name = "productIdDataGridViewTextBoxColumn";
+            productIdDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // content
+            // productDataGridViewTextBoxColumn
             // 
-            content.DataPropertyName = "content";
-            content.FillWeight = 74.00011F;
-            content.HeaderText = "Đánh giá";
-            content.MinimumWidth = 6;
-            content.Name = "content";
+            productDataGridViewTextBoxColumn.DataPropertyName = "Product.Name";
+            productDataGridViewTextBoxColumn.HeaderText = "Product";
+            productDataGridViewTextBoxColumn.MinimumWidth = 6;
+            productDataGridViewTextBoxColumn.Name = "productDataGridViewTextBoxColumn";
+            productDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // star
+            // contentDataGridViewTextBoxColumn
             // 
-            star.DataPropertyName = "star";
-            star.FillWeight = 20F;
-            star.HeaderText = "Sao";
-            star.MinimumWidth = 6;
-            star.Name = "star";
+            contentDataGridViewTextBoxColumn.DataPropertyName = "Content";
+            contentDataGridViewTextBoxColumn.HeaderText = "Content";
+            contentDataGridViewTextBoxColumn.MinimumWidth = 6;
+            contentDataGridViewTextBoxColumn.Name = "contentDataGridViewTextBoxColumn";
+            contentDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // date
+            // starDataGridViewTextBoxColumn
             // 
-            date.DataPropertyName = "date";
-            date.FillWeight = 74.00011F;
-            date.HeaderText = "Thời gian";
-            date.MinimumWidth = 6;
-            date.Name = "date";
+            starDataGridViewTextBoxColumn.DataPropertyName = "Star";
+            starDataGridViewTextBoxColumn.HeaderText = "Star";
+            starDataGridViewTextBoxColumn.MinimumWidth = 6;
+            starDataGridViewTextBoxColumn.Name = "starDataGridViewTextBoxColumn";
+            starDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            dateDataGridViewTextBoxColumn.MinimumWidth = 6;
+            dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            dateDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FeedbackManagement
             // 
@@ -233,8 +252,10 @@
             Text = "FeedbackManagement";
             Load += FeedbackManagement_Load;
             ((System.ComponentModel.ISupportInitialize)dgvFeedbackList).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tblFeedbackBindingSource).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tblFeedbackBindingSource1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -253,11 +274,13 @@
         private System.Windows.Forms.Button btnRs;
         private System.Windows.Forms.Button btrs;
         private System.Windows.Forms.Button txtdetails;
-        private System.Windows.Forms.DataGridViewTextBoxColumn mafb;
-        private System.Windows.Forms.DataGridViewTextBoxColumn masp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn content;
-        private System.Windows.Forms.DataGridViewTextBoxColumn star;
-        private System.Windows.Forms.DataGridViewTextBoxColumn date;
+        private System.Windows.Forms.BindingSource tblFeedbackBindingSource;
+        private System.Windows.Forms.BindingSource tblFeedbackBindingSource1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn feedbackIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contentDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn starDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
     }
 }
