@@ -149,6 +149,7 @@ namespace BMOSWinForm
 
         private void button_Clear(object sender, EventArgs e)
         {
+            dgvBlog.DataSource = _db.TblBlogs.ToList();
             txtId.Text = null;
             txtName.Text = null;
             cbStatus.Checked = false;
@@ -156,6 +157,8 @@ namespace BMOSWinForm
             txtDesc.Text = null;
             txtId.Enabled = true;
             btnAdd.Enabled = true;
+            txtSearch.Text = null;
+            cbbSort.SelectedIndex = 0;
         }
 
 
@@ -234,6 +237,32 @@ namespace BMOSWinForm
                                                     Status = blog.Status
                                                 };
                         dgvBlog.DataSource = statusFalseResult.ToList();
+                        break;
+                    case "All":
+                        var statusAllResult = from blog in _db.TblBlogs
+                                              select new
+                                              {
+                                                  BlogId = blog.BlogId,
+                                                  Name = blog.Name,
+                                                  Description = blog.Description,
+                                                  Date = blog.Date,
+                                                  Status = blog.Status
+                                              };
+                        dgvBlog.DataSource = statusAllResult.ToList();
+                        break;
+                    case "From A to Z":
+                        var statusFromAtoZResult = from blog in _db.TblBlogs
+
+                                                   orderby blog.Name ascending
+                                              select new
+                                              {
+                                                  BlogId = blog.BlogId,
+                                                  Name = blog.Name,
+                                                  Description = blog.Description,
+                                                  Date = blog.Date,
+                                                  Status = blog.Status
+                                              };
+                        dgvBlog.DataSource = statusFromAtoZResult.ToList();
                         break;
                 }
             }
