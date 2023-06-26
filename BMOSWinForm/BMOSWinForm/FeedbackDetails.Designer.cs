@@ -41,6 +41,7 @@
             label6 = new System.Windows.Forms.Label();
             txtidfb = new System.Windows.Forms.TextBox();
             button1 = new System.Windows.Forms.Button();
+            button2 = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // txtname
@@ -75,15 +76,16 @@
             // 
             txtcontent.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             txtcontent.Location = new System.Drawing.Point(243, 209);
+            txtcontent.Multiline = true;
             txtcontent.Name = "txtcontent";
-            txtcontent.Size = new System.Drawing.Size(451, 34);
+            txtcontent.Size = new System.Drawing.Size(451, 81);
             txtcontent.TabIndex = 2;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label3.Location = new System.Drawing.Point(88, 289);
+            label3.Location = new System.Drawing.Point(88, 315);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(56, 35);
             label3.TabIndex = 5;
@@ -92,7 +94,7 @@
             // txtstar
             // 
             txtstar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            txtstar.Location = new System.Drawing.Point(195, 291);
+            txtstar.Location = new System.Drawing.Point(195, 317);
             txtstar.Name = "txtstar";
             txtstar.Size = new System.Drawing.Size(105, 34);
             txtstar.TabIndex = 4;
@@ -101,7 +103,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label4.Location = new System.Drawing.Point(325, 291);
+            label4.Location = new System.Drawing.Point(325, 317);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(118, 35);
             label4.TabIndex = 7;
@@ -110,7 +112,7 @@
             // txtdate
             // 
             txtdate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            txtdate.Location = new System.Drawing.Point(449, 291);
+            txtdate.Location = new System.Drawing.Point(449, 317);
             txtdate.Name = "txtdate";
             txtdate.Size = new System.Drawing.Size(245, 34);
             txtdate.TabIndex = 6;
@@ -153,19 +155,35 @@
             // 
             // button1
             // 
-            button1.Location = new System.Drawing.Point(558, 368);
+            button1.BackColor = System.Drawing.SystemColors.ControlLight;
+            button1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            button1.Location = new System.Drawing.Point(464, 381);
             button1.Name = "button1";
             button1.Size = new System.Drawing.Size(122, 57);
             button1.TabIndex = 12;
-            button1.Text = "Cancel";
-            button1.UseVisualStyleBackColor = true;
+            button1.Text = "Hủy";
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
+            // 
+            // button2
+            // 
+            button2.BackColor = System.Drawing.Color.OrangeRed;
+            button2.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            button2.ForeColor = System.Drawing.SystemColors.ControlText;
+            button2.Location = new System.Drawing.Point(243, 381);
+            button2.Name = "button2";
+            button2.Size = new System.Drawing.Size(122, 57);
+            button2.TabIndex = 13;
+            button2.Text = "Xóa";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // FeedbackDetails
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(800, 450);
+            Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label5);
             Controls.Add(txtidsp);
@@ -200,5 +218,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtidfb;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

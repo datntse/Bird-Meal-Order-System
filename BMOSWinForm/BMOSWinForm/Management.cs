@@ -51,11 +51,9 @@ namespace BMOSWinForm
             btnOrder.BackColor = SystemColors.ActiveCaptionText;
             btnBlog.BackColor = SystemColors.ActiveCaptionText;
             btnFeedback.BackColor = SystemColors.ActiveCaptionText;
-            btnMsg.BackColor = SystemColors.ActiveCaptionText;
             btnHome.BackColor = SystemColors.ActiveCaptionText;
 
             btnAcc.BackColor = Color.Chocolate;
-            pic2.BackColor = Color.Chocolate;
         }
 
         private void btnProduct_Click(object sender, EventArgs e)
@@ -65,10 +63,8 @@ namespace BMOSWinForm
             btnOrder.BackColor = SystemColors.ActiveCaptionText;
             btnBlog.BackColor = SystemColors.ActiveCaptionText;
             btnFeedback.BackColor = SystemColors.ActiveCaptionText;
-            btnMsg.BackColor = SystemColors.ActiveCaptionText;
             btnHome.BackColor = SystemColors.ActiveCaptionText;
 
-            pic2.BackColor = SystemColors.ActiveCaptionText;
 
             btnProduct.BackColor = Color.Chocolate;
         }
@@ -80,10 +76,8 @@ namespace BMOSWinForm
             btnProduct.BackColor = SystemColors.ActiveCaptionText;
             btnBlog.BackColor = SystemColors.ActiveCaptionText;
             btnFeedback.BackColor = SystemColors.ActiveCaptionText;
-            btnMsg.BackColor = SystemColors.ActiveCaptionText;
             btnHome.BackColor = SystemColors.ActiveCaptionText;
 
-            pic2.BackColor = SystemColors.ActiveCaptionText;
 
             btnOrder.BackColor = Color.Chocolate;
         }
@@ -95,10 +89,8 @@ namespace BMOSWinForm
             btnProduct.BackColor = SystemColors.ActiveCaptionText;
             btnOrder.BackColor = SystemColors.ActiveCaptionText;
             btnFeedback.BackColor = SystemColors.ActiveCaptionText;
-            btnMsg.BackColor = SystemColors.ActiveCaptionText;
             btnHome.BackColor = SystemColors.ActiveCaptionText;
 
-            pic2.BackColor = SystemColors.ActiveCaptionText;
 
             btnBlog.BackColor = Color.Chocolate;
         }
@@ -110,10 +102,8 @@ namespace BMOSWinForm
             btnProduct.BackColor = SystemColors.ActiveCaptionText;
             btnOrder.BackColor = SystemColors.ActiveCaptionText;
             btnBlog.BackColor = SystemColors.ActiveCaptionText;
-            btnMsg.BackColor = SystemColors.ActiveCaptionText;
             btnHome.BackColor = SystemColors.ActiveCaptionText;
 
-            pic2.BackColor = SystemColors.ActiveCaptionText;
 
             btnFeedback.BackColor = Color.Chocolate;
         }
@@ -129,9 +119,6 @@ namespace BMOSWinForm
             btnFeedback.BackColor = SystemColors.ActiveCaptionText;
             btnHome.BackColor = SystemColors.ActiveCaptionText;
 
-            pic2.BackColor = SystemColors.ActiveCaptionText;
-
-            btnMsg.BackColor = Color.Chocolate;
         }
 
         private void btnHome_Click(object sender, EventArgs e)
@@ -146,9 +133,6 @@ namespace BMOSWinForm
             btnOrder.BackColor = SystemColors.ActiveCaptionText;
             btnBlog.BackColor = SystemColors.ActiveCaptionText;
             btnFeedback.BackColor = SystemColors.ActiveCaptionText;
-            btnMsg.BackColor = SystemColors.ActiveCaptionText;
-
-            pic2.BackColor = SystemColors.ActiveCaptionText;
 
             btnHome.BackColor = Color.Chocolate;
         }
