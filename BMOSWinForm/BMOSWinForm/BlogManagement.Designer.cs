@@ -31,10 +31,6 @@
             txtSearch = new System.Windows.Forms.TextBox();
             btnSearch = new System.Windows.Forms.Button();
             dgvBlog = new System.Windows.Forms.DataGridView();
-            blog_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             btnAdd = new System.Windows.Forms.Button();
             btnEdit = new System.Windows.Forms.Button();
             btnExit = new System.Windows.Forms.Button();
@@ -52,6 +48,10 @@
             cbStatus = new System.Windows.Forms.CheckBox();
             btnClear = new System.Windows.Forms.Button();
             cbbSort = new System.Windows.Forms.ComboBox();
+            blog_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvBlog).BeginInit();
             SuspendLayout();
             // 
@@ -86,41 +86,9 @@
             dgvBlog.Name = "dgvBlog";
             dgvBlog.ReadOnly = true;
             dgvBlog.RowTemplate.Height = 25;
-            dgvBlog.Size = new System.Drawing.Size(418, 305);
+            dgvBlog.Size = new System.Drawing.Size(479, 305);
             dgvBlog.TabIndex = 2;
             dgvBlog.RowEnter += dgvBlog_RowEnter;
-            // 
-            // blog_id
-            // 
-            blog_id.DataPropertyName = "BlogId";
-            blog_id.HeaderText = "Id";
-            blog_id.Name = "blog_id";
-            blog_id.ReadOnly = true;
-            blog_id.Width = 40;
-            // 
-            // name
-            // 
-            name.DataPropertyName = "Name";
-            name.HeaderText = "Name";
-            name.Name = "name";
-            name.ReadOnly = true;
-            name.Width = 220;
-            // 
-            // date
-            // 
-            date.DataPropertyName = "Date";
-            date.HeaderText = "Date";
-            date.Name = "date";
-            date.ReadOnly = true;
-            date.Width = 70;
-            // 
-            // status
-            // 
-            status.DataPropertyName = "Status";
-            status.HeaderText = "Status";
-            status.Name = "status";
-            status.ReadOnly = true;
-            status.Width = 45;
             // 
             // btnAdd
             // 
@@ -186,7 +154,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label1.Location = new System.Drawing.Point(446, 53);
+            label1.Location = new System.Drawing.Point(514, 53);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(58, 17);
             label1.TabIndex = 8;
@@ -196,7 +164,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label2.Location = new System.Drawing.Point(446, 86);
+            label2.Location = new System.Drawing.Point(514, 86);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(28, 17);
             label2.TabIndex = 9;
@@ -206,7 +174,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label3.Location = new System.Drawing.Point(446, 157);
+            label3.Location = new System.Drawing.Point(514, 157);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(66, 17);
             label3.TabIndex = 11;
@@ -216,7 +184,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label4.Location = new System.Drawing.Point(446, 122);
+            label4.Location = new System.Drawing.Point(514, 122);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(62, 17);
             label4.TabIndex = 10;
@@ -226,7 +194,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label6.Location = new System.Drawing.Point(446, 191);
+            label6.Location = new System.Drawing.Point(514, 191);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(52, 17);
             label6.TabIndex = 12;
@@ -235,40 +203,40 @@
             // txtId
             // 
             txtId.ForeColor = System.Drawing.SystemColors.MenuText;
-            txtId.Location = new System.Drawing.Point(558, 52);
+            txtId.Location = new System.Drawing.Point(582, 52);
             txtId.Name = "txtId";
-            txtId.Size = new System.Drawing.Size(427, 23);
+            txtId.Size = new System.Drawing.Size(403, 23);
             txtId.TabIndex = 14;
             // 
             // txtName
             // 
             txtName.ForeColor = System.Drawing.SystemColors.MenuText;
-            txtName.Location = new System.Drawing.Point(558, 85);
+            txtName.Location = new System.Drawing.Point(582, 85);
             txtName.Name = "txtName";
-            txtName.Size = new System.Drawing.Size(427, 23);
+            txtName.Size = new System.Drawing.Size(403, 23);
             txtName.TabIndex = 15;
             // 
             // txtDate
             // 
             txtDate.ForeColor = System.Drawing.SystemColors.MenuText;
-            txtDate.Location = new System.Drawing.Point(558, 121);
+            txtDate.Location = new System.Drawing.Point(582, 121);
             txtDate.Name = "txtDate";
-            txtDate.Size = new System.Drawing.Size(427, 23);
+            txtDate.Size = new System.Drawing.Size(403, 23);
             txtDate.TabIndex = 16;
             // 
             // txtDesc
             // 
             txtDesc.ForeColor = System.Drawing.SystemColors.MenuText;
-            txtDesc.Location = new System.Drawing.Point(558, 190);
+            txtDesc.Location = new System.Drawing.Point(582, 190);
             txtDesc.Multiline = true;
             txtDesc.Name = "txtDesc";
-            txtDesc.Size = new System.Drawing.Size(427, 167);
+            txtDesc.Size = new System.Drawing.Size(403, 167);
             txtDesc.TabIndex = 18;
             // 
             // cbStatus
             // 
             cbStatus.AutoSize = true;
-            cbStatus.Location = new System.Drawing.Point(558, 160);
+            cbStatus.Location = new System.Drawing.Point(586, 160);
             cbStatus.Name = "cbStatus";
             cbStatus.Size = new System.Drawing.Size(15, 14);
             cbStatus.TabIndex = 19;
@@ -297,6 +265,38 @@
             cbbSort.Text = "Tất cả";
             cbbSort.SelectedIndexChanged += ccbSort_SelectedIndexChanged;
             // 
+            // blog_id
+            // 
+            blog_id.DataPropertyName = "BlogId";
+            blog_id.HeaderText = "Mã blog";
+            blog_id.Name = "blog_id";
+            blog_id.ReadOnly = true;
+            blog_id.Width = 75;
+            // 
+            // name
+            // 
+            name.DataPropertyName = "Name";
+            name.HeaderText = "Tên";
+            name.Name = "name";
+            name.ReadOnly = true;
+            name.Width = 210;
+            // 
+            // date
+            // 
+            date.DataPropertyName = "Date";
+            date.HeaderText = "Thời gian";
+            date.Name = "date";
+            date.ReadOnly = true;
+            date.Width = 82;
+            // 
+            // status
+            // 
+            status.DataPropertyName = "Status";
+            status.HeaderText = "Trạng thái";
+            status.Name = "status";
+            status.ReadOnly = true;
+            status.Width = 85;
+            // 
             // BlogManagement
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -323,7 +323,7 @@
             Controls.Add(btnSearch);
             Controls.Add(txtSearch);
             Name = "BlogManagement";
-            Text = "BlogManagement";
+            Text = "Quản lí blog";
             Load += BlogManagement_Load;
             ((System.ComponentModel.ISupportInitialize)dgvBlog).EndInit();
             ResumeLayout(false);
