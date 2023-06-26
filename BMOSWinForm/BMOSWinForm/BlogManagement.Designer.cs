@@ -51,26 +51,27 @@
             txtDesc = new System.Windows.Forms.TextBox();
             cbStatus = new System.Windows.Forms.CheckBox();
             btnClear = new System.Windows.Forms.Button();
+            cbbSort = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvBlog).BeginInit();
             SuspendLayout();
             // 
             // txtSearch
             // 
             txtSearch.ForeColor = System.Drawing.SystemColors.MenuText;
-            txtSearch.Location = new System.Drawing.Point(84, 28);
+            txtSearch.Location = new System.Drawing.Point(12, 29);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new System.Drawing.Size(524, 23);
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Enter key word...";
-            txtSearch.TextChanged += textBox1_TextChanged;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // btnSearch
             // 
             btnSearch.BackColor = System.Drawing.Color.Orange;
-            btnSearch.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            btnSearch.Location = new System.Drawing.Point(642, 19);
+            btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSearch.Location = new System.Drawing.Point(542, 29);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new System.Drawing.Size(75, 38);
+            btnSearch.Size = new System.Drawing.Size(75, 23);
             btnSearch.TabIndex = 1;
             btnSearch.Text = "Search";
             btnSearch.UseVisualStyleBackColor = false;
@@ -88,7 +89,6 @@
             dgvBlog.RowTemplate.Height = 25;
             dgvBlog.Size = new System.Drawing.Size(776, 330);
             dgvBlog.TabIndex = 2;
-            dgvBlog.CellContentClick += dgvBlog_CellContentClick;
             dgvBlog.RowEnter += dgvBlog_RowEnter;
             // 
             // blog_id
@@ -248,7 +248,6 @@
             txtName.Name = "txtName";
             txtName.Size = new System.Drawing.Size(427, 23);
             txtName.TabIndex = 15;
-            txtName.TextChanged += textBox3_TextChanged;
             // 
             // txtDate
             // 
@@ -288,11 +287,23 @@
             btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += button_Clear;
             // 
+            // cbbSort
+            // 
+            cbbSort.FormattingEnabled = true;
+            cbbSort.Items.AddRange(new object[] { "Blog true", "Blog false" });
+            cbbSort.Location = new System.Drawing.Point(667, 29);
+            cbbSort.Name = "cbbSort";
+            cbbSort.Size = new System.Drawing.Size(121, 23);
+            cbbSort.TabIndex = 21;
+            cbbSort.Text = "Lọc";
+            cbbSort.SelectedIndexChanged += ccbSort_SelectedIndexChanged;
+            // 
             // BlogManagement
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(800, 885);
+            Controls.Add(cbbSort);
             Controls.Add(btnClear);
             Controls.Add(cbStatus);
             Controls.Add(txtDesc);
@@ -345,5 +356,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn date;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
+        private System.Windows.Forms.ComboBox cbbSort;
     }
 }
