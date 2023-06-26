@@ -46,7 +46,7 @@ namespace BMOSWinForm
             }
             catch
             {
-                MessageBox.Show("Chon Blog");
+                MessageBox.Show("Vui lòng chọn blog!");
             }
         }
 
@@ -55,7 +55,7 @@ namespace BMOSWinForm
             try
             {
 
-                var result = MessageBox.Show("Are you sure", "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = MessageBox.Show("Bạn có chắc chắc muốn xóa blog?", "Xác nhận", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     var id = txtId.Text;
@@ -63,12 +63,12 @@ namespace BMOSWinForm
                     _db.TblBlogs.Remove(blogs);
                     _db.SaveChanges();
                     dgvBlog.DataSource = _db.TblBlogs.ToList();
-                    MessageBox.Show("Xoa thanh Cong");
+                    MessageBox.Show("Xóa blog thành công!");
                 }
             }
             catch
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Vui lòng chọn blog để xóa!");
             }
         }
 
@@ -84,12 +84,12 @@ namespace BMOSWinForm
                 blog.Date = DateTime.Parse(txtDate.Text);
                 _db.SaveChanges();
                 dgvBlog.DataSource = _db.TblBlogs.ToList();
-                MessageBox.Show("Sua thanh Cong");
+                MessageBox.Show("Chỉnh sửa blog thành công!");
 
             }
             catch
             {
-                MessageBox.Show("Sua khong Thanh Cong");
+                MessageBox.Show("Vui lòng chọn blog để chỉnh sửa!");
             }
         }
 
@@ -117,13 +117,13 @@ namespace BMOSWinForm
                     _db.TblBlogs.Add(blogs);
                     _db.SaveChanges();
                     dgvBlog.DataSource = _db.TblBlogs.ToList();
-                    MessageBox.Show("Them thanh Cong");
+                    MessageBox.Show("Thêm blog thành công!");
                 }
-                else { MessageBox.Show("Please type in!"); }
+                else { MessageBox.Show("Vui lòng điền dữ liệu!"); }
             }
             catch
             {
-                MessageBox.Show("Them khong thanh cong");
+                MessageBox.Show("Thêm blog thất bại!");
             }
         }
 
@@ -179,7 +179,7 @@ namespace BMOSWinForm
 
             catch
             {
-                MessageBox.Show("Thao tac qua nhanh");
+                MessageBox.Show("Thao tác quá nhanh vui lòng thử lại!");
             }
         }
 
