@@ -59,7 +59,7 @@ namespace BMOSWinForm
                     txtRole.Text = "Khách hàng";
                 }
 
-                bool status = (bool) _db.TblUsers.Where(p => p.Username.Equals(_username)).Select(p => p.Status).First();
+                bool status = (bool)_db.TblUsers.Where(p => p.Username.Equals(_username)).Select(p => p.Status).First();
                 if (status)
                 {
                     txtStatus.Text = "Hoạt động";
@@ -84,7 +84,7 @@ namespace BMOSWinForm
                 txtEmail.Text = null;
                 txtPass.Text = null;
                 txtRole.Text = "Nhân viên";
-                txtStatus.Text = "";
+                txtStatus.Text = "Hoạt động";
                 txtCre.Text = cre.ToString();
                 txtLday.Text = "";
                 txtPoint.Text = "0";
@@ -111,7 +111,31 @@ namespace BMOSWinForm
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            string username = txtEmail.Text;
+            string status = txtStatus.Text;
+            bool sta;
+            if (status.Equals("Hoạt động"))
+            {
+                sta = true;
+            }
+            else
+            {
+                sta = false;
+            }
 
+            var update = _db.TblUsers.FirstOrDefault(p => p.Username.Equals(username));
+            if (update != null)
+            {
+                update.Status = sta;
+                _db.SaveChanges();
+
+                MessageBox.Show("Cập nhật thành công.", "Thông báo", MessageBoxButtons.OK);
+            }
+            else
+            {
+                MessageBox.Show("Cập nhật thất bại, vui lòng thử lại.", "Thông báo", MessageBoxButtons.OK);
+            }
+            
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -127,7 +151,7 @@ namespace BMOSWinForm
                 txtEmail.Text = null;
                 txtPass.Text = null;
                 txtRole.Text = "Nhân viên";
-                txtStatus.Text = "";
+                txtStatus.Text = "Hoạt động";
                 txtCre.Text = cre.ToString();
                 txtLday.Text = "";
                 txtPoint.Text = "0";
@@ -139,11 +163,6 @@ namespace BMOSWinForm
                 txtPhone.Enabled = true;
                 txtEmail.Enabled = true;
                 txtPass.Enabled = true;
-
-                txtRole.Enabled = false;
-                txtCre.Enabled = false;
-                txtLday.Enabled = false;
-                txtPoint.Enabled = false;
 
                 btnAdd.Visible = false;
                 btnEdit.Visible = false;
@@ -157,21 +176,22 @@ namespace BMOSWinForm
             _user.Lastname = txtLast.Text;
             _user.Address = txtAddress.Text;
             _user.Numberphone = txtPhone.Text;
+            if (txtStatus.Text.Equals("Hoạt động"))
+            {
+                _user.Status = true;
+            }
+            else
+            {
+                _user.Status = false;
+            }
             _user.Username = txtEmail.Text;
             _user.Password = txtPass.Text;
 
             _db.TblUsers.Add(_user);
             _db.SaveChanges();
 
-            this.Hide();
-            Form form = new Management();
-            form.ShowDialog();
+            this.Close();
         }
 
-        private void txtStatus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string option = txtStatus.SelectedItem.ToString();
-
-        }
     }
 }

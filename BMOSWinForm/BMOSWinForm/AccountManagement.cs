@@ -23,7 +23,10 @@ namespace BMOSWinForm
 
             _db = new BMOSContext();
             _userServices = new TblUserServices();
+        }
 
+        public void GetList()
+        {
             var list = _userServices.GetAll().Select(p => new
             {
                 p.UserId,
@@ -37,6 +40,7 @@ namespace BMOSWinForm
                 p.Status
             }).ToList();
 
+            //dgvAccount.DataSource = list.ToList();
             dgvAccount.DataSource = list.ToList();
 
             dgvAccount.Columns[0].HeaderText = "ID";
@@ -60,6 +64,9 @@ namespace BMOSWinForm
             dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgvAccount.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+
+            dgvAccount.DataSource = new BindingSource() { DataSource = list };
+            txtUsername.Text = "";
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -102,6 +109,16 @@ namespace BMOSWinForm
             int index = e.RowIndex;
             DataGridViewRow username = dgvAccount.Rows[index];
             txtUsername.Text = username.Cells[2].Value.ToString();
+        }
+
+        private void btnRef_Click(object sender, EventArgs e)
+        {
+            GetList();
+        }
+
+        private void AccountManagement_Load(object sender, EventArgs e)
+        {
+            GetList();
         }
     }
 }

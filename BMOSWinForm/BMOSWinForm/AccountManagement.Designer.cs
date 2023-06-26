@@ -39,6 +39,7 @@
             btnAdd = new System.Windows.Forms.Button();
             txtUsername = new System.Windows.Forms.TextBox();
             groupBox1 = new System.Windows.Forms.GroupBox();
+            btnRef = new System.Windows.Forms.Button();
             panel_top.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAccount).BeginInit();
             groupBox1.SuspendLayout();
@@ -99,6 +100,7 @@
             dgvAccount.GridColor = System.Drawing.SystemColors.WindowFrame;
             dgvAccount.Location = new System.Drawing.Point(12, 26);
             dgvAccount.Name = "dgvAccount";
+            dgvAccount.RowHeadersVisible = false;
             dgvAccount.RowHeadersWidth = 51;
             dgvAccount.RowTemplate.Height = 29;
             dgvAccount.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -137,6 +139,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnRef);
             groupBox1.Controls.Add(btnAdd);
             groupBox1.Controls.Add(dgvAccount);
             groupBox1.Controls.Add(btnDetail);
@@ -147,6 +150,16 @@
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Danh sách tài khoản";
+            // 
+            // btnRef
+            // 
+            btnRef.Location = new System.Drawing.Point(786, 418);
+            btnRef.Name = "btnRef";
+            btnRef.Size = new System.Drawing.Size(145, 29);
+            btnRef.TabIndex = 4;
+            btnRef.Text = "Làm mới danh sách";
+            btnRef.UseVisualStyleBackColor = true;
+            btnRef.Click += btnRef_Click;
             // 
             // AccountManagement
             // 
@@ -160,6 +173,7 @@
             MinimizeBox = false;
             Name = "AccountManagement";
             Text = "AccountManagement";
+            Load += AccountManagement_Load;
             panel_top.ResumeLayout(false);
             panel_top.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAccount).EndInit();
@@ -177,5 +191,6 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnRef;
     }
 }

@@ -286,7 +286,6 @@
             txtStatus.Name = "txtStatus";
             txtStatus.Size = new System.Drawing.Size(219, 28);
             txtStatus.TabIndex = 27;
-            txtStatus.SelectedIndexChanged += txtStatus_SelectedIndexChanged;
             // 
             // AccountManagementDetail
             // 
