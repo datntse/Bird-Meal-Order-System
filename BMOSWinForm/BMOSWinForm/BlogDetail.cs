@@ -62,6 +62,11 @@ namespace BMOSWinForm
         {
             this.Close();
         }
+
+        private void BlogDetail_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
