@@ -94,11 +94,12 @@
             dgvFeedbackList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dgvFeedbackList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvFeedbackList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { mafb, masp, name, content, star, date });
-            dgvFeedbackList.Location = new System.Drawing.Point(11, 90);
+            dgvFeedbackList.Location = new System.Drawing.Point(11, 99);
             dgvFeedbackList.Margin = new System.Windows.Forms.Padding(2);
             dgvFeedbackList.Name = "dgvFeedbackList";
             dgvFeedbackList.RowHeadersWidth = 62;
             dgvFeedbackList.RowTemplate.Height = 33;
+            dgvFeedbackList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dgvFeedbackList.Size = new System.Drawing.Size(895, 383);
             dgvFeedbackList.TabIndex = 6;
             dgvFeedbackList.CellContentClick += dgvFeedbackList_CellContentClick;
@@ -170,6 +171,7 @@
             // mafb
             // 
             mafb.DataPropertyName = "idfb";
+            mafb.FillWeight = 30F;
             mafb.HeaderText = "Mã Feedback";
             mafb.MinimumWidth = 6;
             mafb.Name = "mafb";
@@ -177,6 +179,7 @@
             // masp
             // 
             masp.DataPropertyName = "idpro";
+            masp.FillWeight = 32F;
             masp.HeaderText = "Mã sản phẩm";
             masp.MinimumWidth = 6;
             masp.Name = "masp";
@@ -184,6 +187,7 @@
             // name
             // 
             name.DataPropertyName = "name";
+            name.FillWeight = 74.00011F;
             name.HeaderText = "Tên sản phẩm";
             name.MinimumWidth = 6;
             name.Name = "name";
@@ -191,6 +195,7 @@
             // content
             // 
             content.DataPropertyName = "content";
+            content.FillWeight = 74.00011F;
             content.HeaderText = "Đánh giá";
             content.MinimumWidth = 6;
             content.Name = "content";
@@ -198,6 +203,7 @@
             // star
             // 
             star.DataPropertyName = "star";
+            star.FillWeight = 20F;
             star.HeaderText = "Sao";
             star.MinimumWidth = 6;
             star.Name = "star";
@@ -205,6 +211,7 @@
             // date
             // 
             date.DataPropertyName = "date";
+            date.FillWeight = 74.00011F;
             date.HeaderText = "Thời gian";
             date.MinimumWidth = 6;
             date.Name = "date";
