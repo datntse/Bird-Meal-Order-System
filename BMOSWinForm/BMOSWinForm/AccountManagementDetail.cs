@@ -89,7 +89,6 @@ namespace BMOSWinForm
                 txtLday.Text = "";
                 txtPoint.Text = "0";
 
-
                 txtFirst.Enabled = true;
                 txtLast.Enabled = true;
                 txtAddress.Enabled = true;
@@ -135,7 +134,7 @@ namespace BMOSWinForm
             {
                 MessageBox.Show("Cập nhật thất bại, vui lòng thử lại.", "Thông báo", MessageBoxButtons.OK);
             }
-            
+
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -156,7 +155,6 @@ namespace BMOSWinForm
                 txtLday.Text = "";
                 txtPoint.Text = "0";
 
-
                 txtFirst.Enabled = true;
                 txtLast.Enabled = true;
                 txtAddress.Enabled = true;
@@ -172,26 +170,42 @@ namespace BMOSWinForm
 
         private void btnAddReal_Click(object sender, EventArgs e)
         {
-            _user.Firstname = txtFirst.Text;
-            _user.Lastname = txtLast.Text;
-            _user.Address = txtAddress.Text;
-            _user.Numberphone = txtPhone.Text;
-            if (txtStatus.Text.Equals("Hoạt động"))
+            if (txtFirst.Text != "" && txtLast.Text != "" && txtAddress.Text != "" && txtPhone.Text != "" && txtEmail.Text != "" && txtPass.Text != "" && txtFirst.Text != null && txtLast.Text != null && txtAddress.Text != null && txtPhone.Text != null && txtEmail.Text != null && txtPass.Text != null)
             {
-                _user.Status = true;
+                string username = txtEmail.Text;
+                var check = _db.TblUsers.Where(p => p.Username == username).FirstOrDefault();
+                if (check == null)
+                {
+                    _user.Username = txtEmail.Text;
+                    _user.Firstname = txtFirst.Text;
+                    _user.Lastname = txtLast.Text;
+                    _user.Address = txtAddress.Text;
+                    _user.Numberphone = txtPhone.Text;
+                    if (txtStatus.Text.Equals("Hoạt động"))
+                    {
+                        _user.Status = true;
+                    }
+                    else
+                    {
+                        _user.Status = false;
+                    }
+                    _user.Password = txtPass.Text;
+
+                    _db.TblUsers.Add(_user);
+                    _db.SaveChanges();
+
+                    MessageBox.Show("Thêm thành công.", "Thông báo", MessageBoxButtons.OK);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Email đã tồn tại, vui lòng thử lại.", "Thông báo", MessageBoxButtons.OK);
+                }               
             }
             else
             {
-                _user.Status = false;
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Thông báo", MessageBoxButtons.OK);
             }
-            _user.Username = txtEmail.Text;
-            _user.Password = txtPass.Text;
-
-            _db.TblUsers.Add(_user);
-            _db.SaveChanges();
-
-            this.Close();
         }
-
     }
 }

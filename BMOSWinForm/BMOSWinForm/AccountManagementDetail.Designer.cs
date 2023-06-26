@@ -54,12 +54,17 @@
             btnAdd = new System.Windows.Forms.Button();
             btnAddReal = new System.Windows.Forms.Button();
             txtStatus = new System.Windows.Forms.ComboBox();
+            panel1 = new System.Windows.Forms.Panel();
+            panel2 = new System.Windows.Forms.Panel();
+            label12 = new System.Windows.Forms.Label();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // txtFirst
             // 
             txtFirst.Enabled = false;
-            txtFirst.Location = new System.Drawing.Point(325, 13);
+            txtFirst.Location = new System.Drawing.Point(326, 107);
             txtFirst.Name = "txtFirst";
             txtFirst.Size = new System.Drawing.Size(167, 27);
             txtFirst.TabIndex = 0;
@@ -67,7 +72,7 @@
             // txtAddress
             // 
             txtAddress.Enabled = false;
-            txtAddress.Location = new System.Drawing.Point(347, 56);
+            txtAddress.Location = new System.Drawing.Point(326, 155);
             txtAddress.Name = "txtAddress";
             txtAddress.Size = new System.Drawing.Size(545, 27);
             txtAddress.TabIndex = 1;
@@ -75,7 +80,7 @@
             // txtLast
             // 
             txtLast.Enabled = false;
-            txtLast.Location = new System.Drawing.Point(564, 13);
+            txtLast.Location = new System.Drawing.Point(570, 107);
             txtLast.Name = "txtLast";
             txtLast.Size = new System.Drawing.Size(163, 27);
             txtLast.TabIndex = 2;
@@ -83,7 +88,7 @@
             // txtPhone
             // 
             txtPhone.Enabled = false;
-            txtPhone.Location = new System.Drawing.Point(397, 109);
+            txtPhone.Location = new System.Drawing.Point(361, 208);
             txtPhone.Name = "txtPhone";
             txtPhone.Size = new System.Drawing.Size(189, 27);
             txtPhone.TabIndex = 3;
@@ -91,7 +96,7 @@
             // txtPass
             // 
             txtPass.Enabled = false;
-            txtPass.Location = new System.Drawing.Point(362, 206);
+            txtPass.Location = new System.Drawing.Point(326, 305);
             txtPass.Name = "txtPass";
             txtPass.Size = new System.Drawing.Size(545, 27);
             txtPass.TabIndex = 4;
@@ -99,7 +104,7 @@
             // txtRole
             // 
             txtRole.Enabled = false;
-            txtRole.Location = new System.Drawing.Point(362, 259);
+            txtRole.Location = new System.Drawing.Point(326, 358);
             txtRole.Name = "txtRole";
             txtRole.Size = new System.Drawing.Size(281, 27);
             txtRole.TabIndex = 6;
@@ -107,7 +112,7 @@
             // txtEmail
             // 
             txtEmail.Enabled = false;
-            txtEmail.Location = new System.Drawing.Point(362, 157);
+            txtEmail.Location = new System.Drawing.Point(326, 256);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new System.Drawing.Size(545, 27);
             txtEmail.TabIndex = 7;
@@ -115,7 +120,7 @@
             // txtCre
             // 
             txtCre.Enabled = false;
-            txtCre.Location = new System.Drawing.Point(397, 358);
+            txtCre.Location = new System.Drawing.Point(361, 457);
             txtCre.Name = "txtCre";
             txtCre.Size = new System.Drawing.Size(214, 27);
             txtCre.TabIndex = 8;
@@ -123,7 +128,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(286, 15);
+            label1.Location = new System.Drawing.Point(250, 111);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(33, 20);
             label1.TabIndex = 9;
@@ -132,7 +137,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(524, 17);
+            label2.Location = new System.Drawing.Point(530, 111);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(32, 20);
             label2.TabIndex = 10;
@@ -141,7 +146,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(286, 63);
+            label3.Location = new System.Drawing.Point(250, 162);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(55, 20);
             label3.TabIndex = 11;
@@ -150,7 +155,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(286, 112);
+            label4.Location = new System.Drawing.Point(250, 211);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(97, 20);
             label4.TabIndex = 12;
@@ -159,7 +164,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(286, 160);
+            label5.Location = new System.Drawing.Point(250, 259);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(46, 20);
             label5.TabIndex = 13;
@@ -168,7 +173,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(286, 209);
+            label6.Location = new System.Drawing.Point(250, 308);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(70, 20);
             label6.TabIndex = 14;
@@ -177,7 +182,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(286, 262);
+            label7.Location = new System.Drawing.Point(250, 361);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(52, 20);
             label7.TabIndex = 15;
@@ -186,7 +191,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(286, 315);
+            label8.Location = new System.Drawing.Point(250, 414);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(75, 20);
             label8.TabIndex = 16;
@@ -195,7 +200,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new System.Drawing.Point(286, 361);
+            label9.Location = new System.Drawing.Point(250, 460);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(102, 20);
             label9.TabIndex = 17;
@@ -204,7 +209,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new System.Drawing.Point(286, 415);
+            label10.Location = new System.Drawing.Point(250, 514);
             label10.Name = "label10";
             label10.Size = new System.Drawing.Size(97, 20);
             label10.TabIndex = 19;
@@ -213,7 +218,7 @@
             // txtPoint
             // 
             txtPoint.Enabled = false;
-            txtPoint.Location = new System.Drawing.Point(397, 408);
+            txtPoint.Location = new System.Drawing.Point(361, 511);
             txtPoint.Name = "txtPoint";
             txtPoint.Size = new System.Drawing.Size(214, 27);
             txtPoint.TabIndex = 18;
@@ -221,7 +226,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new System.Drawing.Point(626, 361);
+            label11.Location = new System.Drawing.Point(588, 460);
             label11.Name = "label11";
             label11.Size = new System.Drawing.Size(143, 20);
             label11.TabIndex = 21;
@@ -230,14 +235,14 @@
             // txtLday
             // 
             txtLday.Enabled = false;
-            txtLday.Location = new System.Drawing.Point(775, 358);
+            txtLday.Location = new System.Drawing.Point(737, 457);
             txtLday.Name = "txtLday";
             txtLday.Size = new System.Drawing.Size(214, 27);
             txtLday.TabIndex = 20;
             // 
             // btnBack
             // 
-            btnBack.Location = new System.Drawing.Point(884, 506);
+            btnBack.Location = new System.Drawing.Point(866, 568);
             btnBack.Name = "btnBack";
             btnBack.Size = new System.Drawing.Size(94, 29);
             btnBack.TabIndex = 22;
@@ -247,7 +252,7 @@
             // 
             // btnEdit
             // 
-            btnEdit.Location = new System.Drawing.Point(604, 506);
+            btnEdit.Location = new System.Drawing.Point(586, 568);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new System.Drawing.Size(94, 29);
             btnEdit.TabIndex = 24;
@@ -257,7 +262,7 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new System.Drawing.Point(704, 506);
+            btnAdd.Location = new System.Drawing.Point(686, 568);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new System.Drawing.Size(174, 29);
             btnAdd.TabIndex = 25;
@@ -267,7 +272,7 @@
             // 
             // btnAddReal
             // 
-            btnAddReal.Location = new System.Drawing.Point(755, 506);
+            btnAddReal.Location = new System.Drawing.Point(737, 568);
             btnAddReal.Name = "btnAddReal";
             btnAddReal.Size = new System.Drawing.Size(123, 29);
             btnAddReal.TabIndex = 26;
@@ -282,16 +287,58 @@
             txtStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             txtStatus.FormattingEnabled = true;
             txtStatus.Items.AddRange(new object[] { "Hoạt động", "Vô hiệu hóa" });
-            txtStatus.Location = new System.Drawing.Point(367, 312);
+            txtStatus.Location = new System.Drawing.Point(326, 411);
             txtStatus.Name = "txtStatus";
             txtStatus.Size = new System.Drawing.Size(219, 28);
             txtStatus.TabIndex = 27;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = System.Drawing.Color.Chocolate;
+            panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            panel1.Location = new System.Drawing.Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(967, 40);
+            panel1.TabIndex = 28;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = System.Drawing.Color.Chocolate;
+            panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel2.Location = new System.Drawing.Point(0, 606);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(967, 40);
+            panel2.TabIndex = 29;
+            // 
+            // label12
+            // 
+            label12.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            label12.AutoSize = true;
+            label12.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label12.Location = new System.Drawing.Point(326, 43);
+            label12.Name = "label12";
+            label12.Size = new System.Drawing.Size(301, 35);
+            label12.TabIndex = 30;
+            label12.Text = "THÔNG TIN TÀI KHOẢN";
+            label12.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new System.Drawing.Point(49, 107);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(137, 170);
+            pictureBox1.TabIndex = 31;
+            pictureBox1.TabStop = false;
             // 
             // AccountManagementDetail
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1006, 547);
+            ClientSize = new System.Drawing.Size(967, 646);
+            Controls.Add(pictureBox1);
+            Controls.Add(label12);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
             Controls.Add(txtStatus);
             Controls.Add(btnAddReal);
             Controls.Add(btnAdd);
@@ -321,6 +368,7 @@
             Name = "AccountManagementDetail";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "AccountManagementDetail";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -353,5 +401,9 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnAddReal;
         private System.Windows.Forms.ComboBox txtStatus;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

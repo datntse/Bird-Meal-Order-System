@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             panel_top = new System.Windows.Forms.Panel();
+            sortList = new System.Windows.Forms.ComboBox();
             btnSearch = new System.Windows.Forms.Button();
             txtSearch = new System.Windows.Forms.TextBox();
             dgvAccount = new System.Windows.Forms.DataGridView();
@@ -47,6 +48,7 @@
             // 
             // panel_top
             // 
+            panel_top.Controls.Add(sortList);
             panel_top.Controls.Add(btnSearch);
             panel_top.Controls.Add(txtSearch);
             panel_top.Dock = System.Windows.Forms.DockStyle.Top;
@@ -54,6 +56,17 @@
             panel_top.Name = "panel_top";
             panel_top.Size = new System.Drawing.Size(1171, 56);
             panel_top.TabIndex = 1;
+            // 
+            // sortList
+            // 
+            sortList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            sortList.FormattingEnabled = true;
+            sortList.Items.AddRange(new object[] { "Tất cả", "A-Z Tên", "Z-A Tên", "A-Z Email", "Z-A Email", "Nhân viên", "Khách hàng", "Hoạt động", "Vô hiệu hóa", "Hoạt động gần đây" });
+            sortList.Location = new System.Drawing.Point(992, 12);
+            sortList.Name = "sortList";
+            sortList.Size = new System.Drawing.Size(167, 28);
+            sortList.TabIndex = 2;
+            sortList.SelectedIndexChanged += sortList_SelectedIndexChanged;
             // 
             // btnSearch
             // 
@@ -66,6 +79,7 @@
             btnSearch.Size = new System.Drawing.Size(40, 27);
             btnSearch.TabIndex = 1;
             btnSearch.UseVisualStyleBackColor = false;
+            btnSearch.Click += btnSearch_Click;
             // 
             // txtSearch
             // 
@@ -75,6 +89,7 @@
             txtSearch.PlaceholderText = "Tìm kiếm...";
             txtSearch.Size = new System.Drawing.Size(547, 27);
             txtSearch.TabIndex = 0;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // dgvAccount
             // 
@@ -100,6 +115,7 @@
             dgvAccount.GridColor = System.Drawing.SystemColors.WindowFrame;
             dgvAccount.Location = new System.Drawing.Point(12, 26);
             dgvAccount.Name = "dgvAccount";
+            dgvAccount.ReadOnly = true;
             dgvAccount.RowHeadersVisible = false;
             dgvAccount.RowHeadersWidth = 51;
             dgvAccount.RowTemplate.Height = 29;
@@ -192,5 +208,6 @@
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnRef;
+        private System.Windows.Forms.ComboBox sortList;
     }
 }

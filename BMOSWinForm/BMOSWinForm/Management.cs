@@ -108,19 +108,6 @@ namespace BMOSWinForm
             btnFeedback.BackColor = Color.Chocolate;
         }
 
-        private void btnMsg_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new MessManagement());
-
-            btnAcc.BackColor = SystemColors.ActiveCaptionText;
-            btnProduct.BackColor = SystemColors.ActiveCaptionText;
-            btnOrder.BackColor = SystemColors.ActiveCaptionText;
-            btnBlog.BackColor = SystemColors.ActiveCaptionText;
-            btnFeedback.BackColor = SystemColors.ActiveCaptionText;
-            btnHome.BackColor = SystemColors.ActiveCaptionText;
-
-        }
-
         private void btnHome_Click(object sender, EventArgs e)
         {
             if (currentChildForm != null)
