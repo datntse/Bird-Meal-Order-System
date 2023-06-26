@@ -254,18 +254,28 @@ namespace BMOSWinForm
                         var statusFromAtoZResult = from blog in _db.TblBlogs
 
                                                    orderby blog.Name ascending
-                                              select new
-                                              {
-                                                  BlogId = blog.BlogId,
-                                                  Name = blog.Name,
-                                                  Description = blog.Description,
-                                                  Date = blog.Date,
-                                                  Status = blog.Status
-                                              };
+                                                   select new
+                                                   {
+                                                       BlogId = blog.BlogId,
+                                                       Name = blog.Name,
+                                                       Description = blog.Description,
+                                                       Date = blog.Date,
+                                                       Status = blog.Status
+                                                   };
                         dgvBlog.DataSource = statusFromAtoZResult.ToList();
                         break;
                 }
             }
+        }
+
+        private void txtId_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
