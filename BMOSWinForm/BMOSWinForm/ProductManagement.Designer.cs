@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             dataGridViewProduct = new System.Windows.Forms.DataGridView();
             productIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,6 +39,7 @@
             statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             tblProductBindingSource = new System.Windows.Forms.BindingSource(components);
             label1 = new System.Windows.Forms.Label();
             txt_id = new System.Windows.Forms.TextBox();
@@ -75,15 +78,35 @@
             dataGridViewProduct.AllowUserToAddRows = false;
             dataGridViewProduct.AllowUserToDeleteRows = false;
             dataGridViewProduct.AutoGenerateColumns = false;
+            dataGridViewProduct.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewProduct.BackgroundColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Chocolate;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Chocolate;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Chocolate;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewProduct.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewProduct.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { productIdDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, quantityDataGridViewTextBoxColumn, weightDataGridViewTextBoxColumn, statusDataGridViewTextBoxColumn, priceDataGridViewTextBoxColumn, typeDataGridViewTextBoxColumn });
+            dataGridViewProduct.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { productIdDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, quantityDataGridViewTextBoxColumn, weightDataGridViewTextBoxColumn, statusDataGridViewTextBoxColumn, priceDataGridViewTextBoxColumn, typeDataGridViewTextBoxColumn, descriptionDataGridViewTextBoxColumn });
             dataGridViewProduct.DataSource = tblProductBindingSource;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Chocolate;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            dataGridViewProduct.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewProduct.GridColor = System.Drawing.SystemColors.WindowFrame;
             dataGridViewProduct.Location = new System.Drawing.Point(12, 71);
             dataGridViewProduct.MultiSelect = false;
             dataGridViewProduct.Name = "dataGridViewProduct";
             dataGridViewProduct.ReadOnly = true;
             dataGridViewProduct.RowHeadersWidth = 51;
             dataGridViewProduct.RowTemplate.Height = 29;
+            dataGridViewProduct.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridViewProduct.Size = new System.Drawing.Size(1142, 260);
             dataGridViewProduct.TabIndex = 0;
             dataGridViewProduct.CellClick += dataGridViewProduct_CellContentClick;
@@ -91,69 +114,68 @@
             // productIdDataGridViewTextBoxColumn
             // 
             productIdDataGridViewTextBoxColumn.DataPropertyName = "ProductId";
-            productIdDataGridViewTextBoxColumn.HeaderText = "Mã Số";
+            productIdDataGridViewTextBoxColumn.HeaderText = "ProductId";
             productIdDataGridViewTextBoxColumn.MinimumWidth = 6;
             productIdDataGridViewTextBoxColumn.Name = "productIdDataGridViewTextBoxColumn";
             productIdDataGridViewTextBoxColumn.ReadOnly = true;
-            productIdDataGridViewTextBoxColumn.Width = 125;
             // 
             // nameDataGridViewTextBoxColumn
             // 
             nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            nameDataGridViewTextBoxColumn.HeaderText = "Tên";
+            nameDataGridViewTextBoxColumn.HeaderText = "Name";
             nameDataGridViewTextBoxColumn.MinimumWidth = 6;
             nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
             nameDataGridViewTextBoxColumn.ReadOnly = true;
-            nameDataGridViewTextBoxColumn.Width = 125;
             // 
             // quantityDataGridViewTextBoxColumn
             // 
             quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
-            quantityDataGridViewTextBoxColumn.HeaderText = "Số lượng";
+            quantityDataGridViewTextBoxColumn.HeaderText = "Quantity";
             quantityDataGridViewTextBoxColumn.MinimumWidth = 6;
             quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
             quantityDataGridViewTextBoxColumn.ReadOnly = true;
-            quantityDataGridViewTextBoxColumn.Width = 125;
             // 
             // weightDataGridViewTextBoxColumn
             // 
             weightDataGridViewTextBoxColumn.DataPropertyName = "Weight";
-            weightDataGridViewTextBoxColumn.HeaderText = "Cân nặng";
+            weightDataGridViewTextBoxColumn.HeaderText = "Weight";
             weightDataGridViewTextBoxColumn.MinimumWidth = 6;
             weightDataGridViewTextBoxColumn.Name = "weightDataGridViewTextBoxColumn";
             weightDataGridViewTextBoxColumn.ReadOnly = true;
-            weightDataGridViewTextBoxColumn.Width = 125;
             // 
             // statusDataGridViewTextBoxColumn
             // 
             statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
-            statusDataGridViewTextBoxColumn.FalseValue = "";
-            statusDataGridViewTextBoxColumn.HeaderText = "Còn hàng";
+            statusDataGridViewTextBoxColumn.HeaderText = "Status";
             statusDataGridViewTextBoxColumn.MinimumWidth = 6;
             statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
             statusDataGridViewTextBoxColumn.ReadOnly = true;
             statusDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             statusDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            statusDataGridViewTextBoxColumn.TrueValue = "";
-            statusDataGridViewTextBoxColumn.Width = 125;
             // 
             // priceDataGridViewTextBoxColumn
             // 
             priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            priceDataGridViewTextBoxColumn.HeaderText = "Giá ";
+            priceDataGridViewTextBoxColumn.HeaderText = "Price";
             priceDataGridViewTextBoxColumn.MinimumWidth = 6;
             priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
             priceDataGridViewTextBoxColumn.ReadOnly = true;
-            priceDataGridViewTextBoxColumn.Width = 125;
             // 
             // typeDataGridViewTextBoxColumn
             // 
             typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
-            typeDataGridViewTextBoxColumn.HeaderText = "Loại";
+            typeDataGridViewTextBoxColumn.HeaderText = "Type";
             typeDataGridViewTextBoxColumn.MinimumWidth = 6;
             typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
             typeDataGridViewTextBoxColumn.ReadOnly = true;
-            typeDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            descriptionDataGridViewTextBoxColumn.MinimumWidth = 6;
+            descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            descriptionDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // tblProductBindingSource
             // 
@@ -170,6 +192,7 @@
             // 
             // txt_id
             // 
+            txt_id.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txt_id.Location = new System.Drawing.Point(153, 28);
             txt_id.Name = "txt_id";
             txt_id.Size = new System.Drawing.Size(375, 27);
@@ -186,6 +209,7 @@
             // 
             // txt_name
             // 
+            txt_name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txt_name.Location = new System.Drawing.Point(153, 61);
             txt_name.Name = "txt_name";
             txt_name.Size = new System.Drawing.Size(375, 27);
@@ -202,6 +226,7 @@
             // 
             // txt_quantity
             // 
+            txt_quantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txt_quantity.Location = new System.Drawing.Point(153, 94);
             txt_quantity.Name = "txt_quantity";
             txt_quantity.Size = new System.Drawing.Size(375, 27);
@@ -218,6 +243,7 @@
             // 
             // txt_decription
             // 
+            txt_decription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txt_decription.Location = new System.Drawing.Point(734, 31);
             txt_decription.Name = "txt_decription";
             txt_decription.Size = new System.Drawing.Size(289, 27);
@@ -234,6 +260,7 @@
             // 
             // txt_weight
             // 
+            txt_weight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txt_weight.Location = new System.Drawing.Point(734, 64);
             txt_weight.Name = "txt_weight";
             txt_weight.Size = new System.Drawing.Size(375, 27);
@@ -250,6 +277,7 @@
             // 
             // txt_type
             // 
+            txt_type.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txt_type.Location = new System.Drawing.Point(734, 97);
             txt_type.Name = "txt_type";
             txt_type.Size = new System.Drawing.Size(375, 27);
@@ -357,6 +385,7 @@
             // 
             // txt_price
             // 
+            txt_price.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txt_price.Location = new System.Drawing.Point(153, 127);
             txt_price.Name = "txt_price";
             txt_price.Size = new System.Drawing.Size(375, 27);
@@ -409,13 +438,13 @@
             // 
             // comboBox1
             // 
+            comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Sản phẩm còn hàng", "Sản phẩm hết hàng", "Thức ăn hạt", "Thức ăn tự nhiên", "Thức ăn hỗn hợp" });
+            comboBox1.Items.AddRange(new object[] { "Sản phẩm còn hàng", "Sản phẩm hết hàng", "Tất cả sản phẩm", "A-Z", "Thức ăn hạt", "Thức ăn tự nhiên", "Thức ăn hỗn hợp" });
             comboBox1.Location = new System.Drawing.Point(692, 13);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new System.Drawing.Size(151, 28);
             comboBox1.TabIndex = 22;
-            comboBox1.Text = "Lọc";
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // ProductManagement
@@ -465,13 +494,6 @@
         private System.Windows.Forms.BindingSource tblProductBindingSource;
         private System.Windows.Forms.TextBox txt_price;
         private System.Windows.Forms.Label lb_price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn productIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantityDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn weightDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn statusDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btn_detail;
         private System.Windows.Forms.Button btn_add;
         private System.Windows.Forms.TextBox txt_search;
@@ -479,5 +501,13 @@
         private System.Windows.Forms.Button btn_search;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button btn_viewproduct;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn weightDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn statusDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
     }
 }
