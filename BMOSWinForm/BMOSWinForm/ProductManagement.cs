@@ -69,7 +69,7 @@ namespace BMOSWinForm
         private void ProductManagement_Load(object sender, EventArgs e)
         {
 
-            //dataGridViewProduct.DataSource = _db.TblProducts.ToList();
+            dataGridViewProduct.DataSource = _db.TblProducts.ToList();
 
         }
 
@@ -77,8 +77,10 @@ namespace BMOSWinForm
         {
             try
             {
+
                 var products = new TblProduct
                 {
+
 
                     ProductId = txt_id.Text,
                     Name = txt_name.Text,
@@ -90,14 +92,15 @@ namespace BMOSWinForm
                     Status = checkBox_status.Checked,
 
                 };
+
                 _db.TblProducts.Add(products);
                 _db.SaveChanges();
                 dataGridViewProduct.DataSource = _db.TblProducts.ToList();
-                MessageBox.Show("Thanh Cong");
+                MessageBox.Show("Thêm sản phẩm "+products.Name+" thành công!", "Thông báo");
             }
             catch
             {
-                MessageBox.Show("Khong Thanh Cong");
+                MessageBox.Show("Thêm sản phẩm thất bại", "Thông báo");
             }
 
         }
@@ -116,12 +119,13 @@ namespace BMOSWinForm
                 product.Status = checkBox_status.Checked;
                 _db.SaveChanges();
                 dataGridViewProduct.DataSource = _db.TblProducts.ToList();
-                MessageBox.Show("Thanh Cong");
+                MessageBox.Show("Câp nhật sản phẩm "+ product.Name+" thành công", "Thông báo");
 
             }
             catch
             {
-                MessageBox.Show("Khong Thanh Cong");
+
+                MessageBox.Show("Cập nhật sản phẩm thất bại", "Thông báo");
             }
         }
 
@@ -129,22 +133,22 @@ namespace BMOSWinForm
         {
             try
             {
-                var result = MessageBox.Show("are you sure", "Confirm", MessageBoxButtons.YesNo);
+                var id = txt_id.Text;
+                var product = _db.TblProducts.Find(id);
+                var result = MessageBox.Show("Bạn cắc muốn xóa sản phẩm: " + product.Name, "Thông báo", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    var id = txt_id.Text;
-                    var product = _db.TblProducts.Find(id);
                     _db.TblProducts.Remove(product);
                     _db.SaveChanges();
                     dataGridViewProduct.DataSource = _db.TblProducts.ToList();
-                    MessageBox.Show("Thanh Cong");
+                    MessageBox.Show("Sản phẩm " + product.Name+ "đã được xóa", "Thông báo");
                 }
 
 
             }
             catch
             {
-                MessageBox.Show("Khong Thanh Cong");
+                MessageBox.Show("Xóa thất bại");
             }
         }
 
@@ -168,7 +172,7 @@ namespace BMOSWinForm
 
             catch
             {
-                MessageBox.Show("Thao tac qua nhanh");
+                MessageBox.Show("Thao tác quá nhanh", "Thông báo");
             }
 
         }
@@ -179,11 +183,11 @@ namespace BMOSWinForm
             {
                 var id = txt_id.Text;
                 var product = _db.TblProducts.Find(id);
-                MessageBox.Show(product.Description);
+                MessageBox.Show(product.Description, product.Name);
             }
             catch
             {
-                MessageBox.Show("Chon San Pham");
+                MessageBox.Show("Chọn sản phẩm để xem", "Thông báo");
             }
 
         }
@@ -192,22 +196,26 @@ namespace BMOSWinForm
 
         private void btn_add_Click(object sender, EventArgs e)
         {
+            try
+            {
+                txt_id.Text = null;
+                txt_price.Text = null;
+                txt_decription.Text = null;
+                txt_name.Text = null;
+                txt_type.Text = null;
+                txt_weight.Text = null;
+                txt_quantity.Text = null;
+                checkBox_status.Checked = false;
+                txt_id.Focus();
+               
 
-            txt_id.Text = null;
-            txt_price.Text = null;
-            txt_decription.Text = null;
-            txt_name.Text = null;
-            txt_type.Text = null;
-            txt_weight.Text = null;
-            txt_quantity.Text = null;
-            checkBox_status.Checked = false;
-            txt_id.Focus();
-            tblProductBindingSource.MoveLast();
+            }
+            catch
+            {
+                MessageBox.Show("Thử lại", "Thông báo");
+            }
         }
-        public void Search()
-        {
 
-        }
         private void btn_search_Click(object sender, EventArgs e)
         {
 
@@ -225,7 +233,7 @@ namespace BMOSWinForm
                                  Type = product.Type,
                                  Weight = product.Weight,
                                  Status = product.Status,
-                                 Description = product.Description 
+                                 Description = product.Description
                              };
                 dataGridViewProduct.DataSource = new BindingSource { DataSource = result.ToList() };
             }
@@ -295,7 +303,7 @@ namespace BMOSWinForm
                             break;
                         case "Sản phẩm hết hàng":
                             var statusFalseResult = from product in _db.TblProducts
-                                                    where product.Status == false &&  product.Name.Contains(searchKeyword)
+                                                    where product.Status == false && product.Name.Contains(searchKeyword)
                                                     orderby product.Name ascending
                                                     select new
                                                     {
@@ -369,20 +377,23 @@ namespace BMOSWinForm
         private void btn_viewproduct_Click(object sender, EventArgs e)
         {
 
+            string productname = txt_name.Text;
+            if (productname != null && productname != "")
+            {
+                string producttype = "details";
+                Form form = new ProductManagementDetail(productname, producttype);
+                form.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn sản phẩm để thực hiện hành động này.", "Thông báo", MessageBoxButtons.OK);
+            }
 
-
-
-
-            Form productForm = new Form();
-            productForm.Text = "Product Details";
-
-
-
-            productForm.ShowDialog();
         }
 
         private void txt_search_TextChanged(object sender, EventArgs e)
         {
+            string sortOption = comboBox1.SelectedItem?.ToString() ?? "";
             string searchKeyword = txt_search.Text.Trim();
             if (!string.IsNullOrEmpty(searchKeyword))
             {
@@ -401,11 +412,6 @@ namespace BMOSWinForm
                              };
                 dataGridViewProduct.DataSource = new BindingSource { DataSource = result.ToList() };
             }
-            //else
-            //{
-            //    dataGridViewProduct.DataSource = _db.TblProducts.ToList();
-
-            //}
         }
     }
 }
