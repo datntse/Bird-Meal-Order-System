@@ -33,7 +33,6 @@
             txtLast = new System.Windows.Forms.TextBox();
             txtPhone = new System.Windows.Forms.TextBox();
             txtPass = new System.Windows.Forms.TextBox();
-            txtStatus = new System.Windows.Forms.TextBox();
             txtRole = new System.Windows.Forms.TextBox();
             txtEmail = new System.Windows.Forms.TextBox();
             txtCre = new System.Windows.Forms.TextBox();
@@ -54,6 +53,7 @@
             btnEdit = new System.Windows.Forms.Button();
             btnAdd = new System.Windows.Forms.Button();
             btnAddReal = new System.Windows.Forms.Button();
+            txtStatus = new System.Windows.Forms.ComboBox();
             SuspendLayout();
             // 
             // txtFirst
@@ -95,13 +95,6 @@
             txtPass.Name = "txtPass";
             txtPass.Size = new System.Drawing.Size(545, 27);
             txtPass.TabIndex = 4;
-            // 
-            // txtStatus
-            // 
-            txtStatus.Location = new System.Drawing.Point(362, 312);
-            txtStatus.Name = "txtStatus";
-            txtStatus.Size = new System.Drawing.Size(214, 27);
-            txtStatus.TabIndex = 5;
             // 
             // txtRole
             // 
@@ -283,11 +276,24 @@
             btnAddReal.Visible = false;
             btnAddReal.Click += btnAddReal_Click;
             // 
+            // txtStatus
+            // 
+            txtStatus.DisplayMember = "(none)";
+            txtStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            txtStatus.FormattingEnabled = true;
+            txtStatus.Items.AddRange(new object[] { "Hoạt động", "Vô hiệu hóa" });
+            txtStatus.Location = new System.Drawing.Point(367, 312);
+            txtStatus.Name = "txtStatus";
+            txtStatus.Size = new System.Drawing.Size(219, 28);
+            txtStatus.TabIndex = 27;
+            txtStatus.SelectedIndexChanged += txtStatus_SelectedIndexChanged;
+            // 
             // AccountManagementDetail
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1006, 547);
+            Controls.Add(txtStatus);
             Controls.Add(btnAddReal);
             Controls.Add(btnAdd);
             Controls.Add(btnEdit);
@@ -308,13 +314,13 @@
             Controls.Add(txtCre);
             Controls.Add(txtEmail);
             Controls.Add(txtRole);
-            Controls.Add(txtStatus);
             Controls.Add(txtPass);
             Controls.Add(txtPhone);
             Controls.Add(txtLast);
             Controls.Add(txtAddress);
             Controls.Add(txtFirst);
             Name = "AccountManagementDetail";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "AccountManagementDetail";
             ResumeLayout(false);
             PerformLayout();
@@ -327,7 +333,6 @@
         private System.Windows.Forms.TextBox txtLast;
         private System.Windows.Forms.TextBox txtPhone;
         private System.Windows.Forms.TextBox txtPass;
-        private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.TextBox txtRole;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtCre;
@@ -348,5 +353,6 @@
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnAddReal;
+        private System.Windows.Forms.ComboBox txtStatus;
     }
 }

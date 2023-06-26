@@ -10,7 +10,7 @@ namespace Repository.Models.Entities
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public bool? IsConfirm { get; set; } = false;
+        public bool? IsConfirm { get; set; } = true;
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Numberphone { get; set; }

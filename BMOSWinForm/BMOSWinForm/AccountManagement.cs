@@ -68,7 +68,7 @@ namespace BMOSWinForm
             string type = "add";
             if (username != null && username != "")
             {
-                username = null;                
+                username = null;
                 txtUsername.Text = "";
                 Form form = new AccountManagementDetail(username, type);
                 form.ShowDialog();
