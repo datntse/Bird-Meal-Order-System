@@ -172,7 +172,7 @@
             label7.TabIndex = 10;
             label7.Text = "Cân nặng";
             // 
-            // txtTypes
+            // txtType
             // 
             txtType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txtType.Location = new System.Drawing.Point(244, 237);
@@ -266,6 +266,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "ProductManagementDetail";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "ProductManagementDetail";
             panel2.ResumeLayout(false);
             panel2.PerformLayout();

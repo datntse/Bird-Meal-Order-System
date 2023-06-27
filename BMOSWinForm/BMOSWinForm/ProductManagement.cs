@@ -18,6 +18,7 @@ namespace BMOSWinForm
 {
     public partial class ProductManagement : Form
     {
+        private string _user;
         BMOSContext _db;
         TblProductServices _productServices;
         public ProductManagement()
@@ -61,9 +62,10 @@ namespace BMOSWinForm
             dataGridViewProduct.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGridViewProduct.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGridViewProduct.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-
-
+        }
+        public ProductManagement(string user) : this()
+        {
+            _user = user;
         }
 
         private void ProductManagement_Load(object sender, EventArgs e)
@@ -72,6 +74,8 @@ namespace BMOSWinForm
             dataGridViewProduct.DataSource = _db.TblProducts.ToList();
 
         }
+
+
 
         private void btn_save_Click(object sender, EventArgs e)
         {
@@ -96,7 +100,7 @@ namespace BMOSWinForm
                 _db.TblProducts.Add(products);
                 _db.SaveChanges();
                 dataGridViewProduct.DataSource = _db.TblProducts.ToList();
-                MessageBox.Show("Thêm sản phẩm "+products.Name+" thành công!", "Thông báo");
+                MessageBox.Show("Thêm sản phẩm " + products.Name + " thành công!", "Thông báo");
             }
             catch
             {
@@ -141,7 +145,7 @@ namespace BMOSWinForm
                     _db.TblProducts.Remove(product);
                     _db.SaveChanges();
                     dataGridViewProduct.DataSource = _db.TblProducts.ToList();
-                    MessageBox.Show("Sản phẩm "+product.Name+" đã được xóa", "Thông báo");
+                    MessageBox.Show("Sản phẩm " + product.Name + " đã được xóa", "Thông báo");
                 }
 
 
@@ -208,7 +212,7 @@ namespace BMOSWinForm
                 txt_quantity.Text = null;
                 checkBox_status.Checked = false;
                 txt_id.Focus();
-               
+
 
             }
             catch
@@ -413,6 +417,85 @@ namespace BMOSWinForm
                              };
                 dataGridViewProduct.DataSource = new BindingSource { DataSource = result.ToList() };
             }
+        }
+
+        private Form currentChildForm;
+
+        public void OpenChildForm(Form childForm)
+        {
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
+            currentChildForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill; //lắp đầy panel chứa nó
+            panel_body.Controls.Add(childForm);
+            panel_body.Tag = childForm; //truyền dl form đến panel
+            childForm.BringToFront(); //mang form lên lớp trên cùng
+            childForm.Show();         //và show
+        }
+
+        private void btnProduct_Click(object sender, EventArgs e)
+        {
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
+            btnOrder.BackColor = SystemColors.ActiveCaptionText;
+            btnBlog.BackColor = SystemColors.ActiveCaptionText;
+            btnFeedback.BackColor = SystemColors.ActiveCaptionText;
+
+            btnProduct.BackColor = Color.Chocolate;
+            txtTitle.Text = "Quản lý Sản Phẩm";
+        }
+
+        private void btnOrder_Click_1(object sender, EventArgs e)
+        {
+            OpenChildForm(new OrderManagement());
+            btnProduct.BackColor = SystemColors.ActiveCaptionText;
+            btnBlog.BackColor = SystemColors.ActiveCaptionText;
+            btnFeedback.BackColor = SystemColors.ActiveCaptionText;
+
+
+            btnOrder.BackColor = Color.Chocolate;
+            txtTitle.Text = "Quản lý Đơn Hàng";
+        }
+
+        private void btnBlog_Click_1(object sender, EventArgs e)
+        {
+            OpenChildForm(new BlogManagement());
+            btnProduct.BackColor = SystemColors.ActiveCaptionText;
+            btnOrder.BackColor = SystemColors.ActiveCaptionText;
+            btnFeedback.BackColor = SystemColors.ActiveCaptionText;
+
+            btnBlog.BackColor = Color.Chocolate;
+            txtTitle.Text = "Quản lý Blog";
+        }
+
+        private void btnFeedback_Click_1(object sender, EventArgs e)
+        {
+            OpenChildForm(new FeedbackManagement());
+            btnProduct.BackColor = SystemColors.ActiveCaptionText;
+            btnOrder.BackColor = SystemColors.ActiveCaptionText;
+            btnBlog.BackColor = SystemColors.ActiveCaptionText;
+
+            btnFeedback.BackColor = Color.Chocolate;
+            txtTitle.Text = "Quản lý Đánh giá";
+        }
+
+        private void btnLogout_Click_1(object sender, EventArgs e)
+        {
+            var check = _db.TblUsers.Where(p => p.Username == _user).First();
+            if (check != null)
+            {
+                check.LastActivitty = DateTime.Now;
+                _db.SaveChanges();
+            }
+            this.Hide();
+            Form form = new Login();
+            form.ShowDialog();
         }
     }
 }

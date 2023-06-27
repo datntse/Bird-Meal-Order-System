@@ -10,13 +10,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BMOSWinForm
-{
+{    
     public partial class Management : Form
     {
+        private string _user;
+        BMOSContext _db;
         public Management()
         {
             InitializeComponent();
+            _db = new BMOSContext();
         }
+
+        public Management(string user) : this()
+        {
+            _user = user;
+        }
+
 
         private Form currentChildForm;
 
@@ -38,6 +47,12 @@ namespace BMOSWinForm
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
+            var check = _db.TblUsers.Where(p => p.Username == _user).First();
+            if (check != null)
+            {
+                check.LastActivitty = DateTime.Now;
+                _db.SaveChanges();
+            }
             this.Hide();
             Form form = new Login();
             form.ShowDialog();
@@ -46,66 +61,10 @@ namespace BMOSWinForm
         private void btnAcc_Click(object sender, EventArgs e)
         {
             OpenChildForm(new AccountManagement());
-
-            btnProduct.BackColor = SystemColors.ActiveCaptionText;
-            btnOrder.BackColor = SystemColors.ActiveCaptionText;
-            btnBlog.BackColor = SystemColors.ActiveCaptionText;
-            btnFeedback.BackColor = SystemColors.ActiveCaptionText;
             btnHome.BackColor = SystemColors.ActiveCaptionText;
 
             btnAcc.BackColor = Color.Chocolate;
-        }
-
-        private void btnProduct_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new ProductManagement());
-            btnAcc.BackColor = SystemColors.ActiveCaptionText;
-            btnOrder.BackColor = SystemColors.ActiveCaptionText;
-            btnBlog.BackColor = SystemColors.ActiveCaptionText;
-            btnFeedback.BackColor = SystemColors.ActiveCaptionText;
-            btnHome.BackColor = SystemColors.ActiveCaptionText;
-
-
-            btnProduct.BackColor = Color.Chocolate;
-        }
-
-        private void btnOrder_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new OrderManagement());
-            btnAcc.BackColor = SystemColors.ActiveCaptionText;
-            btnProduct.BackColor = SystemColors.ActiveCaptionText;
-            btnBlog.BackColor = SystemColors.ActiveCaptionText;
-            btnFeedback.BackColor = SystemColors.ActiveCaptionText;
-            btnHome.BackColor = SystemColors.ActiveCaptionText;
-
-
-            btnOrder.BackColor = Color.Chocolate;
-        }
-
-        private void btnBlog_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new BlogManagement());
-            btnAcc.BackColor = SystemColors.ActiveCaptionText;
-            btnProduct.BackColor = SystemColors.ActiveCaptionText;
-            btnOrder.BackColor = SystemColors.ActiveCaptionText;
-            btnFeedback.BackColor = SystemColors.ActiveCaptionText;
-            btnHome.BackColor = SystemColors.ActiveCaptionText;
-
-
-            btnBlog.BackColor = Color.Chocolate;
-        }
-
-        private void btnFeedback_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new FeedbackManagement());
-            btnAcc.BackColor = SystemColors.ActiveCaptionText;
-            btnProduct.BackColor = SystemColors.ActiveCaptionText;
-            btnOrder.BackColor = SystemColors.ActiveCaptionText;
-            btnBlog.BackColor = SystemColors.ActiveCaptionText;
-            btnHome.BackColor = SystemColors.ActiveCaptionText;
-
-
-            btnFeedback.BackColor = Color.Chocolate;
+            txtTitle.Text = "Quản lý Tài Khoản";
         }
 
         private void btnHome_Click(object sender, EventArgs e)
@@ -116,12 +75,9 @@ namespace BMOSWinForm
             }
 
             btnAcc.BackColor = SystemColors.ActiveCaptionText;
-            btnProduct.BackColor = SystemColors.ActiveCaptionText;
-            btnOrder.BackColor = SystemColors.ActiveCaptionText;
-            btnBlog.BackColor = SystemColors.ActiveCaptionText;
-            btnFeedback.BackColor = SystemColors.ActiveCaptionText;
 
             btnHome.BackColor = Color.Chocolate;
+            txtTitle.Text = "Dashboard";
         }
     }
 }

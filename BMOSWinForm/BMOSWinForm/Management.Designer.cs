@@ -41,6 +41,7 @@
             label1 = new System.Windows.Forms.Label();
             panel_body = new System.Windows.Forms.Panel();
             label2 = new System.Windows.Forms.Label();
+            txtTitle = new System.Windows.Forms.Label();
             panel_control.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel_body.SuspendLayout();
@@ -86,14 +87,15 @@
             // 
             // btnProduct
             // 
-            btnProduct.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnProduct.BackColor = System.Drawing.SystemColors.GrayText;
+            btnProduct.Enabled = false;
             btnProduct.FlatAppearance.BorderSize = 0;
             btnProduct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnProduct.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             btnProduct.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             btnProduct.Image = Properties.Resources.bird;
             btnProduct.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btnProduct.Location = new System.Drawing.Point(0, 209);
+            btnProduct.Location = new System.Drawing.Point(0, 199);
             btnProduct.Name = "btnProduct";
             btnProduct.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             btnProduct.Size = new System.Drawing.Size(326, 55);
@@ -102,18 +104,18 @@
             btnProduct.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnProduct.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             btnProduct.UseVisualStyleBackColor = false;
-            btnProduct.Click += btnProduct_Click;
             // 
             // btnFeedback
             // 
-            btnFeedback.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnFeedback.BackColor = System.Drawing.SystemColors.GrayText;
+            btnFeedback.Enabled = false;
             btnFeedback.FlatAppearance.BorderSize = 0;
             btnFeedback.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnFeedback.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             btnFeedback.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             btnFeedback.Image = Properties.Resources.feedback__2_;
             btnFeedback.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btnFeedback.Location = new System.Drawing.Point(0, 392);
+            btnFeedback.Location = new System.Drawing.Point(0, 348);
             btnFeedback.Name = "btnFeedback";
             btnFeedback.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             btnFeedback.Size = new System.Drawing.Size(326, 55);
@@ -122,18 +124,18 @@
             btnFeedback.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnFeedback.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             btnFeedback.UseVisualStyleBackColor = false;
-            btnFeedback.Click += btnFeedback_Click;
             // 
             // btnBlog
             // 
-            btnBlog.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnBlog.BackColor = System.Drawing.SystemColors.GrayText;
+            btnBlog.Enabled = false;
             btnBlog.FlatAppearance.BorderSize = 0;
             btnBlog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnBlog.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             btnBlog.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             btnBlog.Image = Properties.Resources.blogging;
             btnBlog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btnBlog.Location = new System.Drawing.Point(0, 331);
+            btnBlog.Location = new System.Drawing.Point(0, 301);
             btnBlog.Name = "btnBlog";
             btnBlog.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             btnBlog.Size = new System.Drawing.Size(326, 55);
@@ -142,7 +144,6 @@
             btnBlog.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnBlog.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             btnBlog.UseVisualStyleBackColor = false;
-            btnBlog.Click += btnBlog_Click;
             // 
             // btnLogout
             // 
@@ -154,10 +155,10 @@
             btnLogout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             btnLogout.Image = Properties.Resources.power_off;
             btnLogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btnLogout.Location = new System.Drawing.Point(0, 584);
+            btnLogout.Location = new System.Drawing.Point(0, 603);
             btnLogout.Name = "btnLogout";
             btnLogout.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            btnLogout.Size = new System.Drawing.Size(326, 69);
+            btnLogout.Size = new System.Drawing.Size(326, 50);
             btnLogout.TabIndex = 5;
             btnLogout.Text = "   Đăng xuất";
             btnLogout.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -167,14 +168,15 @@
             // 
             // btnOrder
             // 
-            btnOrder.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnOrder.BackColor = System.Drawing.SystemColors.GrayText;
+            btnOrder.Enabled = false;
             btnOrder.FlatAppearance.BorderSize = 0;
             btnOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnOrder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             btnOrder.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             btnOrder.Image = Properties.Resources.shopping_bag;
             btnOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btnOrder.Location = new System.Drawing.Point(0, 270);
+            btnOrder.Location = new System.Drawing.Point(0, 251);
             btnOrder.Name = "btnOrder";
             btnOrder.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             btnOrder.Size = new System.Drawing.Size(326, 55);
@@ -183,7 +185,6 @@
             btnOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnOrder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             btnOrder.UseVisualStyleBackColor = false;
-            btnOrder.Click += btnOrder_Click;
             // 
             // btnAcc
             // 
@@ -208,7 +209,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(27, 35);
+            pictureBox1.Location = new System.Drawing.Point(42, 35);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new System.Drawing.Size(27, 33);
             pictureBox1.TabIndex = 0;
@@ -243,11 +244,24 @@
             label2.TabIndex = 3;
             label2.Text = "dashboard";
             // 
+            // txtTitle
+            // 
+            txtTitle.AutoSize = true;
+            txtTitle.BackColor = System.Drawing.Color.Chocolate;
+            txtTitle.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtTitle.Location = new System.Drawing.Point(807, 9);
+            txtTitle.Name = "txtTitle";
+            txtTitle.Size = new System.Drawing.Size(193, 46);
+            txtTitle.TabIndex = 3;
+            txtTitle.Text = "Dashboard";
+            txtTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // Management
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1497, 653);
+            Controls.Add(txtTitle);
             Controls.Add(panel_body);
             Controls.Add(panel_control);
             MaximizeBox = false;
@@ -260,6 +274,7 @@
             panel_body.ResumeLayout(false);
             panel_body.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -277,5 +292,6 @@
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAcc;
+        private System.Windows.Forms.Label txtTitle;
     }
 }
