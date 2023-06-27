@@ -40,7 +40,6 @@ namespace Repository.Models.Entities
                 optionsBuilder.UseSqlServer(GetConnectionString());
             }
         }
-
         private string GetConnectionString()
         {
             IConfiguration config = new ConfigurationBuilder()
@@ -465,7 +464,7 @@ namespace Repository.Models.Entities
                 entity.Property(e => e.UserRoleId).HasColumnName("user_role_id");
 
                 entity.Property(e => e.Username)
-                    .HasMaxLength(20)
+                    .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("username");
             });

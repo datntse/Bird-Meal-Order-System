@@ -36,7 +36,7 @@ namespace BMOSWinForm
                 if (id == 1)
                 {
                     this.Hide();
-                    Form form = new Management();
+                    Form form = new Management(username);
                     form.ShowDialog();
                 }
                 else if (id == 2)
@@ -44,7 +44,7 @@ namespace BMOSWinForm
                     if (checkStatus.Count() > 0)
                     {
                         this.Hide();
-                        Form form = new Management();
+                        Form form = new ProductManagement(username);
                         form.ShowDialog();
                     }
                     else

@@ -28,63 +28,68 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountManagement));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountManagement));
-            panel_body = new System.Windows.Forms.Panel();
-            label1 = new System.Windows.Forms.Label();
-            btnAdd = new System.Windows.Forms.Button();
-            btnDetail = new System.Windows.Forms.Button();
-            dgvAccount = new System.Windows.Forms.DataGridView();
             panel_top = new System.Windows.Forms.Panel();
+            sortList = new System.Windows.Forms.ComboBox();
             btnSearch = new System.Windows.Forms.Button();
             txtSearch = new System.Windows.Forms.TextBox();
-            panel_body.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvAccount).BeginInit();
+            dgvAccount = new System.Windows.Forms.DataGridView();
+            btnDetail = new System.Windows.Forms.Button();
+            btnAdd = new System.Windows.Forms.Button();
+            txtUsername = new System.Windows.Forms.TextBox();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            btnRef = new System.Windows.Forms.Button();
             panel_top.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvAccount).BeginInit();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
-            // panel_body
+            // panel_top
             // 
-            panel_body.BackColor = System.Drawing.SystemColors.Control;
-            panel_body.Controls.Add(btnAdd);
-            panel_body.Controls.Add(btnDetail);
-            panel_body.Controls.Add(dgvAccount);
-            panel_body.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel_body.Location = new System.Drawing.Point(0, 82);
-            panel_body.Name = "panel_body";
-            panel_body.Size = new System.Drawing.Size(1171, 432);
-            panel_body.TabIndex = 0;
+            panel_top.Controls.Add(sortList);
+            panel_top.Controls.Add(btnSearch);
+            panel_top.Controls.Add(txtSearch);
+            panel_top.Dock = System.Windows.Forms.DockStyle.Top;
+            panel_top.Location = new System.Drawing.Point(0, 0);
+            panel_top.Name = "panel_top";
+            panel_top.Size = new System.Drawing.Size(1171, 56);
+            panel_top.TabIndex = 1;
             // 
-            // label1
+            // sortList
             // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(12, 59);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(142, 20);
-            label1.TabIndex = 2;
-            label1.Text = "Danh sách tài khoản";
+            sortList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            sortList.FormattingEnabled = true;
+            sortList.Items.AddRange(new object[] { "Tất cả", "A-Z Tên", "Z-A Tên", "A-Z Email", "Z-A Email", "Nhân viên", "Khách hàng", "Hoạt động", "Vô hiệu hóa", "Hoạt động gần đây" });
+            sortList.Location = new System.Drawing.Point(992, 12);
+            sortList.Name = "sortList";
+            sortList.Size = new System.Drawing.Size(167, 28);
+            sortList.TabIndex = 2;
+            sortList.SelectedIndexChanged += sortList_SelectedIndexChanged;
             // 
-            // btnAdd
+            // btnSearch
             // 
-            btnAdd.BackColor = System.Drawing.SystemColors.Window;
-            btnAdd.Location = new System.Drawing.Point(1037, 391);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new System.Drawing.Size(122, 29);
-            btnAdd.TabIndex = 2;
-            btnAdd.Text = "Thêm nhân viên";
-            btnAdd.UseVisualStyleBackColor = false;
-            btnAdd.Click += btnAdd_Click;
+            btnSearch.BackColor = System.Drawing.SystemColors.Window;
+            btnSearch.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            btnSearch.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Chocolate;
+            btnSearch.Image = (System.Drawing.Image)resources.GetObject("btnSearch.Image");
+            btnSearch.Location = new System.Drawing.Point(880, 12);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new System.Drawing.Size(40, 27);
+            btnSearch.TabIndex = 1;
+            btnSearch.UseVisualStyleBackColor = false;
+            btnSearch.Click += btnSearch_Click;
             // 
-            // btnDetail
+            // txtSearch
             // 
-            btnDetail.Location = new System.Drawing.Point(937, 391);
-            btnDetail.Name = "btnDetail";
-            btnDetail.Size = new System.Drawing.Size(94, 29);
-            btnDetail.TabIndex = 1;
-            btnDetail.Text = "Chi tiết";
-            btnDetail.UseVisualStyleBackColor = true;
-            btnDetail.Click += btnDetail_Click;
+            txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtSearch.Location = new System.Drawing.Point(327, 12);
+            txtSearch.Name = "txtSearch";
+            txtSearch.PlaceholderText = "Tìm kiếm...";
+            txtSearch.Size = new System.Drawing.Size(547, 27);
+            txtSearch.TabIndex = 0;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // dgvAccount
             // 
@@ -108,75 +113,101 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             dgvAccount.DefaultCellStyle = dataGridViewCellStyle2;
             dgvAccount.GridColor = System.Drawing.SystemColors.WindowFrame;
-            dgvAccount.Location = new System.Drawing.Point(12, 3);
+            dgvAccount.Location = new System.Drawing.Point(12, 26);
             dgvAccount.Name = "dgvAccount";
+            dgvAccount.ReadOnly = true;
+            dgvAccount.RowHeadersVisible = false;
             dgvAccount.RowHeadersWidth = 51;
             dgvAccount.RowTemplate.Height = 29;
             dgvAccount.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            dgvAccount.Size = new System.Drawing.Size(1147, 382);
+            dgvAccount.Size = new System.Drawing.Size(1147, 386);
             dgvAccount.TabIndex = 0;
+            dgvAccount.CellContentClick += dgvAccount_CellContentClick;
             // 
-            // panel_top
+            // btnDetail
             // 
-            panel_top.Controls.Add(btnSearch);
-            panel_top.Controls.Add(txtSearch);
-            panel_top.Dock = System.Windows.Forms.DockStyle.Top;
-            panel_top.Location = new System.Drawing.Point(0, 0);
-            panel_top.Name = "panel_top";
-            panel_top.Size = new System.Drawing.Size(1171, 56);
-            panel_top.TabIndex = 1;
+            btnDetail.Location = new System.Drawing.Point(937, 418);
+            btnDetail.Name = "btnDetail";
+            btnDetail.Size = new System.Drawing.Size(94, 29);
+            btnDetail.TabIndex = 1;
+            btnDetail.Text = "Chi tiết";
+            btnDetail.UseVisualStyleBackColor = true;
+            btnDetail.Click += btnDetail_Click;
             // 
-            // btnSearch
+            // btnAdd
             // 
-            btnSearch.BackColor = System.Drawing.SystemColors.Window;
-            btnSearch.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            btnSearch.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Chocolate;
-            btnSearch.Image = (System.Drawing.Image)resources.GetObject("btnSearch.Image");
-            btnSearch.Location = new System.Drawing.Point(880, 12);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new System.Drawing.Size(40, 27);
-            btnSearch.TabIndex = 1;
-            btnSearch.UseVisualStyleBackColor = false;
+            btnAdd.BackColor = System.Drawing.SystemColors.Window;
+            btnAdd.Location = new System.Drawing.Point(1037, 418);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new System.Drawing.Size(122, 29);
+            btnAdd.TabIndex = 2;
+            btnAdd.Text = "Thêm nhân viên";
+            btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
             // 
-            // txtSearch
+            // txtUsername
             // 
-            txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txtSearch.Location = new System.Drawing.Point(327, 12);
-            txtSearch.Name = "txtSearch";
-            txtSearch.PlaceholderText = "Tìm kiếm...";
-            txtSearch.Size = new System.Drawing.Size(547, 27);
-            txtSearch.TabIndex = 0;
+            txtUsername.Location = new System.Drawing.Point(12, 418);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new System.Drawing.Size(292, 27);
+            txtUsername.TabIndex = 3;
+            txtUsername.Visible = false;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(btnRef);
+            groupBox1.Controls.Add(btnAdd);
+            groupBox1.Controls.Add(dgvAccount);
+            groupBox1.Controls.Add(btnDetail);
+            groupBox1.Controls.Add(txtUsername);
+            groupBox1.Location = new System.Drawing.Point(0, 62);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new System.Drawing.Size(1171, 453);
+            groupBox1.TabIndex = 4;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Danh sách tài khoản";
+            // 
+            // btnRef
+            // 
+            btnRef.Location = new System.Drawing.Point(786, 418);
+            btnRef.Name = "btnRef";
+            btnRef.Size = new System.Drawing.Size(145, 29);
+            btnRef.TabIndex = 4;
+            btnRef.Text = "Làm mới danh sách";
+            btnRef.UseVisualStyleBackColor = true;
+            btnRef.Click += btnRef_Click;
             // 
             // AccountManagement
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1171, 514);
-            Controls.Add(label1);
+            Controls.Add(groupBox1);
             Controls.Add(panel_top);
-            Controls.Add(panel_body);
             Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "AccountManagement";
             Text = "AccountManagement";
-            panel_body.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvAccount).EndInit();
+            Load += AccountManagement_Load;
             panel_top.ResumeLayout(false);
             panel_top.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvAccount).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel_body;
-        private System.Windows.Forms.DataGridView dgvAccount;
         private System.Windows.Forms.Panel panel_top;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.DataGridView dgvAccount;
         private System.Windows.Forms.Button btnDetail;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnRef;
+        private System.Windows.Forms.ComboBox sortList;
     }
 }
