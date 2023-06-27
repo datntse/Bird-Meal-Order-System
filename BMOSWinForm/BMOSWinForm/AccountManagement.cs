@@ -113,6 +113,7 @@ namespace BMOSWinForm
         private void btnRef_Click(object sender, EventArgs e)
         {
             GetList();
+            sortList.Text = "Tất cả";
         }
 
         private void AccountManagement_Load(object sender, EventArgs e)
@@ -450,7 +451,35 @@ namespace BMOSWinForm
                                      Trạng_thái = user.Status
                                  };
                     dgvAccount.DataSource = new BindingSource { DataSource = result.ToList() };
-                }              
+                }         
+                else
+                {
+                    var AZE = from user in _db.TblUsers
+                              where user.Firstname.Contains(searchKeyword) || user.Lastname.Contains(searchKeyword) || user.Username.Contains(searchKeyword) || user.Numberphone.Contains(searchKeyword)
+                              orderby user.Username ascending
+                              select new
+                              {
+                                  ID = user.UserId,
+                                  Họ_Tên = user.Firstname + " " + user.Lastname,
+                                  Email = user.Username,
+                                  Số_điện_thoại = user.Numberphone,
+                                  Chức_vụ = user.UserRoleId,
+                                  Ngày_khởi_tạo = user.DateCreate,
+                                  Hoạt_động_gần_nhất = user.LastActivitty,
+                                  Trạng_thái = user.Status
+                              };
+                    dgvAccount.DataSource = AZE.ToList();
+                    sortList.Text = "A-Z Email";
+
+                    dgvAccount.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;                  
+                }
             }
             else if (sortList.Text.Equals("Z-A Email"))
             {
@@ -471,6 +500,136 @@ namespace BMOSWinForm
                                      Trạng_thái = user.Status
                                  };
                     dgvAccount.DataSource = new BindingSource { DataSource = result.ToList() };
+                }
+                else
+                {
+                    var ZAE = from user in _db.TblUsers
+                              where user.Firstname.Contains(searchKeyword) || user.Lastname.Contains(searchKeyword) || user.Username.Contains(searchKeyword) || user.Numberphone.Contains(searchKeyword)
+                              orderby user.Username descending
+                              select new
+                              {
+                                  ID = user.UserId,
+                                  Họ_Tên = user.Firstname + " " + user.Lastname,
+                                  Email = user.Username,
+                                  Số_điện_thoại = user.Numberphone,
+                                  Chức_vụ = user.UserRoleId,
+                                  Ngày_khởi_tạo = user.DateCreate,
+                                  Hoạt_động_gần_nhất = user.LastActivitty,
+                                  Trạng_thái = user.Status
+                              };
+                    dgvAccount.DataSource = ZAE.ToList();
+                    sortList.Text = "Z-A Email";
+
+                    dgvAccount.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                }
+            }
+            else if (sortList.Text.Equals("A-Z Tên"))
+            {
+                if (!string.IsNullOrEmpty(searchKeyword))
+                {
+                    var result = from user in _db.TblUsers
+                                 where user.UserRoleId == 3 && user.Firstname.Contains(searchKeyword) || user.UserRoleId == 3 && user.Lastname.Contains(searchKeyword) || user.UserRoleId == 3 && user.Username.Contains(searchKeyword) || user.UserRoleId == 3 && user.Numberphone.Contains(searchKeyword)
+                                 orderby user.Lastname ascending
+                                 select new
+                                 {
+                                     ID = user.UserId,
+                                     Họ_Tên = user.Firstname + " " + user.Lastname,
+                                     Email = user.Username,
+                                     Số_điện_thoại = user.Numberphone,
+                                     Chức_vụ = user.UserRoleId,
+                                     Ngày_khởi_tạo = user.DateCreate,
+                                     Hoạt_động_gần_nhất = user.LastActivitty,
+                                     Trạng_thái = user.Status
+                                 };
+
+
+                    dgvAccount.DataSource = new BindingSource { DataSource = result.ToList() };
+                }
+                else
+                {
+                    var AZ = from user in _db.TblUsers
+                             where user.Firstname.Contains(searchKeyword) || user.Lastname.Contains(searchKeyword) || user.Username.Contains(searchKeyword) || user.Numberphone.Contains(searchKeyword)
+                             orderby user.Lastname ascending
+                             select new
+                             {
+                                 ID = user.UserId,
+                                 Họ_Tên = user.Firstname + " " + user.Lastname,
+                                 Email = user.Username,
+                                 Số_điện_thoại = user.Numberphone,
+                                 Chức_vụ = user.UserRoleId,
+                                 Ngày_khởi_tạo = user.DateCreate,
+                                 Hoạt_động_gần_nhất = user.LastActivitty,
+                                 Trạng_thái = user.Status
+                             };
+                    dgvAccount.DataSource = AZ.ToList();
+                    sortList.Text = "A-Z Tên";
+
+                    dgvAccount.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                }
+            }
+            else if (sortList.Text.Equals("Z-A Tên"))
+            {
+                if (!string.IsNullOrEmpty(searchKeyword))
+                {
+                    var result = from user in _db.TblUsers
+                                 where user.UserRoleId == 2 && user.Firstname.Contains(searchKeyword) || user.UserRoleId == 2 && user.Lastname.Contains(searchKeyword) || user.UserRoleId == 2 && user.Username.Contains(searchKeyword) || user.UserRoleId == 2 && user.Numberphone.Contains(searchKeyword)
+                                 orderby user.Lastname ascending
+                                 select new
+                                 {
+                                     ID = user.UserId,
+                                     Họ_Tên = user.Firstname + " " + user.Lastname,
+                                     Email = user.Username,
+                                     Số_điện_thoại = user.Numberphone,
+                                     Chức_vụ = user.UserRoleId,
+                                     Ngày_khởi_tạo = user.DateCreate,
+                                     Hoạt_động_gần_nhất = user.LastActivitty,
+                                     Trạng_thái = user.Status
+                                 };
+
+
+                    dgvAccount.DataSource = new BindingSource { DataSource = result.ToList() };
+                }
+                else
+                {
+                    var ZA = from user in _db.TblUsers
+                             where user.Firstname.Contains(searchKeyword) || user.Lastname.Contains(searchKeyword) || user.Username.Contains(searchKeyword) || user.Numberphone.Contains(searchKeyword)
+                             orderby user.Lastname descending
+                             select new
+                             {
+                                 ID = user.UserId,
+                                 Họ_Tên = user.Firstname + " " + user.Lastname,
+                                 Email = user.Username,
+                                 Số_điện_thoại = user.Numberphone,
+                                 Chức_vụ = user.UserRoleId,
+                                 Ngày_khởi_tạo = user.DateCreate,
+                                 Hoạt_động_gần_nhất = user.LastActivitty,
+                                 Trạng_thái = user.Status
+                             };
+                    dgvAccount.DataSource = ZA.ToList();
+                    sortList.Text = "Z-A Tên";
+
+                    dgvAccount.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                 }
             }
             else if (sortList.Text.Equals("Nhân viên"))
@@ -495,6 +654,34 @@ namespace BMOSWinForm
 
                     dgvAccount.DataSource = new BindingSource { DataSource = result.ToList() };
                 }
+                else
+                {
+                    var staff = from user in _db.TblUsers
+                                where user.UserRoleId == 2 && user.Firstname.Contains(searchKeyword) || user.UserRoleId == 2 && user.Lastname.Contains(searchKeyword) || user.UserRoleId == 2 && user.Username.Contains(searchKeyword) || user.UserRoleId == 2 && user.Numberphone.Contains(searchKeyword)
+                                orderby user.Lastname ascending
+                                select new
+                                {
+                                    ID = user.UserId,
+                                    Họ_Tên = user.Firstname + " " + user.Lastname,
+                                    Email = user.Username,
+                                    Số_điện_thoại = user.Numberphone,
+                                    Chức_vụ = user.UserRoleId,
+                                    Ngày_khởi_tạo = user.DateCreate,
+                                    Hoạt_động_gần_nhất = user.LastActivitty,
+                                    Trạng_thái = user.Status
+                                };
+                    dgvAccount.DataSource = staff.ToList();
+                    sortList.Text = "Nhân viên";
+
+                    dgvAccount.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                }
             }
             else if (sortList.Text.Equals("Khách hàng"))
             {
@@ -517,6 +704,34 @@ namespace BMOSWinForm
 
 
                     dgvAccount.DataSource = new BindingSource { DataSource = result.ToList() };
+                }
+                else
+                {
+                    var cus = from user in _db.TblUsers
+                              where user.UserRoleId == 3 && user.Firstname.Contains(searchKeyword) || user.UserRoleId == 3 && user.Lastname.Contains(searchKeyword) || user.UserRoleId == 3 && user.Username.Contains(searchKeyword) || user.UserRoleId == 3 && user.Numberphone.Contains(searchKeyword)
+                              orderby user.Lastname ascending
+                              select new
+                              {
+                                  ID = user.UserId,
+                                  Họ_Tên = user.Firstname + " " + user.Lastname,
+                                  Email = user.Username,
+                                  Số_điện_thoại = user.Numberphone,
+                                  Chức_vụ = user.UserRoleId,
+                                  Ngày_khởi_tạo = user.DateCreate,
+                                  Hoạt_động_gần_nhất = user.LastActivitty,
+                                  Trạng_thái = user.Status
+                              };
+                    dgvAccount.DataSource = cus.ToList();
+                    sortList.Text = "Khách hàng";
+
+                    dgvAccount.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                 }
             }
             else if (sortList.Text.Equals("Hoạt động"))
@@ -541,6 +756,34 @@ namespace BMOSWinForm
 
                     dgvAccount.DataSource = new BindingSource { DataSource = result.ToList() };
                 }
+                else
+                {
+                    var normal = from user in _db.TblUsers
+                                 where user.Status == true && user.Firstname.Contains(searchKeyword) || user.Status == true && user.Lastname.Contains(searchKeyword) || user.Status == true && user.Username.Contains(searchKeyword) || user.Status == true && user.Numberphone.Contains(searchKeyword)
+                                 orderby user.Lastname ascending
+                                 select new
+                                 {
+                                     ID = user.UserId,
+                                     Họ_Tên = user.Firstname + " " + user.Lastname,
+                                     Email = user.Username,
+                                     Số_điện_thoại = user.Numberphone,
+                                     Chức_vụ = user.UserRoleId,
+                                     Ngày_khởi_tạo = user.DateCreate,
+                                     Hoạt_động_gần_nhất = user.LastActivitty,
+                                     Trạng_thái = user.Status
+                                 };
+                    dgvAccount.DataSource = normal.ToList();
+                    sortList.Text = "Hoạt động";
+
+                    dgvAccount.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                }
             }
             else if (sortList.Text.Equals("Vô hiệu hóa"))
             {
@@ -564,6 +807,34 @@ namespace BMOSWinForm
 
                     dgvAccount.DataSource = new BindingSource { DataSource = result.ToList() };
                 }
+                else
+                {
+                    var block = from user in _db.TblUsers
+                                where user.Status == false && user.Firstname.Contains(searchKeyword) || user.Status == false && user.Lastname.Contains(searchKeyword) || user.Status == false && user.Username.Contains(searchKeyword) || user.Status == false && user.Numberphone.Contains(searchKeyword)
+                                orderby user.Lastname ascending
+                                select new
+                                {
+                                    ID = user.UserId,
+                                    Họ_Tên = user.Firstname + " " + user.Lastname,
+                                    Email = user.Username,
+                                    Số_điện_thoại = user.Numberphone,
+                                    Chức_vụ = user.UserRoleId,
+                                    Ngày_khởi_tạo = user.DateCreate,
+                                    Hoạt_động_gần_nhất = user.LastActivitty,
+                                    Trạng_thái = user.Status
+                                };
+                    dgvAccount.DataSource = block.ToList();
+                    sortList.Text = "Vô hiệu hóa";
+
+                    dgvAccount.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                }
             }
             else if (sortList.Text.Equals("Hoạt động gần đây"))
             {
@@ -586,7 +857,36 @@ namespace BMOSWinForm
 
                     dgvAccount.DataSource = new BindingSource { DataSource = result.ToList() };
                 }
+                else
+                {
+                    var last = from user in _db.TblUsers
+                               where user.Firstname.Contains(searchKeyword) || user.Lastname.Contains(searchKeyword) || user.Username.Contains(searchKeyword) || user.Numberphone.Contains(searchKeyword)
+                               orderby user.LastActivitty descending
+                               select new
+                               {
+                                   ID = user.UserId,
+                                   Họ_Tên = user.Firstname + " " + user.Lastname,
+                                   Email = user.Username,
+                                   Số_điện_thoại = user.Numberphone,
+                                   Chức_vụ = user.UserRoleId,
+                                   Ngày_khởi_tạo = user.DateCreate,
+                                   Hoạt_động_gần_nhất = user.LastActivitty,
+                                   Trạng_thái = user.Status
+                               };
+                    dgvAccount.DataSource = last.ToList();
+                    sortList.Text = "Hoạt động gần đây";
+
+                    dgvAccount.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                }
             }
+            
         }
     }
 }
