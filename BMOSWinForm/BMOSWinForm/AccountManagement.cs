@@ -61,7 +61,7 @@ namespace BMOSWinForm
             dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
             dgvAccount.DataSource = new BindingSource() { DataSource = list };
@@ -188,7 +188,7 @@ namespace BMOSWinForm
                             dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                             break;
@@ -217,7 +217,7 @@ namespace BMOSWinForm
                             dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                             break;
@@ -244,7 +244,7 @@ namespace BMOSWinForm
                             dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                             sortList.Text = "A-Z Email";
@@ -274,7 +274,7 @@ namespace BMOSWinForm
                             dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                             break;
@@ -303,7 +303,7 @@ namespace BMOSWinForm
                             dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                             break;
@@ -332,7 +332,7 @@ namespace BMOSWinForm
                             dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                             break;
@@ -361,7 +361,7 @@ namespace BMOSWinForm
                             dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                             break;
@@ -390,7 +390,7 @@ namespace BMOSWinForm
                             dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                             break;
@@ -420,7 +420,7 @@ namespace BMOSWinForm
                             dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                             dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                            dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                             break;
@@ -477,7 +477,7 @@ namespace BMOSWinForm
                     dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;                  
                 }
             }
@@ -526,7 +526,7 @@ namespace BMOSWinForm
                     dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                 }
             }
@@ -577,7 +577,7 @@ namespace BMOSWinForm
                     dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                 }
             }
@@ -628,7 +628,7 @@ namespace BMOSWinForm
                     dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                 }
             }
@@ -679,7 +679,7 @@ namespace BMOSWinForm
                     dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                 }
             }
@@ -730,7 +730,7 @@ namespace BMOSWinForm
                     dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                 }
             }
@@ -781,7 +781,7 @@ namespace BMOSWinForm
                     dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                 }
             }
@@ -832,7 +832,7 @@ namespace BMOSWinForm
                     dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                 }
             }
@@ -882,7 +882,7 @@ namespace BMOSWinForm
                     dgvAccount.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dgvAccount.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvAccount.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvAccount.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                 }
             }

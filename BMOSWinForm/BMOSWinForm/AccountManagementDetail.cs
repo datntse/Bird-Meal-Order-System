@@ -200,7 +200,7 @@ namespace BMOSWinForm
                 else
                 {
                     MessageBox.Show("Email đã tồn tại, vui lòng thử lại.", "Thông báo", MessageBoxButtons.OK);
-                }               
+                }
             }
             else
             {

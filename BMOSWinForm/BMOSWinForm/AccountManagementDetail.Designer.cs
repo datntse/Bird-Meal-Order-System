@@ -58,6 +58,7 @@
             panel2 = new System.Windows.Forms.Panel();
             label12 = new System.Windows.Forms.Label();
             pictureBox1 = new System.Windows.Forms.PictureBox();
+            label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -324,17 +325,28 @@
             // 
             // pictureBox1
             // 
+            pictureBox1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             pictureBox1.Location = new System.Drawing.Point(49, 107);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new System.Drawing.Size(137, 170);
             pictureBox1.TabIndex = 31;
             pictureBox1.TabStop = false;
             // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new System.Drawing.Point(94, 294);
+            label13.Name = "label13";
+            label13.Size = new System.Drawing.Size(35, 20);
+            label13.TabIndex = 32;
+            label13.Text = "Ảnh";
+            // 
             // AccountManagementDetail
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(967, 646);
+            Controls.Add(label13);
             Controls.Add(pictureBox1);
             Controls.Add(label12);
             Controls.Add(panel2);
@@ -405,5 +417,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label13;
     }
 }
