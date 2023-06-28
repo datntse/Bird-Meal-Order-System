@@ -35,21 +35,21 @@ namespace BMOS.Controllers
                 var check = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).Select(p => p.UserRoleId);
                 if (check.Count() > 0)
                 {
-                    var checkStatus = _db.TblUsers.Where(p => p.Status == true);
+                    var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
                     var id = check.First();                   
-                    string sid = Convert.ToString(id);
-                    HttpContext.Session.SetString("id", sid);                   
+                    //string sid = Convert.ToString(id);
+                    HttpContext.Session.SetString("id", id.ToString());                   
                     if (id == 1)
                     {
                         HttpContext.Session.SetString("username", username);
                         return RedirectToAction("Index", "ProductManager");
                     }
-                    if (id == 2 && checkStatus.Count() > 0)
+                    else if (id == 2 && checkStatus.Count() > 0)
                     {
                         HttpContext.Session.SetString("username", username);
                         return RedirectToAction("Index", "ProductManager");
                     }
-                    if (id == 3 && checkStatus.Count() > 0)
+                    else if (id == 3 && checkStatus.Count() > 0)
                     {
                         var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).ToList();
                         //string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
@@ -64,15 +64,12 @@ namespace BMOS.Controllers
                         }
                         ViewBag.EmailConfirm = "*Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra Email để xác nhận tài khoản.";
                         return View();
-                    }                                                            
-                    ViewBag.Block = "*Tài khoản của bạn đã bị khóa. Nếu có vấn đề cần giải đáp xin vui lòng liên hệ với chúng tôi.";
-                    return View();
+                    } 
+                    ViewBag.Block = "*Tài khoản của bạn đã bị khóa.";
+                    return View();                                 
                 }
-                else
-                {
-                    ViewBag.Notice = "*Tên đăng nhập hoặc mật khẩu không chính xác.";
-                    return View();
-                }
+                ViewBag.Notice = "*Thông tin đăng nhập không chính xác.";
+                return View();               
             }
             //}
             return View();
@@ -80,6 +77,13 @@ namespace BMOS.Controllers
 
         public IActionResult Logout()
         {
+            var username = HttpContext.Session.GetString("username");
+            var check = _db.TblUsers.Where(p => p.Username.Equals(username)).First();
+            if (check != null)
+            {
+                check.LastActivitty = DateTime.Now;
+                _db.SaveChanges();
+            }
             HttpContext.Session.Remove("username");
             HttpContext.Session.Remove("fullname");
             return RedirectToAction("Index", "Home");

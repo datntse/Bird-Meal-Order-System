@@ -15,6 +15,23 @@
 </head>
 
 <body>
+    <style>
+        body {
+            background-image: url('../images/background.png');
+            background-size: cover;
+            background-color: #f6b668;
+        }
+
+        #form-register {
+            max-width: 490px;
+            max-height: 720px;
+            background-color: rgba(187, 108, 17, 0.3);
+            border: 1px solid white;
+            box-shadow: 0px 0px 7px 1px rgba(255, 255, 255, 0.822);
+            border-radius: 20px;
+            padding: 20px;
+        }
+    </style>
     @if (ViewBag.RegisterSuccess != null)
     {
         <style>
