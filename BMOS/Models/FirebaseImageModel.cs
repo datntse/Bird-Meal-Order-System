@@ -1,4 +1,4 @@
-﻿namespace Bmostest.Models
+﻿namespace BMOS.Models
 {
     public class FirebaseImageModel
     {

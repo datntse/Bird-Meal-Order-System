@@ -6,9 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
-using System.Net.Sockets;
-using Firebase.Auth;
-using Firebase.Storage;
 using BMOS.Models;
 using BMOS.Models.Services;
 using X.PagedList;
@@ -332,9 +329,5 @@ namespace BMOS.Controllers
         }
 
 
-        private bool TblProductExists(string id)
-        {
-            return (_context.TblProducts?.Any(e => e.ProductId == id)).GetValueOrDefault();
-        }
-    }
+	}
 }
