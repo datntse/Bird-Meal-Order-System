@@ -2,6 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+	var username = Context.Session.GetString("username");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -69,6 +70,10 @@
 							</div>
 							<div class="col header-option-profile">
 								<a href="~/Account/UserProfile"><img src="~/images/user-icon.png" alt=""></a>
+								@if (username != null)
+								{
+									<div style="color: #ffce3e; font-size: 1.4rem; font-weight: 500">Welcome @username </div>
+								}
 							</div>
 						</div>
 					</div>
