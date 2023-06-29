@@ -102,12 +102,21 @@ namespace BMOS.Controllers
             {
                 return NotFound();
             }
-            var result = new relatedProduct
+			var result = new relatedProduct
             {
                 _id = id,
                 listProduct = product
-            };
+		};
             return View(result);
+        }
+
+        
+        public async Task<IActionResult> Index()
+        {
+			var products = _context.TblProducts.Where(p => p.IsLoved == true).ToList();
+						   
+
+			return View(products);
         }
 
 		[HttpGet]
@@ -285,6 +294,43 @@ namespace BMOS.Controllers
             int pageNumber = (page ?? 1);
             return View(products.ToPagedList(pageNumber, pageSize));
         }
+
+        public IActionResult ChangeLove(string id, string type)
+        {
+            var result = _context.TblProducts.FirstOrDefault(x => x.ProductId.Equals(id));
+            result.IsLoved = !result.IsLoved;
+            _context.SaveChanges();
+            if(type == "ajax")
+            {
+                return Json(new
+                {
+                    love = result.IsLoved
+                });
+            }
+            return RedirectToAction("Products", new
+            {
+                id
+            });
+        }
+
+        public IActionResult delete(string id, string type)
+        {
+            var result = _context.TblProducts.FirstOrDefault(x => x.ProductId.Equals(id));
+            result.IsLoved = false;
+            _context.SaveChanges();
+            if (type == "ajax")
+            {
+                return Json(new
+                {
+                    love = result.IsLoved
+                });
+            }
+            return RedirectToAction("Products", new
+            {
+                id
+            });
+        }
+
 
         private bool TblProductExists(string id)
         {

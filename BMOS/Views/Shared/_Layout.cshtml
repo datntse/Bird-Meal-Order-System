@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="~/css/background.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/resetcss.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&family=Roboto:wght@300&display=swap" rel="stylesheet">
@@ -67,8 +68,7 @@
                         <a class="header-navbar__page-list-item-link" asp-controller="Products" asp-action="ListProduct">Sản Phẩm</a>
                     </li>
                     <li class="header-navbar__page-list-item">
-                        <a href="routing.html"
-                           class="header-navbar__page-list-item-link">Lộ trình ăn</a>
+                        <a class="header-navbar__page-list-item-link" asp-controller="Products" asp-action="Index">Favorite</a>
                     </li>
                     <li class="header-navbar__page-list-item">
                         <a href="blog.html"
