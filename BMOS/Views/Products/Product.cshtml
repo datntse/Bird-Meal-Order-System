@@ -17,7 +17,7 @@
 					</div>
 				</div>
 				<div class="product-detail__title">
-					Food bird super yummi
+					@Model.Name
 				</div>
 				<div class="row g-0 product-detail__content">
 					<div class="col-6 product-detail__content--img">
@@ -64,11 +64,11 @@
 						</div>
 						<div class="product-detail__content--title product-detail--price">
 							<span>Price:</span>
-							<div class="product-detail--price_value">100.00vnd</div>
+							<div class="product-detail--price_value">@Model.Price .000vnd</div>
 						</div>
 						<div class="product-detail__content--title product-detail--weight">
 							<span>Weight:</span>
-							<div class="product-detail--weight_value">500g</div>
+							<div class="product-detail--weight_value">@Model.Weight</div>
 						</div>
 						<form>
 							<div class="product-detail__content edit-quantity-button">
@@ -240,15 +240,19 @@
 						type: "ajax"
 					},
 					success: function (data) {
-						console.log(data)
-						Swal.fire({
-							position: 'center',
-							icon: 'success',
-							title: 'Your work has been saved',
-							showConfirmButton: false,
-							timer: 1500
-						});
-						$(".cart-quantity").html(data.productQuantity);
+						console.log(data);
+						if (data.loginStatus) {
+							Swal.fire({
+								position: 'center',
+								icon: 'success',
+								title: 'Sản phẩm đã được thêm vào giỏ hàng!',
+								showConfirmButton: false,
+								timer: 1500
+							});
+							$(".cart-quantity").html(data.productQuantity);
+						} else {
+							window.location.replace('/Account/Login');
+						}
 					},
 					error: function () {
 

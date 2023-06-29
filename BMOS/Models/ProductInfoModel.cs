@@ -12,6 +12,7 @@ namespace BMOS.Models
 
 		public string? Description { get; set; }
 
+		public double? Weight { get; set; }
 		public bool? IsAvailable { get; set; }
 
 		public bool? IsLoved { get; set; }

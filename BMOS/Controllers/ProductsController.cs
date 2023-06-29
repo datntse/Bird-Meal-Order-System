@@ -30,7 +30,7 @@ namespace BMOS.Controllers
 						 where prod.ProductId == img.RelationId
 						 select (new RelatedProductModel
 						 {
-							 _id = id,
+							 _id = prod.ProductId,
 							 _prodName = prod.Name,
 							 _prodPrice = prod.Price,
 							 _image = img.Url
@@ -47,6 +47,7 @@ namespace BMOS.Controllers
 								  Price = product.Price,
 								  Description = product.Description,
 								  IsAvailable = product.IsAvailable,
+								  Weight = product.Weight,
 								  IsLoved = product.IsLoved,
 								  UrlImage = image.Url,
 								  relatedProductModels = _listProductRelated

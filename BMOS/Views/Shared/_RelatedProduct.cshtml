@@ -10,13 +10,13 @@
 			string[] delemeter = new string[] { "datnt" };
 			string[] image = url.Split(delemeter, StringSplitOptions.None);
 			<div class="row g-0 recommend-list__item">
-				<div class="col-4 recommend-product__img">
+			<a asp-controller="Products" asp-action="Product" asp-route-id="@item._id" class="col-4 recommend-product__img">
 					<img src="@image[0]" alt="" srcset="">
-				</div>
+				</a>
 
-				<div class="col-8 recommend-product__desc">
+				<div class="col-8 recommend-product__desc" style="padding-left: 10px">
 					<div class="recommend-product__name">@item._prodName</div>
-					<div class="recommend-product__price">@item._prodPrice</div>
+					<div class="recommend-product__price">@item._prodPrice .000vnd</div>
 				</div>
 			</div>
 		}
