@@ -23,12 +23,12 @@ namespace BMOS.Controllers
             var listProdct = from product in _context.TblProducts
                              from image in _context.TblImages
                              where product.ProductId == image.RelationId && product.Status != false
-                             select new
+                             select new 
                              {
                                  productId = product.ProductId,
                                  productName = product.Name,
                                  productPrice = product.Price,
-                                 productImage = image.Url
+                                 productImage = image.Url,
                              };
             return listProdct != null ? View(await listProdct.ToListAsync()) : Problem("Entity set 'BmosContext.TblProducts' is null");
         }
