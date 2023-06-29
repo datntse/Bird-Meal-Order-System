@@ -9,8 +9,6 @@
     Layout= "_HeaderFooter";
 }
 
-
-
 <body>
     <div class="wrapper">
 
@@ -113,7 +111,7 @@
                                 <div class="row g-0 blog-list bloglist-wrapper">
                                     @foreach (var item in Model)
                                     {
-                                        <a class="col-3 bloglist-item" asp-controller="BlogDetail" asp-action="BlogDetail" asp-route-id="@item.BlogId">
+                                        <a class="col-3 bloglist-item" asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.BlogId">
 
                                             <div class="bloglist-content blog-border">
                                                 <div class="blog-img-item"></div>
