@@ -176,9 +176,9 @@ html {
     border: 2px solid black;
     border-radius: 20px;
 }
-.userprofile_info_wel_history:hover{
-    background-color: #ffc954;    
-}
+    .userprofile_info_wel_history:hover {
+        background-color: #e38a41;
+    }
 .userprofile_info_wel_history img{
     width: 30px;
     padding-top: 20px;
@@ -295,10 +295,10 @@ html {
     color: black;
     text-decoration: none;
 }
-.userprofile_bar_profile a:hover{
-    color: rgb(248, 199, 107);
-    background-color: transparent;
-}
+    .userprofile_bar_profile a:hover {
+        color: #e38a41;
+        background-color: transparent;
+    }
 
 /* Footer */
 

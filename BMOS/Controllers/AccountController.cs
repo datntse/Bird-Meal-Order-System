@@ -16,11 +16,13 @@ namespace BMOS.Controllers
         public IActionResult Login()
         {
             var user = HttpContext.Session.GetString("username");
+            ViewBag.Confirmed = HttpContext.Session.GetString("notice");
+            HttpContext.Session.Remove("notice");
             if (user != null)
             {
                 return RedirectToAction("UserProfile");
             }
-            return View();
+            return View();            
         }
 
         [HttpPost]
@@ -142,9 +144,10 @@ namespace BMOS.Controllers
             {
                 check.IsConfirm = true;
                 _db.SaveChanges();
-                ViewBag.Confirmed = "*Cảm ơn bạn đã đăng ký tài khoản.";
+                var notice = "*Cảm ơn bạn đã đăng ký tài khoản.";
+                HttpContext.Session.SetString("notice", notice);
             }
-            return View();
+            return RedirectToAction("Login");
         }
 
         public IActionResult ForgotPassword()
@@ -281,12 +284,17 @@ namespace BMOS.Controllers
             ViewBag.ID = HttpContext.Session.GetString("id");
             ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             var user = HttpContext.Session.GetString("username");
+            var userID = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First().ToString();
             ViewBag.User = user;
             if (user == null)
             {
                 return RedirectToAction("Login");
             }
-            return View();
+            else
+            {
+                var orderList = _db.TblOrders.Where(p => p.UserId.Equals(userID)).ToList();
+                return View(orderList);
+            }           
         }
 
     }

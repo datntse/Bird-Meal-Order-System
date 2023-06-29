@@ -15,6 +15,11 @@
                 <div class="col-7 userprofile_info">
                     <div class="row userprofile_info_wel">
                         <div class="col-6">
+                            <style>
+                                .userprofile_info_wel_history:hover {
+                                    background-color: #e38a41;
+                                }
+                            </style>
                             <div class="userprofile_info_wel_history">
                                 <img src="~/images/history.png" alt="" srcset="">
                                 <a href="~/Account/UserHistoryOrder" style="text-decoration: none; color: black;"><h3 style="font-weight: bold; margin-top: 10px;">Lịch sử đơn hàng</h3></a>
@@ -27,8 +32,6 @@
                             </div>
                         </div>
                     </div>
-
-
 
                     <div class="row">
                         <div class="userprofile_info_location">
@@ -76,7 +79,7 @@
                         </div>
                         <div class="userprofile_bar_profile">
                             <img src="~/images/locationmanege.png" alt="" srcset="">
-                            <a href="~/Account/UserLocation" target="" style="color: orange;">Cài đặt địa chỉ</a>
+                            <a href="~/Account/UserLocation" target="" style="color: #e38a41;">Cài đặt địa chỉ</a>
                         </div>
                         <div class="userprofile_bar_profile">
                             <img src="~/images/reset-password.png" alt="" srcset="">
@@ -96,6 +99,7 @@
         </div>
     </div>
 }
+else
 {
     <h4>Tài khoản của bạn không thể thực hiện chức năng này</h4>
 }
