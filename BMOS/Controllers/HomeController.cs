@@ -19,7 +19,7 @@ namespace BMOS.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //from product in _context.TblProducts where product.Status != false select product;
+            var tblBlog = _context.TblBlogs.FirstOrDefault();
             var listProdct = from product in _context.TblProducts
                              from image in _context.TblImages
                              where product.ProductId == image.RelationId && product.Status != false

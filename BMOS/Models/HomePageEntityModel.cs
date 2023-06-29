@@ -11,5 +11,6 @@ namespace BMOS.Models
         public string productImage { get; set; }
 
         public virtual DbSet<TblBlog> TblBlogs { get; set; }
+
     }
 }

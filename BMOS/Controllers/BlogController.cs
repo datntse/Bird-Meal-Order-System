@@ -72,6 +72,22 @@ namespace BMOS.Controllers
 			return View(blogs.ToPagedList(pageNumber, pageSize));
 		}
 
+		public async Task<IActionResult> BlogDetail(String id)
+		{
+			if (id == null || _context.TblBlogs == null)
+			{
+				return NotFound();
+			}
+
+			var TblBlogs = await _context.TblBlogs
+				 .FirstOrDefaultAsync(m => m.BlogId == id);
+			if (TblBlogs == null)
+			{
+				return NotFound();
+			}
+			return View(TblBlogs);
+		}
+
 
 	}
 }
