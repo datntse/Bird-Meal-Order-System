@@ -21,17 +21,163 @@
         body {
             background: url('../images/background.png');
             background-size: cover;
-            background-color: #f6b668;
+            background-color: #f7ae54;
+        }
+
+        .emotion-div {
+            width: 200px;
+            height: 660px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #div {
+            width: 30px;
+            height: 30px;
+            box-shadow: 0px 0px 7px 1px rgba(197, 123, 38, 0.822);
+            position: relative;
+            animation-name: move, reSize, bgColor;
+            animation-duration: 10s;
+            animation-iteration-count: infinite;
+        }
+
+        #div-1 {
+            width: 60px;
+            height: 60px;
+            box-shadow: 0px 0px 7px 1px rgba(197, 123, 38, 0.822);
+            position: relative;
+            animation-name: move-1, reSize, bgColor;
+            animation-duration: 22s;
+            animation-iteration-count: infinite;
+        }
+
+        #div-2 {
+            width: 50px;
+            height: 50px;
+            box-shadow: 0px 0px 7px 1px rgba(197, 123, 38, 0.822);
+            position: relative;
+            animation-name: move-2, reSize, bgColor;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+        }
+
+        #div-3 {
+            width: 70px;
+            height: 70px;
+            box-shadow: 0px 0px 7px 1px rgba(197, 123, 38, 0.822);
+            position: relative;
+            animation-name: move-3, reSize, bgColor;
+            animation-duration: 16s;
+            animation-iteration-count: infinite;
+        }
+
+        @@keyframes move {
+            0% {
+                top: -330px;
+            }
+
+            50% {
+                top: 330px;
+            }
+
+            100% {
+                top: 330px;
+                top: -330px;
+            }
+        }
+
+        @@keyframes move-1 {
+            0% {
+                top: 330px;
+            }
+
+            50% {
+                top: -250px;
+            }
+
+            100% {
+                top: -250px;
+                top: 330px;
+            }
+        }
+
+        @@keyframes move-2 {
+            0% {
+                top: -330px;
+            }
+
+            50% {
+                top: 330px;
+            }
+
+            100% {
+                top: 330px;
+                top: -330px;
+            }
+        }
+
+        @@keyframes move-3 {
+            0% {
+                top: 330px;
+            }
+
+            50% {
+                top: -300px;
+            }
+
+            100% {
+                top: -300px;
+                top: 330px;
+            }
+        }
+
+        @@keyframes reSize {
+            from {
+                width: 50px;
+                height: 50px;
+            }
+
+            to {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @@keyframes bgColor {
+            from {
+                background-color: rgb(201, 125, 50);
+            }
+
+            to {
+                background-color: rgb(198, 123, 9);
+            }
         }
 
         #form-login {
             max-width: 490px;
             max-height: 660px;
-            background-color: rgba(187, 108, 17, 0.3);
-            border: 1px solid white;
-            box-shadow: 0px 0px 7px 1px rgba(255, 255, 255, 0.822);
+            background-color: rgba(161, 89, 7, 0.3);
+            border: 1px solid rgb(204, 105, 13);
+            box-shadow: 0px 0px 7px 1px rgba(179, 99, 20, 0.822);
             border-radius: 20px;
             padding: 20px;
+        }
+
+        .notice {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .notice_text {
+            width: 360px;
+            color: red;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            font-style: normal;
+            font-size: 1rem;
+            margin-top: 15px;
         }
     </style>
     @if (ViewBag.Confirmed != null)
@@ -62,36 +208,24 @@
             }
         </style>
 
-                <div class="alert success">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>  
-                    <span>@ViewBag.Confirmed </span> 
-                </div>
+        <div class="alert success">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span>@ViewBag.Confirmed </span>
+        </div>
+                
     }
+    
+
     <div id="wrapper">
-        <div id="form-login">
-            
+        <div class="emotion-div">
+            <div id="div"></div>
+            <div id="div-2"></div>
+        </div>
+
+        <div id="form-login">            
             <div class="login-account">
                 <form action="~/Account/Login" method="post">
-                    <h2>Đăng nhập</h2>
-                    
-                    <style>
-                        .notice {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                        }
-
-                        .notice_text {
-                            width: 360px;
-                            color: red;
-                            text-align: center;
-                            font-family: Arial, Helvetica, sans-serif;
-                            font-style: normal;
-                            font-size: 1rem;
-                            margin-top: 15px;
-                        }
-                    </style>
-
+                    <h2>Đăng nhập</h2>                 
                     <div class="notice">
                         @if (ViewBag.Notice != null)
                         {
@@ -125,8 +259,7 @@
                         
                     </div>                  
                 </form>
-            </div>
-            
+            </div>       
 
             <div class="login-social">
                 <div class="recommend">
@@ -152,6 +285,11 @@
                 </div>               
             </div>
 
+        </div>
+
+        <div class="emotion-div">
+            <div id="div-1"></div>
+            <div id="div-3"></div>
         </div>
     </div>
 </body>

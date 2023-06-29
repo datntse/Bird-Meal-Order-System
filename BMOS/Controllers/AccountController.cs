@@ -88,6 +88,7 @@ namespace BMOS.Controllers
             HttpContext.Session.Remove("fullname");
             return RedirectToAction("Index", "Home");
         }
+
         public IActionResult Register()
         {
             var user = HttpContext.Session.GetString("username");
@@ -101,7 +102,6 @@ namespace BMOS.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterAsync(TblUser model)
         {
-
             var userId = model.Username;
             var code = "qwert";
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
