@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
 using BMOS.Models.Services;
+using X.PagedList;
 
 namespace BMOS.Controllers
 {
@@ -20,11 +21,60 @@ namespace BMOS.Controllers
         }
 
         // GET: ProductManager
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return _context.TblProducts != null ?
-                        View(await _context.TblProducts.ToListAsync()) :
-                        Problem("Entity set 'BmosContext.TblProducts'  is null.");
+            ViewData["SearchParameter"] = searchString;
+            ViewBag.CurrentSort = sortOrder;
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
+            ViewData["PriceSortParm"] = sortOrder == "price" ? "price_desc" : "price";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var feedback = from p in _context.TblProducts select p;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                feedback = feedback.Where(s => s.Name.Contains(searchString));
+                int count = feedback.Count();
+                if (count == 0)
+                {
+                    ViewBag.Message = "No matches found";
+                }
+                else
+                {
+                    ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
+                }
+            }
+            
+            switch (sortOrder)
+            {
+                case "name":
+                    feedback = feedback.OrderBy(s => s.Name);
+                    break;
+                case "name_desc":
+                    feedback = feedback.OrderByDescending(s => s.Name);
+                    break;
+                case "price":
+                    feedback = feedback.OrderBy(s => s.Price);
+                    break;
+                case "price_desc":
+                    feedback = feedback.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    feedback = feedback.OrderBy(s => s.ProductId);
+                    break;
+            }
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(feedback.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: ProductManager/Details/5
@@ -56,7 +106,7 @@ namespace BMOS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Name, Quantity, Price, Description,Weight,IsAvailable,IsLoved,Status")] TblProduct tblProduct, List<IFormFile> files)
+        public async Task<IActionResult> Create([Bind("ProductId,Name, Quantity, Price, Description,Weight,IsAvailable,IsLoved,Status,Type")] TblProduct tblProduct, List<IFormFile> files)
         {
 
             string url = "";

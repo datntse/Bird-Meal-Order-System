@@ -45,8 +45,7 @@ public partial class BmosContext : DbContext
     public virtual DbSet<TblUser> TblUsers { get; set; }
 
 
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblBlog>(entity =>
         {

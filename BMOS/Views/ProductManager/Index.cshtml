@@ -1,5 +1,7 @@
-﻿@model IEnumerable<BMOS.Models.Entities.TblProduct>
-
+﻿@model X.PagedList.IPagedList<BMOS.Models.Entities.TblProduct>
+@using X.PagedList.Mvc;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
 @{
 	Layout = "_ManagePage";
 	ViewData["Title"] = "Index";
@@ -8,16 +10,17 @@
 <h1>Index</h1>
 
 <p>
-	<a asp-action="Create">Create New</a>
+	<a style="text-decoration:none;" asp-controller="ProductManager" asp-action="Create">Create new</a> </br>
+	<a style="text-decoration:none;" asp-controller="ProductManager" asp-action="Index">Xóa tìm kiếm</a>
 </p>
 <table class="table">
 	<thead>
 		<tr>
 			<th>ID</th>
-			<th>Tên Sản Phẩm</th>
+			<th><a style="text-decoration:none;" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Tên ản phẩm</a></th>
 			<th>Số Lương</th>
 			<th>Trạng Thái</th>
-			<th>Giá Tiền</th>
+			<th><a style="text-decoration:none;" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Money</a></th>
 			<th>Trọng lượng</th>
 			<th>Thông tin</th>
 			<th>Hành động</th>
@@ -67,3 +70,18 @@
 		}
 	</tbody>
 </table>
+<br />
+<br />
+<div style="font-size:2rem; margin-bottom:2rem; margin-left:1rem;">
+	Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) tren @Model.PageCount
+</div>
+
+<div style="font-size:1rem; margin-bottom:2rem; margin-left:1rem;">
+	@Html.PagedListPager(Model, page => Url.Action("Index",
+	new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+	new PagedListRenderOptions {
+	LiElementClasses = new string[] { "page-item" },
+	PageClasses = new string[] { "page-link" }
+	})
+
+</div>

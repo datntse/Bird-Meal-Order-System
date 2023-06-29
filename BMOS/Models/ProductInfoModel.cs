@@ -15,7 +15,10 @@ namespace BMOS.Models
 		public double? Weight { get; set; }
 		public bool? IsAvailable { get; set; }
 
+		
+		public string type { get; set; }
 		public bool? IsLoved { get; set; }
+
 
 		public string? UrlImage { get; set; }
 
