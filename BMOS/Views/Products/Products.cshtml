@@ -178,14 +178,17 @@
 										bool love = (mainProduct.IsLoved) ?? false;
 									}
 									
-									@{
-										string src = "~/images/heart.png";
+									@{										
 										if(mainProduct.IsLoved == true)
 										{
-											src = "~/images/activeheart.png";
-										}										
+											<img class="btn-active" data-id="@mainProduct.ProductId" src="~/images/activeheart.png"/>
 										}
-									<img class="btn-active" data-id="@mainProduct.ProductId" src="@src"  />
+										if (mainProduct.IsLoved == false)
+										{
+											<img class="btn-active" data-id="@mainProduct.ProductId" src="~/images/heart.png" />
+										}
+									}
+									@*<img class="btn-active" data-id="@mainProduct.ProductId" src="@src"  />*@
 
 									@*<div class="btn-active" data-id="@mainProduct.ProductId">Tim</div>*@
 								</div>
