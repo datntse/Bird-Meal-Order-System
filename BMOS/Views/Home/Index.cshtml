@@ -191,10 +191,11 @@
 @section scripts {
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
+		localStorage.setItem('key', "1234");
+
 		$(document).ready(function () {
 			$('.ajax-add-to-cart').click(function (e) {
 				var _id = $(this).data("id");
-				console.log("Click o button");
 				e.stopPropagation();
 				$.ajax({
 					url: "/ShoppingCart/AddToCart",
@@ -205,14 +206,19 @@
 					},
 
 					success: function (data) {
-						Swal.fire({
-							position: 'center',
-							icon: 'success',
-							title: 'Your work has been saved',
-							showConfirmButton: false,
-							timer: 1500
-						});
-						$(".cart-quantity").html(data.productQuantity);
+						console.log(data);
+						if (data.loginStatus) {
+							Swal.fire({
+								position: 'center',
+								icon: 'success',
+								title: 'Your work has been saved',
+								showConfirmButton: false,
+								timer: 1500
+							});
+							$(".cart-quantity").html(data.productQuantity);
+						} else {
+							window.location.replace('/Account/Login');
+						}
 					},
 					error: function () {
 

@@ -93,10 +93,21 @@ else
 
 										<div class="d-flex justify-content-between mb-4">
 											<h5 class="text-uppercase">TỔNG</h5>
-											<h5>@totalPrice</h5>
+											<h5 style="font-size: 2rem">@totalPrice .000 vnd</h5>
 										</div>
-										<h5 class="text-uppercase mb-3">Bonus Point</h5>
-										<h5>@bonusPoint</h5>
+
+										<div class="d-flex justify-content-between mb-4">
+											<h5 class="text-uppercase">Điểm nhận được</h5>
+											<h5 style="font-size: 2rem">@bonusPoint điểm</h5>
+										</div>
+
+
+										<hr class="my-4">
+
+										<div class="d-flex justify-content-between mb-4">
+											<h5 class="text-uppercase">Điểm tích lũy của bạn</h5>
+											<h5 style="font-size: 2rem">#####</h5>
+										</div>
 										<hr class="my-4">
 
 										<div class="mb-5">
@@ -111,8 +122,9 @@ else
 
 										<div class="d-flex justify-content-between mb-5">
 											<h5 class="text-uppercase">Total price</h5>
-											<h5>€ 137.00</h5>
+											<h5 style="color: red; font-size: 2rem">@totalPrice .000 vnd</h5>
 										</div>
+
 										<a asp-controller="ShoppingCart" asp-action="Checkout">
 										<button type="button" class="btn btn-dark btn-block btn-lg"
 												data-mdb-ripple-color="dark">

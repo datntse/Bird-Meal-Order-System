@@ -26,12 +26,4 @@ public partial class TblProduct
     public string? ImagelInk { get; set; }
 
     public string? Type { get; set; }
-
-    public virtual ICollection<TblFavouriteList> TblFavouriteLists { get; set; } = new List<TblFavouriteList>();
-
-    public virtual ICollection<TblFeedback> TblFeedbacks { get; set; } = new List<TblFeedback>();
-
-    public virtual ICollection<TblOrderDetail> TblOrderDetails { get; set; } = new List<TblOrderDetail>();
-
-    public virtual ICollection<TblRouting> TblRoutings { get; set; } = new List<TblRouting>();
 }

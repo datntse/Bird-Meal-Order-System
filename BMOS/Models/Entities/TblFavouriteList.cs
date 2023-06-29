@@ -10,6 +10,4 @@ public partial class TblFavouriteList
     public string? UserId { get; set; }
 
     public string? ProductId { get; set; }
-
-    public virtual TblProduct? Product { get; set; }
 }

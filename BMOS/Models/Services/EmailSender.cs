@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using MimeKit;
 using MimeKit.Text;
 
-namespace Bmostest.Services
+namespace BMOS.Services
 {
     public class EmailSender
     {
@@ -27,8 +27,8 @@ namespace Bmostest.Services
             </head>
 
             <body>
-                <div id=""wrapper"" style=""display: flex; align-items: center; justify-content: center;"">
-                    <div class=""form"" style=""width: 500px; height: 450px; border: 1px solid black; border-radius: 10px;"">
+                <div id=""wrapper"" style=""display: flex; align-items: center; justify-content: center; margin: 0px auto; max-width:600px;"">
+                    <div class=""form"" style=""width: 600px; height: 450px; border: 1px solid black; border-radius: 10px;"">
                         <div class=""header"" style=""border: 1px solid gray; border-radius: 10px; background-color: #EFC15F;"">
                             <div class=""logo"" style=""height: 90px; width: 200px; background-color: white; margin: 10px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center;"">
                                 <h1>LOGO</h1>
@@ -45,7 +45,7 @@ namespace Bmostest.Services
                         </div>
 
                         <div class=""footer"" style=""display: flex; align-items: center; justify-content: center;"">
-                            <div class=""footercontent"" style=""width: 480px; text-align: center;"">
+                            <div class=""footercontent"" style=""width: 480px; text-align: center; margin: 0px auto;"">
                                 <div class=""span1"" style=""margin-top: 10px; margin-bottom: 10px;"">
                                     <span>Copyright © 2023 BMOS, Allrights reserved.</span>
                                 </div>

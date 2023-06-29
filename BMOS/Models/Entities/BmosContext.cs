@@ -15,7 +15,10 @@ public partial class BmosContext : DbContext
     {
     }
 
-    public virtual DbSet<TblBlog> TblBlogs { get; set; }
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		=> optionsBuilder.UseSqlServer("Data Source=DATNT\\SQLEXPRESS;Initial Catalog=BMOS;User ID=sa;Password=12345;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+
+	public virtual DbSet<TblBlog> TblBlogs { get; set; }
 
     public virtual DbSet<TblFavouriteList> TblFavouriteLists { get; set; }
 
@@ -83,10 +86,6 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("user_id");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.TblFavouriteLists)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK_Tbl_FavouriteList_Tbl_Product");
         });
 
         modelBuilder.Entity<TblFeedback>(entity =>
@@ -114,10 +113,6 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("user_id");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.TblFeedbacks)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK_Tbl_Feedback_Tbl_Product");
         });
 
         modelBuilder.Entity<TblImage>(entity =>
@@ -214,14 +209,6 @@ public partial class BmosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("product_id");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
-
-            entity.HasOne(d => d.Order).WithMany(p => p.TblOrderDetails)
-                .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("FK_Tbl_OrderDetail_Tbl_Order");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.TblOrderDetails)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK_Tbl_OrderDetail_Tbl_Product");
         });
 
         modelBuilder.Entity<TblPermission>(entity =>
@@ -293,10 +280,6 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("user_id");
-
-            entity.HasOne(d => d.Order).WithMany(p => p.TblRefunds)
-                .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("FK_Tbl_Refund_Tbl_Order");
         });
 
         modelBuilder.Entity<TblRole>(entity =>
@@ -309,16 +292,6 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(10)
                 .HasColumnName("role_name");
             entity.Property(e => e.UserRoleId).HasColumnName("user_role_id");
-
-            entity.HasOne(d => d.UserRole).WithMany()
-                .HasForeignKey(d => d.UserRoleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Tbl_Role_Tbl_Permission");
-
-            entity.HasOne(d => d.UserRoleNavigation).WithMany()
-                .HasForeignKey(d => d.UserRoleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Tbl_Role_Tbl_User");
         });
 
         modelBuilder.Entity<TblRouting>(entity =>
@@ -342,10 +315,6 @@ public partial class BmosContext : DbContext
                 .HasColumnName("product_id");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.Status).HasColumnName("status");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.TblRoutings)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK_Tbl_Routing_Tbl_Product");
         });
 
         modelBuilder.Entity<TblUser>(entity =>
@@ -376,14 +345,14 @@ public partial class BmosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("numberphone");
             entity.Property(e => e.Password)
-                .HasMaxLength(20)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("password");
             entity.Property(e => e.Point).HasColumnName("point");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UserRoleId).HasColumnName("user_role_id");
             entity.Property(e => e.Username)
-                .HasMaxLength(20)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("username");
         });
