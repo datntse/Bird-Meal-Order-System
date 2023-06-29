@@ -40,7 +40,6 @@ namespace Demo.Controllers
 			{
 				return NotFound();
 			}
-
 			return View(tblUser);
 		}
 
