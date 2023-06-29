@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElectricStore_Datnt", "ElectricStore_Datnt\ElectricStore_Datnt.csproj", "{5F6E9FF5-7ED1-4E3A-B13D-B23C8A21DA08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{A8899832-0B08-460E-A1C8-99C06D5E9350}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F6E9FF5-7ED1-4E3A-B13D-B23C8A21DA08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F6E9FF5-7ED1-4E3A-B13D-B23C8A21DA08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F6E9FF5-7ED1-4E3A-B13D-B23C8A21DA08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F6E9FF5-7ED1-4E3A-B13D-B23C8A21DA08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8899832-0B08-460E-A1C8-99C06D5E9350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8899832-0B08-460E-A1C8-99C06D5E9350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8899832-0B08-460E-A1C8-99C06D5E9350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8899832-0B08-460E-A1C8-99C06D5E9350}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA85FB6D-606F-49C6-9778-9060160E20D0}
+	EndGlobalSection
+EndGlobal

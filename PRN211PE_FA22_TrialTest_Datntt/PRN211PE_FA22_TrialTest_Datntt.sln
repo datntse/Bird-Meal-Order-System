@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Electric_Datnt", "Electric_Datnt\Electric_Datnt.csproj", "{62CCE895-0A0B-4497-B644-EE5044640FC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{A0B69165-FF97-4FFC-9560-FA7F3863E037}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62CCE895-0A0B-4497-B644-EE5044640FC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62CCE895-0A0B-4497-B644-EE5044640FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62CCE895-0A0B-4497-B644-EE5044640FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62CCE895-0A0B-4497-B644-EE5044640FC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0B69165-FF97-4FFC-9560-FA7F3863E037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0B69165-FF97-4FFC-9560-FA7F3863E037}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0B69165-FF97-4FFC-9560-FA7F3863E037}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0B69165-FF97-4FFC-9560-FA7F3863E037}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C260F21-C25A-4AE7-90AA-A6ACA558819D}
+	EndGlobalSection
+EndGlobal

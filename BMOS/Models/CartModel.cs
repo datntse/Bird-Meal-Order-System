@@ -11,11 +11,9 @@ namespace BMOS.Models {
 
 		public double? _weight { get; set; }
 		public double? _price { get; set; } = 0;
-
 		public double? _getTotalPrice()
 		{
 			return this._price * this._quantity;
 		}
-
 	}
 }

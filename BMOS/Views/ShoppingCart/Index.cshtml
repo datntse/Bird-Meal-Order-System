@@ -2,7 +2,8 @@
 @{
 	ViewData["Title"] = "Cart";
 	Layout = "_HeaderFooter";
-	double? toltalPrice = 0;
+	double? totalPrice = 0;
+	decimal? bonusPoint = 0;
 }
 <input type="hidden" id="cart-item-quantity" value="@Model.Count()" />
 @if (@Model.Count() == 0)
@@ -36,7 +37,11 @@ else
 										@foreach (var item in Model)
 										{
 											var _priceProduct = item._getTotalPrice();
-											toltalPrice += _priceProduct;
+											totalPrice += _priceProduct;
+											if (totalPrice >= 100)
+											{
+												bonusPoint = Math.Round((decimal)totalPrice, MidpointRounding.AwayFromZero);
+											}
 											<div class="row mb-4 d-flex justify-content-between align-items-center">
 												<div class="col-md-2 col-lg-2 col-xl-2">
 													<img src="@Html.DisplayFor(modelItem => item._productImage)" style="width: 50px; height: 50px" />
@@ -51,7 +56,7 @@ else
 													</button>
 
 													<input data-id="@item._productId" input type="number" value="@item._quantity" name="cartItemQuantity"
-														   class="form-control form-control-sm" />
+														   class="form-control form-control-sm product-quantity-form" />
 
 													<button data-id="@item._productId" class="btn btn-link px-2 increase-prodQuantity-btn"
 															onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
@@ -88,8 +93,19 @@ else
 
 										<div class="d-flex justify-content-between mb-4">
 											<h5 class="text-uppercase">TỔNG</h5>
-											<h5>@toltalPrice</h5>
+											<h5>@totalPrice</h5>
 										</div>
+										<h5 class="text-uppercase mb-3">Bonus Point</h5>
+										<h5>@bonusPoint</h5>
+										<hr class="my-4">
+
+										<div class="mb-5">
+											<div class="form-outline">
+												<input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+												<label class="form-label" for="form3Examplea2">Enter your code</label>
+											</div>
+										</div>
+
 
 										<hr class="my-4">
 

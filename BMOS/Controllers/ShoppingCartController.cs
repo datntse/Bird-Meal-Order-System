@@ -76,7 +76,7 @@ namespace BMOS.Controllers
             }
 			HttpContext?.Session.Set("Cart", myCart);
 			return PartialView(myCart);
-            //return RedirectToAction("Index");
+
         }
 
         public IActionResult AddToCart(string id, int productQuantity = 1, string type = "Normal")

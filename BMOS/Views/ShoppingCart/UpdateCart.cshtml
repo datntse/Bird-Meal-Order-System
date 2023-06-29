@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<CartModel>;
 @{
-	double? toltalPrice = 0;
+	double? totalPrice = 0;
+	decimal? bonusPoint = 0;
 }
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,7 +30,7 @@ else
 							<div class="p-5">
 								<div class="d-flex justify-content-between align-items-center mb-5">
 									<h1 class="fw-bold mb-0 text-black">Giỏ Hàng</h1>
-									<h6 class="mb-0 text-muted">@Model.Count() items</h6>
+									<h6 class="mb-0 text-muted">@Model.Count() items</h6>	
 								</div>
 								<hr class="my-4">
 								@foreach (var item in Model)
@@ -37,7 +38,11 @@ else
 									if (!(item._quantity <= 0))
 									{
 										var _priceProduct = item._getTotalPrice();
-										toltalPrice += _priceProduct;
+										totalPrice += _priceProduct;
+										if (totalPrice >= 100)
+										{
+											bonusPoint = Math.Round((decimal)totalPrice, MidpointRounding.AwayFromZero);
+										}
 										<div class="row mb-4 d-flex justify-content-between align-items-center">
 											<div class="col-md-2 col-lg-2 col-xl-2">
 												<img src="@Html.DisplayFor(modelItem => item._productImage)" style="width: 50px; height: 50px" />
@@ -90,14 +95,27 @@ else
 
 								<div class="d-flex justify-content-between mb-4">
 									<h5 class="text-uppercase">TỔNG</h5>
-									<h5>@toltalPrice</h5>
+									<h5 style="font-size: 2rem">@totalPrice .000 điểm</h5>
+								</div>
+
+								<div class="d-flex justify-content-between mb-4">
+									<h5 class="text-uppercase">Điểm tích lũy</h5>
+									<h5 style="font-size: 2rem">@bonusPoint điểm</h5>
 								</div>
 
 								<hr class="my-4">
 
+								<div class="mb-5">
+									<div class="form-outline">
+										<input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+										<label class="form-label" for="form3Examplea2">Enter your code</label>
+									</div>
+								</div>
+								<hr class="my-4">
+
 								<div class="d-flex justify-content-between mb-5">
 									<h5 class="text-uppercase">Total price</h5>
-									<h5>€ 137.00</h5>
+									<h5 style="color: red; font-size: 2rem">@totalPrice .000 vnd</h5>
 								</div>
 
 								<a asp-controller="ShoppingCart" asp-action="Checkout">
