@@ -148,6 +148,31 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 5px 8px;
 }
 
+.content__fitler-list{
+    display:flex;
+}
+
+.container-sidebar__list--category a {
+    text-decoration: none;
+    color:black;
+}
+
+.container-sidebar__list--category a:hover{
+    color: lightpink;
+}
+
+
+.content__fitler-list a {
+    text-decoration: none;
+    margin: 0px 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.content__fitler-list span {   
+    font-size: 1.5rem;
+}
+
 /* Header */
 .header-logo > img {
     width: 140px;
@@ -265,6 +290,13 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* Product  */
+.content_product-list{
+    margin-top: 1rem;
+}
+
+.product-img-item {
+    border-radius: 10px;
+}
 
 .product-row,
 .routing-row {
