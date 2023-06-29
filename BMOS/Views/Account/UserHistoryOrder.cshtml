@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<BMOS.Models.Entities.TblOrder>
 @{
     ViewData["Title"] = "UserHistoryOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,7 +16,7 @@
             <div class="col-7 userprofile_info">
                 <div class="row userprofile_info_wel">
                     <div class="col-6">
-                        <div class="userprofile_info_wel_history" style="color: orange;">
+                            <div class="userprofile_info_wel_history" style="background-color: #e38a41;">
                             <img src="~/images/history.png" alt="" srcset="">
                             <a href="~/Account/UserHistoryOrder" style="text-decoration: none; color: black;"><h3 style="font-weight: bold; margin-top: 10px;">Lịch sử đơn hàng</h3></a>
                         </div>
@@ -32,15 +32,22 @@
 
                 <div class="row">
                     <div class="col-12 user_history">
-                        <div class="user_history_details">
-                            <div class="col-10 user_history_details_tt">
-                                <h4><b>OrderID</b>: abc123<br></h4>
-                                <h4><b>Ngày</b>: 1/6/2023<br></h4>
-                            </div>
-                            <div class="col-2 user_history_details_price">
-                                <h4>900.000vnd</h4>
-                            </div>
-                        </div>                                                                     
+
+                            @foreach (var item in Model)
+                            {
+                                <div class="user_history_details">
+                                    <div class="col-8 user_history_details_tt">
+                                        <h4><b style="font-weight: bold;">Mã đơn hàng: </b>@Html.DisplayFor(modelItem => item.OrderId)<br></h4>
+                                        <h4><b style="font-weight: bold;">Ngày: </b>@Html.DisplayFor(modelItem => item.Date)<br></h4>
+                                    </div>
+                                    <div class="col-4 user_history_details_price">
+                                        <h4><b style="font-weight: bold;">Tổng tiền: </b>@Html.DisplayFor(modelItem => item.TotalPrice)</h4>
+                                    </div>
+                                </div>
+                            }
+                            
+                        
+
                     </div>
                 </div>
 
@@ -73,6 +80,7 @@
     </div>
 </div>
 }
+else
 {
     <h4>Tài khoản của bạn không thể thực hiện chức năng này</h4>
 }
