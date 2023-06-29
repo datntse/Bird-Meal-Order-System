@@ -11,7 +11,7 @@ public partial class TblUser
 
     public string? Password { get; set; }
 
-    public bool? IsConfirm { get; set; }
+    public bool? IsConfirm { get; set; } = false;
 
     public string? Firstname { get; set; }
 
@@ -19,15 +19,15 @@ public partial class TblUser
 
     public string? Numberphone { get; set; }
 
-    public string? Address { get; set; }
+    public string? Address { get; set; } = null;
 
-    public DateTime? DateCreate { get; set; }
+    public DateTime? DateCreate { get; set; } = DateTime.Now;
 
-    public DateTime? LastActivitty { get; set; }
+    public DateTime? LastActivitty { get; set; } = DateTime.Now;
 
-    public double? Point { get; set; }
+    public double? Point { get; set; } = 0;
 
-    public bool? Status { get; set; }
+    public bool? Status { get; set; } = true;
 
-    public int? UserRoleId { get; set; }
+    public int? UserRoleId { get; set; } = 3;
 }

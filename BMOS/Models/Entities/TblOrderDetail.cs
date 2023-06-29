@@ -16,8 +16,4 @@ public partial class TblOrderDetail
     public double? Price { get; set; }
 
     public DateTime? Date { get; set; }
-
-    public virtual TblOrder? Order { get; set; }
-
-    public virtual TblProduct? Product { get; set; }
 }

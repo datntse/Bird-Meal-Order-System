@@ -18,6 +18,4 @@ public partial class TblRouting
     public double? Price { get; set; }
 
     public bool? Status { get; set; }
-
-    public virtual TblProduct? Product { get; set; }
 }

@@ -3,6 +3,10 @@
 
 // Write your JavaScript code.
 
+
+
+
+//This is a method for check validate Phone in Register.cshtml
 function validatePhone() {
     var phone = document.getElementById("phone");
     var pattern = /^(03|05|07|08|09)+\d{1}[-\s]?\d{3}[-\s]?\d{4}$/;
@@ -16,6 +20,7 @@ function validatePhone() {
 
 phone.onkeyup = validatePhone;
 
+//This is a method for check Validate Password in Register.cshtml and ChangePassword.cshtml
 var password = document.getElementById("password")
     , confirm_password = document.getElementById("confirm_password");
 
