@@ -200,9 +200,9 @@ else
 				},
 				type: "GET",
 				success: function (data) {
+					console.log("Index", data);
 					console.log("Decrease!!");
 					$(".cart-wrapper").html(data);
-
 				},
 
 			});
@@ -219,6 +219,7 @@ else
 				},
 				type: "GET",
 				success: function (data) {
+					console.log("Index", data);
 					console.log("Incease!!");
 					$(".cart-wrapper").html(data)
 				},

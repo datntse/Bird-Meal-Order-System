@@ -194,6 +194,7 @@ else
 				},
 				type: "GET",
 				success: function (data) {
+					console.log("Updated", data)
 					console.log("decrease!!");
 					$(".cart-wrapper").html(data);
 
@@ -218,6 +219,7 @@ else
 				},
 				type: "GET",
 				success: function (data) {
+					console.log("Updated", data)
 					console.log("Increase!!");
 					$(".cart-wrapper").html(data)
 				},
