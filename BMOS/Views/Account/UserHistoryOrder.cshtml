@@ -1,0 +1,86 @@
+﻿@model IEnumerable<BMOS.Models.Entities.TblOrder>
+@{
+    ViewData["Title"] = "UserHistoryOrder";
+    Layout = "_HeaderFooter";
+    var id = ViewBag.ID;
+}
+
+@if (id.Equals("3"))
+{
+<div class="container">
+    <div class="content">
+        <div class="row userprofile">
+            <div class="col-12 userprofile_title">Trang chủ/ Chỉnh sửa người dùng</div>
+        </div>
+        <div class="row userinfo">
+            <div class="col-7 userprofile_info">
+                <div class="row userprofile_info_wel">
+                    <div class="col-6">
+                            <div class="userprofile_info_wel_history" style="background-color: #e38a41;">
+                            <img src="~/images/history.png" alt="" srcset="">
+                            <a href="~/Account/UserHistoryOrder" style="text-decoration: none; color: black;"><h3 style="font-weight: bold; margin-top: 10px;">Lịch sử đơn hàng</h3></a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="userprofile_info_wel_welcome">
+                            <img src="~/images/user-icon.png" alt="" srcset="">
+                            <h3 style="font-weight: bold; margin-top: 10px;">Xin chào, <Span>@ViewBag.Fullname</Span></h3>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12 user_history">
+
+                            @foreach (var item in Model)
+                            {
+                                <div class="user_history_details">
+                                    <div class="col-8 user_history_details_tt">
+                                        <h4><b style="font-weight: bold;">Mã đơn hàng: </b>@Html.DisplayFor(modelItem => item.OrderId)<br></h4>
+                                        <h4><b style="font-weight: bold;">Ngày: </b>@Html.DisplayFor(modelItem => item.Date)<br></h4>
+                                    </div>
+                                    <div class="col-4 user_history_details_price">
+                                        <h4><b style="font-weight: bold;">Tổng tiền: </b>@Html.DisplayFor(modelItem => item.TotalPrice)</h4>
+                                    </div>
+                                </div>
+                            }
+                            
+                        
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+            <div class="col-5">
+                <div class="userprofile_bar">
+                    <div class="userprofile_bar_profile">
+                        <img src="~/images/user-icon.png" alt="" srcset="">
+                        <a href="~/Account/UserProfile" target="">Hồ sơ</a>
+                    </div>
+                    <div class="userprofile_bar_profile">
+                        <img src="~/images/locationmanege.png" alt="" srcset="">
+                        <a href="~/Account/UserLocation" target="">Cài đặt địa chỉ</a>
+                    </div>
+                    <div class="userprofile_bar_profile">
+                        <img src="~/images/reset-password.png" alt="" srcset="">
+                        <a href="~/Account/UserChangePassword" target=""><b>Đổi mật khẩu</b></a>
+                    </div>
+                    <div class="userprofile_bar_profile">
+                        <img src="~/images/logout.png" alt="" srcset="">
+                        <a href="~/Account/Logout" target="" style="font-weight: bold;">Đăng xuất</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+else
+{
+    <h4>Tài khoản của bạn không thể thực hiện chức năng này</h4>
+}

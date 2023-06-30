@@ -1,91 +1,136 @@
 ﻿@model IEnumerable<BMOS.Models.Entities.TblProduct>
 
 @{
-    Layout = null;
+    Layout = "_HeaderFooter";
 }
+<div class="container">
+    <div class="row content">
+        <div class="serprofile">
+            <div class="col-12 userprofile_title" style="margin: 2rem 0px; font-size: 2rem;">Trang chủ/ chỉnh sửa người dùng</div>
+        </div>
+        <div class="favorite">
+            <div class="col-8 favorite_list" style="margin-right: 0.5rem;">
+                <h1 style="padding: 1rem 0px 0px 1rem; font-size: 1.5rem;"><b>Chọn tất cả</b></h1>
+                <hr style="margin: 0px 1rem; margin-top: 1rem;">
 
-<!DOCTYPE html>
+                @foreach (var item in Model)
+                {
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                                <div class="img_favorite">
+                                    <input class="form-check-input" type="checkbox" style="margin-right: 1rem;">
+                                    <div class="product-img-item" style="background-image: url(@Html.DisplayFor(modelItem => item.ImagelInk)"> </div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Weight)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAvailable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsLoved)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagelInk)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAvailable)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsLoved)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ImagelInk)
-                    </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</body>
-</html>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-9 col-xl-6">
+                                <h3 style="font-weight:bold; font-size: 1.8rem;margin-top: 1rem;">Tên sản phẩm: @Html.DisplayFor(modelItem => item.Name)</h3>
+                                <h3 style="font-weight:bold; font-size: 1.8rem; margin-top: 1rem;">Giá tiền: @string.Format("{0:#,0}", item.Price)vnđ</h3>
+                                <h3 style="font-weight:bold; font-size: 1.8rem; margin-top: 1rem;">Thông tin sản phẩm:</h3>
+                                <p class="mb-6 mb-md-0">
+                                    @Html.DisplayFor(modelItem => item.Description) aaaaaaaaa aaaaaaa aaaaaaaaaaaaaaaaa Gạo, Bột mì, Ngô, Bột phụ phẩm từ gà, Dầu gà, Bột đậu nành, Bột thịt, Bột củ cải đường, Hương vị phẳng tự nhiên Phô mai, Fructooligosacarit, Choline Clorua, DL-MHA, L-Threonine, Lecithin, Muối, Kali Clorua, Hỗn hợp Vitamin, Hỗn hợp khoáng chất, Kali Sorbat, Chất chống oxy hóa, Bentonite, Chiết xuất Yucca Schdigera, Hỗn hợp rau Gạo, Bột mì, Ngô, Bột phụ phẩm từ gà, Dầu gà, Bột đậu nành, Bột thịt, Bột củ cải đường, Hương vị phẳng tự nhiên
+                                </p>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start" style="padding-top:10rem;">
+                                <div class="countttt">
+                                    <h1>Quantity</h1>
+                                    <div class="counbt qty">
+                                        <span class="minus bg-dark">-</span>
+                                        <input type="number" class="count" name="qty" value="1">
+                                        <span class="plus bg-dark">+</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column mt-4">
+                                    <button data-id="@item.ProductId" class="ajax-add-to-cart btn btn-primary" type="button">Thêm vào giỏ hàng</button>
+                                    <a class="btn btn-outline-primary mt-2" type="button">
+                                        Xóa
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <hr style="margin: 0px 1rem; margin-top: 1rem;">
+                }
+
+
+            </div>
+            <div class="container col-4 favorite_list_edit" style="margin-left: 0.5rem;">
+                <div style="font-weight:bold;" class="col-8 favorite_remove">Xóa</div>
+                <div style="font-weight:bold;" class="col-8 favorite_add">Thêm tất cả vào giỏ hàng</div>
+                <div class="favorite_recom">Đề xuất</div>
+                <div class="favorite_img">
+                    <div class="col-3">
+                        <img src="/images/birdfood.png" alt="" style="width: 100%; padding: 10px;">
+                    </div>
+                    <div class="col-9">
+                        <h1 style="font-size: 3rem;">Food bird</h1>
+                        <h1 style="color: red;font-size: 2rem; padding-top: 1rem;">100.000vnd</h1>
+                    </div>
+                </div>
+                <div class="favorite_img">
+                    <div class="col-3">
+                        <img src="/images/birdfood.png" alt="" style="width: 100%; padding: 10px;">
+                    </div>
+                    <div class="col-9">
+                        <h1 style="font-size: 3rem;">Food bird</h1>
+                        <h1 style="color: red;font-size: 2rem; padding-top: 1rem;">100.000vnd</h1>
+                    </div>
+                </div>
+                <div class="favorite_img">
+                    <div class="col-3">
+                        <img src="/images/birdfood.png" alt="" style="width: 100%; padding: 10px;">
+                    </div>
+                    <div class="col-9">
+                        <h1 style="font-size: 3rem;">Food bird</h1>
+                        <h1 style="color: red;font-size: 2rem; padding-top: 1rem;">100.000vnd</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+
+        $(document).ready(function () {
+            $('.ajax-add-to-cart').click(function (e) {
+                var _id = $(this).data("id");
+                e.stopPropagation();
+                $.ajax({
+                    url: "/ShoppingCart/AddToCart",
+                    data: {
+                        id: _id,
+                        productQuantity: 1,
+                        type: "ajax"
+                    },
+
+                    success: function (data) {
+                        console.log(data);
+                        if (data.loginStatus) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Sản phẩm đã được thêm vào giỏ hàng!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            $(".cart-quantity").html(data.productQuantity);
+                        } else {
+                            window.location.replace('/Account/Login');
+                        }
+                    },
+                    error: function () {
+
+                    }
+                });
+            });
+        });
+
+    </script>
+	}

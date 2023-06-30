@@ -1,6 +1,5 @@
 ﻿
 using BMOS.Models;
-using Bmostest.Models;
 using Firebase.Auth;
 using Firebase.Storage;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +8,10 @@ namespace BMOS.Models.Services
 {
     public static class FirebaseService
     {
-        private static string ApiKey = "AIzaSyAYLSdMSB9rr3mF2WBNrTNVaxTdMPF_cjo";
-        private static string Bucket = "bmos-4bc92.appspot.com";
-        private static string AuthEmail = "lechiphat1090@gmail.com";
-        private static string AuthPassword = "123123";
+        private static string ApiKey = "AIzaSyBLDYkXtfdYnKseDJbz6J72lousbPIrniE";
+        private static string Bucket = "bmosfile.appspot.com";
+        private static string AuthEmail = "staff01@gmail.com";
+        private static string AuthPassword = "123456";
 
         public static async Task<string> UploadImage(List<IFormFile> files)
         {

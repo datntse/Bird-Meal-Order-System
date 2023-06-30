@@ -19,49 +19,52 @@ namespace BMOS.Controllers
 
         // GET: TblProducts
         [HttpGet]
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public async Task<IActionResult> Index(string searchString)
         {
-            ViewBag.CurrentSort = sortOrder;
-
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-            int pageSize = 8;
-            int pageNumber = (page ?? 1);
-            ViewBag.CurrentFilter = searchString;
-
-            var products = from s in _context.TblProducts
-                           select s;
+            
             if (!String.IsNullOrEmpty(searchString))
-            {
-                products = products.Where(s => s.Name.Contains(searchString));
-                int count = products.Count();
-                if (count == 0)
-                {
-                    ViewBag.Message = "No matches found";
-                }
-                else
-                {
-                    ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
-                }
-                return RedirectToAction("ListProduct", "ProductList", new { searchString });
-                //return View("~/Views/ProductList/ListProduct.cshtml", students.ToPagedList(pageNumber, pageSize));
+            {     
+                return RedirectToAction("ListProduct", "Products", new { searchString });
             }
 
-            return _context.TblProducts != null ?
-           View(await _context.TblProducts.ToListAsync()) :
-           Problem("Entity set 'BmosContext.TblProducts'  is null.");
-        }
+			var listProdct = from product in _context.TblProducts
+							 from image in _context.TblImages
+							 where product.ProductId == image.RelationId && product.Status != false
+							 select new
+							 {
+								 productId = product.ProductId,
+								 productName = product.Name,
+								 productPrice = product.Price,
+								 productImage = image.Url
+							 };
+			return listProdct != null ? View(await listProdct.ToListAsync()) : Problem("Entity set 'BmosContext.TblProducts' is null");
+		}
 
-        
+		//public async Task<IActionResult> ChiTiet(string id)
+		//{
+		//	if (id == null || _context.TblProducts == null)
+		//	{
+		//		return NotFound();
+		//	}
+
+		//	var recom = _context.TblProducts.Find(id).Type;
+		//	var product = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom).Take(4).ToList();
+
+		//	if (product == null)
+		//	{
+		//		return NotFound();
+		//	}
+		//	var result = new relatedProduct
+		//	{
+		//		_id = id,
+		//		listProduct = product
+		//	};
+		//	return View(result);
+
+		//}
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

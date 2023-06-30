@@ -6,14 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
-using System.Net.Sockets;
-using Firebase.Auth;
-using Firebase.Storage;
 using BMOS.Models;
 using BMOS.Models.Services;
+using X.PagedList;
+
 namespace BMOS.Controllers
 {
-    public class TblProductsController : Controller
+    public class ProductsController : Controller
     {
         private static string ApiKey = "AIzaSyAYLSdMSB9rr3mF2WBNrTNVaxTdMPF_cjo";
         private static string Bucket = "bmos-4bc92.appspot.com";
@@ -22,168 +21,370 @@ namespace BMOS.Controllers
 
         private readonly BmosContext _context;
 
-        public TblProductsController(BmosContext context)
+        public ProductsController(BmosContext context)
         {
             _context = context;
         }
 
-        // GET: TblProducts
-        public async Task<IActionResult> Index()
-        {
-            return _context.TblProducts != null ?
-                        View(await _context.TblProducts.ToListAsync()) :
-                        Problem("Entity set 'BmosContext.TblProducts'  is null.");
-        }
-        public async Task<IActionResult> ProductList()
-        {
-            return _context.TblProducts != null ?
-                        View(await _context.TblProducts.ToListAsync()) :
-                        Problem("Entity set 'BmosContext.TblProducts'  is null.");
-        }
+		public async Task<IActionResult> Product(String id)
+		{
+			var recom = _context.TblProducts.Find(id).Type;
+			var _relatedProduct = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom && x.ProductId != id).Take(3);
+			var result = from img in _context.TblImages
+						 from prod in _relatedProduct
+						 where prod.ProductId == img.RelationId
+						 select (new RelatedProductModel
+						 {
+							 _id = prod.ProductId,
+							 _prodName = prod.Name,
+							 _prodPrice = prod.Price,
+							 _image = img.Url
+						 });
+			var _listProductRelated = result.ToList();
+			//from product in _context.TblProducts where product.Status != false select product;
+			var productItem = from product in _context.TblProducts
+							  from image in _context.TblImages
+							  where product.ProductId == image.RelationId
+							  select new ProductInfoModel()
+							  {
+								  ProductId = product.ProductId,
+								  Name = product.Name,
+								  Price = product.Price,
+								  Description = product.Description,
+								  IsAvailable = product.IsAvailable,
+								  Weight = product.Weight,
+								  IsLoved = product.IsLoved,
+								  UrlImage = image.Url,
+								  relatedProductModels = _listProductRelated
+							  };
+			var productDetail = await productItem.FirstOrDefaultAsync(item => item.ProductId.Equals(id));
+			if (productDetail == null)
+			{
+				return NotFound();
+			}
+			return View(productDetail);
+		}
 
-        // GET: TblProducts/Details/5
-        public async Task<IActionResult> Details(string id)
+		public async Task<IActionResult> ListProduct(string sortOrder, string currentFilter, string searchString, int? page)
+		{
+			ViewData["SearchParameter"] = searchString;
+			ViewBag.CurrentSort = sortOrder;
+			ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+			ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+			ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price" : "";
+			ViewData["PriceDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+
+			if (searchString != null)
+			{
+				page = 1;
+			}
+			else
+			{
+				searchString = currentFilter;
+			}
+
+			ViewBag.CurrentFilter = searchString;
+
+			var products = from product in _context.TblProducts 
+						   from image in _context.TblImages where product.ProductId.Equals(image.RelationId)
+						  select new ProductInfoModel()
+						  {
+							  ProductId = product.ProductId,
+							  Name = product.Name,
+							  Price = product.Price,
+							  Description = product.Description,
+							  IsAvailable = product.IsAvailable,
+							  Weight = product.Weight,
+							  IsLoved = product.IsLoved,
+							  UrlImage = image.Url,
+							  relatedProductModels = null
+						  };
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				products = products.Where(s => s.Name.Contains(searchString));
+				int count = products.Count();
+				if (count == 0)
+				{
+					ViewBag.Message = "No matches found";
+				}
+				else
+				{
+					ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
+				}
+			}
+
+			switch (sortOrder)
+			{
+				case "name":
+					products = products.OrderBy(s => s.Name);
+					break;
+				case "name_desc":
+					products = products.OrderByDescending(s => s.Name);
+					break;
+				case "price":
+					products = products.OrderBy(s => s.Price);
+					break;
+				case "price_desc":
+					products = products.OrderByDescending(s => s.Price);
+					break;
+				default:
+					products = products.OrderBy(s => s.ProductId);
+					break;
+			}
+			int pageSize = 8;
+			int pageNumber = (page ?? 1);
+			return View(products.ToPagedList(pageNumber, pageSize));
+		}
+
+        public async Task<IActionResult> ThucAnHat(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            if (id == null || _context.TblProducts == null)
+            ViewData["SearchParameter"] = searchString;
+            ViewBag.CurrentSort = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price" : "";
+            ViewData["PriceDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+
+            if (searchString != null)
             {
-                return NotFound();
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
             }
 
-            var tblProduct = await _context.TblProducts
-                .FirstOrDefaultAsync(m => m.ProductId == id);
-            if (tblProduct == null)
+            ViewBag.CurrentFilter = searchString;
+
+            var products = from product in _context.TblProducts
+                           from image in _context.TblImages
+                           where product.ProductId.Equals(image.RelationId)
+                           select new ProductInfoModel()
+                           {
+                               ProductId = product.ProductId,
+                               Name = product.Name,
+                               Price = product.Price,
+							   type = product.Type,
+                               Description = product.Description,
+                               IsAvailable = product.IsAvailable,
+                               Weight = product.Weight,
+                               IsLoved = product.IsLoved,
+                               UrlImage = image.Url,
+                               relatedProductModels = null
+                           };
+
+			var result = products.Where(x => x.type == "1").ToList();
+            if (!String.IsNullOrEmpty(searchString))
             {
-                return NotFound();
-            }
-
-            return View(tblProduct);
-        }
-
-        // GET: TblProducts/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Name, Quantity, Price, Description,Weight,IsAvailable,IsLoved,Status")] TblProduct tblProduct, List<IFormFile> files)
-        {
-
-            string url = "";
-            if (ModelState.IsValid)
-            {
-                url = await FirebaseService.UploadImage(files);
-                _context.Add(tblProduct);
-                TblImage tblImage = new TblImage
+                result = result.Where(s => s.Name.Contains(searchString)).ToList();
+                int count = result.Count();
+                if (count == 0)
                 {
-                    ImageId = Guid.NewGuid().ToString(),
-                    Name = "Product img",
-                    RelationId = tblProduct.ProductId,
-                    Type = "Product",
-                    Url = url
-                };
-                _context.TblImages.Add(tblImage);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-
-            }
-
-            return View(tblProduct);
-        }
-
-
-        // GET: TblProducts/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null || _context.TblProducts == null)
-            {
-                return NotFound();
-            }
-
-            var tblProduct = await _context.TblProducts.FindAsync(id);
-            if (tblProduct == null)
-            {
-                return NotFound();
-            }
-            return View(tblProduct);
-        }
-
-        // POST: TblProducts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ProductId,Name,Quantity,Description,Weight,IsAvailable,IsLoved,Status")] TblProduct tblProduct)
-        {
-            if (id != tblProduct.ProductId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(tblProduct);
-                    await _context.SaveChangesAsync();
+                    ViewBag.Message = "No matches found";
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!TblProductExists(tblProduct.ProductId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(tblProduct);
+
+            switch (sortOrder)
+            {
+                case "name":
+                    products = products.OrderBy(s => s.Name);
+                    break;
+                case "name_desc":
+                    products = products.OrderByDescending(s => s.Name);
+                    break;
+                case "price":
+                    products = products.OrderBy(s => s.Price);
+                    break;
+                case "price_desc":
+                    products = products.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    products = products.OrderBy(s => s.ProductId);
+                    break;
+            }
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(result.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: TblProducts/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> ThucAnKho(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            if (id == null || _context.TblProducts == null)
+            ViewData["SearchParameter"] = searchString;
+            ViewBag.CurrentSort = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price" : "";
+            ViewData["PriceDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+
+            if (searchString != null)
             {
-                return NotFound();
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
             }
 
-            var tblProduct = await _context.TblProducts
-                .FirstOrDefaultAsync(m => m.ProductId == id);
-            if (tblProduct == null)
+            ViewBag.CurrentFilter = searchString;
+
+            var products = from product in _context.TblProducts
+                           from image in _context.TblImages
+                           where product.ProductId.Equals(image.RelationId)
+                           select new ProductInfoModel()
+                           {
+                               ProductId = product.ProductId,
+                               Name = product.Name,
+                               Price = product.Price,
+                               type = product.Type,
+                               Description = product.Description,
+                               IsAvailable = product.IsAvailable,
+                               Weight = product.Weight,
+                               IsLoved = product.IsLoved,
+                               UrlImage = image.Url,
+                               relatedProductModels = null
+                           };
+
+            var result = products.Where(x => x.type == "2").ToList();
+            if (!String.IsNullOrEmpty(searchString))
             {
-                return NotFound();
+                result = result.Where(s => s.Name.Contains(searchString)).ToList();
+                int count = result.Count();
+                if (count == 0)
+                {
+                    ViewBag.Message = "No matches found";
+                }
+                else
+                {
+                    ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
+                }
             }
 
-            return View(tblProduct);
+            switch (sortOrder)
+            {
+                case "name":
+                    products = products.OrderBy(s => s.Name);
+                    break;
+                case "name_desc":
+                    products = products.OrderByDescending(s => s.Name);
+                    break;
+                case "price":
+                    products = products.OrderBy(s => s.Price);
+                    break;
+                case "price_desc":
+                    products = products.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    products = products.OrderBy(s => s.ProductId);
+                    break;
+            }
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(result.ToPagedList(pageNumber, pageSize));
         }
-
-        // POST: TblProducts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> ThucAnTuNhien(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            if (_context.TblProducts == null)
+            ViewData["SearchParameter"] = searchString;
+            ViewBag.CurrentSort = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price" : "";
+            ViewData["PriceDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+
+            if (searchString != null)
             {
-                return Problem("Entity set 'BmosContext.TblProducts'  is null.");
+                page = 1;
             }
-            var tblProduct = await _context.TblProducts.FindAsync(id);
-            if (tblProduct != null)
+            else
             {
-                _context.TblProducts.Remove(tblProduct);
+                searchString = currentFilter;
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            ViewBag.CurrentFilter = searchString;
+
+            var products = from product in _context.TblProducts
+                           from image in _context.TblImages
+                           where product.ProductId.Equals(image.RelationId)
+                           select new ProductInfoModel()
+                           {
+                               ProductId = product.ProductId,
+                               Name = product.Name,
+                               Price = product.Price,
+                               type = product.Type,
+                               Description = product.Description,
+                               IsAvailable = product.IsAvailable,
+                               Weight = product.Weight,
+                               IsLoved = product.IsLoved,
+                               UrlImage = image.Url,
+                               relatedProductModels = null
+                           };
+
+            var result = products.Where(x => x.type == "3").ToList();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(s => s.Name.Contains(searchString)).ToList();
+                int count = result.Count();
+                if (count == 0)
+                {
+                    ViewBag.Message = "No matches found";
+                }
+                else
+                {
+                    ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
+                }
+            }
+
+            switch (sortOrder)
+            {
+                case "name":
+                    products = products.OrderBy(s => s.Name);
+                    break;
+                case "name_desc":
+                    products = products.OrderByDescending(s => s.Name);
+                    break;
+                case "price":
+                    products = products.OrderBy(s => s.Price);
+                    break;
+                case "price_desc":
+                    products = products.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    products = products.OrderBy(s => s.ProductId);
+                    break;
+            }
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(result.ToPagedList(pageNumber, pageSize));
         }
 
-        private bool TblProductExists(string id)
+        public IActionResult ChangeLove(string id, string type)
         {
-            return (_context.TblProducts?.Any(e => e.ProductId == id)).GetValueOrDefault();
+            var result = _context.TblProducts.FirstOrDefault(x => x.ProductId.Equals(id));
+            result.IsLoved = !result.IsLoved;
+            _context.SaveChanges();
+            if (type == "ajax")
+            {
+                return Json(new
+                {
+                    love = result.IsLoved
+                });
+            }
+            return RedirectToAction("Products", new
+            {
+                id
+            });
         }
-    }
+
+		public async Task<IActionResult> Index()
+		{
+			var products = _context.TblProducts.Where(p => p.IsLoved == true).ToList();
+
+
+			return View(products);
+		}
+
+	}
 }
