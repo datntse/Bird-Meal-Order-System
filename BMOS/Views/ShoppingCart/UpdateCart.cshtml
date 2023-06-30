@@ -197,9 +197,9 @@ else
 					console.log("Updated", data)
 					console.log("decrease!!");
 					$(".cart-wrapper").html(data);
-
 				},
 				error: function () {
+					console.log("failt")
 				}
 			});
 
@@ -222,7 +222,9 @@ else
 					console.log("Updated", data)
 					console.log("Increase!!");
 					$(".cart-wrapper").html(data)
-				},
+				}, error: function () {
+					console.log("failt")
+				}
 
 			});
 		});

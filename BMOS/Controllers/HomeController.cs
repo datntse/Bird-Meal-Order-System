@@ -21,7 +21,8 @@ namespace BMOS.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString)
         {
-            
+            ViewData["Blog"] = _context.TblBlogs.ToList();
+
             if (!String.IsNullOrEmpty(searchString))
             {     
                 return RedirectToAction("ListProduct", "Products", new { searchString });
@@ -36,32 +37,10 @@ namespace BMOS.Controllers
 								 productName = product.Name,
 								 productPrice = product.Price,
 								 productImage = image.Url
-							 };
-			return listProdct != null ? View(await listProdct.ToListAsync()) : Problem("Entity set 'BmosContext.TblProducts' is null");
+			
+                             };
+            return listProdct != null ? View(await listProdct.ToListAsync()) : Problem("Entity set 'BmosContext.TblProducts' is null");
 		}
-
-		//public async Task<IActionResult> ChiTiet(string id)
-		//{
-		//	if (id == null || _context.TblProducts == null)
-		//	{
-		//		return NotFound();
-		//	}
-
-		//	var recom = _context.TblProducts.Find(id).Type;
-		//	var product = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom).Take(4).ToList();
-
-		//	if (product == null)
-		//	{
-		//		return NotFound();
-		//	}
-		//	var result = new relatedProduct
-		//	{
-		//		_id = id,
-		//		listProduct = product
-		//	};
-		//	return View(result);
-
-		//}
 
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -69,5 +48,14 @@ namespace BMOS.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-    }
+
+		[HttpGet]
+		public IActionResult Blog()
+		{
+			var blogList = _context.TblBlogs.ToListAsync();
+			return PartialView(blogList);
+		}
+
+	}
+
 }

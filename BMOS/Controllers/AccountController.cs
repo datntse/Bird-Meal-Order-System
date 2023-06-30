@@ -79,7 +79,6 @@ namespace BMOS.Controllers
 			//}
 			return View();
 		}
-
 		public IActionResult Logout()
 		{
 			var username = HttpContext.Session.GetString("username");

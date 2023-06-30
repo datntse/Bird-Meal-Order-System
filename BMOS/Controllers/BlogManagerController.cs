@@ -6,17 +6,16 @@ using X.PagedList;
 
 namespace Demo.Controllers
 {
-	public class BlogManageController : Controller
+	public class BlogManagerController : Controller
 	{
 		private readonly BmosContext _context;
 
-		public BlogManageController(BmosContext context)
+		public BlogManagerController(BmosContext context)
 		{
 			_context = context;
 		}
-		public async Task<IActionResult> BlogManage(string sortOrder, string currentFilter, string searchString, int? page)
+		public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
 		{
-
 			ViewData["SearchParameter"] = searchString;
 			ViewBag.CurrentSort = sortOrder;
 			ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
@@ -101,7 +100,7 @@ namespace Demo.Controllers
 			{
 				_context.TblBlogs.Add(tblBlog);
 				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(BlogManage));
+				return RedirectToAction("Index");
 			}
 			return View(tblBlog);
 		}
@@ -146,7 +145,7 @@ namespace Demo.Controllers
 						throw;
 					}
 				}
-				return RedirectToAction(nameof(BlogManage));
+				return RedirectToAction("Index");
 			}
 			return View(tblBlog);
 		}
@@ -186,7 +185,7 @@ namespace Demo.Controllers
 			}
 
 			await _context.SaveChangesAsync();
-			return RedirectToAction(nameof(BlogManage));
+			return RedirectToAction("Index");
 		}
 	}
 }

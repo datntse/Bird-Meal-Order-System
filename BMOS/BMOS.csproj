@@ -49,7 +49,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\" />
-    <Folder Include="Views\UsersManage\" />
   </ItemGroup>
 
 </Project>

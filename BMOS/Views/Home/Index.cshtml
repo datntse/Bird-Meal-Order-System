@@ -2,8 +2,9 @@
 
 @{
 	Layout = "_HeaderFooter";
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = "BMOS";
 }
+
 
 
 
@@ -119,12 +120,7 @@
 			</div>
 		</div>
 		<!-- Blog warper -->
-		@{
-			//@foreach (var item in Model)
-			//{
-			//	<partial name="_BlogPartial" model="@item.tblBlog" />
-			//}
-		}
+		@await Html.PartialAsync("Blog")
 	</div>
 </div>
 

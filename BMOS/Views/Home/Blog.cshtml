@@ -1,0 +1,34 @@
+﻿@{
+    var blogList = ViewData["Blog"] as List<BMOS.Models.Entities.TblBlog>;
+}
+
+<div class="blog-container">
+    <div class="row blog-list">
+        <div class="col-12 product-listtitle">Danh sách Blog</div>
+        <div class="row g-0">
+            <div class="blog-warpper">
+                @foreach (var item in blogList)
+                {
+                    <a class="col-3 bloglist-item" asp-controller="BlogDetail" asp-action="BlogDetail" asp-route-id="@item.BlogId">
+
+                        <div class="bloglist-content blog-border">
+                            <div class="blog-img-item"></div>
+                            <div class="blog-desc">
+                                <div class="homeblog-desctitle">
+                                    @item.Name
+                                </div>
+                                <div class="homeblog-desc__detail">
+
+                                    @Html.Raw(item.Description)
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
