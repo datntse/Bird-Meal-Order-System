@@ -13,7 +13,7 @@
                 <h1 style="padding: 1rem 0px 0px 1rem; font-size: 1.5rem;"><b>Chọn tất cả</b></h1>
                 <hr style="margin: 0px 1rem; margin-top: 1rem;">
 
-                @foreach(var item in Model)
+                @foreach (var item in Model)
                 {
                     <div class="card-body">
                         <div class="row">
@@ -24,15 +24,15 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-6 col-xl-6">
-                                <h3 style="font-size: 1.5rem;">@Html.DisplayFor(modelItem => item.Name)</h3>
-                                <h3 style="font-size: 1.5rem; margin-top: 1rem;">@Html.DisplayFor(modelItem => item.Price)</h3>
-                                <h3 style="font-size: 1.5rem; margin-top: 1rem;">Thông tin sản phẩm</h3>
-                                <p class="mb-4 mb-md-0">
-                                    @Html.DisplayFor(modelItem => item.Description)
+                            <div class="col-md-6 col-lg-9 col-xl-6">
+                                <h3 style="font-weight:bold; font-size: 1.8rem;margin-top: 1rem;">Tên sản phẩm: @Html.DisplayFor(modelItem => item.Name)</h3>
+                                <h3 style="font-weight:bold; font-size: 1.8rem; margin-top: 1rem;">Giá tiền: @string.Format("{0:#,0}", item.Price)vnđ</h3>
+                                <h3 style="font-weight:bold; font-size: 1.8rem; margin-top: 1rem;">Thông tin sản phẩm:</h3>
+                                <p class="mb-6 mb-md-0">
+                                    @Html.DisplayFor(modelItem => item.Description) aaaaaaaaa aaaaaaa aaaaaaaaaaaaaaaaa Gạo, Bột mì, Ngô, Bột phụ phẩm từ gà, Dầu gà, Bột đậu nành, Bột thịt, Bột củ cải đường, Hương vị phẳng tự nhiên Phô mai, Fructooligosacarit, Choline Clorua, DL-MHA, L-Threonine, Lecithin, Muối, Kali Clorua, Hỗn hợp Vitamin, Hỗn hợp khoáng chất, Kali Sorbat, Chất chống oxy hóa, Bentonite, Chiết xuất Yucca Schdigera, Hỗn hợp rau Gạo, Bột mì, Ngô, Bột phụ phẩm từ gà, Dầu gà, Bột đậu nành, Bột thịt, Bột củ cải đường, Hương vị phẳng tự nhiên
                                 </p>
                             </div>
-                            <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                            <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start" style="padding-top:10rem;">
                                 <div class="countttt">
                                     <h1>Quantity</h1>
                                     <div class="counbt qty">
@@ -42,10 +42,10 @@
                                     </div>
                                 </div>
                                 <div class="d-flex flex-column mt-4">
-                                    <button class="btn btn-primary" type="button">Thêm vào giỏ hàng</button>
+                                    <button data-id="@item.ProductId" class="ajax-add-to-cart btn btn-primary" type="button">Thêm vào giỏ hàng</button>
                                     <a class="btn btn-outline-primary mt-2" type="button">
                                         Xóa
-                                    </a>                                    
+                                    </a>
                                 </div>
                             </div>
 
@@ -58,8 +58,8 @@
 
             </div>
             <div class="container col-4 favorite_list_edit" style="margin-left: 0.5rem;">
-                <div class="col-8 favorite_remove">Xóa</div>
-                <div class="col-8 favorite_add">Thêm tất cả vào giỏ hàng</div>
+                <div style="font-weight:bold;" class="col-8 favorite_remove">Xóa</div>
+                <div style="font-weight:bold;" class="col-8 favorite_add">Thêm tất cả vào giỏ hàng</div>
                 <div class="favorite_recom">Đề xuất</div>
                 <div class="favorite_img">
                     <div class="col-3">
@@ -92,3 +92,45 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+
+        $(document).ready(function () {
+            $('.ajax-add-to-cart').click(function (e) {
+                var _id = $(this).data("id");
+                e.stopPropagation();
+                $.ajax({
+                    url: "/ShoppingCart/AddToCart",
+                    data: {
+                        id: _id,
+                        productQuantity: 1,
+                        type: "ajax"
+                    },
+
+                    success: function (data) {
+                        console.log(data);
+                        if (data.loginStatus) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Sản phẩm đã được thêm vào giỏ hàng!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            $(".cart-quantity").html(data.productQuantity);
+                        } else {
+                            window.location.replace('/Account/Login');
+                        }
+                    },
+                    error: function () {
+
+                    }
+                });
+            });
+        });
+
+    </script>
+	}

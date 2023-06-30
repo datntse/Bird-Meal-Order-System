@@ -1,0 +1,103 @@
+﻿@model IEnumerable<BMOS.Models.Entities.TblUser>
+
+@{
+    Layout = "_UsersManagePage";
+    ViewData["Title"] = "UsersManage";
+}
+
+
+
+<h1>Users Manage</h1>
+
+<p>
+    <a  asp-controller="AccountManage" asp-action="Create" >Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tài khoản</th>
+            <th>Mật khẩu</th>
+            <th>Xác nhận</th>
+            <th>Họ</th>
+            <th>Tên</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+            <th>Ngày tạo</th>
+            <th>Thời gian hoạt động gần nhất</th>
+            <th>Điểm thưởng</th>
+            <th>Trạng thái</th>
+            <th>Chức vụ</th>
+            <th></th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @{
+                        if ((item.IsConfirm) == true)
+                        {
+                            <p style="color:green;">Đã xác nhận </p>
+
+                        }
+                        else
+                        {
+                            <p style="color:red">Chưa xác nhận </p>
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numberphone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastActivitty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Point)
+                </td>
+                <td>
+                    @{
+                        if ((item.Status) == true)
+                        {
+                            <p style="color:green;">Hoạt động </p>
+
+                        }
+                        else
+                        {
+                            <p style="color:red">Không hoạt động </p>
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserRoleId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.UserId">Details</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

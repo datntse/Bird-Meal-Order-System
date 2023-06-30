@@ -191,7 +191,6 @@ else
 
 		$('.decrease-prodQuantity-btn').click(function (e) {
 			var _id = $(this).data("id");
-			e.stopPropagation();
 			$.ajax({
 				url: "/ShoppingCart/UpdateCart",
 				data: {
@@ -201,9 +200,8 @@ else
 				},
 				type: "GET",
 				success: function (data) {
-
+					console.log("Decrease!!");
 					$(".cart-wrapper").html(data);
-					$(".cart-quantity").html(quantity);
 
 				},
 
@@ -212,7 +210,6 @@ else
 
 		$('.increase-prodQuantity-btn').click(function (e) {
 			var _id = $(this).data("id");
-			e.stopPropagation();
 			$.ajax({
 				url: "/ShoppingCart/UpdateCart",
 				data: {
@@ -222,6 +219,7 @@ else
 				},
 				type: "GET",
 				success: function (data) {
+					console.log("Incease!!");
 					$(".cart-wrapper").html(data)
 				},
 

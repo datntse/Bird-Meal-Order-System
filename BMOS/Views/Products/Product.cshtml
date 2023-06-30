@@ -95,7 +95,21 @@
 									<i class="fa-solid fa-cart-shopping"></i>
 									Add to cart
 								</button>
-								<i class="fa-solid fa-heart heart-icon" style="color: #d32a17;"></i>
+								@{
+									bool love = (Model.IsLoved) ?? false;
+								}
+
+								@{
+									if (Model.IsLoved == true)
+									{
+										<img class="btn-active" data-id="@Model.ProductId" src="~/images/activeheart.png" />
+									}
+									if (Model.IsLoved == false)
+									{
+										<img class="btn-active" data-id="@Model.ProductId" src="~/images/heart.png" />
+									}
+								}
+
 							</div>
 							<div class="mt-2 col-12 product-detail__content routing-button buy-now--button ">
 								<button class="btn btn-primary button-action button-action--buy-now">
@@ -109,11 +123,11 @@
 				</div>
 			</div>
 			<div class="col-4 recommend-list">
-                @{
-				<partial name="_RelatedProduct" model="@Model.relatedProductModels" />	
-			}
+				@{
+					<partial name="_RelatedProduct" model="@Model.relatedProductModels" />
+				}
 			</div>
-			
+
 		</div>
 		<div class="row product-detail__description">
 			<div class="col-12 product-detail__description--title">
@@ -261,6 +275,28 @@
 				});
 			});
 		});
+		$('.btn-active').click(function (e) {
+			e.preventDefault();
+			btn = $(this);
+			var id = btn.data("id");
+			e.preventDefault();
+			console.log("Click o button");
+
+			$.ajax({
+				url: "/Products/ChangeLove",
+				data: { id: id, type: "ajax" },
+				success: function (response) {
+					console.log(response)
+					if (response.love == true) {
+						btn.attr('src', '/images/activeheart.png');
+					}
+					else {
+						btn.attr('src', '/images/heart.png');
+					}
+				}
+			});
+		});
+
 
 	</script>
 	}

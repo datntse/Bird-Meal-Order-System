@@ -1,62 +1,62 @@
 ﻿@model BMOS.Models.Entities.TblUser
 
 @{
-    Layout = "_UsersCreatePage";
-    ViewData["Title"] = "Create";
+    Layout = "_UsersEditPage";
+    ViewData["Title"] = "Edit";
 }
 
+<link href="~/css/create_edit.css" rel="stylesheet" />
 
-
-<h1>Create</h1>
-
+<h1>Edit</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <input type="hidden" asp-for="UserId" />
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
+                <input asp-for="Username" class="form-control" readonly />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" readonly />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="IsConfirm" class="control-label"></label>
-                <input asp-for="IsConfirm" class="form-control" />
+                <input asp-for="IsConfirm" class="form-control" readonly />
                 <span asp-validation-for="IsConfirm" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Firstname" class="control-label"></label>
-                <input asp-for="Firstname" class="form-control" />
+                <input asp-for="Firstname" class="form-control" readonly />
                 <span asp-validation-for="Firstname" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Lastname" class="control-label"></label>
-                <input asp-for="Lastname" class="form-control" />
+                <input asp-for="Lastname" class="form-control" readonly />
                 <span asp-validation-for="Lastname" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Numberphone" class="control-label"></label>
-                <input asp-for="Numberphone" class="form-control" />
+                <input asp-for="Numberphone" class="form-control" readonly />
                 <span asp-validation-for="Numberphone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
+                <input asp-for="Address" class="form-control" readonly />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DateCreate" class="control-label"></label>
-                <input asp-for="DateCreate" class="form-control" />
+                <input asp-for="DateCreate" class="form-control" readonly />
                 <span asp-validation-for="DateCreate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastActivitty" class="control-label"></label>
-                <input asp-for="LastActivitty" class="form-control" />
+                <input asp-for="LastActivitty" class="form-control" readonly />
                 <span asp-validation-for="LastActivitty" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -75,7 +75,7 @@
                 <span asp-validation-for="UserRoleId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

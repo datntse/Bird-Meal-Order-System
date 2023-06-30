@@ -359,5 +359,32 @@ namespace BMOS.Controllers
             int pageNumber = (page ?? 1);
             return View(result.ToPagedList(pageNumber, pageSize));
         }
-    }
+
+        public IActionResult ChangeLove(string id, string type)
+        {
+            var result = _context.TblProducts.FirstOrDefault(x => x.ProductId.Equals(id));
+            result.IsLoved = !result.IsLoved;
+            _context.SaveChanges();
+            if (type == "ajax")
+            {
+                return Json(new
+                {
+                    love = result.IsLoved
+                });
+            }
+            return RedirectToAction("Products", new
+            {
+                id
+            });
+        }
+
+		public async Task<IActionResult> Index()
+		{
+			var products = _context.TblProducts.Where(p => p.IsLoved == true).ToList();
+
+
+			return View(products);
+		}
+
+	}
 }
