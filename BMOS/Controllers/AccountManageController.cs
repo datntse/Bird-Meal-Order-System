@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
 
-namespace Demo.Controllers
+namespace BMOS.Controllers
 {
 	public class AccountManageController : Controller
 	{
