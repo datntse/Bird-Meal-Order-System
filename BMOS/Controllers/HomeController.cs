@@ -21,7 +21,17 @@ namespace BMOS.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString)
         {
-            ViewData["Blog"] = _context.TblBlogs.ToList();
+            //ViewData["Blog"] = _context.TblBlogs.ToList();
+            ViewData["Blog"] = from blog in _context.TblBlogs
+                               from image in _context.TblImages
+                               where blog.BlogId == image.RelationId && blog.Status != false
+                               select new BlogInfoModel
+                               {
+                                   blogId = blog.BlogId,
+                                   blogName= blog.Name,
+                                   blogDescription = blog.Description,
+                                   blogImage = image.Url,
+                               };
 
             if (!String.IsNullOrEmpty(searchString))
             {     

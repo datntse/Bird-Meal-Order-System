@@ -13,7 +13,7 @@ namespace BMOS.Models.Services
         private static string AuthEmail = "staff01@gmail.com";
         private static string AuthPassword = "123456";
 
-        public static async Task<string> UploadImage(List<IFormFile> files)
+        public static async Task<string> UploadImage(List<IFormFile> files, string folder)
         {
             var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
 
@@ -39,7 +39,7 @@ namespace BMOS.Models.Services
                          {
                              AuthTokenAsyncFactory = () => Task.FromResult(token)
                          })
-                       .Child("products")
+                       .Child(folder)
                        .Child(firebaseImageModel.ImageFile.FileName)
                        .PutAsync(stream, cancellation.Token);
 

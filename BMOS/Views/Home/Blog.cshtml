@@ -1,7 +1,6 @@
 ﻿@{
-    var blogList = ViewData["Blog"] as List<BMOS.Models.Entities.TblBlog>;
-}
-
+	var blogList = ViewData["Blog"] as List<BMOS.Models.BlogInfoModel>;
+    }
 <div class="blog-container">
     <div class="row blog-list">
         <div class="col-12 product-listtitle">Danh sách Blog</div>
@@ -9,24 +8,23 @@
             <div class="blog-warpper">
                 @foreach (var item in blogList)
                 {
-                    <a class="col-3 bloglist-item" asp-controller="BlogDetail" asp-action="BlogDetail" asp-route-id="@item.BlogId">
+                    <a class="col-3 bloglist-item" asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.blogId">
 
                         <div class="bloglist-content blog-border">
-                            <div class="blog-img-item"></div>
+                            <div class="blog-img-item" style="backgorund: url(@item.blogImage)"></div>
                             <div class="blog-desc">
                                 <div class="homeblog-desctitle">
-                                    @item.Name
+                                    @item.blogName
                                 </div>
                                 <div class="homeblog-desc__detail">
 
-                                    @Html.Raw(item.Description)
+                                    @Html.Raw(item.blogDescription)
 
                                 </div>
                             </div>
                         </div>
                     </a>
                 }
-
 
             </div>
         </div>

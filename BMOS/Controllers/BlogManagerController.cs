@@ -1,7 +1,9 @@
 ﻿using BMOS.Models.Entities;
+using BMOS.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
+using System.Security.Policy;
 using X.PagedList;
 
 namespace Demo.Controllers
@@ -120,18 +122,29 @@ namespace Demo.Controllers
 		}
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(string id, [Bind("BlogId, Name, Description, Date, Status")] TblBlog tblBlog)
+		public async Task<IActionResult> Edit(string id, [Bind("BlogId, Name, Description, Date, Status")] TblBlog tblBlog, List<IFormFile> files)
 		{
 			if (id != tblBlog.BlogId)
 			{
 				return NotFound();
-			}
+            }
+            string url = "";
 
-			if (ModelState.IsValid)
-			{
-				try
-				{
-					_context.Update(tblBlog);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+                    url = await FirebaseService.UploadImage(files, "blogs");
+                    _context.Add(tblBlog);
+                    TblImage tblImage = new TblImage
+                    {
+                        ImageId = Guid.NewGuid().ToString(),
+                        Name = "Blog img",
+                        RelationId = tblBlog.BlogId,
+                        Type = "Blog",
+                        Url = url
+                    };
 					await _context.SaveChangesAsync();
 				}
 				catch (DbUpdateConcurrencyException)
