@@ -180,7 +180,7 @@ namespace BMOS.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(tblProduct);
-        }
+        }   
 
         // GET: ProductManager/Delete/5
         public async Task<IActionResult> Delete(string id)

@@ -112,17 +112,16 @@
 									@foreach (var item in Model)
 									{
 										<div class="col-3 product-item">
-											<a  asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.blogId" class="product-content product-border">
-												<div class="product-img-item" style="background-image: url('@item.blogImage')"></div>
+											<div class="product-content product-border">
+												<a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.blogId">
+													<div class="product-img-item" style="background-image: url('@item.blogImage')"></div>
+												</a>
 												<div class="product-desc">
 													<div class="product-desc__title">
-
-														@Html.DisplayFor(modelItem => item.blogDescription)
-
+														@Html.DisplayFor(modelItem => item.blogName)
 													</div>
-												
 												</div>
-											</a>
+											</div>
 										</div>
 									}
 

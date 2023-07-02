@@ -96,13 +96,24 @@ namespace Demo.Controllers
 			return View(tblBlog);
 		}
 		[HttpPost]
-		public async Task<IActionResult> Create([Bind("BlogId, Name, Description, Date, Status")] TblBlog tblBlog)
+		public async Task<IActionResult> Create([Bind("BlogId, Name, Description, Date, Status")] TblBlog tblBlog, List<IFormFile> files)
 		{
+			string url = "";
 			if (ModelState.IsValid)
 			{
-				_context.TblBlogs.Add(tblBlog);
+				url = await FirebaseService.UploadImage(files, "blogs");
+				_context.Add(tblBlog);
+				TblImage tblImage = new TblImage
+				{
+					ImageId = Guid.NewGuid().ToString(),
+					Name = "Blog img",
+					RelationId = tblBlog.BlogId,
+					Type = "Blog",
+					Url = url
+				};
+				_context.Add(tblImage);
 				await _context.SaveChangesAsync();
-				return RedirectToAction("Index");
+				return RedirectToAction(nameof(Index));
 			}
 			return View(tblBlog);
 		}
@@ -122,30 +133,18 @@ namespace Demo.Controllers
 		}
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(string id, [Bind("BlogId, Name, Description, Date, Status")] TblBlog tblBlog, List<IFormFile> files)
+		public async Task<IActionResult> Edit(string id, [Bind("BlogId, Name, Description, Date, Status")] TblBlog tblBlog)
 		{
 			if (id != tblBlog.BlogId)
 			{
 				return NotFound();
-            }
-            string url = "";
+			}
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-
-                    url = await FirebaseService.UploadImage(files, "blogs");
-                    _context.Add(tblBlog);
-                    TblImage tblImage = new TblImage
-                    {
-                        ImageId = Guid.NewGuid().ToString(),
-                        Name = "Blog img",
-                        RelationId = tblBlog.BlogId,
-                        Type = "Blog",
-                        Url = url
-                    };
-					_context.Add(tblImage);	
+			if (ModelState.IsValid)
+			{
+				try
+				{
+					_context.Update(tblBlog);
 					await _context.SaveChangesAsync();
 				}
 				catch (DbUpdateConcurrencyException)
@@ -159,11 +158,10 @@ namespace Demo.Controllers
 						throw;
 					}
 				}
-				return RedirectToAction("Index");
+				return RedirectToAction(nameof(Index));
 			}
 			return View(tblBlog);
 		}
-
 		private bool TblBlogExists(string blogId)
 		{
 			throw new NotImplementedException();
