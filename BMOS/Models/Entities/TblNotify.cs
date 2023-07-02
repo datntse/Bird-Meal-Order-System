@@ -14,4 +14,6 @@ public partial class TblNotify
     public string? Type { get; set; }
 
     public DateTime? Date { get; set; }
+
+    public virtual TblUser? User { get; set; }
 }

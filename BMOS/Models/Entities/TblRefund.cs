@@ -16,4 +16,8 @@ public partial class TblRefund
     public DateTime? Date { get; set; }
 
     public bool? IsConfirm { get; set; }
+
+    public virtual TblOrder? Order { get; set; }
+
+    public virtual TblUser? User { get; set; }
 }

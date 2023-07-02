@@ -16,4 +16,8 @@ public partial class TblFeedback
     public int? Star { get; set; }
 
     public DateTime? Date { get; set; }
+
+    public virtual TblProduct? Product { get; set; }
+
+    public virtual TblUser? User { get; set; }
 }

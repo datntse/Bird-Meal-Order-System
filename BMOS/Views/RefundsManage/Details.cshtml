@@ -1,13 +1,14 @@
 ﻿@model BMOS.Models.Entities.TblRefund
 
 @{
+    Layout = "_ManagePage";
     ViewData["Title"] = "Details";
 }
 
 <h1>Details</h1>
 
 <div>
-    <h4>TblRefund</h4>
+    
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -43,6 +44,5 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.RefundId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
