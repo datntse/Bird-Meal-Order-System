@@ -43,6 +43,7 @@ namespace BMOS.Controllers
 							blogName = blog.Name,
 							blogDescription = blog.Description,
 							blogImage = image.Url,
+							Date = blog.Date,
 						};
 			if (!String.IsNullOrEmpty(searchString))
 			{

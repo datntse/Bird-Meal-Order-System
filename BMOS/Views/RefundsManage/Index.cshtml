@@ -1,33 +1,52 @@
-﻿@model IEnumerable<BMOS.Models.Entities.TblRefund>
-
+﻿@model X.PagedList.IPagedList<BMOS.Models.Entities.TblRefund>
+@using X.PagedList.Mvc;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
 @{
     Layout = "_ManagePage";
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
+<ul style="font-size:1rem;list-style:none; display:flex;">
+    <span>Sắp xếp:</span>
+    <li style="padding-left: 5px;">
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">A-Z</a> |
+    </li>
+    <li style="padding-left: 5px;">
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["IdDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Z-A</a> |
+    </li>
+    <li style="padding-left: 5px;">
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Cũ nhất</a> |
+    </li>
+    <li style="padding-left: 5px;">
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Mới nhất</a>
+    </li>
+    <li>
+        <a style="font-size: 1rem; text-decoration: none;margin-left:47rem;" asp-controller="RefundsManage" asp-action="Index">Xóa tìm kiếm</a>
+    </li>
+</ul>
+<h1>Refunds Manage</h1>
 
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RefundId)
+                Refunds Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                User Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrderId)
+                Order Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Miêu tả
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                Ngày tạo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsConfirm)
+                Xác nhận
             </th>
             <th></th>
         </tr>
@@ -72,3 +91,11 @@
 }
     </tbody>
 </table>
+<div style="font-size:1rem; margin-bottom:2rem; margin-left:1rem;">
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+    new PagedListRenderOptions {
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" }
+    })
+</div>

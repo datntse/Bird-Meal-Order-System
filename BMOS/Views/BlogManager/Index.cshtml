@@ -6,23 +6,23 @@
 	Layout = "_ManagePage";
 	ViewData["Title"] = "Blog Manage";
 }
-}
+
 <ul style="font-size:1rem;list-style:none; display:flex;">
 	<span>Sắp xếp:</span>
 	<li style="padding-left: 5px;">
-		<a asp-action="BlogManage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">A-Z</a> |
+		<a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">A-Z</a> |
 	</li>
 	<li style="padding-left: 5px;">
-		<a asp-action="BlogManage" asp-route-sortOrder="@ViewData["NameDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Z-A</a> |
+		<a asp-action="Index" asp-route-sortOrder="@ViewData["NameDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Z-A</a> |
 	</li>
 	<li style="padding-left: 5px;">
-		<a asp-action="BlogManage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Cũ nhất</a> |
+		<a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Cũ nhất</a> |
 	</li>
 	<li style="padding-left: 5px;">
-		<a asp-action="BlogManage" asp-route-sortOrder="@ViewData["DateDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Mới nhất</a>
+		<a asp-action="Index" asp-route-sortOrder="@ViewData["DateDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Mới nhất</a>
 	</li>
 	<li>
-		<a style="font-size: 1rem; text-decoration: none;margin-left:47rem;" asp-controller="Blog" asp-action="BlogManage">Xóa tìm kiếm</a>
+		<a style="font-size: 1rem; text-decoration: none;margin-left:47rem;" asp-controller="BlogManager" asp-action="Index">Xóa tìm kiếm</a>
 	</li>
 </ul>
 <h1>Blog Manage</h1>
@@ -83,11 +83,10 @@
 
 </table>
 <div style="font-size:1rem; margin-bottom:2rem; margin-left:1rem;">
-	@Html.PagedListPager(Model, page => Url.Action("BlogManage",
+	@Html.PagedListPager(Model, page => Url.Action("Index",
 	new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
 	new PagedListRenderOptions {
 	LiElementClasses = new string[] { "page-item" },
 	PageClasses = new string[] { "page-link" }
 	})
-
 </div>

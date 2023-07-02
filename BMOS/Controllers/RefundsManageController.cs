@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
+using X.PagedList;
 
 namespace BMOS.Controllers
 {
@@ -19,11 +20,64 @@ namespace BMOS.Controllers
         }
 
         // GET: RefundsManage
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-              return _context.TblRefunds != null ? 
-                          View(await _context.TblRefunds.ToListAsync()) :
-                          Problem("Entity set 'BmosContext.TblRefunds'  is null.");
+            ViewData["SearchParameter"] = searchString;
+            ViewBag.CurrentSort = sortOrder;
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Id" : "";
+            ViewData["IdDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Id_desc" : "";
+            ViewData["DateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "date" : "";
+            ViewData["DateDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var refunds = from s in _context.TblRefunds
+                        select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                refunds = refunds.Where(s => s.RefundId.Contains(searchString));
+                int count = refunds.Count();
+                if (count == 0)
+                {
+                    ViewBag.Message = "No matches found";
+                }
+                else
+                {
+                    ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
+                }
+            }
+
+
+            switch (sortOrder)
+            {
+                case "Id":
+                    refunds = refunds.OrderBy(s => s.RefundId);
+                    break;
+                case "Id_desc":
+                    refunds = refunds.OrderByDescending(s => s.RefundId);
+                    break;
+                case "date":
+                    refunds = refunds.OrderBy(s => s.Date);
+                    break;
+                case "date_desc":
+                    refunds = refunds.OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    refunds = refunds.OrderBy(s => s.RefundId);
+                    break;
+            }
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(refunds.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: RefundsManage/Details/5
@@ -46,6 +100,8 @@ namespace BMOS.Controllers
 
         // GET: RefundsManage/Create
         
+
+
         // GET: RefundsManage/Edit/5
         public async Task<IActionResult> Edit(string id)
         {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
+using X.PagedList;
 
 namespace BMOS.Controllers
 {
@@ -19,12 +20,66 @@ namespace BMOS.Controllers
 		}
 
 		// GET: UsersManage
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
 		{
-			return _context.TblUsers != null ?
-						View(await _context.TblUsers.ToListAsync()) :
-						Problem("Entity set 'BmosContext.TblUsers'  is null.");
-		}
+            ViewData["SearchParameter"] = searchString;
+            ViewBag.CurrentSort = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "date" : "";
+            ViewData["DateDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var accounts = from s in _context.TblUsers
+                        select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                accounts = accounts.Where(s => s.UserId.Contains(searchString));
+                int count = accounts.Count();
+                if (count == 0)
+                {
+                    ViewBag.Message = "No matches found";
+                }
+                else
+                {
+                    ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
+                }
+            }
+
+
+            switch (sortOrder)
+            {
+                case "name":
+                    accounts = accounts.OrderBy(s => s.Username);
+                    break;
+                case "name_desc":
+                    accounts = accounts.OrderByDescending(s => s.Username);
+                    break;
+                case "date":
+                    accounts = accounts.OrderBy(s => s.DateCreate);
+                    break;
+                case "date_desc":
+                    accounts = accounts.OrderByDescending(s => s.DateCreate);
+                    break;
+                default:
+                    accounts = accounts.OrderBy(s => s.UserId);
+                    break;
+            }
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(accounts.ToPagedList(pageNumber, pageSize));
+        }
+    
 
 		// GET: UsersManage/Details/5
 		public async Task<IActionResult> Details(string? id)
@@ -66,7 +121,7 @@ namespace BMOS.Controllers
 		}
 
 		// GET: UsersManage/Edit/5
-		public async Task<IActionResult> Edit(int? id)
+		public async Task<IActionResult> Edit(string? id)
 		{
 			if (id == null || _context.TblUsers == null)
 			{
