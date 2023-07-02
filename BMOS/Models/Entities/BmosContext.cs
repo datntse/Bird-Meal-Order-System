@@ -16,9 +16,20 @@ public partial class BmosContext : DbContext
     }
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		=> optionsBuilder.UseSqlServer("Data Source=DATNT\\SQLEXPRESS;Initial Catalog=BMOS;User ID=sa;Password=12345;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+		=> optionsBuilder.UseSqlServer(GetConnectionString());
 
-	public virtual DbSet<TblBlog> TblBlogs { get; set; }
+
+    private string GetConnectionString()
+    {
+        IConfiguration config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
+        var strConn = config["ConnectionStrings:ConnectDB"];
+        return strConn;
+    }
+
+    public virtual DbSet<TblBlog> TblBlogs { get; set; }
 
     public virtual DbSet<TblFavouriteList> TblFavouriteLists { get; set; }
 
