@@ -145,6 +145,7 @@ namespace Demo.Controllers
                         Type = "Blog",
                         Url = url
                     };
+					_context.Add(tblImage);	
 					await _context.SaveChangesAsync();
 				}
 				catch (DbUpdateConcurrencyException)

@@ -21,18 +21,19 @@ namespace BMOS.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString)
         {
-            //ViewData["Blog"] = _context.TblBlogs.ToList();
-            ViewData["Blog"] = from blog in _context.TblBlogs
-                               from image in _context.TblImages
-                               where blog.BlogId == image.RelationId && blog.Status != false
-                               select new BlogInfoModel
-                               {
-                                   blogId = blog.BlogId,
-                                   blogName= blog.Name,
-                                   blogDescription = blog.Description,
-                                   blogImage = image.Url,
-                               };
 
+            var blogList = from blog in _context.TblBlogs
+                           from image in _context.TblImages
+                           where blog.BlogId == image.RelationId && blog.Status != false
+                           select new BlogInfoModel
+                           {
+                               blogId = blog.BlogId,
+                               blogName = blog.Name,
+                               blogDescription = blog.Description,
+                               blogImage = image.Url,
+                               Date = blog.Date,
+							   };
+            ViewData["Blog"] = blogList.ToList();
             if (!String.IsNullOrEmpty(searchString))
             {     
                 return RedirectToAction("ListProduct", "Products", new { searchString });
@@ -47,7 +48,6 @@ namespace BMOS.Controllers
 								 productName = product.Name,
 								 productPrice = product.Price,
 								 productImage = image.Url
-			
                              };
             return listProdct != null ? View(await listProdct.ToListAsync()) : Problem("Entity set 'BmosContext.TblProducts' is null");
 		}

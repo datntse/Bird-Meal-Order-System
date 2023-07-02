@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model X.PagedList.IPagedList<BMOS.Models.Entities.TblBlog>
+@model X.PagedList.IPagedList<BMOS.Models.BlogInfoModel>
 @using X.PagedList.Mvc;
 @using X.PagedList.Mvc.Core;
 @using X.PagedList.Web.Common;
@@ -112,12 +112,12 @@
 									@foreach (var item in Model)
 									{
 										<div class="col-3 product-item">
-											<a  asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.BlogId" class="product-content product-border">
-												<div class="product-img-item" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/bmosfile.appspot.com/o/products%2F800-07431076.jpeg?alt=media&token=7cd75152-7207-4256-9f2a-646c4820ff6d')"></div>
+											<a  asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.blogId" class="product-content product-border">
+												<div class="product-img-item" style="background-image: url('@item.blogImage')"></div>
 												<div class="product-desc">
 													<div class="product-desc__title">
 
-														@Html.DisplayFor(modelItem => item.Name)
+														@Html.DisplayFor(modelItem => item.blogDescription)
 
 													</div>
 												
