@@ -33,20 +33,21 @@
                 <div class="row">
                     <div class="col-12 user_history">
 
-                            @foreach (var item in Model)
+                        @foreach (var item in Model)
                             {
-                                <div class="user_history_details">
-                                    <div class="col-8 user_history_details_tt">
-                                        <h4><b style="font-weight: bold;">Mã đơn hàng: </b>@Html.DisplayFor(modelItem => item.OrderId)<br></h4>
-                                        <h4><b style="font-weight: bold;">Ngày: </b>@Html.DisplayFor(modelItem => item.Date)<br></h4>
-                                    </div>
-                                    <div class="col-4 user_history_details_price">
-                                        <h4><b style="font-weight: bold;">Tổng tiền: </b>@Html.DisplayFor(modelItem => item.TotalPrice)</h4>
-                                    </div>
-                                </div>
+                        <div class="user_history_details">
+                            <div class="col-8 user_history_details_tt">
+                                <h4><b style="font-weight: bold;">Mã đơn hàng: </b>@Html.DisplayFor(modelItem => item.OrderId)<br></h4>
+                                <h4><b style="font-weight: bold;">Ngày: </b>@Html.DisplayFor(modelItem => item.Date)<br></h4>
+                            </div>
+                            <div class="col-4 user_history_details_price">
+                                <h4><b style="font-weight: bold;">Tổng tiền: </b>@Html.DisplayFor(modelItem => item.TotalPrice)</h4>
+                            </div>
+                        </div>
+
                             }
-                            
-                        
+
+
 
                     </div>
                 </div>

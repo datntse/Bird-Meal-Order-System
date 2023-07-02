@@ -224,9 +224,24 @@ namespace BMOS.Controllers
 
         public IActionResult UserProfile()
         {
+            var user = HttpContext.Session.GetString("username");            
+            if (user != null)
+            {
+                ViewBag.ID = HttpContext.Session.GetString("id");
+                var profile = _db.TblUsers.FirstOrDefault(p => p.Username.Equals(user));
+                string fullname = profile.Firstname + " " + profile.Lastname;
+                HttpContext.Session.SetString("fullname", fullname);
+                ViewBag.Fullname = HttpContext.Session.GetString("fullname");
+                return View(profile);
+            }
+            return RedirectToAction("Login");
+        }
+
+        public IActionResult EditUserProfile()
+        {
             var user = HttpContext.Session.GetString("username");
             ViewBag.ID = HttpContext.Session.GetString("id");
-            var profile = _db.TblUsers.FirstOrDefault(p => p.Username.Equals(user));
+            var profile = _db.TblUsers.FirstOrDefault(p => p.Username.Equals(user));            
             ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             if (user == null)
             {
@@ -235,6 +250,27 @@ namespace BMOS.Controllers
             return View(profile);
         }
 
+        [HttpPost]
+        public IActionResult EditUserProfile(string firstname, string lastname, string numberPhone)
+        {
+            var user = HttpContext.Session.GetString("username");
+            ViewBag.ID = HttpContext.Session.GetString("id");
+            ViewBag.Fullname = HttpContext.Session.GetString("fullname");
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                var profile = _db.TblUsers.FirstOrDefault(p => p.Username.Equals(user));
+                profile.Firstname = firstname;
+                profile.Lastname = lastname;
+                profile.Numberphone = numberPhone;
+                _db.SaveChanges();
+                return RedirectToAction("UserProfile");
+            }
+            
+        }
 
         public IActionResult UserLocation()
         {

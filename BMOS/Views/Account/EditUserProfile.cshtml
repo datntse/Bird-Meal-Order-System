@@ -1,5 +1,4 @@
 ﻿@model BMOS.Models.Entities.TblUser
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var id = ViewBag.ID;
@@ -34,20 +33,65 @@
                         </div>
                     </div>
 
+                    <style>
+                        .input-text {
+                            font-weight: bold;
+                            border-radius: 5px;
+                            padding: 0 10px;
+                            width: 20%;
+                            border: solid 2px black;
+                        }
+
+                        .action {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 10px;
+                        }
+
+                        .btn-change {
+                            width: 20%;
+                            height: 3rem;
+                            border-radius: 5px;
+                            border: none;
+                            background-color: orange;
+                            font-weight: bold;
+                            font-size: 1.5rem;
+                        }
+
+                        .btn-forgot {
+                            width: 20%;
+                            font-weight: bold;
+                            font-size: 1.5rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            text-decoration: none;
+                            color: black;
+                        }
+
+                            .btn-forgot:hover {
+                                color: #b48010;
+                            }
+                    </style>
                     <div class="userprofile_info_wel_profile">
                         <h3 style="color: rgb(247, 157, 40); font-weight: bold;"><b>Thông tin</b></h3>
-                        <div class="userprofile" style="display: flex;">
-                            <div class="col-11 userprofile_info_wel_profile_i">
-                                <h4><b>Họ và tên:</b> <span style="font-weight: bold;"> @ViewBag.Fullname</span><br></h4>
-                                <h4 style="margin-top: 7px"><b>Số điện thoại:</b> <span style="font-weight: bold;"> @Model.Numberphone</span><br></h4>
-                                <h4 style="margin-top: 7px"><b>Email:</b> <span style="font-weight: bold;"> @Model.Username</span><br></h4>                      
+                        <form action="~/Account/EditUserProfile" method="post">
+                            <div class="userprofile_info_wel_profile_i">
+                                
+                                <h4 style="margin-top: 5px">Họ: <input type="text" value="@Model.Firstname" name="firstname" class="input-text" required></h4>
+                                <h4 style="margin-top: 5px">Tên: <input type="text" value="@Model.Lastname" name="lastname" class="input-text" required></h4>
+                                <h4 style="margin-top: 5px">Số điện thoại: <input type="text" name="numberphone" value="@Model.Numberphone" class="input-text" required></h4>
+                                <h4 style="margin-top: 5px"><b>Email: </b> <span style="font-weight: bold;">@Model.Username</span><br></h4>
+                                <div class="action">
+                                    <button type="submit" id="submit" class="btn btn-change"><b>Cập nhật</b></button>
+                                    <a href="~/Account/UserProfile" class="btn btn-forgot"><b>Trở lại</b></a>
+                                </div>
                             </div>
-                            <div class="col-1 userprofile_info_profile_i" style="align-self: flex-end; margin-bottom: 10px;">
-                                <a style="color: black" asp-controller="Account" asp-action="EditUserProfile"><i class="fa-solid fa-pen-to-square editicon"></i></a>
-                            </div>
-                        </div>
-                        
 
+                        </form>
+                            
+                            
+                        
                     </div>
                 </div>
 
