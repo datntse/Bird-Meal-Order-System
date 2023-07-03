@@ -11,6 +11,12 @@
     
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RefundId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RefundId)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.UserId)
         </dt>
@@ -38,8 +44,18 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsConfirm)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsConfirm)
+        <dd class="col-sm-10">
+            @{
+                if ((Model.IsConfirm) == true)
+                {
+                    <p style="color:green;">Đã phê duyệt </p>
+
+                }
+                else
+                {
+                    <p style="color:red">Chưa phê duyệt </p>
+                }
+            }
         </dd>
     </dl>
 </div>

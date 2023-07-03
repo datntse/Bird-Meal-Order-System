@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
 using X.PagedList;
+using BMOS.Models;
+using Org.BouncyCastle.Asn1.X9;
 
 namespace BMOS.Controllers
 {
@@ -40,8 +42,18 @@ namespace BMOS.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var refunds = from s in _context.TblRefunds
-                        select s;
+            var refunds = from f in _context.TblRefunds
+                          join u in _context.TblOrders on f.OrderId equals u.OrderId
+                          join i in _context.TblOrders on f.UserId equals i.UserId
+                          select new RefundsInfoModel()
+                          { 
+                               RefundId= f.RefundId,
+                               UserId = u.UserId,
+                               OrderId = u.OrderId,
+                               Description = f.Description,
+                               Date = f.Date,
+                               IsConfirm = f.IsConfirm,
+                          };
             if (!String.IsNullOrEmpty(searchString))
             {
                 refunds = refunds.Where(s => s.RefundId.Contains(searchString));
