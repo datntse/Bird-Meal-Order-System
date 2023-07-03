@@ -44,14 +44,21 @@ public partial class BmosContext : DbContext
     public virtual DbSet<TblUser> TblUsers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=CUONGPHAN;Initial Catalog=BMOS;User ID=sa;Password=12345;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
-
+        => optionsBuilder.UseSqlServer(GetConnectionString());
+    private string GetConnectionString()
+    {
+        IConfiguration config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
+        var strConn = config["ConnectionStrings:ConnectDB"];
+        return strConn;
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblAddress>(entity =>
         {
-            entity.HasKey(e => e.AddressId).HasName("PK__Tbl_Addr__CAA247C8CA85D6D4");
+            entity.HasKey(e => e.AddressId).HasName("PK__Tbl_Addr__CAA247C885D35098");
 
             entity.ToTable("Tbl_Address");
 
@@ -73,7 +80,7 @@ public partial class BmosContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.TblAddresses)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Tbl_Addre__user___5070F446");
+                .HasConstraintName("FK__Tbl_Addre__user___4F7CD00D");
         });
 
         modelBuilder.Entity<TblBlog>(entity =>
@@ -87,7 +94,7 @@ public partial class BmosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("blog_id");
             entity.Property(e => e.Date)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("date");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Name)
@@ -135,7 +142,7 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(200)
                 .HasColumnName("content");
             entity.Property(e => e.Date)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("date");
             entity.Property(e => e.ProductId)
                 .HasMaxLength(50)
@@ -188,7 +195,7 @@ public partial class BmosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("notify_id");
             entity.Property(e => e.Date)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("date");
             entity.Property(e => e.Message)
                 .HasMaxLength(200)
@@ -215,7 +222,7 @@ public partial class BmosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("order_id");
             entity.Property(e => e.Date)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("date");
             entity.Property(e => e.IsConfirm).HasColumnName("is_confirm");
             entity.Property(e => e.TotalPrice).HasColumnName("total_price");
@@ -223,7 +230,7 @@ public partial class BmosContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.TblOrders)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Tbl_Order__user___4D94879B");
+                .HasConstraintName("FK__Tbl_Order__user___4CA06362");
         });
 
         modelBuilder.Entity<TblOrderDetail>(entity =>
@@ -237,7 +244,7 @@ public partial class BmosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("order_detail_id");
             entity.Property(e => e.Date)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("date");
             entity.Property(e => e.OrderId)
                 .HasMaxLength(50)
@@ -314,7 +321,7 @@ public partial class BmosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("refund_id");
             entity.Property(e => e.Date)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("date");
             entity.Property(e => e.Description)
                 .HasMaxLength(200)
@@ -395,14 +402,14 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(150)
                 .HasColumnName("address");
             entity.Property(e => e.DateCreate)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("date_create");
             entity.Property(e => e.Firstname)
                 .HasMaxLength(50)
                 .HasColumnName("firstname");
             entity.Property(e => e.IsConfirm).HasColumnName("is_confirm");
             entity.Property(e => e.LastActivitty)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("last_activitty");
             entity.Property(e => e.Lastname)
                 .HasMaxLength(50)
@@ -419,7 +426,7 @@ public partial class BmosContext : DbContext
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UserRoleId).HasColumnName("user_role_id");
             entity.Property(e => e.Username)
-                .HasMaxLength(20)
+                .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("username");
         });

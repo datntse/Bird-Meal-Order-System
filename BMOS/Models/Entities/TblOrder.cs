@@ -5,7 +5,7 @@ namespace BMOS.Models.Entities;
 
 public partial class TblOrder
 {
-    public string OrderId { get; set; } = null!;
+    public string OrderId { get; set; }
 
     public int? UserId { get; set; }
 
@@ -19,5 +19,5 @@ public partial class TblOrder
 
     public virtual ICollection<TblRefund> TblRefunds { get; set; } = new List<TblRefund>();
 
-    public virtual TblUser? User { get; set; }
+    public virtual TblUser User { get; set; }
 }

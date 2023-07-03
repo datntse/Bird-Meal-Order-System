@@ -1,6 +1,6 @@
 ﻿
 @{
-    Layout = "_HeaderFooter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var id = ViewBag.ID;
 }
 
@@ -36,25 +36,21 @@
                     <div class="row">
                         <div class="userprofile_info_location">
                             <div class="col-12 userprofile_info_wel_location">
-                                <div class="userprofile_info_wel_location1_icon">
+                                <button class="userprofile_info_wel_location1_icon">
                                     <img src="~/images/location-icon.png" alt="" srcset="">
                                     <h3>Thêm địa chỉ</h3>
-                                </div>
+                                </button>
+
+
+
+
+                            </div>
+
+                            <div>
                                 <div class="userprofile_info_wel_locationh3">
-                                    <div class="col-12 userprofile_info_wel_location2">
+                                    <div class="col-12 userprofile_info_wel_location2" style="border: 1px solid black; align-items: center;">
                                         <div class="col-11 userprofile_info_wel_locationinfo">
                                             <h3><b>Họ và tên</b>: CuongPhan <i style="color: greenyellow;"> (deflaut)</i></h3>
-                                            <h3><b>Số điện thoại</b>: 0123456789 </h3>
-                                            <h3><b>Địa chỉ</b>: Vinhome Grank Parkkkkkkkkkkkkkkkkkkkkkk </h3>
-                                        </div>
-                                        <div class="col-1 userprofile_info_location_edit">
-                                            <i class="fa-solid fa-pen-to-square editicon"></i>
-                                            <i class="fa-solid fa-trash removeicon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 userprofile_info_wel_location2">
-                                        <div class="col-11 userprofile_info_wel_locationinfo">
-                                            <h3><b>Họ và tên</b>: CuongPhan </h3>
                                             <h3><b>Số điện thoại</b>: 0123456789 </h3>
                                             <h3><b>Địa chỉ</b>: Vinhome Grank Parkkkkkkkkkkkkkkkkkkkkkk </h3>
                                         </div>

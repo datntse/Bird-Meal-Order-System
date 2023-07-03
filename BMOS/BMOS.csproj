@@ -54,4 +54,15 @@
     <Folder Include="Areas\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Account\ChangePassword.cshtml" />
+    <None Include="Views\Account\ForgotPassword.cshtml" />
+    <None Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Account\Register.cshtml" />
+    <None Include="Views\Account\UserChangePassword.cshtml" />
+    <None Include="Views\Account\UserHistoryOrder.cshtml" />
+    <None Include="Views\Account\UserLocation.cshtml" />
+    <None Include="Views\Account\UserProfile.cshtml" />
+  </ItemGroup>
+
 </Project>
