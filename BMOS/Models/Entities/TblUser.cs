@@ -5,7 +5,7 @@ namespace BMOS.Models.Entities;
 
 public partial class TblUser
 {
-    public string UserId { get; set; } = null!;
+    public int UserId { get; set; }
 
     public string? Username { get; set; }
 
