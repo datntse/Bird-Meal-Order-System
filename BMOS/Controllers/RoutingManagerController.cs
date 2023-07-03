@@ -12,7 +12,7 @@ using System.Collections;
 
 namespace BMOS.Controllers
 {
-   
+
     public class RoutingManagerController : Controller
     {
         private readonly BmosContext _context;
@@ -47,15 +47,14 @@ namespace BMOS.Controllers
         }
 
         // GET: RoutingManager/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var productData = _context.TblProducts.ToList();
-            var model = new CreateRoutingByProductIdModel();
-            model.selectProductList = new List<SelectListItem>();
-
+            var productData = await _context.TblProducts.ToListAsync();
+            var model = new ProductInRoutingModel();
+            model.productList = new List<SelectListItem>();
             foreach (var product in productData)
             {
-                model.selectProductList.Add(new SelectListItem
+                model.productList.Add(new SelectListItem
                 {
                     Text = product.Name,
                     Value = product.ProductId
@@ -70,11 +69,12 @@ namespace BMOS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RoutingId,ProductId,Name,Description,Quantity,Price,Status")] TblRouting tblRouting)
+        public async Task<IActionResult> Create([Bind("RoutingId,Name,Description,Quantity,Price,Status")] TblRouting tblRouting,
+            ProductInRoutingModel productModel)
         {
-
             if (ModelState.IsValid)
             {
+                var productList = productModel.productId;
                 _context.Add(tblRouting);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
