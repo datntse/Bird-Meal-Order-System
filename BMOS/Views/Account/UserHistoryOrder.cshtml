@@ -37,12 +37,12 @@
                             {
                         <form action="~/Account/OrderDetail" method="post" class="user_history_details">                                  
                             <div class="col-8 user_history_details_tt">
-                                <h4><b style="font-weight: bold;">Mã đơn hàng: </b>@Html.DisplayFor(modelItem => item.OrderId)<br></h4>
+                                <h4><b>Mã đơn hàng: </b>@Html.DisplayFor(modelItem => item.OrderId)<br></h4>
                                         <input type="hidden" value="@Html.DisplayFor(modelItem => item.OrderId)" name="orderid" required>
-                                <h4><b style="font-weight: bold;">Ngày: </b>@Html.DisplayFor(modelItem => item.Date)<br></h4>
+                                <h4><b>Ngày: </b>@Html.DisplayFor(modelItem => item.Date)<br></h4>
                             </div>
                             <div class="col-4 user_history_details_price">
-                                <h4><b style="font-weight: bold;">Tổng tiền: </b>@Html.DisplayFor(modelItem => item.TotalPrice)</h4>
+                                <h4><b>Tổng tiền: </b>@Html.DisplayFor(modelItem => item.TotalPrice)</h4>
                                         <div style="display: flex; align-items: center; justify-content: center;">
                                             <button type="submit" class="submit" style="display: flex; justify-content: center; align-items: center; width: 30%;
     height: 4rem;
@@ -112,11 +112,11 @@
                     </div>
                     <div class="userprofile_bar_profile">
                         <img src="~/images/reset-password.png" alt="" srcset="">
-                        <a href="~/Account/UserChangePassword" target=""><b>Đổi mật khẩu</b></a>
+                        <a href="~/Account/UserChangePassword" target="">Đổi mật khẩu</a>
                     </div>
                     <div class="userprofile_bar_profile">
                         <img src="~/images/logout.png" alt="" srcset="">
-                        <a href="~/Account/Logout" target="" style="font-weight: bold;">Đăng xuất</a>
+                        <a href="~/Account/Logout" target="">Đăng xuất</a>
                     </div>
                 </div>
             </div>

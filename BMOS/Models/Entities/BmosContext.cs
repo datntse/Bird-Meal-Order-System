@@ -45,6 +45,7 @@ public partial class BmosContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer(GetConnectionString());
+
     private string GetConnectionString()
     {
         IConfiguration config = new ConfigurationBuilder()

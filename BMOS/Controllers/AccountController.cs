@@ -303,8 +303,10 @@ namespace BMOS.Controllers
         [HttpPost]
         public IActionResult UserChangePassword(string username, string oldPassword, string password)
         {
+            var user = HttpContext.Session.GetString("username");
             ViewBag.ID = HttpContext.Session.GetString("id");
             ViewBag.Fullname = HttpContext.Session.GetString("fullname");
+            ViewBag.User = user;
             var check = _db.TblUsers.FirstOrDefault(p => p.Username == username && p.Password == oldPassword);
             if (check != null)
             {

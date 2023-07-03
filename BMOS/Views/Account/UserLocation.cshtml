@@ -6,6 +6,7 @@
 
 @if (id.Equals("3"))
 {
+    
     <div class="container">
         <div class="content">
             <div class="row userprofile">
@@ -33,22 +34,132 @@
                         </div>
                     </div>
 
+
+
+
                     <div class="row">
                         <div class="userprofile_info_location">
                             <div class="col-12 userprofile_info_wel_location">
-                                <button class="userprofile_info_wel_location1_icon">
+                                <button class="userprofile_info_wel_location1_icon" id="btn-open">
                                     <img src="~/images/location-icon.png" alt="" srcset="">
                                     <h3>Thêm địa chỉ</h3>
                                 </button>
 
+                                <style>
+                                    .closebtn {
+                                        margin-left: 15px;
+                                        color: black;
+                                        font-weight: bold;
+                                        float: right;
+                                        font-size: 1.4rem;
+                                        line-height: 20px;
+                                        cursor: pointer;
+                                        transition: 0.3s;
+                                    }
+
+                                    .closebtn:hover {
+                                            color: white;
+                                    }
+
+                                    .form-select {
+                                        height: 40px;
+                                        width: 100%;
+                                        margin: 10px 0;
+                                    }
+
+                                    #add_address {
+                                        height: 100vh;
+                                        width: 100%;
+                                        background-color: rgba(47, 46, 46, 0.5);
+                                        position: fixed;
+                                        top: 0;
+                                        left: 0;
+                                        opacity: 0;
+                                        pointer-events: none;
+                                        transition: all 0.3s ease-in-out;
+                                    }
+
+                                    .modal_form {
+                                        width: 50%;
+                                        position: relative;
+                                        left: 50%;
+                                        transform: translateX(-50%);
+                                        background-color: #ffff;
+                                        top: 0;
+                                        transition: all 0.3s ease-in-out;
+                                        border: 2px solid black;
+                                        padding: 10px;
+                                        border-radius: 5px;
+                                    }
+
+                                    #add_address.show{
+                                        opacity: 1;
+                                        pointer-events: all;
+                                    }
+
+                                    #add_address.show .modal_form {
+                                        top: 5%;
+                                    }
+                                </style>
+
+                                <div id="add_address">
+                                    <div class="modal_form" id="modal_form">
+                                        
+                                            <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid black; margin-bottom: 5px;">
+                                                <h3 class="font-weight-bold modal-title">
+                                                    Thêm địa chỉ
+                                                </h3>
+                                                <span class="closebtn" id="btn-close">&times;</span>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <form method="post" action="" id="customer_address">
+                                                    <div class="pop_bottom">
+                                                        <div>
+                                                            <div class="form-group" style="margin-top: 10px;">
+                                                                <label>Địa chỉ</label><br>
+                                                                <input type="text" class="form-select" value="" style="width: 99%;">
+                                                            </div>
+                                                            <div class="form-group" style="margin-top: 10px;">
+                                                                <label>Tỉnh/Thành Phố</label><br>
+                                                                <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
+                                                                    <option value="" selected>---</option>
+                                                                </select><br>
+
+                                                                <label>Quận/huyện</label><br>
+                                                                <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
+                                                                    <option value="" selected>---</option>
+                                                                </select><br>
+
+                                                                <label>Phường/xã</label><br>
+                                                                <select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
+                                                                    <option value="" selected>---</option>
+                                                                </select><br>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="checkbox" style="margin-top: 10px;">
+                                                            <label class="c-input c-checkbox">
+                                                                <input type="checkbox" id="address_default_address_" name="IsDefault" value="true" style="width:10%; height:10%;">
+                                                                <span class="c-indicator">Đặt làm địa chỉ mặc định</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="btn-row" style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between;">
+                                                            <button class="btn btn-submit" type="submit">Thêm địa chỉ</button>
+                                                            <button type="button" class="btn btn-remove" id="btn-cancel">Huỷ</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        
+                                    </div>
+                                </div>
 
 
-
-                            </div>
-
-                            <div>
-                                <div class="userprofile_info_wel_locationh3">
-                                    <div class="col-12 userprofile_info_wel_location2" style="border: 1px solid black; align-items: center;">
+                                
+                              <!-- <div class="userprofile_info_wel_locationh3">
+                                    <div class="col-12 userprofile_info_wel_location2" style="border: 1px solid black; border-radius: 5px; display:flex; align-items: center; justify-content: center; padding: 10px; margin: 10px 0;">
                                         <div class="col-11 userprofile_info_wel_locationinfo">
                                             <h3><b>Họ và tên</b>: CuongPhan <i style="color: greenyellow;"> (deflaut)</i></h3>
                                             <h3><b>Số điện thoại</b>: 0123456789 </h3>
@@ -59,7 +170,7 @@
                                             <i class="fa-solid fa-trash removeicon"></i>
                                         </div>
                                     </div>
-                                </div>
+                                 </div>-->
                             </div>
                         </div>
                     </div>
@@ -75,27 +186,89 @@
                         </div>
                         <div class="userprofile_bar_profile">
                             <img src="~/images/locationmanege.png" alt="" srcset="">
-                            <a href="~/Account/UserLocation" target="" style="color: #e38a41;">Cài đặt địa chỉ</a>
+                            <a href="~/Account/UserLocation" target="" style="color: #e38a41; font-weight: bold;">Cài đặt địa chỉ</a>
                         </div>
                         <div class="userprofile_bar_profile">
                             <img src="~/images/reset-password.png" alt="" srcset="">
-                            <a href="~/Account/UserChangePassword" target=""><b>Đổi mật khẩu</b></a>
+                            <a href="~/Account/UserChangePassword" target="">Đổi mật khẩu</a>
                         </div>
                         <div class="userprofile_bar_profile">
                             <img src="~/images/logout.png" alt="" srcset="">
-                            <a href="~/Account/Logout" target="" style="font-weight: bold;">Đăng xuất</a>
+                            <a href="~/Account/Logout" target="">Đăng xuất</a>
                         </div>
                     </div>
                 </div>
 
 
-
-
             </div>
         </div>
     </div>
+
+    
 }
-else
-{
-    <h4>Tài khoản của bạn không thể thực hiện chức năng này</h4>
-}
+
+<script>
+    const btn_open = document.getElementById('btn-open');
+    const btn_close = document.getElementById('btn-close');
+    const btn_cancel = document.getElementById('btn-cancel');
+    const add_address = document.getElementById('add_address');
+    const modal_form = document.getElementById('modal_form');
+    btn_open.addEventListener('click', ()=>{
+        add_address.classList.add('show');
+    });
+    btn_close.addEventListener('click', () => {
+        add_address.classList.remove('show');
+    });
+    btn_cancel.addEventListener('click', () => {
+        add_address.classList.remove('show');
+    });
+
+    add_address.addEventListener('click', (e)=>{
+        if (!modal_form.contains(e.target)){
+            btn_close.click();
+        }
+    })
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+    var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var wards = document.getElementById("ward");
+    var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+        renderCity(result.data);
+    });
+
+    function renderCity(data) {
+        for (const x of data) {
+            citis.options[citis.options.length] = new Option(x.Name, x.Id);
+        }
+        citis.onchange = function () {
+            district.length = 1;
+            ward.length = 1;
+            if (this.value != "") {
+                const result = data.filter(n => n.Id === this.value);
+
+                for (const k of result[0].Districts) {
+                    district.options[district.options.length] = new Option(k.Name, k.Id);
+                }
+            }
+        };
+        district.onchange = function () {
+            ward.length = 1;
+            const dataCity = data.filter((n) => n.Id === citis.value);
+            if (this.value != "") {
+                const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                for (const w of dataWards) {
+                    wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                }
+            }
+        };
+    }
+</script>

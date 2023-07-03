@@ -38,7 +38,7 @@
                             font-weight: bold;
                             border-radius: 5px;
                             padding: 0 10px;
-                            width: 20%;
+                            width: 30%;
                             border: solid 2px black;
                         }
 
@@ -74,17 +74,17 @@
                             }
                     </style>
                     <div class="userprofile_info_wel_profile">
-                        <h3 style="color: rgb(247, 157, 40); font-weight: bold;"><b>Thông tin</b></h3>
+                        <h3 style="color: rgb(247, 157, 40);"><b>Thông tin</b></h3>
                         <form action="~/Account/EditUserProfile" method="post">
                             <div class="userprofile_info_wel_profile_i">
                                 
                                 <h4 style="margin-top: 5px">Họ: <input type="text" value="@Model.Firstname" name="firstname" class="input-text" required></h4>
                                 <h4 style="margin-top: 5px">Tên: <input type="text" value="@Model.Lastname" name="lastname" class="input-text" required></h4>
                                 <h4 style="margin-top: 5px">Số điện thoại: <input type="text" name="numberphone" value="@Model.Numberphone" class="input-text" required></h4>
-                                <h4 style="margin-top: 5px"><b>Email: </b> <span style="font-weight: bold;">@Model.Username</span><br></h4>
+                                <h4 style="margin-top: 5px">Email: <span style="font-weight: bold;">@Model.Username</span><br></h4>
                                 <div class="action">
-                                    <button type="submit" id="submit" class="btn btn-change"><b>Cập nhật</b></button>
-                                    <a href="~/Account/UserProfile" class="btn btn-forgot"><b>Trở lại</b></a>
+                                    <button type="submit" id="submit" class="btn btn-change">Cập nhật</button>
+                                    <a href="~/Account/UserProfile" class="btn btn-forgot">Trở lại</a>
                                 </div>
                             </div>
 
@@ -105,15 +105,15 @@
                         </div>
                         <div class="userprofile_bar_profile">
                             <img src="~/images/locationmanege.png" alt="" srcset="">
-                            <a href="~/Account/UserLocation" target="" style="font-weight: bold;">Cài đặt địa chỉ</a>
+                            <a href="~/Account/UserLocation" target="" >Cài đặt địa chỉ</a>
                         </div>
                         <div class="userprofile_bar_profile">
                             <img src="~/images/reset-password.png" alt="" srcset="">
-                            <a href="~/Account/UserChangePassword" target=""><b>Đổi mật khẩu</b></a>
+                            <a href="~/Account/UserChangePassword" target="">Đổi mật khẩu</a>
                         </div>
                         <div class="userprofile_bar_profile">
                             <img src="~/images/logout.png" alt="" srcset="">
-                            <a href="~/Account/Logout" target="" style="font-weight: bold;">Đăng xuất</a>
+                            <a href="~/Account/Logout" target="" >Đăng xuất</a>
                         </div>
                     </div>
                 </div>
