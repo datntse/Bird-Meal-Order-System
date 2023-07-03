@@ -1,9 +1,7 @@
-﻿@model BMOS.Models.Entities.TblRouting
+﻿@model BMOS.Models.Entities.TblRouting;
 
 @{
     Layout = "_ManagePage";
-    ViewData["Title"] = "Create";
-    var productList = ViewData["productList"] as BMOS.Models.ProductInRoutingModel;
 }
 <h4>TblRouting</h4>
 <hr />
@@ -17,7 +15,7 @@
         </div>
         <div class="form-group">
             <label class="form-label">Select Product</label> 
-            <select multiple class="form-select product-choose" asp-items="@productList.productList" asp-for="@productList.productId"></select>
+            <select multiple class="form-select product-choose" asp-items="@Model.productList" asp-for="listProductId"></select>
         </div>
         <div class="form-group">
             <label asp-for="Name" class="control-label"></label>

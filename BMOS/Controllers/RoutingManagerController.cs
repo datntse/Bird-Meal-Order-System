@@ -50,7 +50,7 @@ namespace BMOS.Controllers
         public async Task<IActionResult> Create()
         {
             var productData = await _context.TblProducts.ToListAsync();
-            var model = new ProductInRoutingModel();
+            var model = new TblRouting();
             model.productList = new List<SelectListItem>();
             foreach (var product in productData)
             {
@@ -60,8 +60,7 @@ namespace BMOS.Controllers
                     Value = product.ProductId
                 });
             }
-            ViewData["productList"] = model;
-            return View();
+            return View(model);
         }
 
         // POST: RoutingManager/Create
@@ -69,18 +68,17 @@ namespace BMOS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RoutingId,Name,Description,Quantity,Price,Status")] TblRouting tblRouting,
-            ProductInRoutingModel productModel)
+        public async Task<IActionResult> Create(TblRouting tblRouting)
         {
+        var productList = tblRouting.listProductId;
             if (ModelState.IsValid)
             {
-                var productList = productModel.productId;
                 _context.Add(tblRouting);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(tblRouting);
-        }
+            }
 
         // GET: RoutingManager/Edit/5
         public async Task<IActionResult> Edit(string id)
