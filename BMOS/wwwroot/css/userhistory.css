@@ -232,7 +232,10 @@ html {
 }
 
 .user_history_details_price {
-    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: center;
 }
 .userinfo {
     display: flex;

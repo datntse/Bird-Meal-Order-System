@@ -216,7 +216,7 @@ html {
 }
 .userprofile_info_wel_location1_icon{
     border: 2px solid black;
-    border-radius: 20px; 
+    border-radius: 10px; 
     background-color: #ffce3e;
     width: 25vh;
     display: flex;

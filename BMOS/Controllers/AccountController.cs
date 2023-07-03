@@ -333,5 +333,29 @@ namespace BMOS.Controllers
             }           
         }
 
+        [HttpPost]
+        public IActionResult OrderDetail(string orderID)
+        {
+            ViewBag.ID = HttpContext.Session.GetString("id");
+            ViewBag.Fullname = HttpContext.Session.GetString("fullname");
+            var user = HttpContext.Session.GetString("username");
+            ViewBag.User = user;
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                var orderListDetail = _db.TblOrderDetails.Where(p => p.OrderId.Equals(orderID)).ToList();
+                var date = _db.TblOrderDetails.Where(p => p.OrderId == orderID).Select(p => p.Date).FirstOrDefault();
+                var total = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.TotalPrice).FirstOrDefault();
+                ViewBag.OrderID = orderID;
+                ViewBag.Date = date.ToString();
+                ViewBag.TotalPrice = total.ToString();
+                return View(orderListDetail);
+            }
+            
+        }
+
     }
 }
