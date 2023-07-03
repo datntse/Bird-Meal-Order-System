@@ -51,7 +51,7 @@ public partial class BmosContext : DbContext
     {
         modelBuilder.Entity<TblAddress>(entity =>
         {
-            entity.HasKey(e => e.AddressId).HasName("PK__Tbl_Addr__CAA247C8AC87F1FB");
+            entity.HasKey(e => e.AddressId).HasName("PK__Tbl_Addr__CAA247C8CA85D6D4");
 
             entity.ToTable("Tbl_Address");
 
