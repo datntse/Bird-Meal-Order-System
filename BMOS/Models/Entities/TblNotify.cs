@@ -7,7 +7,7 @@ public partial class TblNotify
 {
     public string NotifyId { get; set; } = null!;
 
-    public string? UserId { get; set; }
+    public int? UserId { get; set; }
 
     public string? Message { get; set; }
 

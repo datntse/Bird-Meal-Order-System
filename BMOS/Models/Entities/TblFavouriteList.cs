@@ -7,7 +7,7 @@ public partial class TblFavouriteList
 {
     public string FavouriteListId { get; set; } = null!;
 
-    public string? UserId { get; set; }
+    public int? UserId { get; set; }
 
     public string? ProductId { get; set; }
 

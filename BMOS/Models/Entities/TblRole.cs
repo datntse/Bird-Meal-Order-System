@@ -10,4 +10,6 @@ public partial class TblRole
     public string? RoleName { get; set; }
 
     public virtual TblPermission UserRole { get; set; } = null!;
+
+    public virtual TblUser UserRoleNavigation { get; set; } = null!;
 }

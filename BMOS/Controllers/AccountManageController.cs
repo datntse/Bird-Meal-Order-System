@@ -44,7 +44,7 @@ namespace BMOS.Controllers
                         select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                accounts = accounts.Where(s => s.UserId.Contains(searchString));
+                accounts = accounts.Where(s => s.Username.Contains(searchString));
                 int count = accounts.Count();
                 if (count == 0)
                 {
@@ -82,7 +82,7 @@ namespace BMOS.Controllers
     
 
 		// GET: UsersManage/Details/5
-		public async Task<IActionResult> Details(string? id)
+		public async Task<IActionResult> Details(int? id)
 		{
 			if (id == null || _context.TblUsers == null)
 			{
@@ -121,7 +121,7 @@ namespace BMOS.Controllers
 		}
 
 		// GET: UsersManage/Edit/5
-		public async Task<IActionResult> Edit(string? id)
+		public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null || _context.TblUsers == null)
 			{
@@ -141,7 +141,7 @@ namespace BMOS.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(string id, [Bind("UserId,Username,Password,IsConfirm,Firstname,Lastname,Numberphone,Address,DateCreate,LastActivitty,Point,Status,UserRoleId")] TblUser tblUser)
+		public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Password,IsConfirm,Firstname,Lastname,Numberphone,Address,DateCreate,LastActivitty,Point,Status,UserRoleId")] TblUser tblUser)
 		{
 			if (id != tblUser.UserId)
 			{
@@ -172,7 +172,7 @@ namespace BMOS.Controllers
 		}
 
 
-		private bool TblUserExists(string id)
+		private bool TblUserExists(int id)
 		{
 			return (_context.TblUsers?.Any(e => e.UserId == id)).GetValueOrDefault();
 		}

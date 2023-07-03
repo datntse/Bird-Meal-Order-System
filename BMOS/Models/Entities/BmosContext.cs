@@ -15,6 +15,8 @@ public partial class BmosContext : DbContext
     {
     }
 
+    public virtual DbSet<TblAddress> TblAddresses { get; set; }
+
     public virtual DbSet<TblBlog> TblBlogs { get; set; }
 
     public virtual DbSet<TblFavouriteList> TblFavouriteLists { get; set; }
@@ -43,10 +45,37 @@ public partial class BmosContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=SMILEE\\SQLEXPRESS;Initial Catalog=BMOS;User ID=sa;Password=12345;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        => optionsBuilder.UseSqlServer("Data Source=CUONGPHAN;Initial Catalog=BMOS;User ID=sa;Password=12345;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<TblAddress>(entity =>
+        {
+            entity.HasKey(e => e.AddressId).HasName("PK__Tbl_Addr__CAA247C8CA85D6D4");
+
+            entity.ToTable("Tbl_Address");
+
+            entity.Property(e => e.AddressId).HasColumnName("address_id");
+            entity.Property(e => e.Address)
+                .HasMaxLength(250)
+                .HasColumnName("address");
+            entity.Property(e => e.BlockVillage)
+                .HasMaxLength(100)
+                .HasColumnName("block_village");
+            entity.Property(e => e.CityProvince)
+                .HasMaxLength(100)
+                .HasColumnName("city_province");
+            entity.Property(e => e.District)
+                .HasMaxLength(100)
+                .HasColumnName("district");
+            entity.Property(e => e.IsDefault).HasColumnName("is_default");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.TblAddresses)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__Tbl_Addre__user___5070F446");
+        });
+
         modelBuilder.Entity<TblBlog>(entity =>
         {
             entity.HasKey(e => e.BlogId);
@@ -81,10 +110,7 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("product_id");
-            entity.Property(e => e.UserId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("user_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.Product).WithMany(p => p.TblFavouriteLists)
                 .HasForeignKey(d => d.ProductId)
@@ -116,10 +142,7 @@ public partial class BmosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("product_id");
             entity.Property(e => e.Star).HasColumnName("star");
-            entity.Property(e => e.UserId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("user_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.Product).WithMany(p => p.TblFeedbacks)
                 .HasForeignKey(d => d.ProductId)
@@ -174,10 +197,7 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("type");
-            entity.Property(e => e.UserId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("user_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.TblNotifies)
                 .HasForeignKey(d => d.UserId)
@@ -199,14 +219,11 @@ public partial class BmosContext : DbContext
                 .HasColumnName("date");
             entity.Property(e => e.IsConfirm).HasColumnName("is_confirm");
             entity.Property(e => e.TotalPrice).HasColumnName("total_price");
-            entity.Property(e => e.UserId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("user_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.TblOrders)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_Tbl_Order_Tbl_User");
+                .HasConstraintName("FK__Tbl_Order__user___4D94879B");
         });
 
         modelBuilder.Entity<TblOrderDetail>(entity =>
@@ -307,10 +324,7 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("order_id");
-            entity.Property(e => e.UserId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("user_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.Order).WithMany(p => p.TblRefunds)
                 .HasForeignKey(d => d.OrderId)
@@ -336,6 +350,11 @@ public partial class BmosContext : DbContext
                 .HasForeignKey(d => d.UserRoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Tbl_Role_Tbl_Permission");
+
+            entity.HasOne(d => d.UserRoleNavigation).WithMany()
+                .HasForeignKey(d => d.UserRoleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Tbl_Role_Tbl_User");
         });
 
         modelBuilder.Entity<TblRouting>(entity =>
@@ -371,10 +390,7 @@ public partial class BmosContext : DbContext
 
             entity.ToTable("Tbl_User");
 
-            entity.Property(e => e.UserId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("user_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.Address)
                 .HasMaxLength(150)
                 .HasColumnName("address");

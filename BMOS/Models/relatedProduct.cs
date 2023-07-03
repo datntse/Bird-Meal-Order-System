@@ -8,7 +8,6 @@ namespace BMOS.Models
 		public string _id { get; set; }
 		public List<TblProduct>? listProduct { get; set; }
 		
-		BmosContext _context { get; set; }
 
 		public TblProduct getMainProduct()
 		{
@@ -29,15 +28,6 @@ namespace BMOS.Models
 			return listRelated;
 		}
 
-		public bool ChangeLove(string id)
-		{
-
-			var result = _context.TblProducts.FirstOrDefault(x => x.ProductId.Equals(id));
-			result.IsLoved = !result.IsLoved;
-			_context.SaveChanges();
-			return (bool)!result.IsLoved;
-
-		}
 	}
 
 

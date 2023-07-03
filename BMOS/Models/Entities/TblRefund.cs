@@ -7,7 +7,7 @@ public partial class TblRefund
 {
     public string RefundId { get; set; } = null!;
 
-    public string? UserId { get; set; }
+    public int? UserId { get; set; }
 
     public string? OrderId { get; set; }
 

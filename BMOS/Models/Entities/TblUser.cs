@@ -5,7 +5,7 @@ namespace BMOS.Models.Entities;
 
 public partial class TblUser
 {
-    public string UserId { get; set; } = null!;
+    public int UserId { get; set; }
 
     public string? Username { get; set; }
 
@@ -30,6 +30,8 @@ public partial class TblUser
     public bool? Status { get; set; }
 
     public int? UserRoleId { get; set; }
+
+    public virtual ICollection<TblAddress> TblAddresses { get; set; } = new List<TblAddress>();
 
     public virtual ICollection<TblFavouriteList> TblFavouriteLists { get; set; } = new List<TblFavouriteList>();
 

@@ -9,7 +9,7 @@ public partial class TblFeedback
 
     public string? ProductId { get; set; }
 
-    public string? UserId { get; set; }
+    public int? UserId { get; set; }
 
     public string? Content { get; set; }
 
