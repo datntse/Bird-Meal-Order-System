@@ -13,7 +13,7 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-
+/BMOS-Winform
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

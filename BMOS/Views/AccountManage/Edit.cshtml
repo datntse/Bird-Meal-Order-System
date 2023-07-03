@@ -1,10 +1,9 @@
 ﻿@model BMOS.Models.Entities.TblUser
 
 @{
-    Layout = "_UsersEditPage";
-    ViewData["Title"] = "Edit";
-}
-
+    Layout = "_ManagePage";
+    ViewData["Title"] = "Account Manage";
+    }
 <link href="~/css/create_edit.css" rel="stylesheet" />
 
 <h1>Edit</h1>
@@ -61,7 +60,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Point" class="control-label"></label>
-                <input asp-for="Point" class="form-control" />
+                <input asp-for="Point" class="form-control" readonly/>
                 <span asp-validation-for="Point" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -71,7 +70,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="UserRoleId" class="control-label"></label>
-                <input asp-for="UserRoleId" class="form-control" />
+                <input asp-for="UserRoleId" class="form-control" readonly/>
                 <span asp-validation-for="UserRoleId" class="text-danger"></span>
             </div>
             <div class="form-group">

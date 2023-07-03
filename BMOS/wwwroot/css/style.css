@@ -793,7 +793,7 @@ input {
     font-size: 2rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 5;
 }
 
 .blog-warpper .slick-dots {
@@ -820,8 +820,11 @@ input {
     background-color: #EFC15F;
 }
 
+.blog-desc__title {
+    font-size: 2.2rem;
+    font-weight: 700;   
+}
 /* Footer */
-
 .footer-item__title {
     font-size: 2.4rem;
     font-weight: 700;
@@ -1469,14 +1472,14 @@ main {
     }
 }
 
-/bloglist/
+/*bloglist*/
 
-.blogdetail-listtitle {
+.blogdetail-list__title {
     font-size: 1.6rem;
     font-weight: 700;
 }
 
-.blogdetailtitle-listtitle {
+.blogdetailtitle-list__title {
     font-size: 2.4rem;
     font-weight: 700;
     margin-bottom: 40px;
@@ -1486,7 +1489,7 @@ main {
     margin-bottom: 10px;
 }
 
-.blog-listtitle {
+.blog-list__title {
     font-size: 1.8rem;
     font-weight: 700;
     margin: 10px 0;
@@ -1510,7 +1513,7 @@ main {
     background-repeat: no-repeat;
 }
 
-.blog-desctitle {
+.blog-desc__title {
     font-size: 2.4rem;
     font-weight: 700;
     color: var(--text-color);
@@ -1520,7 +1523,7 @@ main {
     overflow: hidden;
 }
 
-.blog-descdetail {
+.blog-desc__detail {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--text-color);
@@ -1542,7 +1545,7 @@ main {
         transform: translateY(-5px);
     }
 
-.header-navbarpage-list-item {
+.header-navbar__page-list-item {
     text-decoration: none;
     color: white;
 }
@@ -1551,7 +1554,7 @@ main {
     background-color: white;
 }
 
-.homeblog-descdetail {
+.homeblog-desc__detail {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--text-color);
@@ -1563,7 +1566,7 @@ main {
     overflow: hidden;
 }
 
-.homeblog-desctitle {
+.homeblog-desc__title {
     font-size: 2.4rem;
     font-weight: 700;
     color: var(--text-color);

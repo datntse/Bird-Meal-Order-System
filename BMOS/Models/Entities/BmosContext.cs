@@ -390,7 +390,10 @@ public partial class BmosContext : DbContext
 
             entity.ToTable("Tbl_User");
 
-            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.UserId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("user_id");
             entity.Property(e => e.Address)
                 .HasMaxLength(150)
                 .HasColumnName("address");

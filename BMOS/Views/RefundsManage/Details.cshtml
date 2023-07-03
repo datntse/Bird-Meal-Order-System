@@ -1,51 +1,45 @@
-﻿@model BMOS.Models.FeedbackInfo
+﻿@model BMOS.Models.Entities.TblRefund
 
 @{
     Layout = "_ManagePage";
     ViewData["Title"] = "Details";
 }
-}
 
-<h1>Thông tin chi tiết</h1>
+<h1>Details</h1>
 
 <div>
+    
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            Mã đánh giá
+            @Html.DisplayNameFor(model => model.UserId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FeedbackId)
+            @Html.DisplayFor(model => model.UserId)
         </dd>
         <dt class = "col-sm-2">
-            Tên sản phẩm
+            @Html.DisplayNameFor(model => model.OrderId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.OrderId)
         </dd>
         <dt class = "col-sm-2">
-            Thông tin đánh giá
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt class="col-sm-2">
-            Tên tài khoản
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.userName)
+            @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class = "col-sm-2">
-            Số sao
+            @Html.DisplayNameFor(model => model.Date)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Star)/5
+            @Html.DisplayFor(model => model.Date)
         </dd>
         <dt class = "col-sm-2">
-            Thời gian
+            @Html.DisplayNameFor(model => model.IsConfirm)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.date)
+            @Html.DisplayFor(model => model.IsConfirm)
         </dd>
     </dl>
 </div>

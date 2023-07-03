@@ -102,7 +102,7 @@ namespace BMOS.Controllers
         }
 
         // POST: ProductManager/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // To protect from overposting attacks,  enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -112,7 +112,7 @@ namespace BMOS.Controllers
             string url = "";
             if (ModelState.IsValid)
             {
-                url = await FirebaseService.UploadImage(files);
+                url = await FirebaseService.UploadImage(files, "products");
                 _context.Add(tblProduct);
                 TblImage tblImage = new TblImage
                 {
@@ -180,7 +180,7 @@ namespace BMOS.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(tblProduct);
-        }
+        }   
 
         // GET: ProductManager/Delete/5
         public async Task<IActionResult> Delete(string id)

@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model X.PagedList.IPagedList<BMOS.Models.Entities.TblBlog>
+@model X.PagedList.IPagedList<BMOS.Models.BlogInfoModel>
 @using X.PagedList.Mvc;
 @using X.PagedList.Mvc.Core;
 @using X.PagedList.Web.Common;
@@ -15,7 +15,12 @@
 		<!-- Navbar -->
 		<div class="content">
 			<div class="container">
-
+				<div class="content__navigation">
+					<div>
+						<a href="index.html">Trang chủ</a>/
+						<a asp-action="Blog">Blog</a>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-3 content__sidebar">
 						<div class="container-sidebar__titile">
@@ -62,81 +67,133 @@
 						<div class="container-sidebar__list">
 							<div class="col-12 sidebar__list-category--title">Blog</div>
 							<ul class="col-12 container-sidebar__list--category">
-								<li class="sidebar__list--category-item">
-									<a href="#"
-									   class="sidebar__list--category-link">Thức ăn hạt</a>
+								<li class="sidebar__list--category-item sidebar__blog-item">
+									<a href="#" class="sidebar__list--category-link">
+										<div class="blog-sidebar__img">
+											<img src="images/blog.png" alt="" srcset="">
+										</div>
+										<div class="blog-sidebar__text">
+											Tràm chim nơi xuất hiện nhiều loại chim quý hiếm, có nhiều loài đang nằm trong sách Đỏ Việt Nam.
+										</div>
+
+									</a>
 								</li>
-								<li class="sidebar__list--category-item">
-									<a href="#"
-									   class="sidebar__list--category-link">Thức ăn tự nhiên</a>
+								<li class="sidebar__list--category-item sidebar__blog-item">
+									<a href="#" class="sidebar__list--category-link">
+										<div class="blog-sidebar__img">
+											<img src="images/blog.png" alt="" srcset="">
+										</div>
+										<div class="blog-sidebar__text">
+											Tràm chim nơi xuất hiện nhiều loại chim quý hiếm, có nhiều loài đang nằm trong sách Đỏ Việt Nam.
+										</div>
+
+									</a>
 								</li>
-								<li class="sidebar__list--category-item">
-									<a href="#"
-									   class="sidebar__list--category-link">Thức ăn khô</a>
+								<li class="sidebar__list--category-item sidebar__blog-item">
+									<a href="#" class="sidebar__list--category-link">
+										<div class="blog-sidebar__img">
+											<img src="images/blog.png" alt="" srcset="">
+										</div>
+										<div class="blog-sidebar__text">
+											Tràm chim nơi xuất hiện nhiều loại chim quý hiếm, có nhiều loài đang nằm trong sách Đỏ Việt Nam.
+										</div>
+
+									</a>
 								</li>
-								<li class="sidebar__list--category-item">
-									<a href="#"
-									   class="sidebar__list--category-link">Thức ăn mềm</a>
+								<li class="sidebar__list--category-item sidebar__blog-item">
+									<a href="#" class="sidebar__list--category-link">
+										<div class="blog-sidebar__img">
+											<img src="images/blog.png" alt="" srcset="">
+										</div>
+										<div class="blog-sidebar__text">
+											Tràm chim nơi xuất hiện nhiều loại chim quý hiếm, có nhiều loài đang nằm trong sách Đỏ Việt Nam.
+										</div>
+
+									</a>
 								</li>
 							</ul>
 						</div>
 
 					</div>
 					<div class="col-9 content__routing-list">
-						<div class="content__filter">
-							<ul class="content__fitler-list" style="font-size:2rem; display:flex;">
+						@*<div class="content__filter">
+							<ul class="content__fitler-list" >
 								<span>Sắp xếp:</span>
-								<li style="padding-left: 7px;">
+								<li>
 									<a asp-action="Blog" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">A-Z</a> |
 								</li>
-								<li style="padding-left: 7px;">
+								<li>
 									<a asp-action="Blog" asp-route-sortOrder="@ViewData["NameDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Z-A</a> |
 								</li>
-								<li style="padding-left: 7px;">
+								<li class="content__filter-item">
 									<a asp-action="Blog" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Cũ nhất</a> |
 								</li>
-								<li style="padding-left: 7px;">
+								<li class="content__filter-item">
 									<a asp-action="Blog" asp-route-sortOrder="@ViewData["DateDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Mới nhất</a>
+								</li>
+								<li>
+									<a style="font-size: 1.5rem; text-decoration: none;margin-left:40rem;" asp-controller="Products" asp-action="ListProduct">Xóa tìm kiếm</a>
 								</li>
 
 							</ul>
+						</div>*@
+						<div class="content__filter">
+							<ul class="content__fitler-list">
+								<span>Sắp xếp:</span>
+								<li>
+									<a asp-action="Blog" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">A-Z</a> |
+								</li>
+								<li>
+									<a asp-action="Blog" asp-route-sortOrder="@ViewData["NameDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Z-A</a> |
+								</li>
+								<li class="content__filter-item">
+									<a asp-action="Blog" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Cũ nhất</a> |
+								</li>
+								<li class="content__filter-item">
+									<a asp-action="Blog" asp-route-sortOrder="@ViewData["DateDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Mới nhất</a>
+								</li>
+								<li>
+									<a style="font-size: 1.5rem; text-decoration: none;margin-left:40rem;" asp-controller="Blog" asp-action="Blog">Xóa tìm kiếm</a>
+								</li>
+							</ul>
 						</div>
 						<div class="content_blog-list">
-
+							<div style="font-size:2rem;"> @ViewBag.Message </div>
 							<div class="row g-0 blog-list__item">
-								<div class="col-12 blog-list__title">
-									Blog:
-								</div>
-
-								<div class="row g-0 product-list">
+								
 									@foreach (var item in Model)
 									{
-										<div class="col-3 product-item">
-											<a  asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.BlogId" class="product-content product-border">
-												<div class="product-img-item" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/bmosfile.appspot.com/o/products%2F800-07431076.jpeg?alt=media&token=7cd75152-7207-4256-9f2a-646c4820ff6d')"></div>
-												<div class="product-desc">
-													<div class="product-desc__title">
-
-														@Html.DisplayFor(modelItem => item.Name)
-
-													</div>
-												
+									<a class="col-3 bloglist-item" asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.blogId">
+										<div class="bloglist-content blog-border" >
+												<div>
+												<div class="blog-img-item" style="background-image: url('@item.blogImage')"></div>
 												</div>
-											</a>
+											<div class="blog-desc">
+												<div class="blog-desc__title">
+														@Html.DisplayFor(modelItem => item.blogName)
+												</div>
+
+											</div>
 										</div>
+									</a>
+
 									}
-
-								</div>
-								<div style="font-size:2rem; margin-bottom:2rem; margin-left:1rem;">
-									@Html.PagedListPager(Model, page => Url.Action("Blog",
-									new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
-									new PagedListRenderOptions {
-									LiElementClasses = new string[] { "page-item" },
-									PageClasses = new string[] { "page-link" }
-									})
-
-								</div>
 							</div>
+
+							<div style="font-size:2rem; margin-bottom:2rem; margin-left:1rem;">
+								Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
+							</div>
+
+							<div style="font-size:2rem; margin-bottom:2rem; margin-left:1rem;">
+								@Html.PagedListPager(Model, page => Url.Action("Blog",
+								new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+								new PagedListRenderOptions {
+								LiElementClasses = new string[] { "page-item" },
+								PageClasses = new string[] { "page-link" }
+								})
+
+							</div>
+							
 						</div>
 					</div>
 				</div>

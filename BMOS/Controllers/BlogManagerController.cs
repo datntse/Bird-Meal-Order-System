@@ -1,22 +1,23 @@
 ﻿using BMOS.Models.Entities;
+using BMOS.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
+using System.Security.Policy;
 using X.PagedList;
 
 namespace Demo.Controllers
 {
-	public class BlogManageController : Controller
+	public class BlogManagerController : Controller
 	{
 		private readonly BmosContext _context;
 
-		public BlogManageController(BmosContext context)
+		public BlogManagerController(BmosContext context)
 		{
 			_context = context;
 		}
-		public async Task<IActionResult> BlogManage(string sortOrder, string currentFilter, string searchString, int? page)
+		public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
 		{
-
 			ViewData["SearchParameter"] = searchString;
 			ViewBag.CurrentSort = sortOrder;
 			ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
@@ -95,13 +96,24 @@ namespace Demo.Controllers
 			return View(tblBlog);
 		}
 		[HttpPost]
-		public async Task<IActionResult> Create([Bind("BlogId, Name, Description, Date, Status")] TblBlog tblBlog)
+		public async Task<IActionResult> Create([Bind("BlogId, Name, Description, Date, Status")] TblBlog tblBlog, List<IFormFile> files)
 		{
+			string url = "";
 			if (ModelState.IsValid)
 			{
-				_context.TblBlogs.Add(tblBlog);
+				url = await FirebaseService.UploadImage(files, "blogs");
+				_context.Add(tblBlog);
+				TblImage tblImage = new TblImage
+				{
+					ImageId = Guid.NewGuid().ToString(),
+					Name = "Blog img",
+					RelationId = tblBlog.BlogId,
+					Type = "Blog",
+					Url = url
+				};
+				_context.Add(tblImage);
 				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(BlogManage));
+				return RedirectToAction(nameof(Index));
 			}
 			return View(tblBlog);
 		}
@@ -146,11 +158,10 @@ namespace Demo.Controllers
 						throw;
 					}
 				}
-				return RedirectToAction(nameof(BlogManage));
+				return RedirectToAction(nameof(Index));
 			}
 			return View(tblBlog);
 		}
-
 		private bool TblBlogExists(string blogId)
 		{
 			throw new NotImplementedException();
@@ -186,7 +197,7 @@ namespace Demo.Controllers
 			}
 
 			await _context.SaveChangesAsync();
-			return RedirectToAction(nameof(BlogManage));
+			return RedirectToAction("Index");
 		}
 	}
 }
