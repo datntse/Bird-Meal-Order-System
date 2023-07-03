@@ -1,0 +1,47 @@
+﻿@model BMOS.Models.OrderInfo
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_ManagePage.cshtml";
+}
+
+<h1>Thông tin chi tiết</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Mã đơn hàng
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.orderID)
+        </dd>
+        <dt class="col-sm-2">
+            Tên tài khoản
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            Số lượng
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>      
+        <dt class="col-sm-2">
+            Tổng tiền
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.total)vnd
+        </dd>
+        <dt class="col-sm-2">
+            Thời gian
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.date)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

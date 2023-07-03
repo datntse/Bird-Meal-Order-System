@@ -6,6 +6,8 @@
         public string? Name { get; set;}
         public string? Content { get; set;}
         public int? Star { get; set;}
+
+        public string userName { get; set; }
         public DateTime? date { get; set;}
     }
 }

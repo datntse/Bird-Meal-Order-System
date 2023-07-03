@@ -1,0 +1,71 @@
+﻿@model X.PagedList.IPagedList<BMOS.Models.OrderInfo>
+@using X.PagedList.Mvc;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_ManagePage.cshtml";
+}
+
+<h1>Quản lý don hang</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Mã đơn hàng
+            </th>
+            <th>
+                Tên tài khoản
+            </th>
+            <th>
+                <a style="text-decoration:none;" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Tổng tiền</a>
+            </th>
+            <th>
+                Thời gian
+            </th>
+            <th>
+                <a style="text-decoration:none;" asp-controller="OrderManager" asp-action="Index">Xóa tìm kiếm</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.total)vnd
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.orderID">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />
+<div style="font-size:2rem; margin-bottom:2rem; margin-left:1rem;">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) tren @Model.PageCount
+</div>
+
+<div style="font-size:1rem; margin-bottom:2rem; margin-left:1rem;">
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+    new PagedListRenderOptions {
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" }
+    })
+
+</div>

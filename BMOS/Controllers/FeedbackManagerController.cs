@@ -41,17 +41,19 @@ namespace BMOS.Controllers
             ViewBag.CurrentFilter = searchString;
             var feedback = from f in _context.TblFeedbacks
                            join p in _context.TblProducts on f.ProductId equals p.ProductId
-                           //join u in _context.TblUsers on f.UserId equals u.UserId
-                           select new FeedbackInfo()
+                           join u in _context.TblUsers on f.UserId equals u.UserId
+									 select new FeedbackInfo()
                            {
                                FeedbackId = f.FeedbackId,
                                Name = p.Name,
+                               userName = u.Firstname + u.Lastname,
                                Content = f.Content,
                                Star = f.Star,
                                date = f.Date,
                            };
 
-            if (!String.IsNullOrEmpty(searchString))
+
+			if (!String.IsNullOrEmpty(searchString))
             {
                 feedback = feedback.Where(s => s.Name.Contains(searchString));
                 int count = feedback.Count();
@@ -98,11 +100,12 @@ namespace BMOS.Controllers
             }
             var feedback = from f in _context.TblFeedbacks
                            join p in _context.TblProducts on f.ProductId equals p.ProductId
-                           //join u in _context.TblUsers on f.UserId equals u.UserId
+                           join u in _context.TblUsers on f.UserId equals u.UserId
                            select new FeedbackInfo()
                            {
                                FeedbackId = f.FeedbackId,
                                Name = p.Name,
+                               userName = u.Firstname + u.Lastname,
                                Content = f.Content,
                                Star = f.Star,
                                date = f.Date,

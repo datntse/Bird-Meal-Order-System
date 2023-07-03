@@ -23,7 +23,10 @@
                 Thông tin đánh giá
             </th>
             <th>
-                <a style="text-decoration:none;" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Tên ản phẩm</a>
+                Tên tài khoản
+            </th>
+            <th>
+                <a style="text-decoration:none;" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Số Sao</a>
             </th>
             <th>
                 Thời gian
@@ -46,6 +49,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userName)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Star)/5
             </td>
