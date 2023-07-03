@@ -30,4 +30,16 @@ public partial class TblUser
     public bool? Status { get; set; } = true;
 
     public int? UserRoleId { get; set; } = 3;
+
+    public virtual ICollection<TblAddress> TblAddresses { get; set; } = new List<TblAddress>();
+
+    public virtual ICollection<TblFavouriteList> TblFavouriteLists { get; set; } = new List<TblFavouriteList>();
+
+    public virtual ICollection<TblFeedback> TblFeedbacks { get; set; } = new List<TblFeedback>();
+
+    public virtual ICollection<TblNotify> TblNotifies { get; set; } = new List<TblNotify>();
+
+    public virtual ICollection<TblOrder> TblOrders { get; set; } = new List<TblOrder>();
+
+    public virtual ICollection<TblRefund> TblRefunds { get; set; } = new List<TblRefund>();
 }
