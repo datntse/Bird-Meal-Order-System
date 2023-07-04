@@ -75,7 +75,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link text-white" aria-current="page">
+						<a asp-controller="FeedbackManager" asp-action="Index" class="nav-link text-white" aria-current="page">
 							<i class="fa-solid fa-message" style="font-size: 1rem;"></i>
 							<span style="padding-left: 10px;">Quản lý đánh giá</span>
 						</a>
@@ -106,7 +106,7 @@
 			<div class="b-example-divider"></div>
 
 			<div class="container">
-				<div class="manage_account" style="width =50rem;">
+				<div class="manage_account" style="width:50rem;">
 					<form style=" display:flex;" class="col-9 header-searchform">
 						<div class="header-searchform--input">
 							<input class="header-search__form--input-field" style="margin-left:32px; width:70rem;" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Gõ từ khóa bạn muốn tìm kiếm...">

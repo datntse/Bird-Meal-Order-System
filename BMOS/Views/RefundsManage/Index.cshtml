@@ -24,7 +24,7 @@
         <a style="font-size: 1rem; text-decoration: none;margin-left:47rem;" asp-controller="RefundsManage" asp-action="Index">Xóa tìm kiếm</a>
     </li>
 </ul>
-<h1>Refunds Manage</h1>
+<h1>Quản lý trả hàng</h1>
 
 
 <table class="table">
@@ -91,6 +91,9 @@
 }
     </tbody>
 </table>
+<div style="font-size:2rem; margin-bottom:2rem; margin-left:1rem;">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
+</div>
 <div style="font-size:1rem; margin-bottom:2rem; margin-left:1rem;">
     @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
