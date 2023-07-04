@@ -163,28 +163,44 @@
                                         
                                     </div>
                                 </div>
+                                
 
+                            
 
                                <div style="display: flex; justify-content: center; align-items: center;">
                               <div class="userprofile_info_wel_locationh3" style="width: 95%;">
+
+                                        @if (ViewBag.Default != null)
+                                        {
+                                            <form action="~/Account/RemoveLocation" method="post">
+                                            <div class="col-12 userprofile_info_wel_location2" style="border: 1px solid black;  border-radius: 20px; display:flex; align-items:center; justify-content:center; margin: 10px 0; padding: 5px 0;">
+                                                <div class="col-11 userprofile_info_wel_locationinfo">
+                                                    <h3><b>Họ và tên: </b>@ViewBag.Fullname <span style="color: forestgreen; font-size: 1.5rem;">(Địa chỉ mặc định)</span></h3>
+                                                    <input type="hidden" name="addressid" value="@ViewBag.AddressID">
+                                                    <h3><b>Địa chỉ: </b>@ViewBag.Default</h3>
+                                                    <h3><b>Số điện thoại: </b>@ViewBag.Phone</h3>
+                                                </div>
+                                                <div class="col-1 userprofile_info_location_edit">
+                                                    <i class="fa-solid fa-pen-to-square editicon"></i>
+                                                    <button type="submit" style="background: none; border:none;">
+                                                        <i class="fa-solid fa-trash removeicon"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            </form>                                           
+                                        }
                                     @foreach (var item in Model)
                                     {
                                         <form action="~/Account/RemoveLocation" method="post">
                                     <div class="col-12 userprofile_info_wel_location2" style="border: 1px solid black;  border-radius: 20px; display:flex; align-items:center; justify-content:center; margin: 10px 0; padding: 5px 0;">
                                         
                                         <div class="col-11 userprofile_info_wel_locationinfo">
-                                                <div style="display: flex;">
-                                                    <h3><b>Họ và tên: </b>@ViewBag.Fullname </h3>
-                                                    <input type="hidden" name="addressid" value="@item.AddressId">
-                                                @if (item.IsDefault == true)
-                                                    {
-                                                        <span class="default" style="color: forestgreen; font-size: 1rem; display:flex; align-items:center; justify-content:center;">(Địa chỉ mặc định)</span>
-                                                        }
-                                                   
-                                                </div>
+                                             <h3><b>Họ và tên: </b>@ViewBag.Fullname </h3>
+                                             <input type="hidden" name="addressid" value="@item.AddressId">
                                              <h3><b>Địa chỉ: </b>@item.Address, @item.BlockVillage, @item.District, @item.CityProvince</h3>
                                              <h3><b>Số điện thoại: </b>@ViewBag.Phone</h3>
-                                            </div>
+
+                                        </div>  
                                         <div class="col-1 userprofile_info_location_edit">
                                                     <i class="fa-solid fa-pen-to-square editicon"></i>
                                                     <button type="submit" style="background: none; border:none;">

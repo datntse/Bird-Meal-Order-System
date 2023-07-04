@@ -7,6 +7,7 @@ using BMOS.Models.Entities;
 using BMOS.Services;
 using Microsoft.AspNetCore.Http;
 using Firebase.Auth;
+using Microsoft.EntityFrameworkCore;
 
 namespace BMOS.Controllers
 {
@@ -58,7 +59,7 @@ namespace BMOS.Controllers
                         //string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
                         var user = _db.TblUsers.Where(p => p.Username.Equals(username)).First();
                         string fullname = user.Firstname + " " + user.Lastname;
-
+                       
                         if (checkConfirm.Count() > 0)
                         {
                             HttpContext.Session.SetString("username", username);
@@ -280,14 +281,26 @@ namespace BMOS.Controllers
             ViewBag.Fullname = HttpContext.Session.GetString("fullname");           
             var user = HttpContext.Session.GetString("username");
             var userid = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
+
             ViewBag.Phone = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.Numberphone).First();
             ViewBag.UserID = userid.ToString();           
             if (user == null)
             {
                 return RedirectToAction("Login");
             }
-            var addList = _db.TblAddresses.Where(p => p.UserId == userid).ToList();
-            return View(addList);
+            else
+            {
+                var addressDefault = _db.TblAddresses.FirstOrDefault(p => p.UserId == userid && p.IsDefault == true);
+                if (addressDefault != null)
+                {   
+                    int addressID = _db.TblAddresses.Where(p => p.UserId == userid && p.IsDefault == true).Select(p => p.AddressId).First();
+                    ViewBag.AddressID = addressID;
+                    ViewBag.Default = addressDefault.Address + ", " + addressDefault.BlockVillage + ", " + addressDefault.District + ", " + addressDefault.CityProvince;
+                }
+                var addList = _db.TblAddresses.Where(p => p.UserId == userid && p.IsDefault == false).ToList();
+                return View(addList);
+            }
+            
         }
 
         [HttpPost]
@@ -303,9 +316,25 @@ namespace BMOS.Controllers
             }
             else
             {
-                _db.Add(model);
-                _db.SaveChanges();
-                return RedirectToAction("UserLocation");
+                if (model.IsDefault == true)
+                {
+                    var check = _db.TblAddresses.Where(p => p.UserId == model.UserId).ToList();
+                    foreach (var item in check)
+                    {
+                        item.IsDefault = false;
+                        _db.SaveChanges();
+                    }
+                    _db.Add(model);
+                    _db.SaveChanges();
+                    return RedirectToAction("UserLocation");
+                }
+                else
+                {
+                    _db.Add(model);
+                    _db.SaveChanges();
+                    return RedirectToAction("UserLocation");
+                }
+                
             }
             
         }
@@ -321,7 +350,7 @@ namespace BMOS.Controllers
 
 
 
-            public IActionResult UserChangePassword()
+        public IActionResult UserChangePassword()
         {
             var user = HttpContext.Session.GetString("username");
             ViewBag.ID = HttpContext.Session.GetString("id");
