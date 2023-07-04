@@ -8,12 +8,10 @@ namespace BMOS.Models.Entities;
 public partial class TblRouting
 {
     [NotMapped]
-    public List<SelectListItem> productList { get; set; }
-    [NotMapped]
     public string[] listProductId { get; set; }
+    [NotMapped]
+    public List<SelectListItem> listProduct { get; set; }
     public string RoutingId { get; set; } = null!;
-
-    public string? ProductId { get; set; }
 
     public string? Name { get; set; }
 
@@ -25,5 +23,5 @@ public partial class TblRouting
 
     public bool? Status { get; set; }
 
-
+    public virtual ICollection<TblProductInRouting> TblProductInRoutings { get; set; } = new List<TblProductInRouting>();
 }

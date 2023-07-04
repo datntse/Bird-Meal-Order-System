@@ -9,6 +9,8 @@ using BMOS.Models.Entities;
 using BMOS.Models;
 using System.Diagnostics.Metrics;
 using System.Collections;
+using BMOS.Models.Services;
+using System.Security.Policy;
 
 namespace BMOS.Controllers
 {
@@ -51,10 +53,10 @@ namespace BMOS.Controllers
         {
             var productData = await _context.TblProducts.ToListAsync();
             var model = new TblRouting();
-            model.productList = new List<SelectListItem>();
+            model.listProduct = new List<SelectListItem>();
             foreach (var product in productData)
             {
-                model.productList.Add(new SelectListItem
+                model.listProduct.Add(new SelectListItem
                 {
                     Text = product.Name,
                     Value = product.ProductId
@@ -68,17 +70,48 @@ namespace BMOS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TblRouting tblRouting)
+        public async Task<IActionResult> Create(TblRouting model, List<IFormFile> files)
         {
-        var productList = tblRouting.listProductId;
+            ModelState.Remove("listProduct");
+            ModelState.Remove("RoutingId");
+            string url = "";
+            var productList = model.listProductId;
             if (ModelState.IsValid)
             {
-                _context.Add(tblRouting);
+                url = await FirebaseService.UploadImage(files, "routing");
+                _context.Add(new TblImage
+                {
+                    ImageId = Guid.NewGuid().ToString(),
+                    Name = "Routing img",
+                    RelationId = model.RoutingId,
+                    Type = "Routing",
+                    Url = url
+                });
+                _context.Add(new TblRouting
+                {
+                    RoutingId = model.RoutingId,
+                    Name = model.Name,
+                    Description = model.Description,
+                    Quantity = model.Quantity,
+                    Price = model.Price,
+                    Status = model.Status,
+                });
+
+
+                foreach (var _prodId in productList)
+                {
+                    _context.Add(new TblProductInRouting
+                    {
+                        RoutingId = model.RoutingId,
+                        ProductId = _prodId,
+
+                    });
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tblRouting);
-            }
+            return View(model);
+        }
 
         // GET: RoutingManager/Edit/5
         public async Task<IActionResult> Edit(string id)
@@ -159,9 +192,13 @@ namespace BMOS.Controllers
                 return Problem("Entity set 'BmosContext.TblRoutings'  is null.");
             }
             var tblRouting = await _context.TblRoutings.FindAsync(id);
-            if (tblRouting != null)
+            var tblProductInRouting = _context.TblProductInRoutings.Where(x => x.RoutingId.Equals(id));
+            if (tblRouting != null && tblProductInRouting != null)
             {
                 _context.TblRoutings.Remove(tblRouting);
+                foreach(var tbl in tblProductInRouting) {
+                _context.TblProductInRoutings.Remove(tbl);
+                }
             }
 
             await _context.SaveChangesAsync();
