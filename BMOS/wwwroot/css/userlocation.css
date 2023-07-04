@@ -221,13 +221,10 @@ html {
     width: 25vh;
     display: flex;
     padding: 10px 0px 10px 10px;
-    margin: 20px 0px 20px 20px;
+    margin: 20px 0px 10px 20px;
 }
 .userprofile_info_wel_location{
     flex-direction: column;
-}
-.userprofile_info_wel_location2 {
-    padding-bottom: 20px;
 }
 
 .userprofile_info_wel_location1_icon img{

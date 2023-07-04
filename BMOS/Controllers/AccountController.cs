@@ -275,6 +275,23 @@ namespace BMOS.Controllers
         }
 
         public IActionResult UserLocation()
+        {           
+            ViewBag.ID = HttpContext.Session.GetString("id");
+            ViewBag.Fullname = HttpContext.Session.GetString("fullname");           
+            var user = HttpContext.Session.GetString("username");
+            var userid = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
+            ViewBag.Phone = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.Numberphone).First();
+            ViewBag.UserID = userid.ToString();           
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+            var addList = _db.TblAddresses.Where(p => p.UserId == userid).ToList();
+            return View(addList);
+        }
+
+        [HttpPost]
+        public IActionResult AddLocation(TblAddress model)
         {
             var user = HttpContext.Session.GetString("username");
             ViewBag.ID = HttpContext.Session.GetString("id");
@@ -284,10 +301,27 @@ namespace BMOS.Controllers
             {
                 return RedirectToAction("Login");
             }
-            return View();
+            else
+            {
+                _db.Add(model);
+                _db.SaveChanges();
+                return RedirectToAction("UserLocation");
+            }
+            
         }
 
-        public IActionResult UserChangePassword()
+        [HttpPost]
+        public IActionResult RemoveLocation(int addressID)
+        {
+            var check = _db.TblAddresses.FirstOrDefault(p => p.AddressId == addressID);
+            _db.Remove(check);
+            _db.SaveChanges();
+            return RedirectToAction("UserLocation");
+        }
+
+
+
+            public IActionResult UserChangePassword()
         {
             var user = HttpContext.Session.GetString("username");
             ViewBag.ID = HttpContext.Session.GetString("id");
@@ -324,7 +358,7 @@ namespace BMOS.Controllers
             ViewBag.ID = HttpContext.Session.GetString("id");
             ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             var user = HttpContext.Session.GetString("username");
-            var userID = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First().ToString();
+            var userID = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
             ViewBag.User = user;
             if (user == null)
             {
@@ -332,7 +366,7 @@ namespace BMOS.Controllers
             }
             else
             {
-                var orderList = _db.TblOrders.Where(p => p.UserId.Equals(userID)).ToList();
+                var orderList = _db.TblOrders.Where(p => p.UserId == userID).ToList();
                 return View(orderList);
             }           
         }

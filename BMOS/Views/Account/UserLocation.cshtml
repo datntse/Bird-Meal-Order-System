@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<BMOS.Models.Entities.TblAddress>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var id = ViewBag.ID;
@@ -113,28 +113,36 @@
                                             </div>
 
                                             <div class="modal-body">
-                                                <form method="post" action="" id="customer_address">
+                                                <form method="post" action="~/Account/AddLocation" id="customer_address">
                                                     <div class="pop_bottom">
                                                         <div>
+                                                            <div class="form-group" style="margin: 0; height: 0;">
+                                                                <label for="userid"></label>
+                                                                <input type="hidden" name="userid" value="@ViewBag.UserID">
+                                                            </div>
                                                             <div class="form-group" style="margin-top: 10px;">
-                                                                <label>Địa chỉ</label><br>
-                                                                <input type="text" class="form-select" value="" style="width: 99%;">
+                                                                <label for="address">Địa chỉ</label><br>
+                                                                <input type="text" name="address" class="form-select" value="" style="width: 99%;">
                                                             </div>
                                                             <div class="form-group" style="margin-top: 10px;">
                                                                 <label>Tỉnh/Thành Phố</label><br>
-                                                                <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
+                                                                    <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
                                                                     <option value="" selected>---</option>
                                                                 </select><br>
+                                                                <input type="hidden" name="cityprovince" id="cityprovince" value="">
 
                                                                 <label>Quận/huyện</label><br>
                                                                 <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
                                                                     <option value="" selected>---</option>
                                                                 </select><br>
+                                                                <input type="hidden" name="district" id="districts" value="">
 
                                                                 <label>Phường/xã</label><br>
                                                                 <select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
                                                                     <option value="" selected>---</option>
                                                                 </select><br>
+                                                            <input type="hidden" name="blockvillage" id="blockvillage" value="">
+
                                                             </div>
                                                         </div>
 
@@ -146,7 +154,7 @@
                                                         </div>
 
                                                         <div class="btn-row" style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between;">
-                                                            <button class="btn btn-submit" type="submit">Thêm địa chỉ</button>
+                                                            <button class="btn btn-submit" onclick="setValue()" type="submit">Thêm địa chỉ</button>
                                                             <button type="button" class="btn btn-remove" id="btn-cancel">Huỷ</button>
                                                         </div>
                                                     </div>
@@ -157,20 +165,39 @@
                                 </div>
 
 
-                                
-                              <!-- <div class="userprofile_info_wel_locationh3">
-                                    <div class="col-12 userprofile_info_wel_location2" style="border: 1px solid black; border-radius: 5px; display:flex; align-items: center; justify-content: center; padding: 10px; margin: 10px 0;">
+                               <div style="display: flex; justify-content: center; align-items: center;">
+                              <div class="userprofile_info_wel_locationh3" style="width: 95%;">
+                                    @foreach (var item in Model)
+                                    {
+                                        <form action="~/Account/RemoveLocation" method="post">
+                                    <div class="col-12 userprofile_info_wel_location2" style="border: 1px solid black;  border-radius: 20px; display:flex; align-items:center; justify-content:center; margin: 10px 0; padding: 5px 0;">
+                                        
                                         <div class="col-11 userprofile_info_wel_locationinfo">
-                                            <h3><b>Họ và tên</b>: CuongPhan <i style="color: greenyellow;"> (deflaut)</i></h3>
-                                            <h3><b>Số điện thoại</b>: 0123456789 </h3>
-                                            <h3><b>Địa chỉ</b>: Vinhome Grank Parkkkkkkkkkkkkkkkkkkkkkk </h3>
-                                        </div>
+                                                <div style="display: flex;">
+                                                    <h3><b>Họ và tên: </b>@ViewBag.Fullname </h3>
+                                                    <input type="hidden" name="addressid" value="@item.AddressId">
+                                                @if (item.IsDefault == true)
+                                                    {
+                                                        <span class="default" style="color: forestgreen; font-size: 1rem; display:flex; align-items:center; justify-content:center;">(Địa chỉ mặc định)</span>
+                                                        }
+                                                   
+                                                </div>
+                                             <h3><b>Địa chỉ: </b>@item.Address, @item.BlockVillage, @item.District, @item.CityProvince</h3>
+                                             <h3><b>Số điện thoại: </b>@ViewBag.Phone</h3>
+                                            </div>
                                         <div class="col-1 userprofile_info_location_edit">
-                                            <i class="fa-solid fa-pen-to-square editicon"></i>
-                                            <i class="fa-solid fa-trash removeicon"></i>
+                                                    <i class="fa-solid fa-pen-to-square editicon"></i>
+                                                    <button type="submit" style="background: none; border:none;">
+                                                        <i class="fa-solid fa-trash removeicon"></i>
+
+                                        </button>
                                         </div>
+                                            
                                     </div>
-                                 </div>-->
+                                        </form>
+                                    }
+                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -231,9 +258,11 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script>
-    var citis = document.getElementById("city");
-    var districts = document.getElementById("district");
-    var wards = document.getElementById("ward");
+    
+
+    var citis = document.getElementById('city');
+    var districts = document.getElementById('district');
+    var wards = document.getElementById('ward');
     var Parameter = {
         url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
         method: "GET",
@@ -270,5 +299,16 @@
                 }
             }
         };
+    }
+
+    function setValue() {
+        var city = citis.options[citis.selectedIndex].text;
+        document.getElementById('cityprovince').setAttribute('value', city);
+
+        var district = districts.options[districts.selectedIndex].text;
+        document.getElementById('districts').setAttribute('value', district);
+
+        var ward = wards.options[wards.selectedIndex].text;
+        document.getElementById('blockvillage').setAttribute('value', ward);
     }
 </script>
