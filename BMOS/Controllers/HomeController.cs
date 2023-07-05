@@ -22,6 +22,17 @@ namespace BMOS.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
 
+            var routingList = from routing in _context.TblRoutings
+                              from image in _context.TblImages
+                              where routing.RoutingId == image.RelationId && routing.Status != false
+                              select new RoutingHomePageModel
+                              {
+                                  routingId = routing.RoutingId,
+                                  routingName = routing.Name,
+                                  routingPrice = routing.Price,
+                                  routingImage = image.Url,
+                              };
+            ViewData["Routing"] = routingList.ToList();
             var blogList = from blog in _context.TblBlogs
                            from image in _context.TblImages
                            where blog.BlogId == image.RelationId && blog.Status != false
@@ -32,40 +43,33 @@ namespace BMOS.Controllers
                                blogDescription = blog.Description,
                                blogImage = image.Url,
                                Date = blog.Date,
-							   };
+                           };
             ViewData["Blog"] = blogList.ToList();
             if (!String.IsNullOrEmpty(searchString))
-            {     
+            {
                 return RedirectToAction("ListProduct", "Products", new { searchString });
             }
 
-			var listProdct = from product in _context.TblProducts
-							 from image in _context.TblImages
-							 where product.ProductId == image.RelationId && product.Status != false
-							 select new
-							 {
-								 productId = product.ProductId,
-								 productName = product.Name,
-								 productPrice = product.Price,
-								 productImage = image.Url
+            var listProdct = from product in _context.TblProducts
+                             from image in _context.TblImages
+                             where product.ProductId == image.RelationId && product.Status != false
+                             select new
+                             {
+                                 productId = product.ProductId,
+                                 productName = product.Name,
+                                 productPrice = product.Price,
+                                 productImage = image.Url
                              };
             return listProdct != null ? View(await listProdct.ToListAsync()) : Problem("Entity set 'BmosContext.TblProducts' is null");
-		}
+        }
 
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-		[HttpGet]
-		public IActionResult Blog()
-		{
-			var blogList = _context.TblBlogs.ToListAsync();
-			return PartialView(blogList);
-		}
-
-	}
+    }
 
 }

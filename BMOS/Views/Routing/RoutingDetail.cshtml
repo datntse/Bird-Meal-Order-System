@@ -1,0 +1,156 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<BMOS.Models.RoutingDetailModel>;
+@{
+    Layout = "_HeaderFooter";
+    ViewData["Title"] = "Routing Detail";
+    var routing = ViewData["Routing"] as BMOS.Models.RoutingHomePageModel;
+}
+
+<div class="content">
+    <div class="container">
+        <div class="content__navigation">
+            <div>
+                <a href="index.html">Trang chủ</a>/
+                <a href="routing.html">Lộ trình ăn/</a>
+                <a href="#">Chi tiết bữa ăn</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8 routing-list">
+                <div class="content_routing-list--product">
+                    <div class="routing-list__banner" style="background: url(@routing.routingImage)">
+                    </div>
+                    <div class="row g-0 routing-list__item">
+                        <div class="col-12 routing-list__title">
+                            Thành phần và nguyên liệu:
+                        </div>
+                        @foreach(var item in Model) 
+                        {
+                            string url = item.image;
+                            string[] delemeter = new string[] { "datnt" };
+                            string[] image = url.Split(delemeter, StringSplitOptions.None);
+                        <div class="row g-0 routing-list__item--list">
+                            <div class="col-3 routing-item__product-img">
+                                    <img src="@image[0]" style="width: 100%" alt="" srcset="">
+                            </div>
+                            <div class="col-9 routing-item__product-desc">
+                                <div class="col-12 routing-item__product-desc--title">
+                                    <span>Product 1:</span> @item.productName
+                                </div>
+                                <div class="col-12 routing-item__product-desc--title">
+                                    <span>Price:</span> @item.productPrice
+                                </div>
+                                <div class="col-12 routing-item__product-desc--title">
+                                    <span>Product description:</span>
+                                    @item.description
+                                </div>
+                                <div class="edit-quantity-button">
+                                    <span>Quantity:</span>
+                                    <form>
+                                        <img src="/images/minus-icon.png" alt="" class="value-button minus" id="decrease" onclick="decreaseValue()"
+                                             value="Decrease Value">
+                                        <input type="number" id="number" value="0" />
+                                        <img src="/images/plus-icon.png" alt="" class="value-button plus" id="increase" onclick="increaseValue()"
+                                             value="Decrease Value">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 routing-info">
+                <div class="row g-0">
+                    <div class="col-12 routing-info__text routing-info__status">
+                        <span>Status:</span>
+                        <span class="routing-info__status-text">Available</span>
+                    </div>
+
+                    <div class="col-12 routing-info__text routing-info__price">
+                        <span>Price:</span>
+                        <span class="routing-info__price-text">100.000vnd</span>
+                    </div>
+
+                    <div class="col-12 routing-info__text routing-info__weight">
+                        <span>Weight:</span>
+                        <span class="routing-info__weight-text">500g</span>
+                    </div>
+
+                    <div class="col-12 view-routing-process">
+                        <button type="button" class="btn btn-primary view-routing-process--button">
+                            View routing
+                            process
+                        </button>
+                    </div>
+
+                    <div class="col-12 rating-buy-star">
+                        <i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+                        <i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+                        <i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+                        <i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+                        <i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+                    </div>
+
+                    <div class="col-12 routing-button add-to-cart--button">
+                        <button type="button" class="btn btn-primary button-action button-action--add-cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Add to cart
+                        </button>
+                        <i class="fa-solid fa-heart heart-icon" style="color: #d32a17;"></i>
+                    </div>
+                    <div class="col-12 routing-button buy-now--button ">
+                        <button type="button" class="btn btn-primary button-action button-action--buy-now">
+                            <i class="fa-sharp fa-solid fa-bag-shopping"></i>
+                            Buy now
+                        </button>
+                    </div>
+
+                    <div class="col-12 recommend-list">
+                        <span class="recommend-list__text">Recommend</span>
+                        <div class="row g-0 recommend-list__item">
+                            <div class="col-4 recommend-product__img">
+                                <img src="/images/product-item.png" alt="" srcset="">
+                            </div>
+
+                            <div class="col-8 recommend-product__desc">
+                                <div class="recommend-product__name">Thuc an cho chim</div>
+                                <div class="recommend-product__price">100.000vnd</div>
+
+                            </div>
+
+                        </div>
+                        <div class="row g-0 recommend-list__item">
+                            <div class="col-4 recommend-product__img">
+                                <img src="/images/product-item.png" alt="" srcset="">
+                            </div>
+
+                            <div class="col-8 recommend-product__desc">
+                                <div class="recommend-product__name">Thuc an cho chim</div>
+                                <div class="recommend-product__price">100.000vnd</div>
+
+                            </div>
+
+                        </div>
+                        <div class="row g-0 recommend-list__item">
+                            <div class="col-4 recommend-product__img">
+                                <img src="/images/product-item.png" alt="" srcset="">
+                            </div>
+
+                            <div class="col-8 recommend-product__desc">
+                                <div class="recommend-product__name">Thuc an cho chim</div>
+                                <div class="recommend-product__price">100.000vnd</div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</div>
+

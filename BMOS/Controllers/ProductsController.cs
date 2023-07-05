@@ -57,6 +57,7 @@ namespace BMOS.Controllers
 								  UrlImage = image.Url,
 								  relatedProductModels = _listProductRelated
 							  };
+
 			var productDetail = await productItem.FirstOrDefaultAsync(item => item.ProductId.Equals(id));
 			if (productDetail == null)
 			{
