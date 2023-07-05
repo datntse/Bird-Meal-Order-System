@@ -75,10 +75,28 @@ namespace BMOS.Controllers
             ModelState.Remove("listProduct");
             ModelState.Remove("RoutingId");
             string url = "";
+            double? priceRouting = 0;
             var productList = model.listProductId;
             if (ModelState.IsValid)
             {
-                url = await FirebaseService.UploadImage(files, "routing");
+				foreach (var _prodId in productList)
+				{
+					foreach (var _prod in _context.TblProducts)
+					{
+						if (_prod.ProductId == _prodId)
+						{
+							priceRouting += _prod.Price;
+						}
+					}
+					_context.Add(new TblProductInRouting
+					{
+						RoutingId = model.RoutingId,
+						ProductId = _prodId,
+
+					});
+				}
+
+				url = await FirebaseService.UploadImage(files, "routing");
                 _context.Add(new TblImage
                 {
                     ImageId = Guid.NewGuid().ToString(),
@@ -93,23 +111,16 @@ namespace BMOS.Controllers
                     Name = model.Name,
                     Description = model.Description,
                     Quantity = model.Quantity,
-                    Price = model.Price,
-                    Status = model.Status,
+                    Price = priceRouting,
+					Status = model.Status,
                 });
 
-
-                foreach (var _prodId in productList)
-                {
-                    _context.Add(new TblProductInRouting
-                    {
-                        RoutingId = model.RoutingId,
-                        ProductId = _prodId,
-
-                    });
-                }
+                
+               
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Price"] = priceRouting;
             return View(model);
         }
 

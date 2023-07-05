@@ -72,10 +72,6 @@ namespace BMOS.Controllers
 							myCart.Remove(item);
 						}
 					}
-					//else if (status.Equals("input"))
-					//{
-					//	item._quantity = productQuantity;
-					//}
 				}
 			}
 			HttpContext?.Session.Set("Cart", myCart);

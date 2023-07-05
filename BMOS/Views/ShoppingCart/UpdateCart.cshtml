@@ -52,7 +52,7 @@ else
 												<h6 class="text-muted">@Html.DisplayFor(xx => item._productName)</h6>
 											</div>
 											<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-												<button data-id="@item._productId" class="btn btn-link px-2 decrease-prodQuantity-btn"
+												<button type="submit" data-id="@item._productId" class="btn btn-link px-2 decrease-prodQuantity-btn"
 														onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
 													<i class="fas fa-minus"></i>
 												</button>
@@ -60,7 +60,7 @@ else
 													<input data-id="@item._productId" input type="number" value="@item._quantity" name="cartItemQuantity"
 													   class="form-control form-control-sm product-quantity-form" />
 
-												<button data-id="@item._productId" class="btn btn-link px-2 increase-prodQuantity-btn"
+												<button type="submit" data-id="@item._productId" class="btn btn-link px-2 increase-prodQuantity-btn"
 														onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
 													<i class="fas fa-plus"></i>
 												</button>
@@ -139,9 +139,12 @@ else
 		</div>
 	</div>
 }
-<script>
-	$(document).ready(function () {
 
+@section scripts {
+
+}
+	<script>
+	$(document).ready(function () {
 		$('.ajax-remove-item').click(function (e) {
 			var _id = $(this).data("id");
 			$.ajax({
@@ -156,33 +159,6 @@ else
 			})
 		});
 
-		//Continue fixxx.................!
-		//var inputQuantity = $(`input[name='cartItemQuantity'] data-id=${_id}`);
-		//inputQuantity.change(function () {
-		//	inputQuantity.blur(function () {
-		//		var _id = $(this).data("id");
-		//		var quantity = inputQuantity.val();
-
-		//		$.ajax({
-		//			url: "/ShoppingCart/UpdateCart",
-		//			data: {
-		//				id: _id,
-		//				productQuantity: quantity,
-		//				status: "input"
-		//			},
-		//			type: "GET",
-		//			success: function (data) {
-		//				$(".cart-wrapper").html(data);
-		//				$(".cart-quantity").html(quantity);
-
-		//			},
-		//		});
-		//	})
-		//});
-
-		//Continue fixxx.................!
-		var quantity = $("#cart-item-quantity").val();
-
 		$('.decrease-prodQuantity-btn').click(function (e) {
 			var _id = $(this).data("id");
 			$.ajax({
@@ -194,20 +170,13 @@ else
 				},
 				type: "GET",
 				success: function (data) {
-					console.log("Updated", data)
-					console.log("decrease!!");
 					$(".cart-wrapper").html(data);
 				},
 				error: function () {
 					console.log("failt")
 				}
 			});
-
-
-
 		});
-
-
 		$('.increase-prodQuantity-btn').click(function (e) {
 			var _id = $(this).data("id");
 			$.ajax({
@@ -219,8 +188,6 @@ else
 				},
 				type: "GET",
 				success: function (data) {
-					console.log("Updated", data)
-					console.log("Increase!!");
 					$(".cart-wrapper").html(data)
 				}, error: function () {
 					console.log("failt")
