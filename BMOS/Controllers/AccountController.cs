@@ -295,7 +295,11 @@ namespace BMOS.Controllers
                 {   
                     int addressID = _db.TblAddresses.Where(p => p.UserId == userid && p.IsDefault == true).Select(p => p.AddressId).First();
                     ViewBag.AddressID = addressID;
-                    ViewBag.Default = addressDefault.Address + ", " + addressDefault.BlockVillage + ", " + addressDefault.District + ", " + addressDefault.CityProvince;
+                    ViewBag.DefaultAdd = addressDefault.Address;
+                    ViewBag.DefaultBlock = addressDefault.BlockVillage;
+                    ViewBag.DefaultDis = addressDefault.District;
+                    ViewBag.DefaultCity = addressDefault.CityProvince;
+                    ViewBag.Checkbox = addressDefault.IsDefault;
                 }
                 var addList = _db.TblAddresses.Where(p => p.UserId == userid && p.IsDefault == false).ToList();
                 return View(addList);
@@ -348,7 +352,41 @@ namespace BMOS.Controllers
             return RedirectToAction("UserLocation");
         }
 
-
+        [HttpPost]
+        public IActionResult EditLocation(TblAddress model)
+        {
+            var check1 = _db.TblAddresses.FirstOrDefault(p => p.AddressId == model.AddressId);
+            if (check1 != null)
+            {
+                if (model.IsDefault == true)
+                {
+                    var check = _db.TblAddresses.Where(p => p.UserId == model.UserId).ToList();
+                    foreach (var item in check)
+                    {
+                        item.IsDefault = false;
+                        _db.SaveChanges();
+                    }
+                    check1.Address = model.Address;
+                    check1.BlockVillage = model.BlockVillage;
+                    check1.District = model.District;
+                    check1.CityProvince = model.CityProvince;
+                    check1.IsDefault = model.IsDefault;
+                    _db.SaveChanges();
+                    return RedirectToAction("UserLocation");
+                }
+                else
+                {
+                    check1.Address = model.Address;
+                    check1.BlockVillage = model.BlockVillage;
+                    check1.District = model.District;
+                    check1.CityProvince = model.CityProvince;
+                    check1.IsDefault = model.IsDefault;
+                    _db.SaveChanges();
+                    return RedirectToAction("UserLocation");
+                }                                            
+            }
+            return RedirectToAction("UserLocation");
+        }
 
         public IActionResult UserChangePassword()
         {
