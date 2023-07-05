@@ -160,75 +160,29 @@
 		<div class="row g-0 feedback">
 			<div class="col-12 feedback_title">
 				<div class="feedback_title--text">Phản hồi</div>
-				
-				
+				<div class="feedback_title--star">5 trên 5</div>
+				<div class="col-12 product-detail__content rating-buy-star">
+					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
+				</div>
 			</div>
 			<div class="row g-0 user_feedback align-items-center">
 				<div class="col-1 user_feedback_avt">
 					<i class="fa-sharp fa-solid fa-user"></i>
 				</div>
 				<div class="col-11 user_feedback_input">
-					<input type="submit" value="Nêu ý kiến của bạn về sản phẩm này" class="btn btn-primary" >
+					<input type="text" placeholder="Ý kiến của bạn về sản phẩm">
 				</div>
 
 
 			</div>
 
-			<div class="row g-0 user_feedbacked">
-				<div class="col-1 user_feedbacked_avt">
-					<i class="fa-sharp fa-solid fa-user"></i>
-				</div>
-				<div class="col-11 user_feedbacked__content">
-					<div class="user_feedbacked__info">
-						<div class="user_feedbacked__name">Duy Khanh</div>
-						<div class="user_feedbacked__star">
-							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-						</div>
-						<div class="user_feedback__date">
-							23/11/2023
-						</div>
-					</div>
-					<div class="user_feedbacked__like">
-						<div class="liked-quantity">32</div>
-						<i class="fa-solid fa-heart heart-icon" style="color: #d32a17;"></i>
-					</div>
-				</div>
-				<div class="col-12 user_feedback__input">
-					<input type="text" value="Good Product! My bird love that!">
-				</div>
-			</div>
+			@await Html.PartialAsync("Feedback")
 
-			<div class="row g-0 user_feedbacked">
-				<div class="col-1 user_feedbacked_avt">
-					<i class="fa-sharp fa-solid fa-user"></i>
-				</div>
-				<div class="col-11 user_feedbacked__content">
-					<div class="user_feedbacked__info">
-						<div class="user_feedbacked__name">Duy Khanh</div>
-						<div class="user_feedbacked__star">
-							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-							<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-						</div>
-						<div class="user_feedback__date">
-							23/11/2023
-						</div>
-					</div>
-					<div class="user_feedbacked__like">
-						<div class="liked-quantity">32</div>
-						<i class="fa-solid fa-heart heart-icon" style="color: #d32a17;"></i>
-					</div>
-				</div>
-				<div class="col-12 user_feedback__input">
-					<input type="text" value="Good Product! My bird love that!">
-				</div>
-			</div>
+			
 		</div>
 	</div>
 </div>

@@ -41,6 +41,22 @@ namespace BMOS.Controllers
 							 _image = img.Url
 						 });
 			var _listProductRelated = result.ToList();
+
+			var feedbackList = from feedback in _context.TblFeedbacks
+							   from product in _context.TblProducts
+							   from user in _context.TblUsers
+							   where feedback.ProductId == product.ProductId && feedback.UserId == user.UserId
+							   select new FeedbackInfoModel
+							   {
+                                   fullName = user.Firstname + user.Lastname,
+								   ProductId = product.ProductId,
+								   FeedbackId = feedback.FeedbackId,
+								   UserId = user.UserId,
+								   Star = feedback.Star,
+								   Content = feedback.Content,
+								   date = feedback.Date,
+							   };
+			ViewData["Feedback"] = feedbackList.ToList();
 			//from product in _context.TblProducts where product.Status != false select product;
 			var productItem = from product in _context.TblProducts
 							  from image in _context.TblImages
@@ -305,7 +321,9 @@ namespace BMOS.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var products = from product in _context.TblProducts
+			
+
+			var products = from product in _context.TblProducts
                            from image in _context.TblImages
                            where product.ProductId.Equals(image.RelationId)
                            select new ProductInfoModel()
@@ -385,6 +403,6 @@ namespace BMOS.Controllers
 
 			return View(products);
 		}
-
+		
 	}
 }

@@ -110,12 +110,27 @@ namespace BMOS.Controllers
             return View(tblRefund);
         }
 
-        // GET: RefundsManage/Create
-        
+		// GET: UsersManage/Create
+		public IActionResult Create()
+		{
+			return View();
+		}
 
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Create([Bind("RefundId, UserId, OrderId, Description, Date, IsConfirm")] TblRefund tblRefund)
+		{
+			if (ModelState.IsValid)
+			{
+				_context.Add(tblRefund);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
+			}
+			return View(tblRefund);
+		}
 
-        // GET: RefundsManage/Edit/5
-        public async Task<IActionResult> Edit(string id)
+		// GET: RefundsManage/Edit/5
+		public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.TblRefunds == null)
             {

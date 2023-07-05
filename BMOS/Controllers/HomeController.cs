@@ -1,7 +1,5 @@
 ﻿using BMOS.Models.Entities;
 using BMOS.Models;
-using BMOS.Models;
-using BMOS.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -64,7 +62,9 @@ namespace BMOS.Controllers
 		{
 			var blogList = _context.TblBlogs.ToListAsync();
 			return PartialView(blogList);
+
 		}
+
 
 	}
 
