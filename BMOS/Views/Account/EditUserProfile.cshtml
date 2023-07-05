@@ -80,7 +80,7 @@
                                 
                                 <h4 style="margin-top: 5px">Họ: <input type="text" value="@Model.Firstname" name="firstname" class="input-text" required></h4>
                                 <h4 style="margin-top: 5px">Tên: <input type="text" value="@Model.Lastname" name="lastname" class="input-text" required></h4>
-                                <h4 style="margin-top: 5px">Số điện thoại: <input type="text" name="numberphone" value="@Model.Numberphone" class="input-text" required></h4>
+                                <h4 style="margin-top: 5px">Số điện thoại: <input type="text" id="phone" name="numberphone" value="@Model.Numberphone" class="input-text" required></h4>
                                 <h4 style="margin-top: 5px">Email: <span style="font-weight: bold;">@Model.Username</span><br></h4>
                                 <div class="action">
                                     <button type="submit" id="submit" class="btn btn-change">Cập nhật</button>
@@ -120,6 +120,8 @@
             </div>
         </div>
     </div>
+
+    <script src="~/js/site.js"></script>
 }
 else
 {
