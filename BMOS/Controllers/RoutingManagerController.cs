@@ -116,52 +116,94 @@ namespace BMOS.Controllers
         // GET: RoutingManager/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.TblRoutings == null)
+
+            var routing = await _context.TblRoutings.FindAsync(id);
+
+
+            if (routing == null)
             {
                 return NotFound();
             }
 
-            var tblRouting = await _context.TblRoutings.FindAsync(id);
-            if (tblRouting == null)
+
+            var products = await _context.TblProducts.ToListAsync();
+
+
+            var availableProducts = new List<TblProduct>();
+
+            foreach (var product in products)
             {
-                return NotFound();
+
+                if (!routing.TblRoutingProducts.Any(rp => rp.ProductId == product.ProductId))
+                {
+                    availableProducts.Add(product);
+                }
             }
-            return View(tblRouting);
+
+
+            var model = new TblRouting
+            {
+                RoutingId = routing.RoutingId,
+                Name = routing.Name,
+                Description = routing.Description,
+                Quantity = routing.Quantity,
+                Price = routing.Price,
+                Status = routing.Status,
+                listProduct = new List<SelectListItem>()
+            };
+
+
+            foreach (var product in availableProducts)
+            {
+                model.listProduct.Add(new SelectListItem
+                {
+                    Text = product.Name,
+                    Value = product.ProductId
+                });
+            }
+
+
+            var selectedProductIds = routing.TblRoutingProducts.Select(rp => rp.ProductId).ToList();
+
+
+            return View(model);
         }
 
-        // POST: RoutingManager/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("RoutingId,ProductId,Name,Description,Quantity,Price,Status")] TblRouting tblRouting)
+        public async Task<IActionResult> Edit(string id, TblRouting model, List<IFormFile> files)
         {
-            if (id != tblRouting.RoutingId)
+
+            var routing = await _context.TblRoutings.FindAsync(id);
+
+
+            if (routing == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+
+            _context.TblRoutingProducts.RemoveRange(_context.TblRoutingProducts.Where(rp => rp.RoutingId == id));
+
+
+            var productList = model.listProductId;
+
+
+            foreach (var productId in productList)
             {
-                try
+                routing.TblRoutingProducts.Add(new TblRoutingProduct
                 {
-                    _context.Update(tblRouting);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TblRoutingExists(tblRouting.RoutingId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                    RoutingId = id,
+                    ProductId = productId
+                });
             }
-            return View(tblRouting);
+
+
+            _context.TblRoutings.Update(routing);
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: RoutingManager/Delete/5
