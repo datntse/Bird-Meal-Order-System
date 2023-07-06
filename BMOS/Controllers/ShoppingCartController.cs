@@ -97,7 +97,7 @@ namespace BMOS.Controllers
 					{
 						_productId = id,
 						_productName = _product.Name,
-						_quantity = productQuantity,
+						_quantity = productQuantity,s
 						_weight = _product.Weight,
 						_price = _product.Price,
 						_productImage = image[0],
