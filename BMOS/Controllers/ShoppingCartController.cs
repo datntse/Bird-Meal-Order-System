@@ -75,7 +75,7 @@ namespace BMOS.Controllers
 				}
 			}
 			HttpContext?.Session.Set("Cart", myCart);
-			return PartialView(myCart);
+			return PartialView(myCart);	
 
 		}
 
