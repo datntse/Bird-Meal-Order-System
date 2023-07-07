@@ -21,7 +21,7 @@ namespace BMOS.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString)
         {
-
+            HttpContext?.Session.Remove("Routing");
             var routingList = from routing in _context.TblRoutings
                               from image in _context.TblImages
                               where routing.RoutingId == image.RelationId && routing.Status != false

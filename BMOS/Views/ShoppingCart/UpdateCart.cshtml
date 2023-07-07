@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<CartModel>;
 @{
-	double? totalPrice = 0;
-	decimal? bonusPoint = 0;
+	var totalPrice = ViewData["total"];
+	var bonusPoint = ViewData["bonusPoint"];
+	var userPoint = ViewData["userPoint"];
 }
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -35,14 +36,7 @@ else
 									<hr class="my-4">
 									@foreach (var item in Model)
 									{
-										if (!(item._quantity <= 0))
-										{
-											var _priceProduct = item._getTotalPrice();
-											totalPrice += _priceProduct;
-											if (totalPrice >= 100)
-											{
-												bonusPoint = Math.Round((decimal)totalPrice, MidpointRounding.AwayFromZero);
-											}
+									var _priceProduct = item._getTotalPrice();
 											<div class="row mb-4 d-flex justify-content-between align-items-center">
 												<div class="col-md-2 col-lg-2 col-xl-2">
 													<img src="@Html.DisplayFor(modelItem => item._productImage)" style="width: 100px; height: 100px" />
@@ -106,7 +100,7 @@ else
 									<hr class="my-4">
 									<div class="d-flex justify-content-between mb-4">
 										<h5 class="text-uppercase">Điểm tích lũy của bạn</h5>
-										<h5 style="font-size: 2rem">#####</h5>
+										<h5 style="font-size: 2rem">@userPoint</h5>
 									</div>
 									<hr class="my-4">
 

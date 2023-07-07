@@ -7,13 +7,13 @@ using BMOS.Models.Entities;
 using BMOS.Services;
 using Microsoft.AspNetCore.Http;
 using Firebase.Auth;
+using BMOS.Helpers;
 
 namespace BMOS.Controllers
 {
 	public class AccountController : Controller
 	{
 		private BmosContext _db = new BmosContext();
-		public static bool _isLogin = false;
 		public IActionResult Login()
 		{
 			var user = HttpContext.Session.GetString("username");
@@ -63,7 +63,7 @@ namespace BMOS.Controllers
 						{
 							HttpContext.Session.SetString("username", username);
 							HttpContext.Session.SetString("fullname", fullname);
-							_isLogin = true;
+							HttpContext.Session.Set("user", user);
 
 							return RedirectToAction("Index", "Home");
 						}
@@ -90,7 +90,7 @@ namespace BMOS.Controllers
 			}
 			HttpContext.Session.Remove("username");
 			HttpContext.Session.Remove("fullname");
-			_isLogin = false;
+			HttpContext.Session.Remove("user");
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -177,7 +177,7 @@ namespace BMOS.Controllers
 			{
 				await EmailSender.SendEmailAsync(username, "Quên mật khẩu", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Thay đổi mật khẩu</a>");
 				ViewBag.ConfirmForgotSuccess = "*Vui lòng kiểm tra ";
-				return View();
+				return View();	
 			}
 			else
 			{

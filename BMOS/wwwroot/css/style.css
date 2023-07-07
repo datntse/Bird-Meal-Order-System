@@ -1436,6 +1436,7 @@ main {
 .product-quantity-form {
     font-size: 1.6rem;
     text-align: center;
+    width: 130px;
 }
 @media (min-width: 1025px) {
     .h-custom {

@@ -2,7 +2,7 @@
 
 namespace BMOS.Models
 {
-    public class RoutingDetailModel
+    public class RoutingDetailModel 
     {
         public string? productId { get; set; }
         public string? productName { get; set; } 
@@ -11,5 +11,12 @@ namespace BMOS.Models
         public string? image { get; set; }
 
         public int productQuantity { get; set; } = 1;
-    }
+
+        public double? getTotalProductPrice()
+        {
+            return this.productQuantity * this.productPrice;
+        }
+	}
+
+ 
 }
