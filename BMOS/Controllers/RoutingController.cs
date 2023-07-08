@@ -29,10 +29,21 @@ namespace BMOS.Controllers
 			}
 		}
 
+		public double? getTotalPrice()
+		{
+			double? result = 0;
+			var myCart = HttpContext.Session.Get<List<RoutingDetailModel>>("Routing");
+			foreach (var item in myCart.ToList())
+			{
+				result += item.getTotalProductPrice();
+			}
+			return result;
+		}
 
 		// GET: RoutingController/Details/5
 		public IActionResult RoutingDetail(string id)
 		{
+
 			var routingList = from routing in _context.TblRoutings
 							  from image in _context.TblImages
 							  where image.RelationId == id && routing.Status != false
@@ -44,7 +55,6 @@ namespace BMOS.Controllers
 								  routingImage = image.Url,
 							  };
 			ViewData["Routing"] = routingList.FirstOrDefault(x => x.routingId == id);
-
 			var routingSession = routingDetails;
 			if (routingSession == null)
 			{
@@ -69,13 +79,15 @@ namespace BMOS.Controllers
 				}
 				HttpContext.Session.Set("Routing", routingSession);
 			}
+			var totalPrice = getTotalPrice();
+			ViewData["totalPrice"] = totalPrice;
 			return View(routingSession);
 		}
 
 
 		public IActionResult EditRoutingDetail(string id, string status, int productQuantity = 1)
 		{
-
+			var totalPrice = getTotalPrice();
 			var routingDetailsList = routingDetails;
 			foreach (var item in routingDetailsList.ToList())
 			{
@@ -95,6 +107,7 @@ namespace BMOS.Controllers
 					}
 				}
 			}
+			ViewData["totalPrice"] = totalPrice;
 			HttpContext?.Session.Set("Routing", routingDetailsList);
 			return PartialView(routingDetailsList);
 		}

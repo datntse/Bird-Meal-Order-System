@@ -1,19 +1,15 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model IEnumerable<BMOS.Models.RoutingDetailModel>
+﻿@model IEnumerable<BMOS.Models.RoutingDetailModel>
 @{
-	double? totalPrice = 0;
+	ViewData["Title"] = "Routing Detail";
+	var totalPrice = ViewData["totalPrice"];
 }
 
 <div class="col-12 routing-list__title">
 	Thành phần và nguyên liệu:
 </div>
-
+<input name="totalPrice" "type="hidden" value="@totalPrice" />
 @foreach (var item in Model)
 {
-	var _priceProduct = item.getTotalProductPrice();
-	totalPrice += _priceProduct;
 
 	string url = item.image;
 	string[] delemeter = new string[] { "datnt" };
@@ -52,10 +48,14 @@
 		</div>
 	</div>
 }
-@section scripts {
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
+
 		$(document).ready(function () {
+
+		var totalPrice = $('input[name="totalPrice"]').val();
+		$('.routing-info__price-text').html()
+
 			$('.decrease-prodQuantity-btn').click(function (e) {
 				var _id = $(this).data("id");
 				$.ajax({
@@ -70,9 +70,11 @@
 						console.log(data)
 						$(".routing-list__item").html(data);
 					},
+					error: function () {
+						console.log("failt")
+					}
 				});
 			});
-
 			$('.increase-prodQuantity-btn').click(function (e) {
 				var _id = $(this).data("id");
 				$.ajax({
@@ -87,10 +89,11 @@
 						console.log(data)
 						$(".routing-list__item").html(data)
 					},
-
+					error: function () {
+						console.log("failt")
+					}
 				});
 			});
 		});
 
 	</script>
-}

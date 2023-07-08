@@ -1,11 +1,16 @@
 ﻿using BMOS.Helpers;
 using BMOS.Models;
 using BMOS.Models.Entities;
+using BMOS.Services;
+using Firebase.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 
 namespace BMOS.Controllers
@@ -75,70 +80,72 @@ namespace BMOS.Controllers
 							_productImage = image[0]
 						});
 					}
-				}
-			}
-			//cart not empty
-			foreach (var _rprod in routingList)
-			{
-				var item = myCart.SingleOrDefault(p => p._productId.Equals(_rprod.productId));
-				if (item != null)
+					// cart not empty
+				} else
 				{
-					item._quantity += _rprod.productQuantity;
-				}
-				else
-				{
-					var _product = _context.TblProducts.SingleOrDefault(p => p.ProductId.Equals(_rprod.productId));
-					var _productImge = _context.TblImages.FirstOrDefault(x => x.RelationId.Equals(_rprod.productId))?.Url;
-
-					if (_productImge != null)
+					var item = myCart.SingleOrDefault(p => p._productId.Equals(_rprod.productId));
+					if (item != null)
 					{
-						string[] delemeter = new string[] { "datnt" };
-						string[] image = _productImge.Split(delemeter, StringSplitOptions.None);
-						myCart.Add(new CartModel
+						item._quantity += _rprod.productQuantity;
+					}
+					else
+					{
+						var _product = _context.TblProducts.SingleOrDefault(p => p.ProductId.Equals(_rprod.productId));
+						var _productImge = _context.TblImages.FirstOrDefault(x => x.RelationId.Equals(_rprod.productId))?.Url;
+
+						if (_productImge != null)
 						{
-							_productId = _rprod.productId,
-							_productName = _rprod.productName,
-							_quantity = _rprod.productQuantity,
-							_price = _rprod.productPrice,
-							_weight = _product.Weight,
-							_productImage = image[0]
-						});
+							string[] delemeter = new string[] { "datnt" };
+							string[] image = _productImge.Split(delemeter, StringSplitOptions.None);
+							myCart.Add(new CartModel
+							{
+								_productId = _rprod.productId,
+								_productName = _rprod.productName,
+								_quantity = _rprod.productQuantity,
+								_price = _rprod.productPrice,
+								_weight = _product.Weight,
+								_productImage = image[0]
+							});
+						}
 					}
 				}
-
-			}
+			} 
+		
 			HttpContext?.Session.Set("Cart", myCart);
 			return RedirectToAction("Index");
 		}
 
 		public IActionResult Checkout()
 		{
+			var _priceProduct = getTotalCartPrice();
+			decimal? bonusPoint = 0;
+			if (_priceProduct >= 100)
+			{
+				bonusPoint = Math.Round((decimal)_priceProduct, MidpointRounding.AwayFromZero);
+			}
+			ViewData["bonusPoint"] = bonusPoint;
 			// update user point.
 			// use point feature
 			return View(Cart);
 		}
 
-		public IActionResult Payment()
+
+		public async Task<IActionResult> ConfirmOrder(string userId, string orderId, double point = 0)
 		{
-			var user = HttpContext.Session.Get<TblUser>("user");
-			if (user == null) { return RedirectToAction("Login", "Account"); }
 			var myCart = Cart;
-			var orderNum = _context.TblOrders.Count(x => x.OrderId != null);
+			userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
+			var order = await _context.TblOrders.Where(o => o.OrderId == orderId).FirstOrDefaultAsync();
+			order.IsConfirm = true;
+			_context.Update(order);
+
+			var user = await _context.TblUsers.Where(u => u.Username.Equals(userId)).FirstOrDefaultAsync();
+			double? currentPoint = user.Point;
+			currentPoint += point;
+			user.Point = currentPoint;
+			_context.Update(user);
 			var orderDetailNum = _context.TblOrderDetails.Count(x => x.OrderDetailId != null);
-
-			var order = new TblOrder
+			foreach (var item in myCart.ToList())
 			{
-				OrderId = "order" + orderNum,
-				UserId = "" + user.UserId,
-				TotalPrice = getTotalCartPrice(),
-				Date = DateTime.Now,
-				IsConfirm = true,
-			};
-			_context.Add(order);
-
-			foreach( var item in myCart.ToList())
-			{
-
 				var orderDetail = new TblOrderDetail
 				{
 					OrderDetailId = "orderdetail" + orderDetailNum,
@@ -152,12 +159,41 @@ namespace BMOS.Controllers
 
 				_context.Add(orderDetail);
 			}
-
-			Cart = new List<CartModel>();
-			HttpContext?.Session.Set("Cart", Cart);
-
+			
 			_context.SaveChanges();
-			return RedirectToAction("Index","Home");
+			ViewData["confirm"] = "Cảm ơn bạn đã ...";
+
+			myCart.Clear();
+			HttpContext?.Session.Set("Cart", myCart);
+			return RedirectToAction("Index", "Home");
+		}
+		[HttpPost]
+		public async Task<IActionResult> Payment(string pType= "cod", double point = 0)
+		{
+			var user = HttpContext.Session.Get<TblUser>("user");
+			
+			if (user == null) { return RedirectToAction("Login", "Account"); }
+			var myCart = Cart;
+			var orderNum = _context.TblOrders.Count(x => x.OrderId != null);
+			var orderDetailNum = _context.TblOrderDetails.Count(x => x.OrderDetailId != null);
+			var orderId = "order" + orderNum;
+			var order = new TblOrder
+			{
+				OrderId = orderId,
+				UserId = "" + user.UserId,
+				TotalPrice = getTotalCartPrice(),
+				Date = DateTime.Now,
+				IsConfirm = false,
+			};
+			_context.Add(order);
+			_context.SaveChanges();
+			var userId = user.Username;
+			userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(userId));
+
+			var content = Url.Action("ConfirmOrder", "ShoppingCart", new { userId = userId, orderId = orderId, point = point }, protocol: Request.Scheme);
+			await EmailSender.SendEmailAsync(user.Username, "Xác thực tài khoản", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Xác nhận đơn hàng</a>");
+
+			return View();
 		}
 
 		public IActionResult RemoveItem(string id)

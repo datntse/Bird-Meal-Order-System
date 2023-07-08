@@ -5,11 +5,11 @@
 @{
 	Layout = "_HeaderFooter";
 	ViewData["Title"] = "Routing Detail";
+	var totalPrice = ViewData["totalPrice"];
 	var routing = ViewData["Routing"] as BMOS.Models.RoutingHomePageModel;
-	double? totalPrice = 0;
 }
-
 <div class="content">
+<input name="totalPrice" value="@totalPrice" />
 	<div class="container">
 		<div class="content__navigation">
 			<div>
@@ -29,8 +29,8 @@
 						</div>
 						@foreach (var item in Model)
 						{
-							var _priceProduct = item.getTotalProductPrice();
-							totalPrice += _priceProduct;
+							@*var _priceProduct = item.getTotalProductPrice();
+							totalPrice += _priceProduct;*@
 							string url = item.image;
 							string[] delemeter = new string[] { "datnt" };
 							string[] image = url.Split(delemeter, StringSplitOptions.None);
@@ -168,8 +168,13 @@
 	<script>
 		$(document).ready(function () {
 
+			var totalPrice = $('input[name="totalPrice"]').val();
+			console.log("page firest: ", totalPrice);
+
+			$('.routing-info__price-text').html(totalPrice);
+
 			$('.decrease-prodQuantity-btn').click(function (e) {
-				var _id = $(this).data("id");
+				var _id = $(this).data("id");	
 				$.ajax({
 					url: "/Routing/EditRoutingDetail",
 					data: {
@@ -179,7 +184,6 @@
 					},
 					type: "GET",
 					success: function (data) {
-						console.log(data)
 						$(".routing-list__item").html(data);
 					},
 				});
@@ -196,7 +200,6 @@
 					},
 					type: "GET",
 					success: function (data) {
-						console.log(data)
 						$(".routing-list__item").html(data)
 					},
 

@@ -121,7 +121,7 @@ namespace BMOS.Controllers
 				_db.SaveChanges();
 
 				ViewBag.RegisterSuccess = "*Đăng ký tài khoản thành công, vui lòng kiểm tra ";
-				return View();
+				return View();	
 			}
 			else
 			{
@@ -185,8 +185,6 @@ namespace BMOS.Controllers
 				return View();
 			}
 		}
-
-
 
 		public IActionResult ChangePassword(string userId, string code)
 		{

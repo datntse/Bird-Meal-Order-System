@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<CartModel>;
 @{
 	ViewData["Title"] = "Checkout";
+	var bonuspoint = ViewData["bonusPoint"];
 	double? toltalPrice = 0;
 	var totalItem = Model.Count();
 }
@@ -21,6 +22,7 @@
 </head>
 
 <body>
+	<input type="hidden" name="bonuspoint" value="@bonuspoint"/> 
 	<button class="order-summary-toggle">
 		<span class="wrap">
 			<span class="order-summary-toggle__inner">
@@ -307,9 +309,9 @@
 										</table>
 									</div>
 								}
-
+								
 								<div class="order-summary__section order-summary__section--discount-code">
-									200 điểm bonus
+									@bonuspoint điểm bonus
 								</div>
 								<div class="order-summary__section order-summary__section--total-lines order-summary--collapse-element">
 									<table class="total-line-table">
@@ -345,20 +347,20 @@
 												</th>
 												<td class="total-line__price">
 
-													<span class="payment-due__price">@{
+													<span class="payment-due__price">
+														@{
 															@toltalPrice
-														}.000</span>
+														}.000
+													</span>
 												</td>
 											</tr>
 										</tfoot>
 									</table>
 								</div>
 								<div class="order-summary__nav field__input-btn-wrapper hide-on-mobile layout-flex--row-reverse">
-									<a asp-controller="ShoppingCart" asp-action="Payment">
-										<button type="submit" class="btn btn-checkout spinner">
-											<span class="spinner-label">ĐẶT HÀNG</span>
-										</button>
-									</a>
+									<div class="btn btn-checkout spinner ajax-payment">
+										<span class="spinner-label">ĐẶT HÀNG</span>
+									</div>
 
 									<a asp-controller="ShoppingCart" asp-action="Index" class="previous-link">
 										<i class="previous-link__arrow">❮</i>
@@ -373,11 +375,53 @@
 			</div>
 		</form>
 
-
-
-
-		<title> </title>
-
 </body>
 
 </html>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	$(document).ready(function () {
+		var bonusPoint = $('input[name="bonuspoint"]').val();
+		console.log("point ", bonusPoint);
+		$('.ajax-payment').click(function(e) {
+			Swal.fire({
+				title: 'Bạn có muốn tích điểm .....  cho lần mua sau không? ',
+				showDenyButton: true,
+				showCancelButton: true,
+				confirmButtonText: 'Có',
+				denyButtonText: `Không! Cảm ơn.`,
+			}).then((result) => {
+				/* Read more about isConfirmed, isDenied below */
+				if (result.isConfirmed) {
+					Swal.fire('Chúng tôi sẽ tích điểm cho bạn vui lòng xác nhận đơn hàng!', '<a href="https://mail.google.com/mail" target="_blank">Xác nhận</a>', 'success')
+					$.ajax({
+						url: "/ShoppingCart/Payment",
+						data: {
+							pType: "cod",
+							point: bonusPoint
+						},
+						type: "POST",
+						success: function (data) {
+
+						},
+					});
+				} else if (result.isDenied) {
+					Swal.fire('Cảm ơn bạn đã mua sắm, vui lòng xác nhận đơn hàng ', '<a href="https://mail.google.com/mail" target="_blank">Xác nhận</a>', 'info')
+					$.ajax({
+						url: "/ShoppingCart/Payment",
+						data: {
+							pType: "cod",
+							point: 0,
+						},
+						type: "POST",
+						success: function (data) {
+
+						},
+					});
+				}
+			});
+		}) ;
+	});
+</script>
