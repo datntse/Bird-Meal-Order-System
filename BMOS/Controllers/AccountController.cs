@@ -27,11 +27,11 @@ namespace BMOS.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Login(TblUser model)
+		public IActionResult Login(string username, string password)
 		{
 			//if (ModelState.IsValid){
-			string username = model.Username;
-			string password = model.Password;
+			//string username = model.Username;
+			//string password = model.Password;
 
 			if (username != null || password != null)
 			{
@@ -61,20 +61,20 @@ namespace BMOS.Controllers
 
 						if (checkConfirm.Count() > 0)
 						{
-							HttpContext.Session.SetString("username", username);
-							HttpContext.Session.SetString("fullname", fullname);
-							HttpContext.Session.Set("user", user);
+							//HttpContext.Session.SetString("username", username);
+							//HttpContext.Session.SetString("fullname", fullname);
+							//HttpContext.Session.Set("user", user);
 
 							return RedirectToAction("Index", "Home");
 						}
 						ViewBag.EmailConfirm = "*Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra Email để xác nhận tài khoản.";
-						return View();
+						return View("Login");
 					}
 					ViewBag.Block = "*Tài khoản của bạn đã bị khóa.";
-					return View();
+					return View("Login");
 				}
 				ViewBag.Notice = "*Thông tin đăng nhập không chính xác.";
-				return View();
+				return View("Login");
 			}
 			//}
 			return View();

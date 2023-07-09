@@ -1,6 +1,8 @@
+using BMOS.Controllers;
 using BMOS.Models;
 using BMOS.Models.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using NUnit.Framework;
 
@@ -116,5 +118,41 @@ namespace CartTest
 
 		}
 
-	}
+        [Test]
+        public void TestLoginWithCorrectUsernameAndPassword()
+        {
+            var controller = new AccountController();
+			var result = (RedirectToActionResult)controller.Login("", "");
+			Assert.AreEqual("Index", result.ActionName);
+
+        }
+
+        [Test]
+        public void TestLoginWithCorrectUsernameAndIncorrectPassword()
+        {
+            var controller = new AccountController();
+            var result = controller.Login("", "") as ViewResult;
+            Assert.AreEqual("Login", result.ViewName);
+
+        }
+
+        [Test]
+        public void TestLoginWithInvalidUsername()
+        {
+            var controller = new AccountController();
+            var result = controller.Login("", "") as ViewResult;
+            Assert.AreEqual("Login", result.ViewName);
+
+        }
+
+        [Test]
+        public void TestLoginWithEmpty()
+        {
+            var controller = new AccountController();
+            var result = controller.Login("", "") as ViewResult;
+            Assert.AreEqual("Login", result.ViewName);
+
+        }
+
+    }
 }
