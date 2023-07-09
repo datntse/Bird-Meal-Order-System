@@ -45,7 +45,7 @@ namespace BMOS.Controllers
 			var feedbackList = from feedback in _context.TblFeedbacks
 							   from product in _context.TblProducts
 							   from user in _context.TblUsers
-							   where feedback.ProductId == product.ProductId && feedback.UserId == user.UserId
+							   where feedback.ProductId == product.ProductId && feedback.UserId == user.UserId && feedback.ProductId == id
 							   select new FeedbackInfoModel
 							   {
                                    fullName = user.Firstname + user.Lastname,
