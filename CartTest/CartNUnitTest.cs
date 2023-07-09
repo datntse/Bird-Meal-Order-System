@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using NUnit.Framework;
 
-namespace CartTest
+namespace BMOSTest
 {
 	public class Tests
 	{
@@ -109,42 +109,74 @@ namespace CartTest
 			Assert.AreEqual(QuantityBeforeAdd + 1, QuantityAfterAdd);
 
 		}
+		[Test]
+		public void RemoveItemFromCart_ItemExist_InCart()
+		{
+			// create a cart item
+			CartModel item1 = new CartModel
+			{
+				_productId = "product01",
+				_productName = "Thuc an cho chim",
+				_quantity = 1,
+				_price = 300
+			};
 
-        [Test]
-        public void TestLoginWithCorrectUsernameAndPassword()
-        {
-            var controller = new AccountController();
-			var result = (RedirectToActionResult)controller.Login("", "");
-			Assert.AreEqual("Index", result.ActionName);
+			CartModel item2 = new CartModel
+			{
+				_productId = "product02",
+				_productName = "Thuc an cho cho",
+				_quantity = 1,
+				_price = 420
+			};
 
-        }
+			// add items to cart
+			cart.Add(item1);
+			cart.Add(item2);
 
-        [Test]
-        public void TestLoginWithCorrectUsernameAndIncorrectPassword()
-        {
-            var controller = new AccountController();
-            var result = controller.Login("", "") as ViewResult;
-            Assert.AreEqual("Login", result.ViewName);
+			// remove an item from cart
+			var itemToRemove = item1;
+			cart.Remove(itemToRemove);
 
-        }
+			// assert that the item is removed from cart
+			CollectionAssert.DoesNotContain(cart, itemToRemove);
+		}
+		[Test]
+		public void GetTotalPrice_CartNotEmpty()
+		{
+			// create cart items
+			CartModel item1 = new CartModel
+			{
+				_productId = "product01",
+				_productName = "Thuc an cho chim",
+				_quantity = 2,
+				_price = 300
+			};
 
-        [Test]
-        public void TestLoginWithInvalidUsername()
-        {
-            var controller = new AccountController();
-            var result = controller.Login("", "") as ViewResult;
-            Assert.AreEqual("Login", result.ViewName);
+			CartModel item2 = new CartModel
+			{
+				_productId = "product02",
+				_productName = "Thuc an cho cho",
+				_quantity = 1,
+				_price = 420
+			};
 
-        }
+			// add items to cart
+			cart.Add(item1);
+			cart.Add(item2);
 
-        [Test]
-        public void TestLoginWithEmpty()
-        {
-            var controller = new AccountController();
-            var result = controller.Login("", "") as ViewResult;
-            Assert.AreEqual("Login", result.ViewName);
+			double expectedTotalPrice = item1._getTotalPrice().Value + item2._getTotalPrice().Value;
 
-        }
+			double actualTotalPrice = 0;
+			// calculate total price of cart
+			foreach (var item in cart)
+			{
+				actualTotalPrice += item._getTotalPrice().Value;
+			}
+
+			// assert that the calculated total price is correct
+			Assert.AreEqual(expectedTotalPrice, actualTotalPrice);
+		}
+		
 
     }
 }

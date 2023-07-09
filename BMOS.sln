@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BMOS", "BMOS\BMOS.csproj", "{591ABEFA-34FB-4EBD-9BD6-6694927A84D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartTest", "CartTest\CartTest.csproj", "{F3F93604-BCA4-4D43-AC79-E3C106BDFF05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMOSTest", "CartTest\BMOSTest.csproj", "{F3F93604-BCA4-4D43-AC79-E3C106BDFF05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

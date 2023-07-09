@@ -41,7 +41,7 @@ namespace BMOS.Controllers
 					var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
 					var id = check.First();
 					//string sid = Convert.ToString(id);
-					HttpContext.Session.SetString("id", id.ToString());
+					//HttpContext.Session.SetString("id", id.ToString());
 					if (id == 1)
 					{
 						HttpContext.Session.SetString("username", username);
