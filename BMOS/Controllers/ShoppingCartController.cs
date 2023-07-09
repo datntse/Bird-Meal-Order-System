@@ -81,7 +81,8 @@ namespace BMOS.Controllers
 						});
 					}
 					// cart not empty
-				} else
+				}
+				else
 				{
 					var item = myCart.SingleOrDefault(p => p._productId.Equals(_rprod.productId));
 					if (item != null)
@@ -109,17 +110,60 @@ namespace BMOS.Controllers
 						}
 					}
 				}
-			} 
-		
+			}
+
 			HttpContext?.Session.Set("Cart", myCart);
 			return RedirectToAction("Index");
 		}
 
-
-		public IActionResult useBonusPoint()
+		public IActionResult useBonusPoint(double point = 0)
 		{
+			HttpContext.Session.Remove("resultPrice");
+			var myCart = Cart;
 			// 100d => 1 ngan.
-			// 
+			// maximun point & minium point.
+			//100d => 1k; min 1000d => 10k. / maximun 10000d => 100k
+			// check total price >= 100k allow to use point.
+			var user = HttpContext.Session.Get<TblUser>("user");
+			var userPoint = user.Point;
+
+			double? totalPrice = 0;
+			if (userPoint != null)
+			{
+				if (userPoint < point)
+				{
+					TempData["errorPoint"] = "Điểm tích lũy của bạn không phù hợp. Vui lòng thử lại";
+					return RedirectToAction("UpdateCart");
+				};
+				//check userpoint 
+				foreach (var item in myCart.ToList())
+				{
+					totalPrice += item._getTotalPrice();
+				}
+				//validate price >= 100k
+				if (totalPrice >= 100)
+				{
+					//validate point >= 1000d && <= 10000d	
+					if (point >= 1000 && point <= 10000)
+					{
+						var resultPrice = totalPrice - (point / 100);
+						HttpContext.Session.Set("resultPrice", resultPrice);
+						//user.Point = userPoint - point;
+						//_context.Update(user);
+					}
+					else
+					{
+						TempData["errorPoint"] = "Điểm sử dụng giới hạn từ 1.000 - 10.000d. Bạn vui lòng thử lại!";
+					}// unvalid point uses
+				}
+				else
+				{
+					TempData["errorPoint"] = "Giá trị đơn hàng phải từ 100.000vnd trở lên mới có thể sử dụng điểm";
+				}//unvalid totalpricce for use point
+
+			}
+			//_context.SaveChanges();
+			return RedirectToAction("UpdateCart");
 		}
 
 		public IActionResult Checkout()
@@ -166,7 +210,7 @@ namespace BMOS.Controllers
 
 				_context.Add(orderDetail);
 			}
-			
+
 			_context.SaveChanges();
 			ViewData["confirm"] = "Cảm ơn bạn đã ...";
 
@@ -175,10 +219,10 @@ namespace BMOS.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 		[HttpPost]
-		public async Task<IActionResult> Payment(string pType= "cod", double point = 0)
+		public async Task<IActionResult> Payment(string pType = "cod", double point = 0)
 		{
 			var user = HttpContext.Session.Get<TblUser>("user");
-			
+
 			if (user == null) { return RedirectToAction("Login", "Account"); }
 			var myCart = Cart;
 			var orderNum = _context.TblOrders.Count(x => x.OrderId != null);
@@ -242,12 +286,16 @@ namespace BMOS.Controllers
 				totalPrice += item._getTotalPrice();
 			}
 			var user = HttpContext.Session.Get<TblUser>("user");
+			var resultPrice = HttpContext.Session.Get<double>("resultPrice");
+			
 			double? userPoint = user.Point;
 			decimal? bonusPoint = 0;
 			if (totalPrice >= 100)
 			{
 				bonusPoint = Math.Round((decimal)totalPrice, MidpointRounding.AwayFromZero);
 			}
+			//ViewBag.errorPointUse = TempData["errorPoint"];
+			ViewData["resultPrice"] = resultPrice;
 			ViewData["userPoint"] = userPoint;
 			ViewData["total"] = totalPrice;
 			ViewData["bonusPoint"] = bonusPoint;
@@ -303,7 +351,7 @@ namespace BMOS.Controllers
 		public IActionResult Index()
 		{
 			var user = HttpContext.Session.Get<TblUser>("user");
-			if(user == null) { return RedirectToAction("Login", "Account"); }
+			if (user == null) { return RedirectToAction("Login", "Account"); }
 			double? userPoint = user.Point;
 			var _priceProduct = getTotalCartPrice();
 			decimal? bonusPoint = 0;
