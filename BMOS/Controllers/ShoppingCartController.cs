@@ -115,6 +115,13 @@ namespace BMOS.Controllers
 			return RedirectToAction("Index");
 		}
 
+
+		public IActionResult useBonusPoint()
+		{
+			// 100d => 1 ngan.
+			// 
+		}
+
 		public IActionResult Checkout()
 		{
 			var _priceProduct = getTotalCartPrice();
@@ -213,7 +220,7 @@ namespace BMOS.Controllers
 
 		public IActionResult UpdateCart(string id, string status, int productQuantity = 1)
 		{
-
+			double? totalPrice = 0;
 			var myCart = Cart;
 			foreach (var item in myCart.ToList())
 			{
@@ -232,17 +239,17 @@ namespace BMOS.Controllers
 						}
 					}
 				}
+				totalPrice += item._getTotalPrice();
 			}
 			var user = HttpContext.Session.Get<TblUser>("user");
 			double? userPoint = user.Point;
-			var _priceProduct = getTotalCartPrice();
 			decimal? bonusPoint = 0;
-			if (_priceProduct >= 100)
+			if (totalPrice >= 100)
 			{
-				bonusPoint = Math.Round((decimal)_priceProduct, MidpointRounding.AwayFromZero);
+				bonusPoint = Math.Round((decimal)totalPrice, MidpointRounding.AwayFromZero);
 			}
 			ViewData["userPoint"] = userPoint;
-			ViewData["total"] = _priceProduct;
+			ViewData["total"] = totalPrice;
 			ViewData["bonusPoint"] = bonusPoint;
 
 			HttpContext?.Session.Set("Cart", myCart);

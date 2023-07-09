@@ -136,7 +136,6 @@ namespace BMOS.Controllers
                 return NotFound();
             }
 
-
             var products = await _context.TblProducts.ToListAsync();
 
 
@@ -145,12 +144,11 @@ namespace BMOS.Controllers
             foreach (var product in products)
             {
 
-                if (!routing.TblRoutingProducts.Any(rp => rp.ProductId == product.ProductId))
+                if (!routing.TblProductInRoutings.Any(rp => rp.ProductId == product.ProductId))
                 {
                     availableProducts.Add(product);
                 }
             }
-
 
             var model = new TblRouting
             {
@@ -174,7 +172,7 @@ namespace BMOS.Controllers
             }
 
 
-            var selectedProductIds = routing.TblRoutingProducts.Select(rp => rp.ProductId).ToList();
+            var selectedProductIds = routing.TblProductInRoutings.Select(rp => rp.ProductId).ToList();
 
 
             return View(model);
@@ -182,40 +180,42 @@ namespace BMOS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, TblRouting model, List<IFormFile> files)
-        {
+    //    public async Task<IActionResult> Edit(string id, TblRouting model, List<IFormFile> files)
+    //    {
 
-            var routing = await _context.TblRoutings.FindAsync(id);
-
-
-            if (routing == null)
-            {
-                return NotFound();
-            }
+    //        var routing = await _context.TblRoutings.FindAsync(id);
 
 
-            _context.TblRoutingProducts.RemoveRange(_context.TblRoutingProducts.Where(rp => rp.RoutingId == id));
+    //        if (routing == null)
+    //        {
+    //            return NotFound();
+    //        }
 
 
-            var productList = model.listProductId;
+    //        _context.TblProductInRoutings.RemoveRange(_context.TblProductInRoutings.Where(rp => rp.RoutingId == id));
 
 
-            foreach (var productId in productList)
-            {
-                routing.TblRoutingProducts.Add(new TblRoutingProduct
-                {
-                    RoutingId = id,
-                    ProductId = productId
-                });
-            }
+    //        var productList = model.listProductId;
 
 
-            _context.TblRoutings.Update(routing);
-            await _context.SaveChangesAsync();
+    //        foreach (var productId in productList)
+    //        {
+    //            routing.TblProductInRoutings.Add(new TblProductInRoutings
+				//{
+				//	Id = 0,
+				//	RoutingId = id,
+    //                ProductId = productId,
+
+    //            });;
+    //        }
 
 
-            return RedirectToAction(nameof(Index));
-        }
+    //        _context.TblRoutings.Update(routing);
+    //        await _context.SaveChangesAsync();
+
+
+    //        return RedirectToAction(nameof(Index));
+    //    }
 
         // GET: RoutingManager/Delete/5
         public async Task<IActionResult> Delete(string id)
