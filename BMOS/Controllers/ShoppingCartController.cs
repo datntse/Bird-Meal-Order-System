@@ -294,6 +294,7 @@ namespace BMOS.Controllers
 			{
 				bonusPoint = Math.Round((decimal)totalPrice, MidpointRounding.AwayFromZero);
 			}
+			//ViewBag.errorPointUse = TempData["errorPoint"];
 			ViewData["resultPrice"] = resultPrice;
 			ViewData["userPoint"] = userPoint;
 			ViewData["total"] = totalPrice;
