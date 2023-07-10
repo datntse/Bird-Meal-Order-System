@@ -27,56 +27,56 @@ namespace BMOS.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Login(string username, string password)
+		public IActionResult Login(TblUser model)
 		{
-			//if (ModelState.IsValid){
-			//string username = model.Username;
-			//string password = model.Password;
-
-			if (username != null || password != null)
+			if (ModelState.IsValid)
 			{
-				var check = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).Select(p => p.UserRoleId);
-				if (check.Count() > 0)
+				string username = model.Username;
+				string password = model.Password;
+
+				if (username != null || password != null)
 				{
-					var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
-					var id = check.First();
-					//string sid = Convert.ToString(id);
-					//HttpContext.Session.SetString("id", id.ToString());
-					if (id == 1)
+					var check = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).Select(p => p.UserRoleId);
+					if (check.Count() > 0)
 					{
-						HttpContext.Session.SetString("username", username);
-						return RedirectToAction("Index", "ProductManager");
-					}
-					else if (id == 2 && checkStatus.Count() > 0)
-					{
-						HttpContext.Session.SetString("username", username);
-						return RedirectToAction("Index", "ProductManager");
-					}
-					else if (id == 3 && checkStatus.Count() > 0)
-					{
-						var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).ToList();
-						//string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
-						var user = _db.TblUsers.Where(p => p.Username.Equals(username)).First();
-						string fullname = user.Firstname + " " + user.Lastname;
-
-						if (checkConfirm.Count() > 0)
+						var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
+						var id = check.First();
+						string sid = Convert.ToString(id);
+						HttpContext.Session.SetString("id", id.ToString());
+						if (id == 1)
 						{
-							//HttpContext.Session.SetString("username", username);
-							//HttpContext.Session.SetString("fullname", fullname);
-							//HttpContext.Session.Set("user", user);
-
-							return RedirectToAction("Index", "Home");
+							HttpContext.Session.SetString("username", username);
+							return RedirectToAction("Index", "ProductManager");
 						}
-						ViewBag.EmailConfirm = "*Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra Email để xác nhận tài khoản.";
+						else if (id == 2 && checkStatus.Count() > 0)
+						{
+							HttpContext.Session.SetString("username", username);
+							return RedirectToAction("Index", "ProductManager");
+						}
+						else if (id == 3 && checkStatus.Count() > 0)
+						{
+							var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).ToList();
+							string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
+							var user = _db.TblUsers.Where(p => p.Username.Equals(username)).First();
+
+							if (checkConfirm.Count() > 0)
+							{
+								HttpContext.Session.SetString("username", username);
+								HttpContext.Session.SetString("fullname", fullname);
+								HttpContext.Session.Set("user", user);
+
+								return RedirectToAction("Index", "Home");
+							}
+							ViewBag.EmailConfirm = "*Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra Email để xác nhận tài khoản.";
+							return View("Login");
+						}
+						ViewBag.Block = "*Tài khoản của bạn đã bị khóa.";
 						return View("Login");
 					}
-					ViewBag.Block = "*Tài khoản của bạn đã bị khóa.";
+					ViewBag.Notice = "*Thông tin đăng nhập không chính xác.";
 					return View("Login");
 				}
-				ViewBag.Notice = "*Thông tin đăng nhập không chính xác.";
-				return View("Login");
 			}
-			//}
 			return View();
 		}
 		public IActionResult Logout()
@@ -121,7 +121,7 @@ namespace BMOS.Controllers
 				_db.SaveChanges();
 
 				ViewBag.RegisterSuccess = "*Đăng ký tài khoản thành công, vui lòng kiểm tra ";
-				return View();	
+				return View();
 			}
 			else
 			{
@@ -177,7 +177,7 @@ namespace BMOS.Controllers
 			{
 				await EmailSender.SendEmailAsync(username, "Quên mật khẩu", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Thay đổi mật khẩu</a>");
 				ViewBag.ConfirmForgotSuccess = "*Vui lòng kiểm tra ";
-				return View();	
+				return View();
 			}
 			else
 			{
