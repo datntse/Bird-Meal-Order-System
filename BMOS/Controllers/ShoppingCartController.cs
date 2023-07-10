@@ -225,7 +225,7 @@ namespace BMOS.Controllers
 			}
 
 			_context.SaveChanges();
-			ViewData["confirm"] = "Cảm ơn bạn đã ...";
+			HttpContext.Session.Set("confirmOrderStatus", true);
 
 			myCart.Clear();
 			HttpContext?.Session.Set("Cart", myCart);

@@ -3,6 +3,7 @@ using BMOS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using BMOS.Helpers;
 
 namespace BMOS.Controllers
 {
@@ -19,7 +20,9 @@ namespace BMOS.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString)
         {
+            var confirmOrderStatus = HttpContext?.Session.Get<bool>("confirmOrderStatus");
             HttpContext?.Session.Remove("Routing");
+
             var routingList = from routing in _context.TblRoutings
                               from image in _context.TblImages
                               where routing.RoutingId == image.RelationId && routing.Status != false
@@ -43,7 +46,9 @@ namespace BMOS.Controllers
                                Date = blog.Date,
                            };
             ViewData["Blog"] = blogList.ToList();
-            if (!String.IsNullOrEmpty(searchString))
+            ViewBag.isConfirmOrder = confirmOrderStatus;
+
+			if (!String.IsNullOrEmpty(searchString))
             {
                 return RedirectToAction("ListProduct", "Products", new { searchString });
             }
@@ -58,7 +63,9 @@ namespace BMOS.Controllers
                                  productPrice = product.Price,
                                  productImage = image.Url
                              };
-            return listProdct != null ? View(await listProdct.ToListAsync()) : Problem("Entity set 'BmosContext.TblProducts' is null");
+
+			HttpContext?.Session.Remove("confirmOrderStatus");
+			return listProdct != null ? View(await listProdct.ToListAsync()) : Problem("Entity set 'BmosContext.TblProducts' is null");
         }
 
 

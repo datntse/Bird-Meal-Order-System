@@ -3,6 +3,11 @@
 @{
 	Layout = "_HeaderFooter";
 	ViewData["Title"] = "BMOS";
+	bool isConfirm = ViewBag.isConfirmOrder;
+}
+@if(isConfirm)
+{
+	<input type="hidden" name="confirmStatus" value="true">
 }
 <div class="content">
 	<div class="container">
@@ -73,6 +78,21 @@
 
 
 		$(document).ready(function () {
+
+			var confirmStatus = $('input[name="confirmStatus"]');
+			console.log(confirmStatus);
+			if(confirmStatus.length !=  0) {
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Cảm ơn bạn đã xác nhận đơn hàng',
+					width: '50%',
+					height: '50%',
+					showConfirmButton: false,
+					timer: 3000
+				});
+			}
+
 			$('.ajax-add-to-cart').click(function (e) {
 				var _id = $(this).data("id");
 				e.stopPropagation();
