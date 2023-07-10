@@ -11,8 +11,7 @@ namespace BMOSTest
 	public class Tests
 	{
 		private List<CartModel> cart;
-		[TestFixture]
-		public class CartModel
+		private class CartModel
 		{
 			public string _productId { get; set; }
 			public string _productName { get; set; }
@@ -124,7 +123,7 @@ namespace BMOSTest
 			CartModel item2 = new CartModel
 			{
 				_productId = "product02",
-				_productName = "Thuc an cho cho",
+				_productName = "Thuc an cho cun",
 				_quantity = 1,
 				_price = 420
 			};
@@ -155,7 +154,7 @@ namespace BMOSTest
 			CartModel item2 = new CartModel
 			{
 				_productId = "product02",
-				_productName = "Thuc an cho cho",
+				_productName = "Thuc an cho cun",
 				_quantity = 1,
 				_price = 420
 			};
