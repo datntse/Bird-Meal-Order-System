@@ -11,7 +11,8 @@ namespace BMOSTest
 	public class Tests
 	{
 		private List<CartModel> cart;
-		private class CartModel
+		[TestFixture]
+		public class CartModel
 		{
 			public string _productId { get; set; }
 			public string _productName { get; set; }
@@ -27,6 +28,7 @@ namespace BMOSTest
 		[SetUp]
 		public void Setup()
 		{
+			_context = new BmosContext();
 			cart = new List<CartModel>();
 		}
 
@@ -71,8 +73,9 @@ namespace BMOSTest
 			}
 		}
 
-		[TestCase("product01", 1)]
-		public void AddSingleItemToCart_NotEmptyCart_IfItemExsit_ItemQuantityIncreaseOne(string productId, int quantity = 1)
+		[TestCase("product01", "Thuc an cho chim", 300, 1)]
+		[TestCase("product02", "Thuc an cho chim", 300, 1)]
+		public void AddSingleItemToCart_NotEmptyCart_IfItemExsit_ItemQuantityIncreaseOne(string productId, string productName, double price, int quantity = 1)
 		{
 			cart.Clear();
 			//create a cart item
@@ -92,20 +95,25 @@ namespace BMOSTest
 			});
 
 			// new item to art
+			CartModel item = new CartModel
+			{
+				_productId = productId,
+				_productName = productName,
+				_quantity = quantity,
+				_price = price
+			};
+			cart.Add(item);
 
-			var QuantityBeforeAdd = 0;
-			var QuantityAfterAdd = 0;
 			// loop into list cart and find product is add.
 			foreach (var iteminCart in cart)
 			{
+				var currentProductQuantity = iteminCart._quantity;
 				if(iteminCart._productId.Equals(productId)) {
-					QuantityBeforeAdd = iteminCart._quantity;
 					iteminCart._quantity += quantity;
-					QuantityAfterAdd = iteminCart._quantity;
-
+					Assert.AreEqual(currentProductQuantity + 1, iteminCart._quantity);
 				}
 			}
-			Assert.AreEqual(QuantityBeforeAdd + 1, QuantityAfterAdd);
+
 
 		}
 		[Test]
