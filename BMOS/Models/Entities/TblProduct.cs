@@ -5,13 +5,13 @@ namespace BMOS.Models.Entities;
 
 public partial class TblProduct
 {
-    public string ProductId { get; set; } = null!;
+    public string ProductId { get; set; }
 
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     public int? Quantity { get; set; }
 
-    public string? Description { get; set; }
+    public string Description { get; set; }
 
     public double? Weight { get; set; }
 
@@ -23,9 +23,9 @@ public partial class TblProduct
 
     public double? Price { get; set; }
 
-    public string? ImagelInk { get; set; }
+    public string ImagelInk { get; set; }
 
-    public string? Type { get; set; }
+    public string Type { get; set; }
 
     public virtual ICollection<TblFavouriteList> TblFavouriteLists { get; set; } = new List<TblFavouriteList>();
 

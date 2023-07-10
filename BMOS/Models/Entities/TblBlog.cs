@@ -5,11 +5,11 @@ namespace BMOS.Models.Entities;
 
 public partial class TblBlog
 {
-    public string BlogId { get; set; } = null!;
+    public string BlogId { get; set; }
 
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
-    public string? Description { get; set; }
+    public string Description { get; set; }
 
     public DateTime? Date { get; set; }
 

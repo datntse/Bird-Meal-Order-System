@@ -1,0 +1,150 @@
+﻿@model IEnumerable<BMOS.Models.Entities.TblOrderDetail>
+@{
+    ViewData["Title"] = "OrderDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var id = ViewBag.ID;
+}
+
+@if (id.Equals("3"))
+{
+    <div class="container">
+        <div class="content">
+            <div class="row userprofile">
+                <div class="col-12 userprofile_title">Trang chủ/ Chỉnh sửa người dùng</div>
+            </div>
+            <div class="row userinfo">
+                <div class="col-7 userprofile_info">
+                    <div class="row userprofile_info_wel">
+                        <div class="col-6">
+                            <div class="userprofile_info_wel_history" style="background-color: #e38a41;">
+                                <img src="~/images/history.png" alt="" srcset="">
+                                <a href="~/Account/UserHistoryOrder" style="text-decoration: none; color: black;"><h3 style="font-weight: bold; margin-top: 10px;">Lịch sử đơn hàng</h3></a>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="userprofile_info_wel_welcome">
+                                <img src="~/images/user-icon.png" alt="" srcset="">
+                                <h3 style="font-weight: bold; margin-top: 10px;">Xin chào, <Span>@ViewBag.Fullname</Span></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+                        .btn-back {
+                            width: 20%;
+                            font-weight: bold;
+                            font-size: 2rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            text-decoration: none;
+                            color: black;
+                            background-color: orange;          
+                            height: 5rem;
+                            border-radius: 10px;                                                        
+                        }
+
+                            .btn-back:hover {
+                                color: #b48010;
+                            }
+                    </style>
+
+                    <div class="row">
+                        <div class="col-12 user_history" style="padding: 10px 10px;">
+                            <div class="order-detail-header" style="border-bottom: 1px solid black">
+                                <h4 style ="color: rgb(247, 157, 40); font-weight: bold;">Chi tết đơn hàng</h4>
+                            </div>
+                            <div class="order-detail-body" style="margin: 10px 0;">
+                                <div class="body-head" style="display: flex; align-items: center; justify-content: space-between;">
+                                    <h3 style="font-weight: bold; font-size: 2rem;"><b>Mã đơn hàng: </b>@ViewBag.OrderID</h3>
+                                    <h3 style="font-weight: bold; font-size: 2rem;"><b>Ngày: </b>@ViewBag.Date</h3>
+                                </div>
+                                <div class="body-content" style="margin: 10px 0;">
+                                    <table class="table" style="text-align: center; border: 1px solid black; font-size: 2rem;">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <h2>Mã sản phẩm</h2>
+                                                </th>
+                                                <th>
+                                                    <h2>Tên sản phẩm</h2>
+                                                </th>
+                                                <th>
+                                                    <h2>Ảnh</h2>
+                                                </th>
+                                                <th>
+                                                    <h2>Số lượng</h2>
+                                                </th>
+                                                <th>
+                                                    <h2>Giá</h2>
+                                                </th>                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.ProductId)
+                                                    </td>
+                                                    <td>
+                                                        No
+                                                    </td>
+                                                    <td>
+                                                        No
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Quantity)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Price)
+                                                    </td>
+                                          
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="body-footer" style=" display:flex; align-items:center; justify-content: space-between;">
+                                <a href="~/Account/UserHistoryOrder" class="btn-back">Trở lại</a>
+                                <h3 style="font-weight: bold; font-size: 2rem;"><b>Tổng tiền: </b>@ViewBag.TotalPrice<br></h3>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="col-5">
+                    <div class="userprofile_bar">
+                        <div class="userprofile_bar_profile">
+                            <img src="~/images/user-icon.png" alt="" srcset="">
+                            <a href="~/Account/UserProfile" target="">Hồ sơ</a>
+                        </div>
+                        <div class="userprofile_bar_profile">
+                            <img src="~/images/locationmanege.png" alt="" srcset="">
+                            <a href="~/Account/UserLocation" target="">Cài đặt địa chỉ</a>
+                        </div>
+                        <div class="userprofile_bar_profile">
+                            <img src="~/images/reset-password.png" alt="" srcset="">
+                            <a href="~/Account/UserChangePassword" target=""><b>Đổi mật khẩu</b></a>
+                        </div>
+                        <div class="userprofile_bar_profile">
+                            <img src="~/images/logout.png" alt="" srcset="">
+                            <a href="~/Account/Logout" target="" style="font-weight: bold;">Đăng xuất</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h4>Tài khoản của bạn không thể thực hiện chức năng này</h4>
+}
+

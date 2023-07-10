@@ -5,13 +5,13 @@ namespace BMOS.Models.Entities;
 
 public partial class TblRouting
 {
-    public string RoutingId { get; set; } = null!;
+    public string RoutingId { get; set; }
 
-    public string? ProductId { get; set; }
+    public string ProductId { get; set; }
 
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
-    public string? Description { get; set; }
+    public string Description { get; set; }
 
     public int? Quantity { get; set; }
 
@@ -19,5 +19,5 @@ public partial class TblRouting
 
     public bool? Status { get; set; }
 
-    public virtual TblProduct? Product { get; set; }
+    public virtual TblProduct Product { get; set; }
 }
