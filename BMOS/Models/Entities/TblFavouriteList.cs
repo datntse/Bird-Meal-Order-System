@@ -5,13 +5,13 @@ namespace BMOS.Models.Entities;
 
 public partial class TblFavouriteList
 {
-    public string FavouriteListId { get; set; }
+    public string FavouriteListId { get; set; } = null!;
 
     public int? UserId { get; set; }
 
-    public string ProductId { get; set; }
+    public string? ProductId { get; set; }
 
-    public virtual TblProduct Product { get; set; }
+    public virtual TblProduct? Product { get; set; }
 
-    public virtual TblUser User { get; set; }
+    public virtual TblUser? User { get; set; }
 }

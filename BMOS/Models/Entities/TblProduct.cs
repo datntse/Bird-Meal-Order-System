@@ -32,6 +32,4 @@ public partial class TblProduct
     public virtual ICollection<TblFeedback> TblFeedbacks { get; set; } = new List<TblFeedback>();
 
     public virtual ICollection<TblOrderDetail> TblOrderDetails { get; set; } = new List<TblOrderDetail>();
-
-    public virtual ICollection<TblRouting> TblRoutings { get; set; } = new List<TblRouting>();
 }

@@ -5,11 +5,11 @@ namespace BMOS.Models.Entities;
 
 public partial class TblOrderDetail
 {
-    public string OrderDetailId { get; set; }
+    public string OrderDetailId { get; set; } = null!;
 
-    public string OrderId { get; set; }
+    public string? OrderId { get; set; }
 
-    public string ProductId { get; set; }
+    public string? ProductId { get; set; }
 
     public int? Quantity { get; set; }
 
@@ -17,7 +17,7 @@ public partial class TblOrderDetail
 
     public DateTime? Date { get; set; }
 
-    public virtual TblOrder Order { get; set; }
+    public virtual TblOrder? Order { get; set; }
 
-    public virtual TblProduct Product { get; set; }
+    public virtual TblProduct? Product { get; set; }
 }

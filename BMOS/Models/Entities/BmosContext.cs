@@ -35,6 +35,8 @@ public partial class BmosContext : DbContext
 
     public virtual DbSet<TblProduct> TblProducts { get; set; }
 
+    public virtual DbSet<TblProductInRouting> TblProductInRoutings { get; set; }
+
     public virtual DbSet<TblRefund> TblRefunds { get; set; }
 
     public virtual DbSet<TblRole> TblRoles { get; set; }
@@ -44,22 +46,14 @@ public partial class BmosContext : DbContext
     public virtual DbSet<TblUser> TblUsers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=DATNT\\SQLEXPRESS;Initial Catalog=BMOS;User ID=sa;Password=12345;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
-    private string GetConnectionString()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", true, true)
-            .Build();
-        var strConn = config["ConnectionStrings:ConnectDB"];
-        return strConn;
-    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblAddress>(entity =>
         {
-            entity.HasKey(e => e.AddressId).HasName("PK__Tbl_Addr__CAA247C885D35098");
+            entity.HasKey(e => e.AddressId).HasName("PK__Tbl_Addr__CAA247C817634350");
 
             entity.ToTable("Tbl_Address");
 
@@ -81,7 +75,7 @@ public partial class BmosContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.TblAddresses)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Tbl_Addre__user___4F7CD00D");
+                .HasConstraintName("FK__Tbl_Addre__user___5070F446");
         });
 
         modelBuilder.Entity<TblBlog>(entity =>
@@ -222,16 +216,29 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("order_id");
+            entity.Property(e => e.Address)
+                .HasColumnType("text")
+                .HasColumnName("address");
             entity.Property(e => e.Date)
-                .HasColumnType("datetime")
+                .HasColumnType("date")
                 .HasColumnName("date");
             entity.Property(e => e.IsConfirm).HasColumnName("is_confirm");
+            entity.Property(e => e.Note)
+                .HasColumnType("text")
+                .HasColumnName("note");
+            entity.Property(e => e.PaymentType)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("payment_type");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("phone");
             entity.Property(e => e.TotalPrice).HasColumnName("total_price");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
-
-            entity.HasOne(d => d.User).WithMany(p => p.TblOrders)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Tbl_Order__user___4CA06362");
+            entity.Property(e => e.UserId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("user_id");
         });
 
         modelBuilder.Entity<TblOrderDetail>(entity =>
@@ -292,7 +299,7 @@ public partial class BmosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("product_id");
             entity.Property(e => e.Description)
-                .HasMaxLength(500)
+                .HasColumnType("text")
                 .HasColumnName("description");
             entity.Property(e => e.ImagelInk)
                 .HasMaxLength(255)
@@ -309,6 +316,23 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("type");
             entity.Property(e => e.Weight).HasColumnName("weight");
+        });
+
+        modelBuilder.Entity<TblProductInRouting>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Tbl_Prod__3213E83FC7A5A9EC");
+
+            entity.ToTable("Tbl_ProductInRouting");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ProductId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("product_id");
+            entity.Property(e => e.RoutingId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("routing_id");
         });
 
         modelBuilder.Entity<TblRefund>(entity =>
@@ -380,16 +404,8 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("name");
             entity.Property(e => e.Price).HasColumnName("price");
-            entity.Property(e => e.ProductId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("product_id");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.Status).HasColumnName("status");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.TblRoutings)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK_Tbl_Routing_Tbl_Product");
         });
 
         modelBuilder.Entity<TblUser>(entity =>

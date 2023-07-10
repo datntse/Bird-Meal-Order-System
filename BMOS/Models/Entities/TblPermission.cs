@@ -9,5 +9,5 @@ public partial class TblPermission
 
     public int? UserRoleId { get; set; }
 
-    public string PermissionName { get; set; }
+    public string? PermissionName { get; set; }
 }
