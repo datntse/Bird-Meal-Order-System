@@ -132,7 +132,7 @@ namespace BMOSWinForm
             OrderDetailManagement orderDetailManagement = new OrderDetailManagement(orderId);
             this.Hide();
             orderDetailManagement.ShowDialog();
-            orderDetailManagement = null;
+            //orderDetailManagement = null;
             this.Show();
         }
     }

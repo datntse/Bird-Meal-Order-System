@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Dashboard;
 using ZedGraph;
 
 namespace BMOSWinForm
@@ -23,29 +22,7 @@ namespace BMOSWinForm
 
             InitializeComponent();
             _db = new BMOSContext();
-            // Khởi tạo biểu đồ
-            GraphPane myPane = zedGraphControl1.GraphPane;
-
-            //// Đặt tên cho trục X và trục Y
-            //myPane.XAxis.Title.Text = "";
-            //myPane.YAxis.Title.Text = "";
-
-            //// Tạo dữ liệu cho biểu đồ
-            //string[] labels = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
-            //double[] values = { 1.2, 2.3, 3.4, 4.5, 5.6, 1, 1.2, 2.3, 3.4, 4.5, 5.6, 1 };
-
-            //// Tạo đối tượng BarItem để đại diện cho các cột biểu đồ
-            //BarItem bar = myPane.AddBar("Doanh thu", null, values, Color.Blue);
-
-            //// Đặt tên cho các cột biểu đồ
-            //bar.Bar.Fill = new Fill(Color.Blue);
-            //bar.Label.Text = "Doanh thu";
-
-            //// Đặt tên cho các nhãn trục X
-            //myPane.XAxis.Scale.TextLabels = labels;
-
-            //// Vẽ biểu đồ
-            //zedGraphControl1.AxisChange();
+            button1.Enabled = false;
         }
 
         public Management(string user) : this()
@@ -108,13 +85,13 @@ namespace BMOSWinForm
         }
 
 
-        public void getTotalProduct()
+        public int getTotalProduct( int month)
         {
             int totalQuantity = _db.TblOrderDetails
                                     .Where(o => o.Date.HasValue && o.Date.Value.Month == 01)
                                     .Sum(o => o.Quantity ?? 0);
 
-            MessageBox.Show("Tổng số sản phẩm được bán trong tháng 1 là: " + totalQuantity.ToString());
+            return totalQuantity;
         }
         public void getTotalPrice()
         {
@@ -123,7 +100,7 @@ namespace BMOSWinForm
                                     .Sum(o => o.TotalPrice.GetValueOrDefault());
 
 
-            MessageBox.Show("Tổng số sản phẩm được bán trong tháng 1 là: " + totalPrice.ToString());
+            
         }
         public double GetTotalPriceOfOrdersInMonth(int month)
         {
@@ -135,9 +112,10 @@ namespace BMOSWinForm
         public void DrawChart()
         {
             GraphPane myPane = zedGraphControl1.GraphPane;
+            myPane.Title.Text = "Tổng giá trị đơn hàng theo tháng";
 
-            myPane.XAxis.Title.Text = "Tháng";
-            myPane.YAxis.Title.Text = "Tổng giá trị đơn hàng";
+            myPane.XAxis.Title.Text = "";
+            myPane.YAxis.Title.Text = "Tổng giá trị đơn hàng ($)";
 
             PointPairList list = new PointPairList();
 
@@ -147,18 +125,18 @@ namespace BMOSWinForm
                 list.Add(i, total);
             }
 
-            BarItem bar = myPane.AddBar("Tổng giá trị đơn hàng", list, Color.Blue);
+            BarItem bar = myPane.AddBar("Tổng giá trị đơn hàng", list, Color.Chocolate);
+
+            zedGraphControl1.IsEnableZoom = false;
+            zedGraphControl1.IsEnableVZoom = false;
+            zedGraphControl1.IsEnableHZoom = false;
+            zedGraphControl1.IsEnableWheelZoom = false;
+            zedGraphControl1.IsEnableSelection = true;
+
 
             zedGraphControl1.AxisChange();
             zedGraphControl1.Invalidate();
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            DrawChart();
-        }
-
-
 
         private void Management_Load(object sender, EventArgs e)
         {

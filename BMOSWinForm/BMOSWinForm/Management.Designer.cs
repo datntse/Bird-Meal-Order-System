@@ -41,7 +41,6 @@
             pictureBox1 = new System.Windows.Forms.PictureBox();
             label1 = new System.Windows.Forms.Label();
             panel_body = new System.Windows.Forms.Panel();
-            button2 = new System.Windows.Forms.Button();
             label10 = new System.Windows.Forms.Label();
             label11 = new System.Windows.Forms.Label();
             label12 = new System.Windows.Forms.Label();
@@ -54,6 +53,7 @@
             label5 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
+            button1 = new System.Windows.Forms.Button();
             zedGraphControl1 = new ZedGraph.ZedGraphControl();
             txtTitle = new System.Windows.Forms.Label();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -243,7 +243,6 @@
             // 
             // panel_body
             // 
-            panel_body.Controls.Add(button2);
             panel_body.Controls.Add(label10);
             panel_body.Controls.Add(label11);
             panel_body.Controls.Add(label12);
@@ -256,6 +255,7 @@
             panel_body.Controls.Add(label5);
             panel_body.Controls.Add(label3);
             panel_body.Controls.Add(label2);
+            panel_body.Controls.Add(button1);
             panel_body.Controls.Add(zedGraphControl1);
             panel_body.Dock = System.Windows.Forms.DockStyle.Bottom;
             panel_body.Location = new System.Drawing.Point(326, 92);
@@ -263,123 +263,121 @@
             panel_body.Size = new System.Drawing.Size(1171, 561);
             panel_body.TabIndex = 2;
             // 
-            // button2
-            // 
-            button2.Location = new System.Drawing.Point(6, 522);
-            button2.Name = "button2";
-            button2.Size = new System.Drawing.Size(94, 29);
-            button2.TabIndex = 15;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new System.Drawing.Point(969, 527);
+            label10.Location = new System.Drawing.Point(990, 507);
             label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(25, 20);
-            label10.TabIndex = 14;
-            label10.Text = "12";
+            label10.Size = new System.Drawing.Size(35, 20);
+            label10.TabIndex = 27;
+            label10.Text = "Dec";
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new System.Drawing.Point(892, 527);
+            label11.Location = new System.Drawing.Point(914, 506);
             label11.Name = "label11";
-            label11.Size = new System.Drawing.Size(25, 20);
-            label11.TabIndex = 13;
-            label11.Text = "11";
+            label11.Size = new System.Drawing.Size(36, 20);
+            label11.TabIndex = 26;
+            label11.Text = "Nov";
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new System.Drawing.Point(817, 527);
+            label12.Location = new System.Drawing.Point(844, 507);
             label12.Name = "label12";
-            label12.Size = new System.Drawing.Size(25, 20);
-            label12.TabIndex = 12;
-            label12.Text = "10";
+            label12.Size = new System.Drawing.Size(32, 20);
+            label12.TabIndex = 25;
+            label12.Text = "Oct";
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new System.Drawing.Point(740, 526);
+            label13.Location = new System.Drawing.Point(768, 506);
             label13.Name = "label13";
-            label13.Size = new System.Drawing.Size(17, 20);
-            label13.TabIndex = 11;
-            label13.Text = "9";
+            label13.Size = new System.Drawing.Size(34, 20);
+            label13.TabIndex = 24;
+            label13.Text = "Sep";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(665, 527);
+            label6.Location = new System.Drawing.Point(695, 506);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(17, 20);
-            label6.TabIndex = 10;
-            label6.Text = "8";
+            label6.Size = new System.Drawing.Size(36, 20);
+            label6.TabIndex = 23;
+            label6.Text = "Aug";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(588, 527);
+            label7.Location = new System.Drawing.Point(619, 508);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(17, 20);
-            label7.TabIndex = 9;
-            label7.Text = "7";
+            label7.Size = new System.Drawing.Size(26, 20);
+            label7.TabIndex = 22;
+            label7.Text = "Jul";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(513, 526);
+            label8.Location = new System.Drawing.Point(549, 508);
             label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(17, 20);
-            label8.TabIndex = 8;
-            label8.Text = "6";
+            label8.Size = new System.Drawing.Size(30, 20);
+            label8.TabIndex = 21;
+            label8.Text = "Jun";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new System.Drawing.Point(436, 527);
+            label9.Location = new System.Drawing.Point(473, 507);
             label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(17, 20);
-            label9.TabIndex = 7;
-            label9.Text = "5";
+            label9.Size = new System.Drawing.Size(37, 20);
+            label9.TabIndex = 20;
+            label9.Text = "May";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(348, 526);
+            label4.Location = new System.Drawing.Point(400, 507);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(17, 20);
-            label4.TabIndex = 6;
-            label4.Text = "4";
+            label4.Size = new System.Drawing.Size(33, 20);
+            label4.TabIndex = 19;
+            label4.Text = "Apr";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(271, 527);
+            label5.Location = new System.Drawing.Point(324, 508);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(17, 20);
-            label5.TabIndex = 5;
-            label5.Text = "3";
+            label5.Size = new System.Drawing.Size(35, 20);
+            label5.TabIndex = 18;
+            label5.Text = "Mar";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(196, 527);
+            label3.Location = new System.Drawing.Point(254, 509);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(17, 20);
-            label3.TabIndex = 4;
-            label3.Text = "2";
+            label3.Size = new System.Drawing.Size(33, 20);
+            label3.TabIndex = 17;
+            label3.Text = "Feb";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(119, 526);
+            label2.Location = new System.Drawing.Point(178, 508);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(17, 20);
-            label2.TabIndex = 3;
-            label2.Text = "1";
+            label2.Size = new System.Drawing.Size(30, 20);
+            label2.TabIndex = 4;
+            label2.Text = "Jan";
+            // 
+            // button1
+            // 
+            button1.Location = new System.Drawing.Point(101, 476);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(1070, 85);
+            button1.TabIndex = 16;
+            button1.UseVisualStyleBackColor = true;
             // 
             // zedGraphControl1
             // 
@@ -448,18 +446,18 @@
         private System.Windows.Forms.Label txtTitle;
         private ZedGraph.ZedGraphControl zedGraphControl1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
     }
 }

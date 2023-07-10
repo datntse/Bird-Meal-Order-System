@@ -173,6 +173,7 @@ namespace BMOSWinForm
                 btn_delete.Enabled = true;
                 btn_update.Enabled = true;
                 txt_id.Enabled = false;
+                btn_detail.Enabled = true;
             }
 
             catch
@@ -212,6 +213,8 @@ namespace BMOSWinForm
                 txt_quantity.Text = null;
                 checkBox_status.Checked = false;
                 txt_id.Focus();
+                txt_id.Enabled = true;
+                btn_detail.Enabled = false;
 
 
             }
@@ -221,29 +224,6 @@ namespace BMOSWinForm
             }
         }
 
-        private void btn_search_Click(object sender, EventArgs e)
-        {
-
-            string searchKeyword = txt_search.Text.Trim();
-            if (!string.IsNullOrEmpty(searchKeyword))
-            {
-                var result = from product in _db.TblProducts
-                             where product.Name.Contains(searchKeyword)
-                             select new
-                             {
-                                 ProductID = product.ProductId,
-                                 Name = product.Name,
-                                 Price = product.Price,
-                                 Quantity = product.Quantity,
-                                 Type = product.Type,
-                                 Weight = product.Weight,
-                                 Status = product.Status,
-                                 Description = product.Description
-                             };
-                dataGridViewProduct.DataSource = new BindingSource { DataSource = result.ToList() };
-            }
-
-        }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -497,5 +477,7 @@ namespace BMOSWinForm
             Form form = new Login();
             form.ShowDialog();
         }
+
+
     }
 }

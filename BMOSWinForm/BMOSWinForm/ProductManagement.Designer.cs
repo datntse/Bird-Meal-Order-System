@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductManagement));
             tblProductBindingSource = new System.Windows.Forms.BindingSource(components);
             panel_body = new System.Windows.Forms.Panel();
@@ -44,7 +44,6 @@
             priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            btn_search = new System.Windows.Forms.Button();
             panel2 = new System.Windows.Forms.Panel();
             btn_viewproduct = new System.Windows.Forms.Button();
             btn_add = new System.Windows.Forms.Button();
@@ -81,6 +80,7 @@
             pictureBox1 = new System.Windows.Forms.PictureBox();
             label9 = new System.Windows.Forms.Label();
             txtTitle = new System.Windows.Forms.Label();
+            label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)tblProductBindingSource).BeginInit();
             panel_body.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProduct).BeginInit();
@@ -95,9 +95,9 @@
             // 
             // panel_body
             // 
+            panel_body.Controls.Add(label10);
             panel_body.Controls.Add(comboBox1);
             panel_body.Controls.Add(dataGridViewProduct);
-            panel_body.Controls.Add(btn_search);
             panel_body.Controls.Add(panel2);
             panel_body.Controls.Add(label5);
             panel_body.Controls.Add(txt_search);
@@ -111,10 +111,11 @@
             comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Sản phẩm còn hàng", "Sản phẩm hết hàng", "Tất cả sản phẩm", "A-Z", "Thức ăn hạt", "Thức ăn tự nhiên", "Thức ăn hỗn hợp" });
-            comboBox1.Location = new System.Drawing.Point(696, 18);
+            comboBox1.Location = new System.Drawing.Point(653, 17);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new System.Drawing.Size(151, 28);
+            comboBox1.Size = new System.Drawing.Size(234, 28);
             comboBox1.TabIndex = 28;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // dataGridViewProduct
             // 
@@ -124,25 +125,25 @@
             dataGridViewProduct.AutoGenerateColumns = false;
             dataGridViewProduct.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewProduct.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Chocolate;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Chocolate;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Chocolate;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridViewProduct.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Chocolate;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Chocolate;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Chocolate;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewProduct.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewProduct.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { productIdDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, quantityDataGridViewTextBoxColumn, weightDataGridViewTextBoxColumn, statusDataGridViewTextBoxColumn, priceDataGridViewTextBoxColumn, typeDataGridViewTextBoxColumn, descriptionDataGridViewTextBoxColumn });
             dataGridViewProduct.DataSource = tblProductBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Chocolate;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            dataGridViewProduct.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Chocolate;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            dataGridViewProduct.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewProduct.GridColor = System.Drawing.SystemColors.WindowFrame;
             dataGridViewProduct.Location = new System.Drawing.Point(16, 76);
             dataGridViewProduct.MultiSelect = false;
@@ -153,6 +154,7 @@
             dataGridViewProduct.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridViewProduct.Size = new System.Drawing.Size(1142, 260);
             dataGridViewProduct.TabIndex = 23;
+            dataGridViewProduct.CellContentClick += dataGridViewProduct_CellContentClick;
             // 
             // productIdDataGridViewTextBoxColumn
             // 
@@ -220,15 +222,6 @@
             descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
             descriptionDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // btn_search
-            // 
-            btn_search.Location = new System.Drawing.Point(615, 17);
-            btn_search.Name = "btn_search";
-            btn_search.Size = new System.Drawing.Size(75, 29);
-            btn_search.TabIndex = 27;
-            btn_search.Text = "Tìm";
-            btn_search.UseVisualStyleBackColor = true;
-            // 
             // panel2
             // 
             panel2.Controls.Add(btn_viewproduct);
@@ -266,6 +259,7 @@
             btn_viewproduct.TabIndex = 24;
             btn_viewproduct.Text = "Chi tiết";
             btn_viewproduct.UseVisualStyleBackColor = true;
+            btn_viewproduct.Click += btn_viewproduct_Click;
             // 
             // btn_add
             // 
@@ -275,6 +269,7 @@
             btn_add.TabIndex = 23;
             btn_add.Text = "Thêm";
             btn_add.UseVisualStyleBackColor = true;
+            btn_add.Click += btn_add_Click;
             // 
             // btn_detail
             // 
@@ -284,6 +279,7 @@
             btn_detail.TabIndex = 20;
             btn_detail.Text = "Xem";
             btn_detail.UseVisualStyleBackColor = true;
+            btn_detail.Click += btn_detail_Click;
             // 
             // txt_price
             // 
@@ -320,6 +316,7 @@
             btn_delete.TabIndex = 16;
             btn_delete.Text = "Xóa";
             btn_delete.UseVisualStyleBackColor = true;
+            btn_delete.Click += btn_delete_Click;
             // 
             // btn_update
             // 
@@ -330,6 +327,7 @@
             btn_update.TabIndex = 15;
             btn_update.Text = "Cập nhật";
             btn_update.UseVisualStyleBackColor = true;
+            btn_update.Click += btn_update_Click;
             // 
             // btn_save
             // 
@@ -339,6 +337,7 @@
             btn_save.TabIndex = 14;
             btn_save.Text = "Lưu";
             btn_save.UseVisualStyleBackColor = true;
+            btn_save.Click += btn_save_Click;
             // 
             // label6
             // 
@@ -466,6 +465,7 @@
             txt_search.Name = "txt_search";
             txt_search.Size = new System.Drawing.Size(459, 27);
             txt_search.TabIndex = 25;
+            txt_search.TextChanged += txt_search_TextChanged;
             // 
             // panel_control
             // 
@@ -658,6 +658,15 @@
             txtTitle.Text = "Quản lý Sản Phẩm";
             txtTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new System.Drawing.Point(613, 20);
+            label10.Name = "label10";
+            label10.Size = new System.Drawing.Size(32, 20);
+            label10.TabIndex = 29;
+            label10.Text = "Lọc";
+            // 
             // ProductManagement
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -696,7 +705,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button btn_search;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btn_viewproduct;
         private System.Windows.Forms.Button btn_add;
@@ -733,5 +741,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label txtTitle;
+        private System.Windows.Forms.Label label10;
     }
 }
