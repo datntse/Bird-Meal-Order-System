@@ -118,6 +118,7 @@ namespace BMOS.Controllers
 
 		public IActionResult useBonusPoint(double point = 0)
 		{
+			HttpContext.Session.Set("pointInput", point);
 			HttpContext.Session.Remove("resultPrice");
 			var myCart = Cart;
 			// 100d => 1 ngan.
@@ -169,15 +170,24 @@ namespace BMOS.Controllers
 		public IActionResult Checkout()
 		{
 			var _priceProduct = getTotalCartPrice();
+			var user = HttpContext.Session.Get<TblUser>("user");
 			decimal? bonusPoint = 0;
 			if (_priceProduct >= 100)
 			{
 				bonusPoint = Math.Round((decimal)_priceProduct, MidpointRounding.AwayFromZero);
 			}
+			var usePointPrice = HttpContext.Session.Get<double>("resultPrice");
+			if (usePointPrice > 0)
+			{
+				_priceProduct = usePointPrice;
+			}
+			ViewData["totalPrice"] = _priceProduct;
 			ViewData["bonusPoint"] = bonusPoint;
+			ViewData["Cart"] = Cart;
+			HttpContext.Session.Remove("resultPrice");
 			// update user point.
-			// use point feature
-			return View(Cart);
+			// use point feature --ok
+			return View(user);
 		}
 
 
@@ -222,6 +232,12 @@ namespace BMOS.Controllers
 		public async Task<IActionResult> Payment(string pType = "cod", double point = 0)
 		{
 			var user = HttpContext.Session.Get<TblUser>("user");
+			var usePointPrice = HttpContext.Session.Get<double>("resultPrice");
+			var cartPrice = getTotalCartPrice();
+			if (usePointPrice > 0)
+			{
+				cartPrice = usePointPrice;
+			}
 
 			if (user == null) { return RedirectToAction("Login", "Account"); }
 			var myCart = Cart;
@@ -232,7 +248,7 @@ namespace BMOS.Controllers
 			{
 				OrderId = orderId,
 				UserId = "" + user.UserId,
-				TotalPrice = getTotalCartPrice(),
+				TotalPrice = cartPrice,
 				Date = DateTime.Now,
 				IsConfirm = false,
 			};
@@ -242,7 +258,7 @@ namespace BMOS.Controllers
 			userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(userId));
 
 			var content = Url.Action("ConfirmOrder", "ShoppingCart", new { userId = userId, orderId = orderId, point = point }, protocol: Request.Scheme);
-			await EmailSender.SendEmailAsync(user.Username, "Xác thực tài khoản", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Xác nhận đơn hàng</a>");
+			await EmailSender.SendEmailAsync(user.Username, "Bạn có đơn hàng trên hệ thống ! Vui lòng xác nhận đơn hàng của bạn", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Xác nhận đơn hàng</a>");
 
 			return View();
 		}
@@ -287,7 +303,8 @@ namespace BMOS.Controllers
 			}
 			var user = HttpContext.Session.Get<TblUser>("user");
 			var resultPrice = HttpContext.Session.Get<double>("resultPrice");
-			
+			var pointInput = HttpContext.Session.Get<double>("pointInput");
+
 			double? userPoint = user.Point;
 			decimal? bonusPoint = 0;
 			if (totalPrice >= 100)
@@ -299,6 +316,7 @@ namespace BMOS.Controllers
 			ViewData["userPoint"] = userPoint;
 			ViewData["total"] = totalPrice;
 			ViewData["bonusPoint"] = bonusPoint;
+			ViewData["pointInput"] = pointInput;
 
 			HttpContext?.Session.Set("Cart", myCart);
 			return PartialView(myCart);

@@ -3,6 +3,7 @@
 	var totalPrice = ViewData["total"];
 	var bonusPoint = ViewData["bonusPoint"];
 	var userPoint = ViewData["userPoint"];
+	var pointInput = ViewData["pointInput"] as double?;
 	var resultPrice = ViewData["resultPrice"] as double?;
 
 
@@ -108,10 +109,14 @@ else
 								<div class="mb-5">
 									<div class="form-outline">
 										<label class="form-label" for="form3Examplea2">Sử dụng điểm tích lũy</label>
-										<input type="text" id="form3Examplea2" name="usePoint"  class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
-										@if (TempData["errorPoint"] != null)
+										@if (TempData["errorPoint"] == null)
+										{
+											<input type="text" id="form3Examplea2" name="usePoint" value="@pointInput" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
+										} else
 										{
 											<label style="color: red" class="form-label" for="form3Examplea2">@TempData["errorPoint"]</label>
+											<input type="text" id="form3Examplea2" name="usePoint" value="" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
+
 										}
 									</div>
 								</div>
@@ -126,10 +131,10 @@ else
 
 								<div class="d-flex justify-content-between mb-5">
 									<h5 class="text-uppercase">Total price</h5>
-									<h5 style="color: red; font-size: 2rem">@totalPrice .000 vnd</h5>
+									<h5 class="totalPrice" style="color: red; font-size: 2rem">@totalPrice .000 vnd</h5>
 									@if (@resultPrice != 0)
 									{
-										<h5 style="color: red; font-size: 2rem">@resultPrice .000 vnd</h5>
+										<h5 class="resultPriceAfterUsePoint" style="color: red; font-size: 2rem">@resultPrice .000 vnd</h5>
 									}
 								</div>
 
@@ -154,6 +159,13 @@ else
 }
 <script>
 	$(document).ready(function () {
+		var resultPriceAfterUsePoint = $('.resultPriceAfterUsePoint');
+		console.log(resultPriceAfterUsePoint.length);
+		var totalPrice = $('.totalPrice');
+		if (resultPriceAfterUsePoint.length != 0) {
+			totalPrice.css("color", "#333");
+			totalPrice.css("text-decoration", "line-through");
+		}
 
 		var inputPoint = $('input[name="usePoint"]');
 		inputPoint.blur(function (e) {

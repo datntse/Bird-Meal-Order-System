@@ -28,8 +28,8 @@ namespace BMOS.Controllers
 
 		public async Task<IActionResult> Product(String id)
 		{
-			var recom = _context.TblProducts.Find(id).Type;
-			var _relatedProduct = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom && x.ProductId != id).Take(3);
+			var recom = _context.TblProducts.Where(x => x.ProductId.Equals(id)).FirstOrDefault();
+			var _relatedProduct = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom.Type && x.ProductId != id).Take(3);
 			var result = from img in _context.TblImages
 						 from prod in _relatedProduct
 						 where prod.ProductId == img.RelationId
