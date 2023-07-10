@@ -171,6 +171,7 @@ namespace BMOS.Controllers
 		{
 			var _priceProduct = getTotalCartPrice();
 			var user = HttpContext.Session.Get<TblUser>("user");
+			var Address = _context.TblAddresses.Where(x=> x.UserId == user.UserId).FirstOrDefault();
 			decimal? bonusPoint = 0;
 			if (_priceProduct >= 100)
 			{
@@ -181,7 +182,9 @@ namespace BMOS.Controllers
 			{
 				_priceProduct = usePointPrice;
 			}
-			ViewData["totalPrice"] = _priceProduct;
+			//cofig list address here...............
+			ViewData["Address"] = Address;
+            ViewData["totalPrice"] = _priceProduct;
 			ViewData["bonusPoint"] = bonusPoint;
 			ViewData["Cart"] = Cart;
 			HttpContext.Session.Remove("resultPrice");
@@ -247,7 +250,7 @@ namespace BMOS.Controllers
 			var order = new TblOrder
 			{
 				OrderId = orderId,
-				UserId = "" + user.UserId,
+				UserId = user.UserId,
 				TotalPrice = cartPrice,
 				Date = DateTime.Now,
 				IsConfirm = false,

@@ -1,6 +1,7 @@
 ﻿@model BMOS.Models.Entities.TblUser;
 @{
 	ViewData["Title"] = "Checkout";
+	var address = ViewData["Address"] as BMOS.Models.Entities.TblAddress;
 	var toltalPrice = ViewData["totalPrice"];
 	var bonuspoint = ViewData["bonusPoint"];
 	var Cart = ViewData["Cart"] as List<CartModel>;
@@ -78,7 +79,11 @@
 													<label for="billingPhone" class="field__label">
 														Địa chỉ nhận hàng
 													</label>
-													<input type="text" name="location" class="field__input" value="@Model.Address" />
+													@if(@address != null) {
+													<input type="text" name="location" class="field__input" value="@address.Address" />
+													} else {
+													<input type="text" name="location" class="field__input" value="" />
+													}
 													<div class="field__input-phone-region-wrapper">
 														<select class="field__input select-phone-region select2-hidden-accessible" tabindex="-1"
 																aria-hidden="true">

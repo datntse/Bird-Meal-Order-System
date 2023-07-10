@@ -7,6 +7,8 @@ using BMOS.Models.Entities;
 using BMOS.Services;
 using Microsoft.AspNetCore.Http;
 using Firebase.Auth;
+using Microsoft.EntityFrameworkCore;
+using BMOS.Models;
 using BMOS.Helpers;
 
 namespace BMOS.Controllers
@@ -29,42 +31,41 @@ namespace BMOS.Controllers
 		[HttpPost]
 		public IActionResult Login(TblUser model)
 		{
-			if (ModelState.IsValid)
-			{
-				string username = model.Username;
-				string password = model.Password;
+			//if (ModelState.IsValid){
+			string username = model.Username;
+			string password = model.Password;
 
-				if (username != null || password != null)
+			if (username != null || password != null)
+			{
+				var check = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).Select(p => p.UserRoleId);
+				if (check.Count() > 0)
 				{
-					var check = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).Select(p => p.UserRoleId);
-					if (check.Count() > 0)
+					var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
+					var id = check.First();
+					//string sid = Convert.ToString(id);
+					HttpContext.Session.SetString("id", id.ToString());
+					if (id == 1)
 					{
-						var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
-						var id = check.First();
-						string sid = Convert.ToString(id);
-						HttpContext.Session.SetString("id", id.ToString());
-						if (id == 1)
-						{
-							HttpContext.Session.SetString("username", username);
-							return RedirectToAction("Index", "ProductManager");
-						}
-						else if (id == 2 && checkStatus.Count() > 0)
-						{
-							HttpContext.Session.SetString("username", username);
-							return RedirectToAction("Index", "ProductManager");
-						}
-						else if (id == 3 && checkStatus.Count() > 0)
-						{
-							var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).ToList();
-							string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
-							var user = _db.TblUsers.Where(p => p.Username.Equals(username)).First();
+						HttpContext.Session.SetString("username", username);
+						return RedirectToAction("Index", "ProductManager");
+					}
+					else if (id == 2 && checkStatus.Count() > 0)
+					{
+						HttpContext.Session.SetString("username", username);
+						return RedirectToAction("Index", "ProductManager");
+					}
+					else if (id == 3 && checkStatus.Count() > 0)
+					{
+						var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).ToList();
+						//string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
+						var user = _db.TblUsers.Where(p => p.Username.Equals(username)).First();
+						string fullname = user.Firstname + " " + user.Lastname;
 
 						if (checkConfirm.Count() > 0)
 						{
 							HttpContext.Session.SetString("username", username);
 							HttpContext.Session.SetString("fullname", fullname);
-							_isLogin = true;
-
+							HttpContext.Session.Set("user", user);
 							return RedirectToAction("Index", "Home");
 						}
 						ViewBag.EmailConfirm = "*Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra Email để xác nhận tài khoản.";
@@ -76,6 +77,7 @@ namespace BMOS.Controllers
 				ViewBag.Notice = "*Thông tin đăng nhập không chính xác.";
 				return View();
 			}
+			//}
 			return View();
 		}
 
@@ -185,6 +187,8 @@ namespace BMOS.Controllers
 				return View();
 			}
 		}
+
+
 
 		public IActionResult ChangePassword(string userId, string code)
 		{
@@ -423,7 +427,7 @@ namespace BMOS.Controllers
 			ViewBag.ID = HttpContext.Session.GetString("id");
 			ViewBag.Fullname = HttpContext.Session.GetString("fullname");
 			var user = HttpContext.Session.GetString("username");
-			var userID = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
+			var userID = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).FirstOrDefault();
 			ViewBag.User = user;
 			if (user == null)
 			{

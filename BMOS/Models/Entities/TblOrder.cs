@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BMOS.Models.Entities;
 
@@ -17,11 +18,11 @@ public partial class TblOrder
 
     public string? Address { get; set; }
 
-    public string? Phone { get; set; }
+	public string? Phone { get; set; }
 
-    public string? Note { get; set; }
+	public string? Note { get; set; }
 
-    public string? PaymentType { get; set; }
+	public string? PaymentType { get; set; }
 
     public virtual ICollection<TblOrderDetail> TblOrderDetails { get; set; } = new List<TblOrderDetail>();
 
