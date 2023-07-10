@@ -47,7 +47,6 @@ namespace BMOS.Controllers
                 UserName = u.Firstname + u.Lastname,                
                 date = (DateTime)f.Date,
                 total = f.TotalPrice
-
             };
                            
 
@@ -99,9 +98,6 @@ namespace BMOS.Controllers
             }
             var order = from f in _context.TblOrders
                         join u in _context.TblUsers on f.UserId equals u.UserId
-                        join d in _context.TblOrderDetails on f.OrderId equals d.OrderId
-                        join p in _context.TblProducts on d.ProductId equals p.ProductId
-                        let userId = f.UserId
                         select new OrderInfo()
                         {
                             orderID = f.OrderId,
