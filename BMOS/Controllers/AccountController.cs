@@ -24,7 +24,7 @@ namespace BMOS.Controllers
             {
                 return RedirectToAction("UserProfile");
             }
-            return View();            
+            return View();
         }
 
         [HttpPost]
@@ -40,9 +40,9 @@ namespace BMOS.Controllers
                 if (check.Count() > 0)
                 {
                     var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
-                    var id = check.First();                   
+                    var id = check.First();
                     //string sid = Convert.ToString(id);
-                    HttpContext.Session.SetString("id", id.ToString());                   
+                    HttpContext.Session.SetString("id", id.ToString());
                     if (id == 1)
                     {
                         HttpContext.Session.SetString("username", username);
@@ -59,7 +59,7 @@ namespace BMOS.Controllers
                         //string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
                         var user = _db.TblUsers.Where(p => p.Username.Equals(username)).First();
                         string fullname = user.Firstname + " " + user.Lastname;
-                       
+
                         if (checkConfirm.Count() > 0)
                         {
                             HttpContext.Session.SetString("username", username);
@@ -68,12 +68,12 @@ namespace BMOS.Controllers
                         }
                         ViewBag.EmailConfirm = "*Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra Email để xác nhận tài khoản.";
                         return View();
-                    } 
+                    }
                     ViewBag.Block = "*Tài khoản của bạn đã bị khóa.";
-                    return View();                                 
+                    return View();
                 }
                 ViewBag.Notice = "*Thông tin đăng nhập không chính xác.";
-                return View();               
+                return View();
             }
             //}
             return View();
@@ -227,7 +227,7 @@ namespace BMOS.Controllers
 
         public IActionResult UserProfile()
         {
-            var user = HttpContext.Session.GetString("username");            
+            var user = HttpContext.Session.GetString("username");
             if (user != null)
             {
                 ViewBag.ID = HttpContext.Session.GetString("id");
@@ -244,7 +244,7 @@ namespace BMOS.Controllers
         {
             var user = HttpContext.Session.GetString("username");
             ViewBag.ID = HttpContext.Session.GetString("id");
-            var profile = _db.TblUsers.FirstOrDefault(p => p.Username.Equals(user));            
+            var profile = _db.TblUsers.FirstOrDefault(p => p.Username.Equals(user));
             ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             if (user == null)
             {
@@ -272,18 +272,18 @@ namespace BMOS.Controllers
                 _db.SaveChanges();
                 return RedirectToAction("UserProfile");
             }
-            
+
         }
 
         public IActionResult UserLocation()
-        {           
+        {
             ViewBag.ID = HttpContext.Session.GetString("id");
-            ViewBag.Fullname = HttpContext.Session.GetString("fullname");           
+            ViewBag.Fullname = HttpContext.Session.GetString("fullname");
             var user = HttpContext.Session.GetString("username");
             var userid = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
 
             ViewBag.Phone = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.Numberphone).First();
-            ViewBag.UserID = userid.ToString();           
+            ViewBag.UserID = userid.ToString();
             if (user == null)
             {
                 return RedirectToAction("Login");
@@ -292,7 +292,7 @@ namespace BMOS.Controllers
             {
                 var addressDefault = _db.TblAddresses.FirstOrDefault(p => p.UserId == userid && p.IsDefault == true);
                 if (addressDefault != null)
-                {   
+                {
                     int addressID = _db.TblAddresses.Where(p => p.UserId == userid && p.IsDefault == true).Select(p => p.AddressId).First();
                     ViewBag.AddressID = addressID;
                     ViewBag.DefaultAdd = addressDefault.Address;
@@ -304,7 +304,7 @@ namespace BMOS.Controllers
                 var addList = _db.TblAddresses.Where(p => p.UserId == userid && p.IsDefault == false).ToList();
                 return View(addList);
             }
-            
+
         }
 
         [HttpPost]
@@ -338,9 +338,9 @@ namespace BMOS.Controllers
                     _db.SaveChanges();
                     return RedirectToAction("UserLocation");
                 }
-                
+
             }
-            
+
         }
 
         [HttpPost]
@@ -383,7 +383,7 @@ namespace BMOS.Controllers
                     check1.IsDefault = model.IsDefault;
                     _db.SaveChanges();
                     return RedirectToAction("UserLocation");
-                }                                            
+                }
             }
             return RedirectToAction("UserLocation");
         }
@@ -435,7 +435,7 @@ namespace BMOS.Controllers
             {
                 var orderList = _db.TblOrders.Where(p => p.UserId == userID).ToList();
                 return View(orderList);
-            }           
+            }
         }
 
         [HttpPost]
@@ -459,8 +459,18 @@ namespace BMOS.Controllers
                 ViewBag.TotalPrice = total.ToString();
                 return View(orderListDetail);
             }
-            
+
         }
 
+        [HttpPost]
+        public IActionResult ReceiveButton()
+        {
+            return new ChallengeResult("Google", null);
+        }
+
+        public IActionResult LoginWithGoogle()
+        {
+            return View();
+        }
     }
 }
