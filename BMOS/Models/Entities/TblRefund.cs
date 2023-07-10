@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BMOS.Models.Entities;
 
@@ -17,7 +18,9 @@ public partial class TblRefund
 
     public bool? IsConfirm { get; set; }
 
-    public virtual TblOrder Order { get; set; }
+    [NotMapped]
+    public virtual TblOrder? Order { get; set; }
+	[NotMapped]
 
-    public virtual TblUser User { get; set; }
+	public virtual TblUser? User { get; set; }
 }

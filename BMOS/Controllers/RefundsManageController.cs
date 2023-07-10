@@ -42,16 +42,16 @@ namespace BMOS.Controllers
             ViewBag.CurrentFilter = searchString;
 
             var refunds = from f in _context.TblRefunds
-                          join u in _context.TblOrders on f.OrderId equals u.OrderId
-                          join i in _context.TblOrders on f.UserId equals i.UserId
+                          from o in _context.TblOrders
+                          where f.UserId.Equals(o.UserId) && f.OrderId.Equals(o.OrderId)
                           select new RefundsInfoModel()
-                          { 
-                               RefundId= f.RefundId,
-                               UserId = u.UserId,
-                               OrderId = u.OrderId,
-                               Description = f.Description,
-                               Date = f.Date,
-                               IsConfirm = f.IsConfirm,
+                          {
+                              RefundId = f.RefundId,
+                              UserId = o.UserId,
+                              OrderId = o.OrderId,
+                              Description = f.Description,
+                              Date = f.Date,
+                              IsConfirm = f.IsConfirm,  
                           };
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -109,24 +109,7 @@ namespace BMOS.Controllers
             return View(tblRefund);
         }
 
-		// GET: UsersManage/Create
-		public IActionResult Create()
-		{
-			return View();
-		}
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("RefundId, UserId, OrderId, Description, Date, IsConfirm")] TblRefund tblRefund)
-		{
-			if (ModelState.IsValid)
-			{
-				_context.Add(tblRefund);
-				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(Index));
-			}
-			return View(tblRefund);
-		}
+		
 
 		// GET: RefundsManage/Edit/5
 		public async Task<IActionResult> Edit(string id)
@@ -161,7 +144,17 @@ namespace BMOS.Controllers
                 try
                 {
                     _context.Update(tblRefund);
-                    await _context.SaveChangesAsync();
+					TblNotify notify = new TblNotify();
+					{
+						notify.NotifyId = Guid.NewGuid().ToString();
+						notify.UserId = tblRefund.UserId;
+						notify.Date = tblRefund.Date;
+						notify.Type = "refund";
+						notify.Message = "don hang " + tblRefund.OrderId + "da duoc xac nhan";
+						_context.Add(notify);
+						_context.SaveChanges();
+					}
+					await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {

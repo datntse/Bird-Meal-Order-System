@@ -3,6 +3,8 @@
 @{
 	Layout = "_HeaderFooter";
 	ViewData["Title"] = "Index";
+	var id = ViewBag.ID;
+
 }
 
 <div class="content">
@@ -158,26 +160,46 @@
 
 
 		<div class="row g-0 feedback">
-			<div class="col-12 feedback_title">
-				<div class="feedback_title--text">Phản hồi</div>
-				<div class="col-12 product-detail__content rating-buy-star">
-					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-					<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-				</div>
-			</div>
-			<div class="row g-0 user_feedback align-items-center">
-				<div class="col-1 user_feedback_avt">
-					<i class="fa-sharp fa-solid fa-user"></i>
-				</div>
-				<div class="col-11 user_feedback_input">
-					<input type="text" placeholder="Ý kiến của bạn về sản phẩm">
-				</div>
+			@if (id != null)
+			{
+
+				<form asp-controller="Products" asp-action="Comment">
+					<div class="col-12 feedback_title">
+						<div class="feedback_title--text">Phản hồi</div>
+						<div class="text-warning col-12 product-detail__content rating-buy-star">
+							<span>
+								<i class="ratingstar fa-regular fa-star star-icon" data-value="1"></i>
+								<i class="ratingstar fa-regular fa-star star-icon" data-value="2"></i>
+								<i class="ratingstar fa-regular fa-star star-icon" data-value="3"></i>
+								<i class="ratingstar fa-regular fa-star star-icon" data-value="4"></i>
+								<i class="ratingstar fa-regular fa-star star-icon" data-value="5"></i>
+							</span>
+							<input type="hidden" name="starvalue" id="rating" />
+						</div>
+					</div>
+					<div class="row g-0 user_feedback align-items-center">
+						<div class="col-1 user_feedback_avt">
+							<i class="fa-sharp fa-solid fa-user"></i>
+						</div>
 
 
-			</div>
+
+						<div class="col-11 user_feedback_input">
+							<input type="text" name="textcontent" placeholder="Ý kiến của bạn về sản phẩm">
+							<input type="hidden" name="id" value="@Model.ProductId">
+						</div>
+						<button class="btn btn--large" type="submit">gui</button>
+
+
+					</div>
+
+				</form>
+			}
+			else
+			{
+				<div>ban can phai dang nhap de binh luan</div>
+			}
+
 
 			@await Html.PartialAsync("Feedback")
 
@@ -188,6 +210,19 @@
 @section scripts {
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
+
+		$(".ratingstar").hover(function () {
+			$(".ratingstar").addClass("fa-regular").removeClass("fa-solid");
+			$(this).addClass("fa-solid").removeClass("fa-regular");
+			$(this).prevAll(".ratingstar").addClass("fa-solid").removeClass("fa-regular");
+		});
+
+		$(".ratingstar").click(function () {
+			debugger;
+			var starValue = $(this).attr("data-value");
+			$("#rating").val(starValue);
+		});
+
 		$(document).ready(function () {
 			$('.ajax-add-to-cart').click(function (e) {
 				var _id = $(this).data("id");

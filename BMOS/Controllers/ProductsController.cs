@@ -28,8 +28,14 @@ namespace BMOS.Controllers
 
 		public async Task<IActionResult> Product(String id)
 		{
-			var recom = _context.TblProducts.Find(id).Type;
-			var _relatedProduct = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom && x.ProductId != id).Take(3);
+			var userSession = HttpContext.Session.GetString("username");
+			if (userSession != null)
+			{
+				ViewBag.ID = "Login";
+			}
+			var recom = _context.TblProducts.Where(x => x.ProductId.Equals(id)).FirstOrDefault();
+
+			var _relatedProduct = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom.Type && x.ProductId != id).Take(3);
 			var result = from img in _context.TblImages
 						 from prod in _relatedProduct
 						 where prod.ProductId == img.RelationId
@@ -42,13 +48,14 @@ namespace BMOS.Controllers
 						 });
 			var _listProductRelated = result.ToList();
 
+
 			var feedbackList = from feedback in _context.TblFeedbacks
 							   from product in _context.TblProducts
 							   from user in _context.TblUsers
-							   where feedback.ProductId == product.ProductId && feedback.UserId == user.UserId && feedback.ProductId == id
+							   where feedback.ProductId == product.ProductId && feedback.UserId == user.UserId && product.ProductId == id
 							   select new FeedbackInfoModel
 							   {
-                                   fullName = user.Firstname + user.Lastname,
+								   fullName = user.Firstname + user.Lastname,
 								   ProductId = product.ProductId,
 								   FeedbackId = feedback.FeedbackId,
 								   UserId = user.UserId,
@@ -57,7 +64,9 @@ namespace BMOS.Controllers
 								   date = feedback.Date,
 							   };
 			ViewData["Feedback"] = feedbackList.ToList();
-			//from product in _context.TblProducts where product.Status != false select product;
+
+
+
 			var productItem = from product in _context.TblProducts
 							  from image in _context.TblImages
 							  where product.ProductId == image.RelationId
@@ -403,6 +412,40 @@ namespace BMOS.Controllers
 
 			return View(products);
 		}
-		
-	}
+		public IActionResult Notify()
+		{
+			var user = HttpContext.Session.GetString("username");
+			if (user != null)
+			{
+				var tb = from n in _context.TblNotifies select n;
+				return View(tb);
+			}
+			else
+			{
+				return RedirectToAction("Login", "Account");
+			}
+		}
+        [HttpPost]
+        public IActionResult Comment(string id, string textcontent, int starvalue)
+        {
+            var user = HttpContext.Session.GetString("username");
+            var userid = _context.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
+
+            TblFeedback feedback = new TblFeedback();
+            feedback.ProductId = id;
+            feedback.Content = textcontent;
+            feedback.Date = DateTime.Now;
+            feedback.Star = starvalue;
+            feedback.UserId = userid;
+            feedback.FeedbackId = Guid.NewGuid().ToString();
+            _context.Add(feedback);
+            _context.SaveChanges();
+            return RedirectToAction("Product", "Products", new
+            {
+                id
+            });
+
+        }
+
+    }
 }
