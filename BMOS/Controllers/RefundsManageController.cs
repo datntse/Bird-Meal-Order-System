@@ -144,15 +144,18 @@ namespace BMOS.Controllers
                 try
                 {
                     _context.Update(tblRefund);
-					TblNotify notify = new TblNotify();
+					if (tblRefund.IsConfirm == true)
 					{
-						notify.NotifyId = Guid.NewGuid().ToString();
-						notify.UserId = tblRefund.UserId;
-						notify.Date = tblRefund.Date;
-						notify.Type = "refund";
-						notify.Message = "don hang " + tblRefund.OrderId + "da duoc xac nhan";
-						_context.Add(notify);
-						_context.SaveChanges();
+						TblNotify notify = new TblNotify();
+						{
+							notify.NotifyId = Guid.NewGuid().ToString();
+							notify.UserId = tblRefund.UserId;
+							notify.Date = tblRefund.Date;
+							notify.Type = "refund";
+							notify.Message = "don hang " + tblRefund.OrderId + "da duoc xac nhan";
+							_context.Add(notify);
+							_context.SaveChanges();
+						}
 					}
 					await _context.SaveChangesAsync();
                 }
