@@ -1,6 +1,7 @@
 ﻿@model BMOS.Models.Entities.TblProduct
 
 @{
+        Layout = "_ManagePage";
     ViewData["Title"] = "Edit";
 }
 
@@ -71,3 +72,8 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section scripts{
+    <script>
+        CKEDITOR.replace('Description')
+    </script>
+}
