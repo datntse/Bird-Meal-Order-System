@@ -9,6 +9,7 @@ using BMOS.Models.Entities;
 using BMOS.Models;
 using BMOS.Models.Services;
 using X.PagedList;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace BMOS.Controllers
 {
@@ -415,10 +416,19 @@ namespace BMOS.Controllers
 		public IActionResult Notify()
 		{
 			var user = HttpContext.Session.GetString("username");
+			
 			if (user != null)
 			{
-				var tb = from n in _context.TblNotifies select n;
-				return View(tb);
+               
+                    var tb = from n in _context.TblNotifies select n;
+                    int q = tb.Count();
+                    if (q == 0)
+                {
+                    ViewBag.message = "Bạn không có thông báo nào!";
+                }
+
+                    return View(tb);
+                
 			}
 			else
 			{

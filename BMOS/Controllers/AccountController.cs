@@ -476,7 +476,8 @@ namespace BMOS.Controllers
 
 		public IActionResult Refund()
 		{
-			var user = HttpContext.Session.GetString("username");
+            ViewBag.Fullname = HttpContext.Session.GetString("fullname");
+            var user = HttpContext.Session.GetString("username");
 			var userid = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
 			ViewBag.userId = userid;
 			if (user == null)

@@ -152,7 +152,7 @@ namespace BMOS.Controllers
 							notify.UserId = tblRefund.UserId;
 							notify.Date = tblRefund.Date;
 							notify.Type = "refund";
-							notify.Message = "Đơn hàng " + tblRefund.OrderId + " đã được xác nhận!";
+							notify.Message = "Đơn trả hàng có ID là " + tblRefund.OrderId + " đã được phê duyệt!";
 							_context.Add(notify);
 							_context.SaveChanges();
 						}
