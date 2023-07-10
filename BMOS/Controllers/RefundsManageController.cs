@@ -39,7 +39,6 @@ namespace BMOS.Controllers
             {
                 searchString = currentFilter;
             }
-
             ViewBag.CurrentFilter = searchString;
 
             var refunds = from f in _context.TblRefunds
