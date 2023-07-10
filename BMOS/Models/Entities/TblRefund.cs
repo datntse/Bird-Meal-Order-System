@@ -21,6 +21,5 @@ public partial class TblRefund
     [NotMapped]
     public virtual TblOrder? Order { get; set; }
 	[NotMapped]
-
 	public virtual TblUser? User { get; set; }
 }
