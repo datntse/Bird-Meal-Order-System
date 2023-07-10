@@ -1436,6 +1436,7 @@ main {
 .product-quantity-form {
     font-size: 1.6rem;
     text-align: center;
+    width: 130px;
 }
 @media (min-width: 1025px) {
     .h-custom {
@@ -1575,3 +1576,246 @@ main {
     -webkit-line-clamp: 1;
     overflow: hidden;
 }
+
+
+/*=================Routing Detail===============*/
+.content__navigation a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: 0.2s ease-in;
+}
+
+    .content__navigation a:hover {
+        color: var(--button-hover);
+    }
+
+.content__navigation {
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 10px 0;
+}
+
+.container-sidebar__titile {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.container-sidebar__list--category {
+    list-style: none;
+}
+
+.sidebar__list-category--title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    font-size: 1.8rem;
+    background-color: var(--primary-color);
+    padding: 10px 5px;
+    border-radius: 5px;
+    transition: 0.2s linear;
+}
+
+.sidebar__list--category-item {
+    padding: 8px 5px;
+    font-size: 1.4rem;
+    border-top: 1px var(--border-color) solid;
+}
+
+    .sidebar__list--category-item:hover {
+        transform: translateX(10px);
+    }
+
+        .sidebar__list--category-item:hover .sidebar__list--category-link {
+            color: var(--button-hover);
+        }
+
+.sidebar__list--category-link {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.sidebar__blog-item .sidebar__list--category-link {
+    display: flex;
+    align-items: center;
+}
+
+.blog-sidebar__img {
+    width: 100%;
+    margin-right: 10px;
+}
+
+    .blog-sidebar__img > img {
+        width: 100%;
+    }
+
+.blog-sidebar__text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.routing-item {
+}
+
+.routing-list__item--list {
+    border: 1px solid var(--border-color);
+    padding: 10px 0;
+}
+
+.routing-item__product-img > img {
+    width: 100%;
+}
+
+.routing-item__product-desc {
+    position: relative;
+    padding-left: 10px;
+}
+
+.routing-item__product-desc--title span,
+.edit-quantity-button > span {
+    font-weight: 700;
+    font-size: 1.6rem;
+}
+
+.routing-item__product-desc--title {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.edit-quantity-button span {
+    margin-right: 10px;
+}
+
+
+
+.edit-quantity-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 10px;
+    display: flex;
+    align-items: baseline;
+}
+
+.routing-info__text {
+    margin-bottom: 10px;
+}
+
+    .routing-info__text > span:first-child {
+        font-weight: 700;
+        font-size: 2rem;
+    }
+
+    .routing-info__text > span:not(:first-child) {
+        font-size: 1.6rem;
+    }
+
+.routing-info__status-text {
+    color: green;
+    font-weight: 700;
+}
+
+.routing-info .routing-info__text .routing-info__price-text {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    color: red;
+    margin: 10px 0;
+}
+
+.routing-info__weight-text {
+    font-weight: 700;
+}
+
+.view-routing-process--button {
+    width: 100%;
+    font-size: 2.4rem;
+    font-weight: 700;
+}
+
+
+.rating-buy-star {
+    margin: 10px 0;
+}
+
+.star-icon {
+    font-size: 4rem;
+}
+
+.button-action {
+    padding: 0 20px;
+    border: none;
+    outline: none;
+}
+
+.routing-button.add-to-cart--button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-action.button-action--add-cart {
+    font-weight: 700;
+    font-size: 2.4rem;
+    height: 50px;
+    background-color: #FF8A00;
+}
+
+.button-action.button-action--buy-now {
+    font-weight: 700;
+    font-size: 2.4rem;
+    height: 50px;
+    background-color: #FF3D00;
+}
+
+.heart-icon {
+    font-size: 4rem;
+    margin-left: 10px;
+}
+
+.routing-button.add-to-cart--button {
+}
+
+.routing-button.buy-now--button {
+    margin: 10px 0;
+}
+
+.recommend-list {
+    margin-top: 40px;
+}
+
+.recommend-list__item {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.recommend-list__text {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 3rem;
+    display: block;
+    margin: 10px 0;
+}
+
+.recommend-product__img > img {
+    width: 100%;
+}
+
+.recommend-product__desc {
+}
+
+.recommend-product__name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.recommend-product__price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: red;
+    margin: 20px 0;
+}   

@@ -1,7 +1,12 @@
 ﻿@model IEnumerable<CartModel>;
 @{
-	double? totalPrice = 0;
-	decimal? bonusPoint = 0;
+	var totalPrice = ViewData["total"];
+	var bonusPoint = ViewData["bonusPoint"];
+	var userPoint = ViewData["userPoint"];
+	var pointInput = ViewData["pointInput"] as double?;
+	var resultPrice = ViewData["resultPrice"] as double?;
+
+
 }
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,7 +26,6 @@
 }
 else
 {
-	<div class="cart-wrapper"></div>
 	<div class="row d-flex justify-content-center align-items-center">
 		<div class="col-12">
 			<div class="card card-registration card-registration-2" style="border-radius: 15px;">
@@ -31,53 +35,44 @@ else
 							<div class="p-5">
 								<div class="d-flex justify-content-between align-items-center mb-5">
 									<h1 class="fw-bold mb-0 text-black">Giỏ Hàng</h1>
-									<h6 class="mb-0 text-muted">@Model.Count() items</h6>	
+									<h6 class="mb-0 text-muted">@Model.Count() items</h6>
 								</div>
 								<hr class="my-4">
 								@foreach (var item in Model)
 								{
-									if (!(item._quantity <= 0))
-									{
-										var _priceProduct = item._getTotalPrice();
-										totalPrice += _priceProduct;
-										if (totalPrice >= 100)
-										{
-											bonusPoint = Math.Round((decimal)totalPrice, MidpointRounding.AwayFromZero);
-										}
-										<div class="row mb-4 d-flex justify-content-between align-items-center">
-											<div class="col-md-2 col-lg-2 col-xl-2">
-												<img src="@Html.DisplayFor(modelItem => item._productImage)" style="width: 100px; height: 100px" />
-											</div>
-											<div class="col-md-3 col-lg-3 col-xl-3">
-												<h6 class="text-muted">@Html.DisplayFor(xx => item._productName)</h6>
-											</div>
-											<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-												<button data-id="@item._productId" class="btn btn-link px-2 decrease-prodQuantity-btn"
-														onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-													<i class="fas fa-minus"></i>
-												</button>
-
-													<input data-id="@item._productId" input type="number" value="@item._quantity" name="cartItemQuantity"
-													   class="form-control form-control-sm product-quantity-form" />
-
-												<button data-id="@item._productId" class="btn btn-link px-2 increase-prodQuantity-btn"
-														onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-													<i class="fas fa-plus"></i>
-												</button>
-											</div>
-											<div class="col-md-3 col-lg-1 col-xl-1 offset-lg-1">
-												<h6 class="mb-0">@Html.DisplayFor(modelItem => item._price)</h6>
-											</div>
-											<div class="col-md-3 col-lg-1 col-xl-1 offset-lg-1">
-												<h6 class="mb-0">@_priceProduct</h6>
-											</div>
-											<div data-id="@item._productId" class="ajax-remove-item col-md-1 col-lg-1 col-xl-1 text-end">
-												<a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-											</div>
+									var _priceProduct = item._getTotalPrice();
+									<div class="row mb-4 d-flex justify-content-between align-items-center">
+										<div class="col-md-2 col-lg-2 col-xl-2">
+											<img src="@Html.DisplayFor(modelItem => item._productImage)" style="width: 100px; height: 100px" />
 										</div>
-									}
-								}
+										<div class="col-md-3 col-lg-3 col-xl-3">
+											<h6 class="text-muted">@Html.DisplayFor(xx => item._productName)</h6>
+										</div>
+										<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+											<button type="submit" data-id="@item._productId" class="btn btn-link px-2 decrease-prodQuantity-btn"
+													onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+												<i class="fas fa-minus"></i>
+											</button>
 
+											<input data-id="@item._productId" input type="number" value="@item._quantity" name="cartItemQuantity"
+												   class="form-control form-control-sm product-quantity-form" />
+
+											<button type="submit" data-id="@item._productId" class="btn btn-link px-2 increase-prodQuantity-btn"
+													onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+												<i class="fas fa-plus"></i>
+											</button>
+										</div>
+										<div class="col-md-3 col-lg-1 col-xl-1 offset-lg-1">
+											<h6 class="mb-0">@Html.DisplayFor(modelItem => item._price)</h6>
+										</div>
+										<div class="col-md-3 col-lg-1 col-xl-1 offset-lg-1">
+											<h6 class="mb-0">@_priceProduct</h6>
+										</div>
+										<div data-id="@item._productId" class="ajax-remove-item col-md-1 col-lg-1 col-xl-1 text-end">
+											<a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+										</div>
+									</div>
+								}
 								<hr class="my-4">
 
 								<div class="pt-5">
@@ -94,34 +89,53 @@ else
 								<h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
 								<hr class="my-4">
 
-									<div class="d-flex justify-content-between mb-4">
-										<h5 class="text-uppercase">TỔNG</h5>
-										<h5 style="font-size: 2rem">@totalPrice .000 vnd</h5>
-									</div>
+								<div class="d-flex justify-content-between mb-4">
+									<h5 class="text-uppercase">TỔNG</h5>
+									<h5 style="font-size: 2rem">@totalPrice .000 vnd</h5>
+								</div>
 
-									<div class="d-flex justify-content-between mb-4">
-										<h5 class="text-uppercase">Điểm nhận được</h5>
-										<h5 style="font-size: 2rem">@bonusPoint điểm</h5>
-									</div>
+								<div class="d-flex justify-content-between mb-4">
+									<h5 class="text-uppercase">Điểm nhận được</h5>
+									<h5 style="font-size: 2rem">@bonusPoint điểm</h5>
+								</div>
 
 								<hr class="my-4">
 								<div class="d-flex justify-content-between mb-4">
 									<h5 class="text-uppercase">Điểm tích lũy của bạn</h5>
-									<h5 style="font-size: 2rem">#####</h5>
+									<h5 style="font-size: 2rem">@userPoint điểm</h5>
 								</div>
 								<hr class="my-4">
 
 								<div class="mb-5">
 									<div class="form-outline">
+										<label class="form-label" for="form3Examplea2">Sử dụng điểm tích lũy</label>
+										@if (TempData["errorPoint"] == null)
+										{
+											<input type="text" id="form3Examplea2" name="usePoint" value="@pointInput" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
+										} else
+										{
+											<label style="color: red" class="form-label" for="form3Examplea2">@TempData["errorPoint"]</label>
+											<input type="text" id="form3Examplea2" name="usePoint" value="" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
+
+										}
+									</div>
+								</div>
+
+								<div class="mb-5">
+									<div class="form-outline">
+										<label class="form-label" for="form3Examplea2">Code giảm giá</label>
 										<input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-										<label class="form-label" for="form3Examplea2">Enter your code</label>
 									</div>
 								</div>
 								<hr class="my-4">
 
 								<div class="d-flex justify-content-between mb-5">
 									<h5 class="text-uppercase">Total price</h5>
-									<h5 style="color: red; font-size: 2rem">@totalPrice .000 vnd</h5>
+									<h5 class="totalPrice" style="color: red; font-size: 2rem">@totalPrice .000 vnd</h5>
+									@if (@resultPrice != 0)
+									{
+										<h5 class="resultPriceAfterUsePoint" style="color: red; font-size: 2rem">@resultPrice .000 vnd</h5>
+									}
 								</div>
 
 								<a asp-controller="ShoppingCart" asp-action="Checkout">
@@ -139,8 +153,33 @@ else
 		</div>
 	</div>
 }
+
+@section scripts {
+
+}
 <script>
 	$(document).ready(function () {
+		var resultPriceAfterUsePoint = $('.resultPriceAfterUsePoint');
+		console.log(resultPriceAfterUsePoint.length);
+		var totalPrice = $('.totalPrice');
+		if (resultPriceAfterUsePoint.length != 0) {
+			totalPrice.css("color", "#333");
+			totalPrice.css("text-decoration", "line-through");
+		}
+
+		var inputPoint = $('input[name="usePoint"]');
+		inputPoint.blur(function (e) {
+			$.ajax({
+				url: "/ShoppingCart/useBonusPoint",
+				data: {
+					point: inputPoint.val(),
+				},
+				type: "GET",
+				success: function (data) {
+					$(".cart-wrapper").html(data)
+				},
+			});
+		});
 
 		$('.ajax-remove-item').click(function (e) {
 			var _id = $(this).data("id");
@@ -156,33 +195,6 @@ else
 			})
 		});
 
-		//Continue fixxx.................!
-		//var inputQuantity = $(`input[name='cartItemQuantity'] data-id=${_id}`);
-		//inputQuantity.change(function () {
-		//	inputQuantity.blur(function () {
-		//		var _id = $(this).data("id");
-		//		var quantity = inputQuantity.val();
-
-		//		$.ajax({
-		//			url: "/ShoppingCart/UpdateCart",
-		//			data: {
-		//				id: _id,
-		//				productQuantity: quantity,
-		//				status: "input"
-		//			},
-		//			type: "GET",
-		//			success: function (data) {
-		//				$(".cart-wrapper").html(data);
-		//				$(".cart-quantity").html(quantity);
-
-		//			},
-		//		});
-		//	})
-		//});
-
-		//Continue fixxx.................!
-		var quantity = $("#cart-item-quantity").val();
-
 		$('.decrease-prodQuantity-btn').click(function (e) {
 			var _id = $(this).data("id");
 			$.ajax({
@@ -194,20 +206,13 @@ else
 				},
 				type: "GET",
 				success: function (data) {
-					console.log("Updated", data)
-					console.log("decrease!!");
 					$(".cart-wrapper").html(data);
 				},
 				error: function () {
 					console.log("failt")
 				}
 			});
-
-
-
 		});
-
-
 		$('.increase-prodQuantity-btn').click(function (e) {
 			var _id = $(this).data("id");
 			$.ajax({
@@ -219,8 +224,6 @@ else
 				},
 				type: "GET",
 				success: function (data) {
-					console.log("Updated", data)
-					console.log("Increase!!");
 					$(".cart-wrapper").html(data)
 				}, error: function () {
 					console.log("failt")

@@ -4,10 +4,6 @@
 	Layout = "_HeaderFooter";
 	ViewData["Title"] = "BMOS";
 }
-
-
-
-
 <div class="content">
 	<div class="container">
 		<div class="banner banner-warpper">
@@ -47,7 +43,6 @@
 										</div>
 									</div>
 								</div>
-
 							}
 						</div>
 						<div class="col-12 watch-more__button">
@@ -63,59 +58,7 @@
 					<div class="col-3 routing-img-banner">
 						<img src="images/routing.png" alt="routing Imgage" srcset="">
 					</div>
-					<div class="row col-9">
-						<div class="product-warpper">
-							<!-- <div class="routing-warpper"> -->
-							<div class="routing-item">
-								<div class="routing-content product-border">
-									<div class="routing-img-item"></div>
-									<div class="routing-desc">
-										<div class="routing-desc__title">Bữa ăn cho chim</div>
-										<div class="routing-desc__price">100.000vnd</div>
-									</div>
-								</div>
-							</div>
-							<div class="routing-item">
-								<div class="routing-content product-border">
-									<div class="routing-img-item"></div>
-									<div class="routing-desc">
-										<div class="routing-desc__title">Bữa ăn cho chim</div>
-										<div class="routing-desc__price">100.000vnd</div>
-									</div>
-								</div>
-							</div>
-							<div class="routing-item">
-								<div class="routing-content product-border">
-									<div class="routing-img-item"></div>
-									<div class="routing-desc">
-										<div class="routing-desc__title">Bữa ăn cho chim</div>
-										<div class="routing-desc__price">100.000vnd</div>
-									</div>
-								</div>
-							</div>
-							<div class="routing-item">
-								<div class="routing-content product-border">
-									<div class="routing-img-item"></div>
-									<div class="routing-desc">
-										<div class="routing-desc__title">Bữa ăn cho chim</div>
-										<div class="routing-desc__price">100.000vnd</div>
-									</div>
-								</div>
-							</div>
-							<div class="routing-item">
-								<div class="routing-content product-border">
-									<div class="routing-img-item"></div>
-									<div class="routing-desc">
-										<div class="routing-desc__title">Bữa ăn cho chim</div>
-										<div class="routing-desc__price">100.000vnd</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-12 watch-more__button">
-							<button type="button" class="btn btn-lg watch-more--button">Xem thêm</button>
-						</div>
-					</div>
+					@await Html.PartialAsync("Routing")
 				</div>
 			</div>
 		</div>

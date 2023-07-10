@@ -10,4 +10,8 @@ public partial class TblProductInRouting
     public string? ProductId { get; set; }
 
     public string? RoutingId { get; set; }
+
+    public virtual TblProduct? Product { get; set; }
+
+    public virtual TblRouting? Routing { get; set; }
 }
