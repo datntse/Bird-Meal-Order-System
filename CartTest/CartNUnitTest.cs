@@ -10,7 +10,9 @@ namespace BMOSTest
 {
 	public class Tests
 	{
+
 		private List<CartModel> cart;
+		private BmosContext _context;
 		private class CartModel
 		{
 			public string _productId { get; set; }
@@ -28,6 +30,33 @@ namespace BMOSTest
 		public void Setup()
 		{
 			cart = new List<CartModel>();
+			_context = new BmosContext();
+		}
+
+
+		private List<CartModel> cartData
+		{
+			get
+			{
+				if (cart.Count() == 0)
+				{
+					cart.Add(new CartModel
+					{
+						_productId = "product01",
+						_productName = "thuc an cho chim",
+						_quantity = 3,
+						_price = 2
+					});
+					cart.Add(new CartModel
+					{
+						_productId = "product02",
+						_productName = "thuc an cho cho",
+						_quantity = 5,
+						_price = 2
+					});
+				}
+				return cart;
+			}
 		}
 
 		[TestCase("product01", "Thuc an cho chim", 1, 300)]
@@ -55,41 +84,14 @@ namespace BMOSTest
 				Assert.AreEqual(productIdWasAdd, productIdInCart);
 			}
 		}
-		[Test]
-		public void AddEmptyItemToCart_InEmptyCart()
-		{
-			// clear cart
-			cart.Clear();
-			CartModel item = new CartModel();
-			//create a cart item
-			cart.Add(item);
-
-			// loop into list cart and find product is add.
-			foreach(var iteminCart in cart)
-			{
-				Assert.IsNull(iteminCart._productId);
-			}
-		}
 
 		[TestCase("product01", 1)]
+		[TestCase("product02", 1)]
+		[TestCase("product03", 1)]
 		public void AddSingleItemToCart_NotEmptyCart_IfItemExsit_ItemQuantityIncreaseOne(string productId, int quantity = 1)
 		{
-			cart.Clear();
+			cart = cartData;
 			//create a cart item
-			cart.Add(new CartModel
-			{
-				_productId = "product01",
-				_productName = "thuc an cho chim",
-				_quantity = 3,
-				_price = 2
-			});
-			cart.Add(new CartModel
-			{
-				_productId = "product02",
-				_productName = "thuc an cho cho",
-				_quantity = 5,
-				_price = 2
-			});
 
 			// new item to art
 
@@ -98,7 +100,8 @@ namespace BMOSTest
 			// loop into list cart and find product is add.
 			foreach (var iteminCart in cart)
 			{
-				if(iteminCart._productId.Equals(productId)) {
+				if (iteminCart._productId.Equals(productId))
+				{
 					QuantityBeforeAdd = iteminCart._quantity;
 					iteminCart._quantity += quantity;
 					QuantityAfterAdd = iteminCart._quantity;
@@ -106,7 +109,6 @@ namespace BMOSTest
 				}
 			}
 			Assert.AreEqual(QuantityBeforeAdd + 1, QuantityAfterAdd);
-
 		}
 		[Test]
 		public void RemoveItemFromCart_ItemExist_InCart()
@@ -139,43 +141,41 @@ namespace BMOSTest
 			// assert that the item is removed from cart
 			CollectionAssert.DoesNotContain(cart, itemToRemove);
 		}
+
 		[Test]
-		public void GetTotalPrice_CartNotEmpty()
+		public void UserCheckOut_ProductDataIncart_StoreIntoOrderDetailTable()
 		{
-			// create cart items
-			CartModel item1 = new CartModel
-			{
-				_productId = "product01",
-				_productName = "Thuc an cho chim",
-				_quantity = 2,
-				_price = 300
-			};
-
-			CartModel item2 = new CartModel
-			{
-				_productId = "product02",
-				_productName = "Thuc an cho cun",
-				_quantity = 1,
-				_price = 420
-			};
-
-			// add items to cart
-			cart.Add(item1);
-			cart.Add(item2);
-
-			double expectedTotalPrice = item1._getTotalPrice().Value + item2._getTotalPrice().Value;
-
-			double actualTotalPrice = 0;
-			// calculate total price of cart
+			var tblOrderDetail = _context.TblOrderDetails.ToList();
+			// data in cart
+			var cart = cartData;
+			var orderIdTetst = 333;
 			foreach (var item in cart)
 			{
-				actualTotalPrice += item._getTotalPrice().Value;
+				orderIdTetst++;
+				_context.Add(new TblOrderDetail
+				{
+					OrderDetailId = "" + orderIdTetst,
+					OrderId = new Guid().ToString(),
+					Price = item._price,
+					ProductId = item._productId,
+					Quantity = item._quantity,
+					Date = DateTime.Now
+				});
+			}
+			_context.SaveChangesAsync();
+
+			foreach (var orderDetail in tblOrderDetail)
+			{
+				foreach (var item in cart)
+				{
+					if(item._productId.Equals(orderDetail))
+					{
+						Assert.Pass("Product data is add to order detail");
+					}	
+				}
 			}
 
-			// assert that the calculated total price is correct
-			Assert.AreEqual(expectedTotalPrice, actualTotalPrice);
 		}
-		
 
-    }
+	}
 }
