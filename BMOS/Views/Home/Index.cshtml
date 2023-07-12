@@ -29,11 +29,15 @@
 					<div class="row col-9">
 						<div class="product-warpper">
 							<!-- <div class="routing-warpper"> -->
+							@{
+								int itemnumber = 0;
+							}
 							@foreach (var item in Model)
 							{
 								<div class="product-item">
 									<div class="product-content product-border">
 										@{
+											itemnumber++;
 											string url = item.productImage;
 											string[] delemeter = new string[] { "datnt" };
 											string[] image = url.Split(delemeter, StringSplitOptions.None);
@@ -44,7 +48,7 @@
 										<div class="product-desc">
 											<div class="product-desc__title">@item.productName</div>
 											<div class="product-desc__price">@item.productPrice.000vnd</div>
-											<button data-id="@item.productId" type="button" class="ajax-add-to-cart buy-now btn btn-sm btn-primary">Add to cart</button>
+											<button id="@itemnumber" data-id="@item.productId" type="button" class="ajax-add-to-cart buy-now btn btn-sm btn-primary">Add to cart</button>
 										</div>
 									</div>
 								</div>

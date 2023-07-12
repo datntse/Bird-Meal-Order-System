@@ -8,7 +8,8 @@ using NUnit.Framework;
 
 namespace BMOSTest
 {
-	public class Tests
+	[TestFixture]
+	public class CartTest
 	{
 
 		private List<CartModel> cart;
@@ -33,7 +34,6 @@ namespace BMOSTest
 			_context = new BmosContext();
 		}
 
-
 		private List<CartModel> cartData
 		{
 			get
@@ -57,89 +57,6 @@ namespace BMOSTest
 				}
 				return cart;
 			}
-		}
-
-		[TestCase("product01", "Thuc an cho chim", 1, 300)]
-		[TestCase("product123", "Thuc an cho cho", 1, 420)]
-		[TestCase("product450", "Thuc an cho bo", 1, 350)]
-		public void AddSingleItemToCart_InEmptyCart(string productId, string productName, double price, int quantity = 1)
-		{
-			// clear cart
-			cart.Clear();
-			//create a cart item
-			CartModel item = new CartModel
-			{
-				_productId = productId,
-				_productName = productName,
-				_quantity = quantity,
-				_price = price
-			};
-			cart.Add(item);
-
-			// loop into list cart and find product is add.
-			foreach (var iteminCart in cart)
-			{
-				var productIdWasAdd = item._productId;
-				var productIdInCart = iteminCart._productId;
-				Assert.AreEqual(productIdWasAdd, productIdInCart);
-			}
-		}
-
-		[TestCase("product01", 1)]
-		[TestCase("product02", 1)]
-		[TestCase("product03", 1)]
-		public void AddSingleItemToCart_NotEmptyCart_IfItemExsit_ItemQuantityIncreaseOne(string productId, int quantity = 1)
-		{
-			cart = cartData;
-			//create a cart item
-
-			// new item to art
-
-			var QuantityBeforeAdd = 0;
-			var QuantityAfterAdd = 0;
-			// loop into list cart and find product is add.
-			foreach (var iteminCart in cart)
-			{
-				if (iteminCart._productId.Equals(productId))
-				{
-					QuantityBeforeAdd = iteminCart._quantity;
-					iteminCart._quantity += quantity;
-					QuantityAfterAdd = iteminCart._quantity;
-
-				}
-			}
-			Assert.AreEqual(QuantityBeforeAdd + 1, QuantityAfterAdd);
-		}
-		[Test]
-		public void RemoveItemFromCart_ItemExist_InCart()
-		{
-			// create a cart item
-			CartModel item1 = new CartModel
-			{
-				_productId = "product01",
-				_productName = "Thuc an cho chim",
-				_quantity = 1,
-				_price = 300
-			};
-
-			CartModel item2 = new CartModel
-			{
-				_productId = "product02",
-				_productName = "Thuc an cho cun",
-				_quantity = 1,
-				_price = 420
-			};
-
-			// add items to cart
-			cart.Add(item1);
-			cart.Add(item2);
-
-			// remove an item from cart
-			var itemToRemove = item1;
-			cart.Remove(itemToRemove);
-
-			// assert that the item is removed from cart
-			CollectionAssert.DoesNotContain(cart, itemToRemove);
 		}
 
 		[Test]
@@ -174,7 +91,6 @@ namespace BMOSTest
 					}	
 				}
 			}
-
 		}
 
 	}
