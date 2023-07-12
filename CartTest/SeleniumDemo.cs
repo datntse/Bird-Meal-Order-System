@@ -79,7 +79,7 @@ namespace BMOS
 		[TearDown]
 		public void CloseTest()
 		{
-			//driver.Close();
+			driver.Close();
 		}
 	}
 }
