@@ -29,7 +29,7 @@ namespace BMOSWinForm
                 txtidsp.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.ProductId).First();
                 txtname.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.Product.Name).First();
                 txtcontent.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.Content).First();
-                txtstar.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.Star).First().ToString();
+                txtstar.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.Star).First().ToString() + "/5";
                 txtdate.Text = _context.TblFeedbacks.Where(p => p.FeedbackId.Equals(_fbId)).Select(p => p.Date).First().ToString();
 
                 txtidfb.Enabled = false;
@@ -46,7 +46,7 @@ namespace BMOSWinForm
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {          
+        {
             this.Close();
         }
 
@@ -60,8 +60,8 @@ namespace BMOSWinForm
                     var index = _context.TblFeedbacks.Where(i => i.FeedbackId == txtidfb.Text).FirstOrDefault();
                     _context.TblFeedbacks.Remove(index);
                     _context.SaveChanges();
-                    
-                    MessageBox.Show("Xóa thành công");    
+
+                    MessageBox.Show("Xóa thành công");
                     this.Close();
                 }
             }

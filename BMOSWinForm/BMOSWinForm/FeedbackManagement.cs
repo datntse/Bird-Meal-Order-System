@@ -81,14 +81,22 @@ namespace BMOSWinForm
         {
             try
             {
-                var result = MessageBox.Show("Bạn có chắn chắc muốn xóa đánh giá này!!", "Confirm", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
+                string id = txt_id.Text;
+                if (id != null && id != "")
                 {
-                    var index = _db.TblFeedbacks.Where(i => i.FeedbackId == txt_id.Text).FirstOrDefault();
-                    _db.TblFeedbacks.Remove(index);
-                    _db.SaveChanges();
-                    getlist();
-                    MessageBox.Show("Xóa thành công");
+                    var result = MessageBox.Show("Bạn có chắn chắc muốn xóa đánh giá này!!", "Confirm", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        var index = _db.TblFeedbacks.Where(i => i.FeedbackId == txt_id.Text).FirstOrDefault();
+                        _db.TblFeedbacks.Remove(index);
+                        _db.SaveChanges();
+                        getlist();
+                        MessageBox.Show("Xóa thành công");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn dòng để thực hiện hành động này.", "Thông báo", MessageBoxButtons.OK);
                 }
             }
             catch
@@ -126,7 +134,7 @@ namespace BMOSWinForm
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

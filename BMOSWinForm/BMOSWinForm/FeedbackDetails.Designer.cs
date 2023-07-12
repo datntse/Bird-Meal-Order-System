@@ -42,6 +42,8 @@
             txtidfb = new System.Windows.Forms.TextBox();
             button1 = new System.Windows.Forms.Button();
             button2 = new System.Windows.Forms.Button();
+            panel1 = new System.Windows.Forms.Panel();
+            panel2 = new System.Windows.Forms.Panel();
             SuspendLayout();
             // 
             // txtname
@@ -178,11 +180,31 @@
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = System.Drawing.Color.Chocolate;
+            panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            panel1.Location = new System.Drawing.Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(800, 36);
+            panel1.TabIndex = 14;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = System.Drawing.Color.Chocolate;
+            panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel2.Location = new System.Drawing.Point(0, 472);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(800, 36);
+            panel2.TabIndex = 15;
+            // 
             // FeedbackDetails
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(800, 450);
+            ClientSize = new System.Drawing.Size(800, 508);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label5);
@@ -219,5 +241,7 @@
         private System.Windows.Forms.TextBox txtidfb;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

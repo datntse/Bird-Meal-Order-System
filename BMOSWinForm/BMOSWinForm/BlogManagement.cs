@@ -56,7 +56,7 @@ namespace BMOSWinForm
             try
             {
 
-                var result = MessageBox.Show("Bạn có chắc chắc muốn xóa blog?", "Xác nhận", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = MessageBox.Show("Bạn có chắc chắc muốn xóa blog này?", "Xác nhận", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     var id = txtId.Text;
@@ -90,7 +90,7 @@ namespace BMOSWinForm
             }
             catch
             {
-                MessageBox.Show("Vui lòng chọn blog để chỉnh sửa!", "Thông báo");
+                MessageBox.Show("Vui lòng chọn blog để chỉnh sửa hoặc kiểm tra lại thông tin đã nhập!", "Thông báo");
             }
         }
 
@@ -124,7 +124,7 @@ namespace BMOSWinForm
             }
             catch
             {
-                MessageBox.Show("Thêm blog thất bại!", "Thông báo");
+                MessageBox.Show("Thêm blog thất bại, hãy kiểm tra lại dữ liệu bạn nhập vào!", "Thông báo");
             }
         }
 
@@ -160,6 +160,7 @@ namespace BMOSWinForm
             btnAdd.Enabled = true;
             txtSearch.Text = null;
             cbbSort.SelectedIndex = 0;
+            txtDate.Enabled = true;
         }
 
 
@@ -167,6 +168,7 @@ namespace BMOSWinForm
         {
             try
             {
+                txtDate.Enabled = false;
                 btnAdd.Enabled = false;
                 txtId.Enabled = false;
                 var id = dgvBlog.Rows[e.RowIndex].Cells[0].Value.ToString();
@@ -268,6 +270,11 @@ namespace BMOSWinForm
                         break;
                 }
             }
+        }
+
+        private void Blog_format(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
         }
     }
 

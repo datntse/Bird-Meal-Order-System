@@ -31,10 +31,6 @@
             txtSearch = new System.Windows.Forms.TextBox();
             btnSearch = new System.Windows.Forms.Button();
             dgvBlog = new System.Windows.Forms.DataGridView();
-            blog_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             btnAdd = new System.Windows.Forms.Button();
             btnEdit = new System.Windows.Forms.Button();
             btnExit = new System.Windows.Forms.Button();
@@ -52,15 +48,20 @@
             cbStatus = new System.Windows.Forms.CheckBox();
             btnClear = new System.Windows.Forms.Button();
             cbbSort = new System.Windows.Forms.ComboBox();
+            blog_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvBlog).BeginInit();
             SuspendLayout();
             // 
             // txtSearch
             // 
             txtSearch.ForeColor = System.Drawing.SystemColors.MenuText;
-            txtSearch.Location = new System.Drawing.Point(12, 12);
+            txtSearch.Location = new System.Drawing.Point(14, 16);
+            txtSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new System.Drawing.Size(524, 23);
+            txtSearch.Size = new System.Drawing.Size(598, 27);
             txtSearch.TabIndex = 0;
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
@@ -68,9 +69,10 @@
             // 
             btnSearch.BackColor = System.Drawing.SystemColors.Control;
             btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            btnSearch.Location = new System.Drawing.Point(542, 12);
+            btnSearch.Location = new System.Drawing.Point(619, 16);
+            btnSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new System.Drawing.Size(75, 23);
+            btnSearch.Size = new System.Drawing.Size(86, 31);
             btnSearch.TabIndex = 1;
             btnSearch.Text = "Tìm kiếm";
             btnSearch.UseVisualStyleBackColor = false;
@@ -84,55 +86,27 @@
             dgvBlog.AllowUserToResizeRows = false;
             dgvBlog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvBlog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { blog_id, name, date, status });
-            dgvBlog.Location = new System.Drawing.Point(12, 52);
+            dgvBlog.Location = new System.Drawing.Point(14, 69);
+            dgvBlog.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             dgvBlog.Name = "dgvBlog";
             dgvBlog.ReadOnly = true;
             dgvBlog.RowHeadersVisible = false;
+            dgvBlog.RowHeadersWidth = 51;
             dgvBlog.RowTemplate.Height = 25;
             dgvBlog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            dgvBlog.Size = new System.Drawing.Size(479, 305);
+            dgvBlog.Size = new System.Drawing.Size(547, 407);
             dgvBlog.TabIndex = 2;
+            dgvBlog.CellFormatting += Blog_format;
             dgvBlog.RowEnter += dgvBlog_RowEnter;
-            // 
-            // blog_id
-            // 
-            blog_id.DataPropertyName = "BlogId";
-            blog_id.HeaderText = "Mã blog";
-            blog_id.Name = "blog_id";
-            blog_id.ReadOnly = true;
-            blog_id.Width = 75;
-            // 
-            // name
-            // 
-            name.DataPropertyName = "Name";
-            name.HeaderText = "Tên";
-            name.Name = "name";
-            name.ReadOnly = true;
-            name.Width = 250;
-            // 
-            // date
-            // 
-            date.DataPropertyName = "Date";
-            date.HeaderText = "Thời gian";
-            date.Name = "date";
-            date.ReadOnly = true;
-            date.Width = 82;
-            // 
-            // status
-            // 
-            status.DataPropertyName = "Status";
-            status.HeaderText = "Trạng thái";
-            status.Name = "status";
-            status.ReadOnly = true;
-            status.Width = 85;
             // 
             // btnAdd
             // 
             btnAdd.BackColor = System.Drawing.SystemColors.Control;
             btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            btnAdd.Location = new System.Drawing.Point(12, 365);
+            btnAdd.Location = new System.Drawing.Point(14, 487);
+            btnAdd.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new System.Drawing.Size(75, 38);
+            btnAdd.Size = new System.Drawing.Size(86, 51);
             btnAdd.TabIndex = 3;
             btnAdd.Text = "Thêm";
             btnAdd.UseVisualStyleBackColor = false;
@@ -142,9 +116,10 @@
             // 
             btnEdit.BackColor = System.Drawing.SystemColors.Control;
             btnEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            btnEdit.Location = new System.Drawing.Point(93, 365);
+            btnEdit.Location = new System.Drawing.Point(106, 487);
+            btnEdit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new System.Drawing.Size(75, 38);
+            btnEdit.Size = new System.Drawing.Size(86, 51);
             btnEdit.TabIndex = 4;
             btnEdit.Text = "Chỉnh sửa";
             btnEdit.UseVisualStyleBackColor = false;
@@ -154,9 +129,10 @@
             // 
             btnExit.BackColor = System.Drawing.SystemColors.Control;
             btnExit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            btnExit.Location = new System.Drawing.Point(910, 365);
+            btnExit.Location = new System.Drawing.Point(1040, 487);
+            btnExit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnExit.Name = "btnExit";
-            btnExit.Size = new System.Drawing.Size(75, 38);
+            btnExit.Size = new System.Drawing.Size(86, 51);
             btnExit.TabIndex = 5;
             btnExit.Text = "Thoát";
             btnExit.UseVisualStyleBackColor = false;
@@ -166,9 +142,10 @@
             // 
             btnDetail.BackColor = System.Drawing.SystemColors.Control;
             btnDetail.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            btnDetail.Location = new System.Drawing.Point(255, 365);
+            btnDetail.Location = new System.Drawing.Point(291, 487);
+            btnDetail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnDetail.Name = "btnDetail";
-            btnDetail.Size = new System.Drawing.Size(75, 38);
+            btnDetail.Size = new System.Drawing.Size(86, 51);
             btnDetail.TabIndex = 7;
             btnDetail.Text = "Nội dung";
             btnDetail.UseVisualStyleBackColor = false;
@@ -178,9 +155,10 @@
             // 
             btnDelete.BackColor = System.Drawing.SystemColors.Control;
             btnDelete.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            btnDelete.Location = new System.Drawing.Point(174, 365);
+            btnDelete.Location = new System.Drawing.Point(199, 487);
+            btnDelete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new System.Drawing.Size(75, 38);
+            btnDelete.Size = new System.Drawing.Size(86, 51);
             btnDelete.TabIndex = 6;
             btnDelete.Text = "Xóa";
             btnDelete.UseVisualStyleBackColor = false;
@@ -190,9 +168,9 @@
             // 
             label1.AutoSize = true;
             label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label1.Location = new System.Drawing.Point(514, 53);
+            label1.Location = new System.Drawing.Point(578, 71);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(58, 17);
+            label1.Size = new System.Drawing.Size(73, 23);
             label1.TabIndex = 8;
             label1.Text = "Mã blog";
             // 
@@ -200,9 +178,9 @@
             // 
             label2.AutoSize = true;
             label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label2.Location = new System.Drawing.Point(514, 86);
+            label2.Location = new System.Drawing.Point(578, 115);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(28, 17);
+            label2.Size = new System.Drawing.Size(36, 23);
             label2.TabIndex = 9;
             label2.Text = "Tên";
             // 
@@ -210,9 +188,9 @@
             // 
             label3.AutoSize = true;
             label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label3.Location = new System.Drawing.Point(514, 157);
+            label3.Location = new System.Drawing.Point(578, 209);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(66, 17);
+            label3.Size = new System.Drawing.Size(87, 23);
             label3.TabIndex = 11;
             label3.Text = "Trạng thái";
             // 
@@ -220,9 +198,9 @@
             // 
             label4.AutoSize = true;
             label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label4.Location = new System.Drawing.Point(514, 122);
+            label4.Location = new System.Drawing.Point(578, 163);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(62, 17);
+            label4.Size = new System.Drawing.Size(81, 23);
             label4.TabIndex = 10;
             label4.Text = "Thời gian";
             // 
@@ -230,51 +208,56 @@
             // 
             label6.AutoSize = true;
             label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label6.Location = new System.Drawing.Point(514, 191);
+            label6.Location = new System.Drawing.Point(578, 255);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(52, 17);
+            label6.Size = new System.Drawing.Size(68, 23);
             label6.TabIndex = 12;
             label6.Text = "Miêu tả";
             // 
             // txtId
             // 
             txtId.ForeColor = System.Drawing.SystemColors.MenuText;
-            txtId.Location = new System.Drawing.Point(582, 52);
+            txtId.Location = new System.Drawing.Point(665, 69);
+            txtId.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             txtId.Name = "txtId";
-            txtId.Size = new System.Drawing.Size(403, 23);
+            txtId.Size = new System.Drawing.Size(460, 27);
             txtId.TabIndex = 14;
             // 
             // txtName
             // 
             txtName.ForeColor = System.Drawing.SystemColors.MenuText;
-            txtName.Location = new System.Drawing.Point(582, 85);
+            txtName.Location = new System.Drawing.Point(665, 113);
+            txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             txtName.Name = "txtName";
-            txtName.Size = new System.Drawing.Size(403, 23);
+            txtName.Size = new System.Drawing.Size(460, 27);
             txtName.TabIndex = 15;
             // 
             // txtDate
             // 
             txtDate.ForeColor = System.Drawing.SystemColors.MenuText;
-            txtDate.Location = new System.Drawing.Point(582, 121);
+            txtDate.Location = new System.Drawing.Point(665, 161);
+            txtDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             txtDate.Name = "txtDate";
-            txtDate.Size = new System.Drawing.Size(403, 23);
+            txtDate.Size = new System.Drawing.Size(460, 27);
             txtDate.TabIndex = 16;
             // 
             // txtDesc
             // 
             txtDesc.ForeColor = System.Drawing.SystemColors.MenuText;
-            txtDesc.Location = new System.Drawing.Point(582, 190);
+            txtDesc.Location = new System.Drawing.Point(665, 253);
+            txtDesc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             txtDesc.Multiline = true;
             txtDesc.Name = "txtDesc";
-            txtDesc.Size = new System.Drawing.Size(403, 167);
+            txtDesc.Size = new System.Drawing.Size(460, 221);
             txtDesc.TabIndex = 18;
             // 
             // cbStatus
             // 
             cbStatus.AutoSize = true;
-            cbStatus.Location = new System.Drawing.Point(586, 160);
+            cbStatus.Location = new System.Drawing.Point(670, 213);
+            cbStatus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             cbStatus.Name = "cbStatus";
-            cbStatus.Size = new System.Drawing.Size(15, 14);
+            cbStatus.Size = new System.Drawing.Size(18, 17);
             cbStatus.TabIndex = 19;
             cbStatus.UseVisualStyleBackColor = true;
             // 
@@ -282,9 +265,10 @@
             // 
             btnClear.BackColor = System.Drawing.SystemColors.Control;
             btnClear.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            btnClear.Location = new System.Drawing.Point(336, 365);
+            btnClear.Location = new System.Drawing.Point(384, 487);
+            btnClear.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnClear.Name = "btnClear";
-            btnClear.Size = new System.Drawing.Size(75, 38);
+            btnClear.Size = new System.Drawing.Size(86, 51);
             btnClear.TabIndex = 20;
             btnClear.Text = "Làm mới";
             btnClear.UseVisualStyleBackColor = false;
@@ -294,18 +278,53 @@
             // 
             cbbSort.FormattingEnabled = true;
             cbbSort.Items.AddRange(new object[] { "Tất cả", "Từ A đến Z", "Blog hoạt động", "Blog không hoạt động" });
-            cbbSort.Location = new System.Drawing.Point(667, 12);
+            cbbSort.Location = new System.Drawing.Point(762, 16);
+            cbbSort.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             cbbSort.Name = "cbbSort";
-            cbbSort.Size = new System.Drawing.Size(121, 23);
+            cbbSort.Size = new System.Drawing.Size(138, 28);
             cbbSort.TabIndex = 21;
             cbbSort.Text = "Tất cả";
             cbbSort.SelectedIndexChanged += ccbSort_SelectedIndexChanged;
             // 
+            // blog_id
+            // 
+            blog_id.DataPropertyName = "BlogId";
+            blog_id.HeaderText = "Mã blog";
+            blog_id.MinimumWidth = 6;
+            blog_id.Name = "blog_id";
+            blog_id.ReadOnly = true;
+            // 
+            // name
+            // 
+            name.DataPropertyName = "Name";
+            name.HeaderText = "Tên";
+            name.MinimumWidth = 6;
+            name.Name = "name";
+            name.ReadOnly = true;
+            name.Width = 250;
+            // 
+            // date
+            // 
+            date.DataPropertyName = "Date";
+            date.HeaderText = "Thời gian";
+            date.MinimumWidth = 6;
+            date.Name = "date";
+            date.ReadOnly = true;
+            // 
+            // status
+            // 
+            status.DataPropertyName = "Status";
+            status.HeaderText = "Trạng thái";
+            status.MinimumWidth = 6;
+            status.Name = "status";
+            status.ReadOnly = true;
+            status.Width = 110;
+            // 
             // BlogManagement
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(997, 415);
+            ClientSize = new System.Drawing.Size(1139, 553);
             Controls.Add(cbbSort);
             Controls.Add(btnClear);
             Controls.Add(cbStatus);
@@ -326,6 +345,7 @@
             Controls.Add(dgvBlog);
             Controls.Add(btnSearch);
             Controls.Add(txtSearch);
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "BlogManagement";
             Text = "Quản lí blog";
             Load += BlogManagement_Load;

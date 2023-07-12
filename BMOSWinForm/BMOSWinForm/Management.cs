@@ -124,7 +124,7 @@ namespace BMOSWinForm
                 double total = GetTotalPriceOfOrdersInMonth(i);
                 list.Add(i, total);
             }
-
+            LineItem curve = myPane.AddCurve("", list, Color.Blue, SymbolType.None);
             BarItem bar = myPane.AddBar("Tổng giá trị đơn hàng", list, Color.Chocolate);
 
             zedGraphControl1.IsEnableZoom = false;
