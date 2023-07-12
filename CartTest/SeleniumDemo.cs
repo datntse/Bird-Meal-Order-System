@@ -20,7 +20,7 @@ namespace BMOS
 		[SetUp]
 		public void SetupTest()
 		{
-			driver = new EdgeDriver("D:\\TESTER\\SeleniumC#");
+			driver = new ChromeDriver("D:\\TESTER\\SeleniumC#");
 			driver.Manage().Window.Maximize();
 		}
 
