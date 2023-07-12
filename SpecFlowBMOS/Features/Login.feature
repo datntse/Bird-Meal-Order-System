@@ -11,3 +11,4 @@ Scenario: Unsuccessful login
   When I enter invalid login credentials
   And I click the login button
   Then I should see an error message
+

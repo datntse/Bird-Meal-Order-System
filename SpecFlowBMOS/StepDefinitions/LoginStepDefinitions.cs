@@ -1,11 +1,13 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
+using System;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowBMOS.StepDefinitions
 {
-    internal class LoginStepDefinitions
+    [Binding]
+    public class LoginStepDefinitions
     {
         IWebDriver driver = new ChromeDriver();
 
@@ -24,8 +26,8 @@ namespace SpecFlowBMOS.StepDefinitions
             //var usernameField = driver.FindElement(By.Id("customer_email"));
             //var passwordField = driver.FindElement(By.Id("customer_password"));
             var loginButton = driver.FindElement(By.CssSelector("button[type='submit']"));
-            usernameField.SendKeys("123@gmail.com");
-            passwordField.SendKeys("123");
+            usernameField.SendKeys("gokutam123@gmail.com");
+            passwordField.SendKeys("1");
         }
 
         [When(@"I click the login button")]
@@ -38,7 +40,7 @@ namespace SpecFlowBMOS.StepDefinitions
         [Then(@"I should be redirected to the home page")]
         public void ThenIShouldBeRedirectedToTheHomePage()
         {
-            Assert.AreEqual("https://localhost:44388", driver.Url);
+            Assert.AreEqual("https://localhost:44388/", driver.Url);
             //Assert.AreEqual("https://petfood.vn/account", driver.Url);
         }
 
