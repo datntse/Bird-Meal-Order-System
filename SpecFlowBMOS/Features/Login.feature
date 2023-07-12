@@ -1,4 +1,7 @@
 ﻿Feature: Login
+	As a registered user
+	I want to be able to login to my account
+	So that I can access my account information
 
 Scenario: Successful login
   Given I am on the login page
