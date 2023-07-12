@@ -20,7 +20,6 @@ namespace BMOS
 		[SetUp]
 		public void SetupTest()
 		{
-			//driver = new ChromeDriver("D:\\TESTER\\SeleniumC#");
 			driver = new EdgeDriver("D:\\TESTER\\SeleniumC#");
 			driver.Manage().Window.Maximize();
 		}
@@ -55,14 +54,32 @@ namespace BMOS
 			IWebElement itemQuantity = driver.FindElement(By.XPath("//h6[normalize-space()='1 items']"));
 
 			string productInCart = itemQuantity.Text;
-            Assert.AreEqual(productInCart, "1 items", "Tổng sản phẩm không đúng với sản phẩm add vào");
-            Thread.Sleep(1000);
-        }
+			Console.WriteLine(productInCart);
+			Assert.AreEqual(productInCart, "1 items", "Tổng sản phẩm không đúng với sản phẩm add vào");
+			Thread.Sleep(1000);
+		}
+		[Test]
+		public void LoginWithWrongUserNameAndPassWord()
+		{
+			driver.Navigate().GoToUrl("https://localhost:44388/Account/Login");
+			Thread.Sleep(2000);
+			var usernameField = driver.FindElement(By.Id("customer_email"));
+			var passwordField = driver.FindElement(By.Id("customer_password"));
+			var loginButton = driver.FindElement(By.CssSelector("button[type='submit']"));
+			usernameField.SendKeys("invalid_username@example.com");
+			passwordField.SendKeys("invalid_password");
+			loginButton.Click();
+
+			Thread.Sleep(2000);
+			var errorMessage = driver.FindElement(By.ClassName("notice_text"));
+			Assert.IsTrue(errorMessage.Displayed);
+
+		}
 
 		[TearDown]
 		public void CloseTest()
 		{
-			driver.Close();
+			//driver.Close();
 		}
 	}
 }
