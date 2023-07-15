@@ -116,7 +116,7 @@ namespace BMOS.Controllers
 			return RedirectToAction("Index");
 		}
 
-		public IActionResult useBonusPoint(double point = 0)
+		public IActionResult useBonusPoint(string code, double point = 0)
 		{
 			HttpContext.Session.Set("pointInput", point);
 			HttpContext.Session.Remove("resultPrice");
@@ -163,14 +163,19 @@ namespace BMOS.Controllers
 				}//unvalid totalpricce for use point
 
 			}
+			if (code != null)
+			{
+
+			}
 			//_context.SaveChanges();
 			return RedirectToAction("UpdateCart");
 		}
 
 		public IActionResult Checkout()
 		{
-			var _priceProduct = getTotalCartPrice();
 			var user = HttpContext.Session.Get<TblUser>("user");
+			if (user == null) { return RedirectToAction("Login", "Account"); }
+			var _priceProduct = getTotalCartPrice();
 			var Address = _context.TblAddresses.Where(x=> x.UserId == user.UserId).FirstOrDefault();
 			decimal? bonusPoint = 0;
 			if (_priceProduct >= 100)
@@ -232,7 +237,7 @@ namespace BMOS.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 		[HttpPost]
-		public async Task<IActionResult> Payment(string pType = "cod", double point = 0)
+		public async Task<IActionResult> Payment(string address, string phone, string note, string pType = "COD", double point = 0)
 		{
 			var user = HttpContext.Session.Get<TblUser>("user");
 			var usePointPrice = HttpContext.Session.Get<double>("resultPrice");
@@ -254,6 +259,10 @@ namespace BMOS.Controllers
 				TotalPrice = cartPrice,
 				Date = DateTime.Now,
 				IsConfirm = false,
+				Address = address,
+				Phone = phone,
+				Note = note,
+				PaymentType = pType,
 			};
 			_context.Add(order);
 			_context.SaveChanges();

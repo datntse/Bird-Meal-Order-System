@@ -5,40 +5,39 @@ namespace BMOS.Models.Entities;
 
 public partial class TblUser
 {
-	public int UserId { get; set; }
+    public int UserId { get; set; }
 
-	public string? Username { get; set; }
+    public string? Username { get; set; }
 
-	public string? Password { get; set; }
+    public string? Password { get; set; }
 
-	public bool? IsConfirm { get; set; } = false;
+    public bool? IsConfirm { get; set; }
 
-	public string? Firstname { get; set; }
+    public string? Firstname { get; set; }
 
-	public string? Lastname { get; set; }
+    public string? Lastname { get; set; }
 
-	public string? Numberphone { get; set; }
+    public string? Numberphone { get; set; }
 
-	public string? Address { get; set; } = null;
+    public string? Address { get; set; }
 
-	public DateTime? DateCreate { get; set; } = DateTime.Now;
+    public DateTime? DateCreate { get; set; }
 
-	public DateTime? LastActivitty { get; set; } = DateTime.Now;
+    public DateTime? LastActivitty { get; set; }
 
-	public double? Point { get; set; } = 0;
+    public double? Point { get; set; }
 
-	public bool? Status { get; set; } = true;
+    public bool? Status { get; set; }
 
-	public int? UserRoleId { get; set; } = 3;
+    public int? UserRoleId { get; set; }
 
-	public virtual ICollection<TblAddress> TblAddresses { get; set; } = new List<TblAddress>();
+    public virtual ICollection<TblAddress> TblAddresses { get; set; } = new List<TblAddress>();
 
-	public virtual ICollection<TblFavouriteList> TblFavouriteLists { get; set; } = new List<TblFavouriteList>();
+    public virtual ICollection<TblFavouriteList> TblFavouriteLists { get; set; } = new List<TblFavouriteList>();
 
-	public virtual ICollection<TblFeedback> TblFeedbacks { get; set; } = new List<TblFeedback>();
+    public virtual ICollection<TblFeedback> TblFeedbacks { get; set; } = new List<TblFeedback>();
 
-	public virtual ICollection<TblNotify> TblNotifies { get; set; } = new List<TblNotify>();
+    public virtual ICollection<TblNotify> TblNotifies { get; set; } = new List<TblNotify>();
 
-
-	public virtual ICollection<TblRefund> TblRefunds { get; set; } = new List<TblRefund>();
+    public virtual ICollection<TblRefund> TblRefunds { get; set; } = new List<TblRefund>();
 }

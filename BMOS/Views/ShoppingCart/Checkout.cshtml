@@ -21,7 +21,7 @@
 </head>
 
 <body>
-	<input type="hidden" name="bonuspoint" value="@bonuspoint"/> 
+	<input type="hidden" name="bonuspoint" value="@bonuspoint" />
 	<button class="order-summary-toggle">
 		<span class="wrap">
 			<span class="order-summary-toggle__inner">
@@ -64,25 +64,28 @@
 									</div>
 									<div class="section__content">
 										<div class="fieldset">
-									@*		<div class="field field--show-floating-label">
-												<div class="field__input-wrapper">
-													<label for="customer-address" class="field__label">Địa chỉ nhận hàng</label>
-													<select size="1" class="field__input field__input--select">
-													</select>
-													<div class="field__caret">
-														<i class="fa fa-caret-down"></i>
-													</div>
-												</div>
+											@*		<div class="field field--show-floating-label">
+											<div class="field__input-wrapper">
+											<label for="customer-address" class="field__label">Địa chỉ nhận hàng</label>
+											<select size="1" class="field__input field__input--select">
+											</select>
+											<div class="field__caret">
+											<i class="fa fa-caret-down"></i>
+											</div>
+											</div>
 											</div>*@
 											<div class="field field--show-floating-label">
 												<div class="field__input-wrapper field__input-wrapper--connected">
 													<label for="billingPhone" class="field__label">
 														Địa chỉ nhận hàng
 													</label>
-													@if(@address != null) {
-													<input type="text" name="location" class="field__input" value="@address.Address" />
-													} else {
-													<input type="text" name="location" class="field__input" value="" />
+													@if (@address != null)
+													{
+														<input type="text" name="location" class="field__input" value="@address.Address" />
+													}
+													else
+													{
+														<input type="text" name="location" class="field__input" value="" />
 													}
 													<div class="field__input-phone-region-wrapper">
 														<select class="field__input select-phone-region select2-hidden-accessible" tabindex="-1"
@@ -113,14 +116,14 @@
 													<label for="email" class="field__label">
 														Email
 													</label>
-													<input type="email" class="field__input" value="@Model.Username"/>
+													<input name="userEmail" type="email" class="field__input" value="@Model.Username" />
 												</div>
 											</div>
 
 											<div class="field field--show-floating-label">
 												<div class="field__input-wrapper">
 													<label for="billingName" class="field__label">Họ và tên</label>
-													<input type="text" class="field__input" value="@Model.Lastname" />
+													<input name="userName" type="text" class="field__input" value="@Model.Lastname" />
 												</div>
 											</div>
 
@@ -129,7 +132,7 @@
 													<label for="billingPhone" class="field__label">
 														Số điện thoại (tùy chọn)
 													</label>
-													<input type="tel" class="field__input" value="@Model.Numberphone" />
+													<input name="userPhone" type="tel" class="field__input" value="@Model.Numberphone" />
 													<div class="field__input-phone-region-wrapper">
 														<select class="field__input select-phone-region select2-hidden-accessible" tabindex="-1"
 																aria-hidden="true">
@@ -174,21 +177,18 @@
 											</div>
 
 											<div class="field field--show-floating-label">
-												<div class="field__input-wrapper field__input-wrapper--select2">
+												<div class="section__title layout-flex__item layout-flex__item--stretch">
+													Ghi chú cho đơn hàng của bạn
 												</div>
 											</div>
 										</div>
 									</div>
 								</section>
-
 								<div class="fieldset">
 									<h3 class="visually-hidden">Ghi chú</h3>
 									<div class="field">
 										<div class="field__input-wrapper">
-											<label for="note" class="field__label">
-												Ghi chú (tùy chọn)
-											</label>
-											<textarea class="field__input"></textarea>
+											<textarea id="noteOrder" class="field__input"></textarea>
 										</div>
 									</div>
 								</div>
@@ -251,7 +251,7 @@
 											<div class="content-box__row">
 												<div class="radio-wrapper">
 													<div class="radio__input">
-														<input id="codpayment" type="radio" class="input-radio" name="paymentType" value="codPayment" checked />
+														<input id="codpayment" type="radio" class="input-radio" name="paymentType" value="COD" checked />
 													</div>
 													<label for="codpayment" class="radio__label">
 														<span class="radio__label__primary">Thanh toán khi giao hàng (COD)</span>
@@ -270,7 +270,7 @@
 											<div class="content-box__row">
 												<div class="radio-wrapper">
 													<div class="radio__input">
-														<input id="momopayment" type="radio" class="input-radio" name="paymentType" value="momoPayment" />
+														<input id="momopayment" type="radio" class="input-radio" name="paymentType" value="MOMO" />
 													</div>
 													<label for="momopayment" class="radio__label">
 														<span class="radio__label__primary">Thanh toán trực tuyến (MOMO)</span>
@@ -433,38 +433,37 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	$(document).ready(function () {
+		var _address = $('input[name="location"]').val();
+		var _phone = $('input[name="userPhone"]').val();
 
 		var bonusPoint = $('input[name="bonuspoint"]').val();
-		console.log("point ", bonusPoint);
-		$('.ajax-payment').click(function(e) {
+		var _pType = "COD"; 
+		//select options payment
+		$.each($('input[name="paymentType"]'), function (index, value) {
+			$(this).change(function () {
+				_pType = $(this).val();
+			})
+		});
+
+		$('.ajax-payment').click(function (e) {
+			var _note = $("#noteOrder").val();
 			Swal.fire({
-				title: 'Bạn có muốn tích ' + bonusPoint + ' điểm cho lần mua sau không? ',
-				showDenyButton: true,
+				title: 'Bạn nhận được ' + bonusPoint + ' điểm. Vui lòng xác nhận đơn hàng ',
 				showCancelButton: true,
-				confirmButtonText: 'Có',
+				confirmButtonText: 'Xác nhận',
 				denyButtonText: `Không! Cảm ơn.`,
 			}).then((result) => {
 				/* Read more about isConfirmed, isDenied below */
 				if (result.isConfirmed) {
-					Swal.fire('Chúng tôi sẽ tích điểm cho bạn vui lòng xác nhận đơn hàng!', '<a href="https://mail.google.com/mail" target="_blank">Xác nhận</a>', 'success')
+					Swal.fire('Cảm ơn bạn đã mua sản phẩm tại BMOS', '<a href="https://mail.google.com/mail" target="_blank">Xác nhận</a>', 'success')
 					$.ajax({
 						url: "/ShoppingCart/Payment",
 						data: {
-							pType: "cod",
+							address: _address,
+							phone: _phone,
+							note: _note,
+							pType: _pType,
 							point: bonusPoint
-						},
-						type: "POST",
-						success: function (data) {
-
-						},
-					});
-				} else if (result.isDenied) {
-					Swal.fire('Cảm ơn bạn đã mua sắm, vui lòng xác nhận đơn hàng ', '<a href="https://mail.google.com/mail" target="_blank">Xác nhận</a>', 'info')
-					$.ajax({
-						url: "/ShoppingCart/Payment",
-						data: {
-							pType: "cod",
-							point: 0,
 						},
 						type: "POST",
 						success: function (data) {
@@ -473,6 +472,6 @@
 					});
 				}
 			});
-		}) ;
+		});
 	});
 </script>
