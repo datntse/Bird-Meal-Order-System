@@ -462,10 +462,7 @@ public partial class BmosContext : DbContext
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Used).HasColumnName("used");
-            entity.Property(e => e.Value)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("value");
+            entity.Property(e => e.Value).HasColumnName("value");
             entity.Property(e => e.VoucherCode)
                 .HasMaxLength(10)
                 .IsUnicode(false)
@@ -477,8 +474,7 @@ public partial class BmosContext : DbContext
             entity.ToTable("Tbl_VoucherUsed");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(50)
-                .IsUnicode(false)
+                .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.VoucherId)

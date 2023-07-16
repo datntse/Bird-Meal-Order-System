@@ -5,7 +5,7 @@ namespace BMOS.Models.Entities;
 
 public partial class TblVoucherUsed
 {
-    public string Id { get; set; } = null!;
+    public int Id { get; set; }
 
     public string? VoucherId { get; set; }
 

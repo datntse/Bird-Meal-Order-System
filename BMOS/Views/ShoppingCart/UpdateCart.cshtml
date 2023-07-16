@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<CartModel>;
 @{
-	var totalPrice = ViewData["total"];
+	var totalPrice = ViewData["total"] as double?;
 	var bonusPoint = ViewData["bonusPoint"];
 	var userPoint = ViewData["userPoint"];
 	var pointInput = ViewData["pointInput"] as double?;
+	var voucherInput = ViewData["voucherInput"] as string;
 	var resultPrice = ViewData["resultPrice"] as double?;
 
 
@@ -105,26 +106,52 @@ else
 									<h5 style="font-size: 2rem">@userPoint điểm</h5>
 								</div>
 								<hr class="my-4">
-
 								<div class="mb-5">
+									<div class="form-outline">
+										<label class="form-label" for="form3Examplea2">Bạn có muốn giảm giá bằng:</label>
+										<button type="button" class="btn btn-dark btn-block btn-lg usepoint-btn"
+												data-mdb-ripple-color="blue">
+											Điểm tích lũy
+										</button>
+										<button type="button" class="btn btn-dark btn-block btn-lg usecode-btn"
+												data-mdb-ripple-color="green">
+											Code
+										</button>
+									</div>
+								</div>
+								<div class="mb-5 usepoint-input">
 									<div class="form-outline">
 										<label class="form-label" for="form3Examplea2">Sử dụng điểm tích lũy</label>
 										@if (TempData["errorPoint"] == null)
 										{
 											<input type="text" id="form3Examplea2" name="usePoint" value="@pointInput" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
-										} else
+										}
+										else
 										{
-											<label style="color: red" class="form-label" for="form3Examplea2">@TempData["errorPoint"]</label>
-											<input type="text" id="form3Examplea2" name="usePoint" value="" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
-
+											<label style="color: red" class="form-label error-message" for="form3Examplea2">@TempData["errorPoint"]</label>
+											if (@pointInput == 0)
+											{
+												<input type="text" id="form3Examplea2" name="usePoint"  class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
+											} else
+											{
+												<input type="text" id="form3Examplea2" name="usePoint" value="@pointInput" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
+											}
 										}
 									</div>
 								</div>
 
-								<div class="mb-5">
+								<div class="mb-5 usecode-input">
 									<div class="form-outline">
 										<label class="form-label" for="form3Examplea2">Code giảm giá</label>
-										<input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+										@if (TempData["errorVoucher"] == null)
+										{
+											<input type="text" id="form3Examplea2" name="useVoucher" value="@voucherInput" class="form-control form-control-lg" placeholder="" />
+										}
+										else
+										{
+											<label style="color: red" class="form-label error-voucher-message" for="form3Examplea2">@TempData["errorVoucher"]</label>
+											<input type="text" id="form3Examplea2" name="useVoucher" value="@voucherInput" class="form-control form-control-lg" placeholder="" />
+										}
 									</div>
 								</div>
 								<hr class="my-4">
@@ -132,7 +159,7 @@ else
 								<div class="d-flex justify-content-between mb-5">
 									<h5 class="text-uppercase">Total price</h5>
 									<h5 class="totalPrice" style="color: red; font-size: 2rem">@totalPrice .000 vnd</h5>
-									@if (@resultPrice != 0)
+									@if (totalPrice > resultPrice && resultPrice > 0)
 									{
 										<h5 class="resultPriceAfterUsePoint" style="color: red; font-size: 2rem">@resultPrice .000 vnd</h5>
 									}
@@ -159,15 +186,75 @@ else
 }
 <script>
 	$(document).ready(function () {
+		var discountType = false;
+		var errorCode = $('.error-message');
+		var errorCodeVoucher = $('.error-voucher-message');
 		var resultPriceAfterUsePoint = $('.resultPriceAfterUsePoint');
-		console.log(resultPriceAfterUsePoint.length);
 		var totalPrice = $('.totalPrice');
+		var inputPoint = $('input[name="usePoint"]');
+		var inputVoucher = $('input[name="useVoucher"]');
+
+
+		var usepointInput = $(".usepoint-input");
+		var usecodeInput = $(".usecode-input");
+
+		var usepointBtn = $(".usepoint-btn");
+		var usecodeBtn = $(".usecode-btn");
+
+		console.log("usercode Input", usecodeBtn);
+		if (errorCodeVoucher.length > 0) {
+			discountType = true;
+		}
+
+		
+		console.log("Gia giam gia length: ", resultPriceAfterUsePoint.length);
 		if (resultPriceAfterUsePoint.length != 0) {
 			totalPrice.css("color", "#333");
 			totalPrice.css("text-decoration", "line-through");
 		}
 
-		var inputPoint = $('input[name="usePoint"]');
+		
+
+		chooseType();
+		console.log("tpye ", discountType);
+
+
+		usepointBtn.click(function () {
+			discountType = false;
+			chooseType();
+		});
+
+		usecodeBtn.click(function () {
+			discountType = true;
+			chooseType();
+		});
+
+		function chooseType() {
+			if (discountType == false) {
+				usecodeInput.css("display", "none");
+				usepointInput.css("display", "block");
+			} else {
+				usepointInput.css("display", "none");
+				usecodeInput.css("display", "block");
+			}
+		}
+
+		
+		console.log("error Code Length: ", errorCode.length)
+
+		inputVoucher.blur(function (e) {
+			$.ajax({
+				url: "/ShoppingCart/useBonusCode",
+				data: {
+					code: inputVoucher.val(),
+				},
+				type: "GET",
+				success: function (data) {
+					$(".cart-wrapper").html(data)
+				},
+			})
+		});
+
 		inputPoint.blur(function (e) {
 			$.ajax({
 				url: "/ShoppingCart/useBonusPoint",

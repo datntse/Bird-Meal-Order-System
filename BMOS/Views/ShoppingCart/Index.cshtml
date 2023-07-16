@@ -111,18 +111,30 @@ else
 											<h5 style="font-size: 2rem">@userPoint điểm</h5>
 										</div>
 										<hr class="my-4">
-
 										<div class="mb-5">
+											<div class="form-outline">
+												<label class="form-label" for="form3Examplea2">Bạn có muốn giảm giá bằng:</label>
+												<button type="button" class="btn btn-dark btn-block btn-lg usepoint-btn"
+														data-mdb-ripple-color="blue">
+													Điểm tích lũy
+												</button>
+												<button type="button" class="btn btn-dark btn-block btn-lg usecode-btn"
+														data-mdb-ripple-color="green">
+													Code
+												</button>
+											</div>
+										</div>
+										<div class="mb-5 usepoint-input">
 											<div class="form-outline">
 												<label class="form-label" for="form3Examplea2">Sử dụng điểm tích lũy</label>
 												<input type="text" id="form3Examplea2" name="usePoint" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
 											</div>
 										</div>
 
-										<div class="mb-5">
+										<div class="mb-5 usecode-input">
 											<div class="form-outline">
 												<label class="form-label" for="form3Examplea2">Code giảm giá</label>
-												<input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+												<input type="text" id="form3Examplea2" name="useVoucher" class="form-control form-control-lg" />
 											</div>
 										</div>
 
@@ -155,8 +167,55 @@ else
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		$(document).ready(function () {
+			var usepointInput = $(".usepoint-input");
+			var usecodeInput = $(".usecode-input");
+
+			var usepointBtn = $(".usepoint-btn");
+			var usecodeBtn = $(".usecode-btn");
+			var discountType = false;
+			chooseType();
+			console.log("tpye ", discountType);
+
+			usepointBtn.click(function () {
+				discountType = false;
+				chooseType();
+			});
+
+			usecodeBtn.click(function () {
+				discountType = true;
+				chooseType();
+			});
+
+			function chooseType() {
+				if (discountType == false) {
+					usepointInput.css("display", "block");
+					usecodeInput.css("display", "none");
+
+				} else {
+					usecodeInput.css("display", "block");
+					usepointInput.css("display", "none");
+				}
+			}
+
+
+
 
 			var inputPoint = $('input[name="usePoint"]');
+			var inputVoucher = $('input[name="useVoucher"]')
+
+			inputVoucher.blur(function(e) {
+				$.ajax({
+					url: "/ShoppingCart/useBonusCode",
+					data: {
+						code: inputVoucher.val(),
+					},
+					type: "GET",
+					success: function (data) {
+						$(".cart-wrapper").html(data)
+					},
+				})
+			});
+
 			inputPoint.blur(function (e) {
 				$.ajax({
 					url: "/ShoppingCart/useBonusPoint",

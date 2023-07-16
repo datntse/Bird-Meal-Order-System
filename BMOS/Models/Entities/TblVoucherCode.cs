@@ -9,7 +9,7 @@ public partial class TblVoucherCode
 
     public string? VoucherCode { get; set; }
 
-    public string? Value { get; set; }
+    public double? Value { get; set; }
 
     public int? Quantity { get; set; }
 

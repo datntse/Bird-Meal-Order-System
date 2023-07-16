@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using OpenQA.Selenium.DevTools.V112.DOM;
+using System.Drawing;
 using System.Text;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
@@ -116,19 +118,73 @@ namespace BMOS.Controllers
 			return RedirectToAction("Index");
 		}
 
-		public IActionResult useBonusPoint(string code, double point = 0)
+		public IActionResult useBonusCode(string code)
 		{
-			HttpContext.Session.Set("pointInput", point);
-			HttpContext.Session.Remove("resultPrice");
 			var myCart = Cart;
-			// 100d => 1 ngan.
-			// maximun point & minium point.
-			//100d => 1k; min 1000d => 10k. / maximun 10000d => 100k
-			// check total price >= 100k allow to use point.
+
+			var user = HttpContext.Session.Get<TblUser>("user");
+			double? totalPrice = 0;
+			double? resultPrice = 0;
+			foreach (var item in myCart.ToList())
+			{
+				totalPrice += item._getTotalPrice();
+			}
+
+
+			if (totalPrice >= 100)
+			{
+				var checkVoucher = _context.TblVoucherCodes.Where(x => x.VoucherCode.Equals(code)).FirstOrDefault();
+
+				//check code da su dung
+				// lay userid ra. tra trong bang co voucherID do chua
+				var checkVoucherUsed = _context.TblVoucherUseds.Where(x => x.UserId.Equals(user.UserId)).Select(x => x.VoucherId).FirstOrDefault();
+
+				if (checkVoucher != null)
+				{
+					if (checkVoucher.VoucherId.Equals(checkVoucherUsed))
+					{
+						TempData["errorVoucher"] = "Code này đã được sử dụng! Bạn vui lòng thử lại";
+						return RedirectToAction("UpdateCart");
+					} // check code da duoc su dung
+
+					if (checkVoucher.Quantity == checkVoucher.Used)
+					{
+						TempData["errorVoucher"] = "Code này đã hết lượt sử dụng! Bạn vui lòng thử lại mã khác";
+						return RedirectToAction("UpdateCart");
+					} // check code đã hết
+
+
+					resultPrice = totalPrice - checkVoucher.Value;
+					HttpContext.Session.Set("voucherInput", code);
+					HttpContext.Session.Set("voucherId", checkVoucher.VoucherId);
+					HttpContext.Session.Set("resultPrice", resultPrice);
+					HttpContext.Session.Set("discountPrice", checkVoucher.Value);
+				}
+				else
+				{
+					TempData["errorVoucher"] = "Code bạn sử dụng không hợp lệ!";
+				}
+			}
+			else
+			{
+				TempData["errorVoucher"] = "Giá trị đơn hàng phải từ 100.000vnd trở lên mới có thể sử dụng Voucher";
+			}//unvalid totalpricce for use point
+			HttpContext.Session.Set("resultPrice", resultPrice);
+			return RedirectToAction("UpdateCart");
+		}
+		public IActionResult useBonusPoint(double point)
+		{
+			var myCart = Cart;
+
 			var user = HttpContext.Session.Get<TblUser>("user");
 			var userPoint = user.Point;
 
 			double? totalPrice = 0;
+			foreach (var item in myCart.ToList())
+			{
+				totalPrice += item._getTotalPrice();
+			}
+			double? resultPrice = 0;
 			if (userPoint != null)
 			{
 				if (userPoint < point)
@@ -137,18 +193,19 @@ namespace BMOS.Controllers
 					return RedirectToAction("UpdateCart");
 				};
 				//check userpoint 
-				foreach (var item in myCart.ToList())
-				{
-					totalPrice += item._getTotalPrice();
-				}
+
 				//validate price >= 100k
 				if (totalPrice >= 100)
 				{
 					//validate point >= 1000d && <= 10000d	
 					if (point >= 1000 && point <= 10000)
 					{
-						var resultPrice = totalPrice - (point / 100);
+						resultPrice = totalPrice - (point / 100);
+
 						HttpContext.Session.Set("resultPrice", resultPrice);
+						HttpContext.Session.Set("discountPrice", point / 100);
+						HttpContext.Session.Set("pointInput", point);
+
 						//user.Point = userPoint - point;
 						//_context.Update(user);
 					}
@@ -163,21 +220,21 @@ namespace BMOS.Controllers
 				}//unvalid totalpricce for use point
 
 			}
-			if (code != null)
-			{
-
-			}
-			//_context.SaveChanges();
+			HttpContext.Session.Set("resultPrice", resultPrice);
 			return RedirectToAction("UpdateCart");
 		}
 
 		public IActionResult Checkout()
 		{
 			var user = HttpContext.Session.Get<TblUser>("user");
+			var discountPrice = HttpContext.Session.Get<double>("discountPrice");
+
+			var totalPriceBeforeUseDiscount = getTotalCartPrice();
 			if (user == null) { return RedirectToAction("Login", "Account"); }
 			var _priceProduct = getTotalCartPrice();
-			var Address = _context.TblAddresses.Where(x=> x.UserId == user.UserId).FirstOrDefault();
+			var Address = _context.TblAddresses.Where(x => x.UserId == user.UserId).FirstOrDefault();
 			decimal? bonusPoint = 0;
+
 			if (_priceProduct >= 100)
 			{
 				bonusPoint = Math.Round((decimal)_priceProduct, MidpointRounding.AwayFromZero);
@@ -187,9 +244,12 @@ namespace BMOS.Controllers
 			{
 				_priceProduct = usePointPrice;
 			}
+
 			//cofig list address here...............
 			ViewData["Address"] = Address;
-            ViewData["totalPrice"] = _priceProduct;
+			ViewData["totalPriceBeforeUseDiscount"] = totalPriceBeforeUseDiscount;
+			ViewData["discountPrice"] = discountPrice;
+			ViewData["totalPrice"] = _priceProduct;
 			ViewData["bonusPoint"] = bonusPoint;
 			ViewData["Cart"] = Cart;
 			HttpContext.Session.Remove("resultPrice");
@@ -241,6 +301,7 @@ namespace BMOS.Controllers
 		{
 			var user = HttpContext.Session.Get<TblUser>("user");
 			var usePointPrice = HttpContext.Session.Get<double>("resultPrice");
+			var voucherCode = HttpContext.Session.Get<string>("voucherId");
 			var cartPrice = getTotalCartPrice();
 			if (usePointPrice > 0)
 			{
@@ -265,6 +326,21 @@ namespace BMOS.Controllers
 				PaymentType = pType,
 			};
 			_context.Add(order);
+
+			//add to voucehr used
+			var voucherUsedId = _context.TblVoucherUseds.Count(x => x.VoucherId != null);
+			var voucherUsed = new TblVoucherUsed
+			{
+				Id = voucherUsedId,
+				UserId = user.UserId,
+				VoucherId = voucherCode,
+			};
+			_context.Add(voucherUsed);
+
+			var voucher = _context.TblVoucherCodes.Where(x => x.VoucherId.Equals(voucherCode)).FirstOrDefault();
+			voucher.Used++;
+			_context.Update(voucher);
+
 			_context.SaveChanges();
 			var userId = user.Username;
 			userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(userId));
@@ -292,8 +368,12 @@ namespace BMOS.Controllers
 
 		public IActionResult UpdateCart(string id, string status, int productQuantity = 1)
 		{
+
+
 			double? totalPrice = 0;
 			var myCart = Cart;
+
+
 			foreach (var item in myCart.ToList())
 			{
 				if (item._productId.Equals(id))
@@ -316,6 +396,7 @@ namespace BMOS.Controllers
 			var user = HttpContext.Session.Get<TblUser>("user");
 			var resultPrice = HttpContext.Session.Get<double>("resultPrice");
 			var pointInput = HttpContext.Session.Get<double>("pointInput");
+			var voucherInput = HttpContext.Session.Get<string>("voucherInput");
 
 			double? userPoint = user.Point;
 			decimal? bonusPoint = 0;
@@ -329,8 +410,11 @@ namespace BMOS.Controllers
 			ViewData["total"] = totalPrice;
 			ViewData["bonusPoint"] = bonusPoint;
 			ViewData["pointInput"] = pointInput;
+			ViewData["voucherInput"] = voucherInput;
 
 			HttpContext?.Session.Set("Cart", myCart);
+			HttpContext?.Session.Remove("pointInput");
+			HttpContext?.Session.Remove("voucherInput");
 			return PartialView(myCart);
 
 		}
@@ -380,6 +464,10 @@ namespace BMOS.Controllers
 		// GET: ShoppingCartController
 		public IActionResult Index()
 		{
+			// remove session totalPrice when use bonuspoint and voucher
+			HttpContext.Session.Remove("resultPrice");
+			HttpContext.Session.Remove("discountPrice");
+
 			var user = HttpContext.Session.Get<TblUser>("user");
 			if (user == null) { return RedirectToAction("Login", "Account"); }
 			double? userPoint = user.Point;

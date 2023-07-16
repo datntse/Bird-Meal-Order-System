@@ -4,6 +4,8 @@
 	var address = ViewData["Address"] as BMOS.Models.Entities.TblAddress;
 	var toltalPrice = ViewData["totalPrice"];
 	var bonuspoint = ViewData["bonusPoint"];
+	var totalPriceBeforeUseDiscount = ViewData["totalPriceBeforeUseDiscount"];
+	var discountPrice = ViewData["discountPrice"];
 	var Cart = ViewData["Cart"] as List<CartModel>;
 	int? totalItem = Cart.Count();
 }
@@ -377,7 +379,12 @@
 										<tbody class="total-line-table__tbody">
 											<tr class="total-line total-line--subtotal">
 												<th class="total-line__name">Tạm tính</th>
-												<td class="total-line__price">@toltalPrice.000₫</td>
+												<td class="total-line__price">@totalPriceBeforeUseDiscount.000₫</td>
+											</tr>
+
+											<tr class="total-line total-line--subtotal">
+												<th class="total-line__name">Giảm giá</th>
+												<td class="total-line__price">@discountPrice.000₫</td>
 											</tr>
 
 											<tr class="total-line total-line--shipping-fee">
