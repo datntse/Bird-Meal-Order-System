@@ -20,7 +20,7 @@ namespace BMOS
 		[SetUp]
 		public void SetupTest()
 		{
-			driver = new EdgeDriver("D:\\TESTER\\SeleniumC#");
+			driver = new ChromeDriver("D:\\TESTER\\SeleniumC#");
 			driver.Manage().Window.Maximize();
 		}
 
@@ -34,7 +34,7 @@ namespace BMOS
 			Thread.Sleep(2000);
 			IWebElement userName = driver.FindElement(By.Name("username"));
 			userName.Clear();
-			userName.SendKeys("kenandkq@gmail.com");
+			userName.SendKeys("123@gmail.com");
 			Thread.Sleep(1000);
 			IWebElement password = driver.FindElement(By.Name("password"));
 			password.Clear();
@@ -44,7 +44,7 @@ namespace BMOS
 
 			Thread.Sleep(1000);
 
-			driver.Navigate().GoToUrl("https://localhost:44388/products/product/0a17408e-477f-4331-9e85-e4b6e610a6c9");
+			driver.Navigate().GoToUrl("https://localhost:44388/products/product/254f5bd3-f681-42cc-a0f6-6468a8f143c6");
 
 			IWebElement item = driver.FindElement(By.ClassName("button-action--add-cart"));
 			item.Click();
