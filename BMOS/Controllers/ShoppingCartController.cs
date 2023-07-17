@@ -346,7 +346,7 @@ namespace BMOS.Controllers
 			userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(userId));
 
 			var content = Url.Action("ConfirmOrder", "ShoppingCart", new { userId = userId, orderId = orderId, point = point }, protocol: Request.Scheme);
-			await EmailSender.SendEmailAsync(user.Username, "Bạn có đơn hàng trên hệ thống ! Vui lòng xác nhận đơn hàng của bạn", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Xác nhận đơn hàng</a>");
+				await EmailSender.SendEmailAsync(userId, "Bạn có đơn hàng trên hệ thống ! Vui lòng xác nhận đơn hàng của bạn", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Xác nhận đơn hàng</a>");
 
 			return View();
 		}

@@ -120,14 +120,14 @@
 						</div>
 						<div class="row g-0 product-detail__content">
 							<div class="col-6 product-detail__content--img">
-								<img src="@mainProduct.ImagelInk" alt="" srcset="">
+								<img src="@mainProduct" alt="" srcset="">
 							</div>
 							<div class="col-6 product-detail__content-desc">
 								<div class="product-detail__content--title product-detail--status">
 									<span>Status:</span>
 
 									@{
-										bool result = (mainProduct.IsAvailable) ?? false;
+										bool result = (mainProduct.Status) ?? false;
 									}
 									@if (result)
 									{
@@ -213,7 +213,7 @@
 						{
 							<div class="row g-0 recommend-list__item">
 								<div class="col-4 recommend-product__img">
-									<img src="@item.ImagelInk" alt="" srcset="">
+									<img src="@item" alt="" srcset="">
 								</div>
 
 								<div class="col-8 recommend-product__desc">

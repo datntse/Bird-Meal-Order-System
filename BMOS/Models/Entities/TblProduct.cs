@@ -15,15 +15,13 @@ public partial class TblProduct
 
     public double? Weight { get; set; }
 
-    public bool? IsAvailable { get; set; }
+    public int? SoldQuantity { get; set; }
 
     public bool? IsLoved { get; set; }
 
     public bool? Status { get; set; }
 
     public double? Price { get; set; }
-
-    public string? ImagelInk { get; set; }
 
     public string? Type { get; set; }
 
