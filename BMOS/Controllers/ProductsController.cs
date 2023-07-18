@@ -66,7 +66,6 @@ namespace BMOS.Controllers
 			ViewData["Feedback"] = feedbackList.ToList();
 
 
-
 			var productItem = from product in _context.TblProducts
 							  from image in _context.TblImages
 							  where product.ProductId == image.RelationId
@@ -74,10 +73,13 @@ namespace BMOS.Controllers
 							  {
 								  ProductId = product.ProductId,
 								  Name = product.Name,
+                                  Quantity = product.Quantity,
 								  Price = product.Price,
 								  Description = product.Description,
 								  Weight = product.Weight,
 								  IsLoved = product.IsLoved,
+								  SoldQuantity = product.SoldQuantity,
+								  Status = product.Status,
 								  UrlImage = image.Url,
 								  relatedProductModels = _listProductRelated
 							  };
@@ -188,7 +190,7 @@ namespace BMOS.Controllers
                                ProductId = product.ProductId,
                                Name = product.Name,
                                Price = product.Price,
-							   type = product.Type,
+							   Type = product.Type,
                                Description = product.Description,
                                Weight = product.Weight,
                                IsLoved = product.IsLoved,
@@ -196,7 +198,7 @@ namespace BMOS.Controllers
                                relatedProductModels = null
                            };
 
-			var result = products.Where(x => x.type == "1").ToList();
+			var result = products.Where(x => x.Type == "1").ToList();
             if (!String.IsNullOrEmpty(searchString))
             {
                 result = result.Where(s => s.Name.Contains(searchString)).ToList();
@@ -262,7 +264,7 @@ namespace BMOS.Controllers
                                ProductId = product.ProductId,
                                Name = product.Name,
                                Price = product.Price,
-                               type = product.Type,
+                               Type = product.Type,
                                Description = product.Description,
                                Weight = product.Weight,
                                IsLoved = product.IsLoved,
@@ -270,7 +272,7 @@ namespace BMOS.Controllers
                                relatedProductModels = null
                            };
 
-            var result = products.Where(x => x.type == "2").ToList();
+            var result = products.Where(x => x.Type == "2").ToList();
             if (!String.IsNullOrEmpty(searchString))
             {
                 result = result.Where(s => s.Name.Contains(searchString)).ToList();
@@ -327,9 +329,9 @@ namespace BMOS.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-			
 
-			var products = from product in _context.TblProducts
+
+            var products = from product in _context.TblProducts
                            from image in _context.TblImages
                            where product.ProductId.Equals(image.RelationId)
                            select new ProductInfoModel()
@@ -337,15 +339,16 @@ namespace BMOS.Controllers
                                ProductId = product.ProductId,
                                Name = product.Name,
                                Price = product.Price,
-                               type = product.Type,
+                               Type = product.Type,
                                Description = product.Description,
                                Weight = product.Weight,
                                IsLoved = product.IsLoved,
+                       
                                UrlImage = image.Url,
                                relatedProductModels = null
                            };
 
-            var result = products.Where(x => x.type == "3").ToList();
+            var result = products.Where(x => x.Type == "3").ToList();
             if (!String.IsNullOrEmpty(searchString))
             {
                 result = result.Where(s => s.Name.Contains(searchString)).ToList();
