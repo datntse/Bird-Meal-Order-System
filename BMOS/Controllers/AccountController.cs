@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Firebase.Auth;
 using Microsoft.EntityFrameworkCore;
 using BMOS.Models;
+using BMOS.Models.Services;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace BMOS.Controllers
 {
@@ -16,7 +18,15 @@ namespace BMOS.Controllers
 	{
 		private BmosContext _db = new BmosContext();
 		public static bool _isLogin = false;
-		public IActionResult Login()
+        private readonly GoogleAuthService _googleAuthService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public AccountController(GoogleAuthService googleAuthService, IHttpContextAccessor httpContextAccessor)
+        {
+            _googleAuthService = googleAuthService;
+            _httpContextAccessor = httpContextAccessor;
+        }
+        public IActionResult Login()
 		{
 			var user = HttpContext.Session.GetString("username");
 			ViewBag.Confirmed = HttpContext.Session.GetString("notice");
@@ -463,16 +473,25 @@ namespace BMOS.Controllers
 
 		}
 
-		[HttpPost]
 		public IActionResult ReceiveButton()
 		{
 			return new ChallengeResult("Google", null);
-		}
+        }
 
-		public IActionResult LoginWithGoogle()
+		public async Task<IActionResult> LoginWithGoogle(string code)
 		{
-			return View();
-		}
+
+            var userInfo = await _googleAuthService.GetUserInfoAsync(code);
+			if (userInfo != null)
+			{
+                _httpContextAccessor.HttpContext.Session.SetString("GoogleUserId", userInfo.Id);
+                _httpContextAccessor.HttpContext.Session.SetString("GoogleUserName", userInfo.UserName);
+                _httpContextAccessor.HttpContext.Session.SetString("GoogleUserEmail", userInfo.Email);
+            }
+
+            HttpContext.Session.SetString("username", userInfo.UserName);
+            return RedirectToAction("Index", "Home");
+        }
 
 		public IActionResult Refund()
 		{
