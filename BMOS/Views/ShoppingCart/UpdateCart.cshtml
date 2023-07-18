@@ -202,9 +202,10 @@ else
 		var usecodeBtn = $(".usecode-btn");
 
 		console.log("usercode Input", usecodeBtn);
+		console.log("discountType ", discountType);
 		if (errorCodeVoucher.length > 0) {
 			discountType = true;
-		}
+		} 
 
 		
 		console.log("Gia giam gia length: ", resultPriceAfterUsePoint.length);
@@ -240,7 +241,7 @@ else
 		}
 
 		
-		console.log("error Code Length: ", errorCode.length)
+		
 
 		inputVoucher.blur(function (e) {
 			$.ajax({
