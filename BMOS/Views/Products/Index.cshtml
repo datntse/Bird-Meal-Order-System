@@ -6,7 +6,6 @@
 
 @{
     ViewData["Title"] = "ProductList";
-    var bloglist = ViewData["BlogList"] as List<BMOS.Models.Entities.TblBlog>;
     Layout = "_HeaderFooter";
 }
 
@@ -34,7 +33,7 @@
                         </li>
                         <li class="sidebar__list--category-item">
                             <a asp-area="" asp-controller="Products" asp-action="ThucAnKho">Thức ăn khô</a>
-                        </li>                       
+                        </li>
                     </ul>
                 </div>
                 <div class="container-sidebar__list">
@@ -57,7 +56,6 @@
                 <div class="container-sidebar__list">
                     <div class="col-12 sidebar__list-category--title">Blog</div>
                     <ul class="col-12 container-sidebar__list--category">
-                        @*@foreach (var blog in bloglist)*@
                         <li class="sidebar__list--category-item sidebar__blog-item">
                             <a href="#" class="sidebar__list--category-link">
                                 <div class="blog-sidebar__img">
@@ -144,7 +142,7 @@
                                     }
                                     <div class="product-desc">
                                         <div class="product-desc__title">@Html.DisplayFor(modelItem => item.Name)</div>
-                                        <div class="product-desc__price">@string.Format("{0:#,0}", item.Price).000vnd</div>
+                                        <div class="product-desc__price">@string.Format("{0:#,0}", item.Price)vnd</div>
                                     </div>
                                 </div>
                             </a>

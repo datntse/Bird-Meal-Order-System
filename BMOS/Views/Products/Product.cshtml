@@ -61,29 +61,37 @@
 					</div>
 					<div class="col-6 product-detail__content-desc">
 						<div class="product-detail__content--title product-detail--status">
-							<span>Status:</span>
-							<div class="product-detail--status_value">Available</div>
+							<span>Trạng thái:</span>
+							@if((bool)Model.Status) {
+								<div class="product-detail--status_value">Còn hàng</div>
+							} else
+							{
+								<div class="product-detail--status_value">Hết hàng</div>
+							}
 						</div>
 						<div class="product-detail__content--title product-detail--price">
-							<span>Price:</span>
-							<div class="product-detail--price_value">@Model.Price .000vnd</div>
+							<span>Giá:</span>
+							<div class="product-detail--price_value">@{@Model.Price}.000vnd</div>
 						</div>
 						<div class="product-detail__content--title product-detail--weight">
-							<span>Weight:</span>
-							<div class="product-detail--weight_value">@Model.Weight</div>
+							<span>Trọng lượng:</span>
+							<div class="product-detail--weight_value">@{@Model.Weight}g</div>
 						</div>
 						<form>
 							<div class="product-detail__content edit-quantity-button">
-								<span>Quantity:</span>
-
+								<span>Số lượng:</span>
+								
 								<img src="/images/minus-icon.png" alt="" class="value-button minus" id="decrease" onclick="decreaseValue()"
 									 value="Decrease Value">
 								<input name="productQuantity" type="number" id="number" value="1" />
 								<img src="/images/plus-icon.png" alt="" class="value-button plus" id="increase" onclick="increaseValue()"
 									 value="Decrease Value">
-
+							
+								 </div>
+							<div class="product-detail__content edit-quantity-button">
+							<span>Đã bán: @Model.SoldQuantity</span> 
 							</div>
-
+							
 							<div class="col-12 product-detail__content rating-buy-star">
 								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
 								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
@@ -95,7 +103,7 @@
 							<div class="col-12 product-detail__content routing-button add-to-cart--button">
 								<button data-id="@Model.ProductId" class="ajax-add-to-cart btn btn-primary button-action button-action--add-cart">
 									<i class="fa-solid fa-cart-shopping"></i>
-									Add to cart
+									Thêm vào giỏ hàng
 								</button>
 								@{
 									bool love = (Model.IsLoved) ?? false;
@@ -113,13 +121,8 @@
 								}
 
 							</div>
-							<div class="mt-2 col-12 product-detail__content routing-button buy-now--button ">
-								<button class="btn btn-primary button-action button-action--buy-now">
-									<i class="fa-sharp fa-solid fa-bag-shopping"></i>
-									Buy now
-								</button>
 
-							</div>
+
 						</form>
 					</div>
 				</div>
@@ -136,25 +139,34 @@
 				Thông tin sản phẩm
 			</div>
 			<div class="col-12 product-detail__description--content">
+				@*@Model.Description*@
 				<div class="product-detail__description--content-partition">
 					<span>Thành phần</span>
 					<span>
-						Trứng gà, đậu xanh, đậu tương, đậu đỏ, ngũ cốc, gạo lút, muỗi nước, kỳ tử, phấn hoa, mật ong, đường đào, Vitamin, khoáng tổng hợp.
+						Trứng gà, đậu xanh, đậu tương, đậu đỏ, ngũ cốc, gạo lút, muỗi nước, kỳ tử, phấn hoa,
+						mật ong, đường đào, Vitamin, khoáng tổng hợp.
 						HƯỚNG DẦN SỬ DỤNG
 					</span>
 				</div>
 				<div class="product-detail__description--content-partition">
 					<span>Thành phần</span>
 					<span>
-						Trứng gà, đậu xanh, đậu tương, đậu đỏ, ngũ cốc, gạo lút, muỗi nước, kỳ tử, phấn hoa, mật ong, đường đào, Vitamin, khoáng tổng hợp.
+						Trứng gà, đậu xanh, đậu tương, đậu đỏ, ngũ cốc, gạo lút, muỗi nước, kỳ tử, phấn hoa,
+						mật ong, đường đào, Vitamin, khoáng tổng hợp.
 						HƯỚNG DẦN SỬ DỤNG
 					</span>
 				</div>
 				<div class="product-detail__description--content-partition">
 					<span>Thành phần</span>
-					<span>Hàm lượng đạm cao hơn + đường + muối + chất xơ + canxi + khoáng chất + vitamin tổng hợp cao dùng cho chim đã thay xong lông, giúp chim hót tốt, căng lửa ổn định. CÁCH CHUYỂN CÁM Trộn cám đang dùng cùng cám mới ăn 2, 3 ngày rồi cho ăn thẳng. CÔNG DỤNG Là thức ăn hoàn chỉnh có đầy đủ các chất dinh dưỡng. Thức ăn tạo cho chim khỏe mạnh, lông mỏ bóng mượt, hót hay. BẢO QUẢN Để nơi khô ráo thoáng mát, tránh ánh nắng mặt trời. Buộc kín túi sau khi sử dụng. KLT: 200g Hạn dùng: 1 năm kể từ ngày SX</span>
+					<span>
+						Hàm lượng đạm cao hơn + đường + muối + chất xơ + canxi + khoáng chất + vitamin tổng
+						hợp cao dùng cho chim đã thay xong lông, giúp chim hót tốt, căng lửa ổn định. CÁCH
+						CHUYỂN CÁM Trộn cám đang dùng cùng cám mới ăn 2, 3 ngày rồi cho ăn thẳng. CÔNG DỤNG Là
+						thức ăn hoàn chỉnh có đầy đủ các chất dinh dưỡng. Thức ăn tạo cho chim khỏe mạnh, lông
+						mỏ bóng mượt, hót hay. BẢO QUẢN Để nơi khô ráo thoáng mát, tránh ánh nắng mặt trời. Buộc
+						kín túi sau khi sử dụng. KLT: 200g Hạn dùng: 1 năm kể từ ngày SX
+					</span>
 				</div>
-
 			</div>
 		</div>
 
@@ -188,7 +200,7 @@
 							<input type="text" name="textcontent" placeholder="Ý kiến của bạn về sản phẩm">
 							<input type="hidden" name="id" value="@Model.ProductId">
 						</div>
-						<button class="btn btn--large" type="submit">gui</button>
+						<button class="btn btn--large" type="submit">Gửi</button>
 
 
 					</div>
@@ -197,7 +209,7 @@
 			}
 			else
 			{
-				<div>ban can phai dang nhap de binh luan</div>
+				<div class="col-12 product-detail__description--title">Bạn cần đăng nhập để có thể phản hồi sản phẩm</div>
 			}
 
 
@@ -218,14 +230,13 @@
 		});
 
 		$(".ratingstar").click(function () {
-			debugger;
 			var starValue = $(this).attr("data-value");
 			$("#rating").val(starValue);
 		});
 
 		$(document).ready(function () {
 			$('.ajax-add-to-cart').click(function (e) {
-				var _id = $(this).data("id");
+				var _id = $(this).data("id");	
 				e.preventDefault();
 				var quantity = $('input[name="productQuantity"]').val();
 				console.log(quantity);
@@ -270,9 +281,23 @@
 				success: function (response) {
 					console.log(response)
 					if (response.love == true) {
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: 'Bạn đã thêm sản phẩm này vào danh sách yêu thích!',
+							showConfirmButton: false,
+							timer: 1500
+						});
 						btn.attr('src', '/images/activeheart.png');
 					}
 					else {
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: 'Bạn loại sản phẩm này vào danh sách yêu thích!',
+							showConfirmButton: false,
+							timer: 1500
+						});
 						btn.attr('src', '/images/heart.png');
 					}
 				}

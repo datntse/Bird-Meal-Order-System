@@ -24,7 +24,7 @@
 				<div class="col-12 product-list__title">Thức ăn cho chim</div>
 				<div class="row product-row g-0">
 					<div class="col-3 product-img-banner">
-						<img src="images/product.png" alt="Product Imgage" srcset="">
+						<img src="https://media.istockphoto.com/id/1133903983/photo/many-multicolor-wavy-parrots-sit-in-cage-pet-shop-birds-in-captivity.jpg?s=612x612&w=0&k=20&c=y1uszPyckHPkQMguUtOds4QON1AwjoPFGoc-KgPTqjc=" alt="Product Imgage" srcset="">
 					</div>
 					<div class="row col-9">
 						<div class="product-warpper">
@@ -48,14 +48,14 @@
 										<div class="product-desc">
 											<div class="product-desc__title">@item.productName</div>
 											<div class="product-desc__price">@item.productPrice.000vnd</div>
-											<button id="@itemnumber" data-id="@item.productId" type="button" class="ajax-add-to-cart buy-now btn btn-sm btn-primary">Add to cart</button>
+											<button id="@itemnumber" data-id="@item.productId" type="button" class="ajax-add-to-cart btn btn-outline-warning add-to-cart-btn">Thêm vào giỏ hàng</button>
 										</div>
 									</div>
 								</div>
 							}
 						</div>
 						<div class="col-12 watch-more__button">
-							<button type="button" class="btn btn-warning btn-lg watch-more--button">Xem thêm</button>
+							<button asp-controller="Products" asp-action="ListProduct" type="button" class="btn btn-warning btn-lg watch-more--button">Xem thêm</button>
 						</div>
 					</div>
 				</div>
@@ -64,9 +64,6 @@
 			<div class="row product-list">
 				<div class="col-12 product-list__title">Lộ trình cho chim</div>
 				<div class="row routing-row g-0">
-					<div class="col-3 routing-img-banner">
-						<img src="images/routing.png" alt="routing Imgage" srcset="">
-					</div>
 					@await Html.PartialAsync("Routing")
 				</div>
 			</div>

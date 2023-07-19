@@ -4,20 +4,24 @@
 @{
 	var routingList = ViewData["Routing"] as List<BMOS.Models.RoutingHomePageModel>;
 }
-<div class="row col-9">
-	<div class="product-warpper">
+<div class="row col-12">
+	<div class="meal-wrapper">
 		<!-- <div class="routing-warpper"> -->
 		@foreach (var item in routingList)
 		{
 			<div class="routing-item">
 				<div class="routing-content product-border">
-					<a asp-controller="Routing" asp-action="RoutingDetail" asp-route-id="@item.routingId">
-						<div class="routing-img-item" style="background: url(@item.routingImage)"></div>
+					<a asp-controller="Routing" asp-action="RoutingDetail" asp-route-id="@item.routingId" style="display: flex; text-decoration: none">
+						<div class="routing-img-item__banner" style="background: url(@item.routingImage); width: 90%; height: 300px; background-size:cover"></div>
+						<div class="routing-desc">
+							<div class="routing-desc__title">
+							Tên lộ trình: @item.routingName
+								</div>
+							<div class="routing-desc__price" >
+								Giá: @{@item.routingPrice}.000vnd
+								</div>
+						</div>
 					</a>
-					<div class="routing-desc">
-						<div class="routing-desc__title">@item.routingName</div>
-						<div class="routing-desc__price">@item.routingPrice</div>
-					</div>
 				</div>
 			</div>
 		}

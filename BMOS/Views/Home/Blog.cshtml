@@ -3,7 +3,7 @@
 }
 <div class="blog-container">
 	<div class="row blog-list">
-		<div class="col-12 product-list--title">Danh sách Blog</div>
+		<div class="col-12 product-list__title">Danh sách Blog</div>
 		<div class="row g-0">
 			<div class="blog-warpper">
 				@foreach (var item in blogList)
@@ -11,7 +11,7 @@
 					<div class="blog-item">
 						<div class="blog-content">
 							<a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.blogId">
-								<div class="blog-img" style="background-image: url(@item.blogImage)"></div>
+								<div class="blog-img" style="background-image: url(@item.blogImage); background-size: cover"></div>
 							</a>
 							<div class="blog-desc">
 								<div class="blog-desc__title">

@@ -287,6 +287,14 @@ namespace BMOS.Controllers
                 };
                 orderDetailNum++;
 
+                var product = _context.TblProducts.Where(x => x.ProductId.Equals(item._productId)).FirstOrDefault();
+                if(product != null)
+                {
+                    var soldQuantity = product.SoldQuantity;
+                    soldQuantity += item._quantity;
+                    product.SoldQuantity = soldQuantity;
+                    _context.Update(product);
+                }
                 _context.Add(orderDetail);
             }
 
