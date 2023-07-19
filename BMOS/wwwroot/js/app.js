@@ -1,15 +1,16 @@
-$(document).ready(function(){
+$(document).ready(function () {
+
     $('.product-warpper').slick({
         slidesToShow: 4,
         slidesToScroll: 2,
         infinite: false,
         arrows: true,
-        prevArrow:"<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
-        nextArrow:"<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
-      });
+        prevArrow: "<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
+        nextArrow: "<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
+    });
 
 
-      $('.banner-warpper').slick({
+    $('.banner-warpper').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
         infinite: false,
@@ -17,9 +18,9 @@ $(document).ready(function(){
         autoplay: true,
         autoplaySpeed: 1000,
         infinite: true,
-      });
+    });
 
-      $('.blog-warpper').slick({
+    $('.blog-warpper').slick({
         slidesToShow: 4,
         slidesToScroll: 1,
         infinite: false,
@@ -29,32 +30,35 @@ $(document).ready(function(){
         infinite: true,
         arrows: false,
         dots: true,
-        prevArrow:"<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
-        nextArrow:"<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
-      });
+        prevArrow: "<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
+        nextArrow: "<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
+    });
 
-      $('.meal-wrapper').slick({
+    $('.meal-wrapper').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false,
-        autoplay: true, 
+        autoplay: true,
         autoplaySpeed: 2000,
         infinite: false,
         arrows: true,
-        prevArrow:"<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
-        nextArrow:"<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
-      });
+        prevArrow: "<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
+        nextArrow: "<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
+    });
 
-  });
-
-  function increaseValue() {
+});
+var loader = document.getElementById("preloader");
+window.addEventListener("load", function () {
+    loader.style.display = "none";
+})
+function increaseValue() {
     var value = parseInt(document.getElementById('number').value, 10);
     value = isNaN(value) ? 0 : value;
     value++;
     document.getElementById('number').value = value;
-  }
-  
-  function decreaseValue() {
+}
+
+function decreaseValue() {
     var value = parseInt(document.getElementById('number').value, 10);
     value = isNaN(value) ? 0 : value;
     value < 1 ? value = 1 : '';
@@ -82,3 +86,4 @@ function slideImage() {
 }
 
 window.addEventListener('resize', slideImage);
+

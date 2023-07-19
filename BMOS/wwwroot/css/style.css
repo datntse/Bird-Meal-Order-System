@@ -46,16 +46,15 @@ html {
 }
 
 #preloader {
-    background: rgba("")
+    background: #fff url(/images/preloader.gif) no-repeat center center;
+    background-size: 30%;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
 }
-/*ueser profile*/
-.userprofile_bar {
-    flex-direction: column;
-    height: 100%;
-    border: 2px solid black;
-    border-radius: 20px;
-    margin: 0px 10px;
-}
+
+
 /*Startt button--action*/
 .rating-buy-star {
     margin: 10px 0;
@@ -1960,6 +1959,7 @@ main {
 
 .userprofile_info_wel_locationinfo {
     padding-left: 20px;
+    font-weight: bold;
 }
 
 .userprofile_info_wel_location2 {
@@ -1993,7 +1993,7 @@ main {
 
 .userprofile_bar {
     flex-direction: column;
-    height: 33rem;
+    height: 40rem;
     border: 2px solid black;
     border-radius: 20px;
     margin: 0px 10px;
@@ -2011,3 +2011,4 @@ main {
         color: #e38a41;
         background-color: transparent;
     }
+
