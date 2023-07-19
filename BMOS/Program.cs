@@ -2,7 +2,8 @@ using BMOS.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var services = builder.Services;
+var configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
@@ -10,6 +11,14 @@ builder.Services.AddDbContext<BmosContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectDB"));
 });
+
+services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+    googleOptions.CallbackPath = "/Account/LoginWithGoogle";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

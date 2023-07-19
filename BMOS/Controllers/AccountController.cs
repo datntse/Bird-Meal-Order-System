@@ -7,6 +7,7 @@ using BMOS.Models.Entities;
 using BMOS.Services;
 using Microsoft.AspNetCore.Http;
 using Firebase.Auth;
+using BMOS.Models.Services;
 
 namespace BMOS.Controllers
 {
@@ -332,6 +333,15 @@ namespace BMOS.Controllers
                 return View(orderList);
             }           
         }
+        public IActionResult ReceiveButton()
+        {
+            return new ChallengeResult("Google", null);
+        }
+
+        public async Task<IActionResult> LoginWithGoogle(string code)
+        {
+            return RedirectToAction("Index", "Home");
+        }
 
         [HttpPost]
         public IActionResult OrderDetail(string orderID)
@@ -356,6 +366,8 @@ namespace BMOS.Controllers
             }
             
         }
+
+        
 
     }
 }
