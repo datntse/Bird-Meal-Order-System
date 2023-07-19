@@ -5,7 +5,6 @@
     ViewData["Title"] = "Index";
 }
 
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -51,6 +50,7 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
+                    <a asp-action="Edit" asp-route-id="@item.VoucherId">Edit</a>
                     <a asp-action="Delete" asp-route-id="@item.VoucherId">Delete</a>
                 </td>
             </tr>
