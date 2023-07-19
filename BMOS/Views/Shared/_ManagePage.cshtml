@@ -31,6 +31,199 @@
 				user-select: none;
 			}
 
+			```
+			/* Set up some basic styles for the page */
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				font-family: Arial, sans-serif;
+			}
+
+			/* Style the sidebar */
+
+			.sidebar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				width: 250px;
+				background-color: #2c3e50;
+				color: #fff;
+				padding: 20px;
+				overflow-y: auto;
+			}
+
+			/* Style the logo */
+
+			.logo {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.5rem;
+				font-weight: bold;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				margin-bottom: 30px;
+			}
+
+				.logo i {
+					margin-right: 10px;
+				}
+
+			/* Style the menu */
+
+			.menu ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			.menu li {
+				margin-bottom: 10px;
+			}
+
+			.menu a {
+				display: flex;
+				align-items: center;
+				color: #fff;
+				text-decoration: none;
+				padding: 10px;
+				border-radius: 5px;
+				transition: all 0.3s ease;
+			}
+
+				.menu a:hover {
+					background-color: #34495e;
+				}
+
+				.menu a.active {
+					background-color: #2980b9;
+				}
+
+			.menu i {
+				margin-right: 10px;
+			}
+
+			/* Style the user dropdown */
+
+			.user-dropdown {
+				margin-top: 50px;
+			}
+
+			.user-icon {
+				display: flex;
+				align-items: center;
+				color: #fff;
+				text-decoration: none;
+				padding: 10px;
+				border-radius: 5px;
+				transition: all 0.3s ease;
+			}
+
+				.user-icon:hover {
+					background-color: #34495e;
+				}
+
+			.dropdown-menu {
+				position: absolute;
+				top: 40px;
+				right: 0;
+				background-color: #fff;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+				border-radius: 5px;
+				padding: 10px;
+				display: none;
+			}
+
+			.user-dropdown:hover .dropdown-menu {
+				display: block;
+			}
+
+			.dropdown-menu a {
+				display: block;
+				color: #333;
+				padding: 5px 10px;
+				margin-bottom: 5px;
+				border-radius: 5px;
+				transition: all 0.3s ease;
+			}
+
+				.dropdown-menu a:hover {
+					background-color: #f5f5f5;
+				}
+
+			.dropdown-menu hr {
+				margin: 5px 0;
+				border: none;
+				border-top: 1px solid #ccc;
+			}
+
+			/* Style the content area */
+
+			.content {
+				margin-left: 250px;
+				padding: 20px;
+			}
+
+			.search-bar {
+				display: flex;
+				align-items: center;
+				margin-bottom: 20px;
+			}
+
+				.search-bar input[type="text"] {
+					flex: 1;
+					padding: 10px;
+					border: none;
+					border-radius: 5px;
+					font-size: 1rem;
+				}
+
+				.search-bar button {
+					background-color: #2980b9;
+					color: #fff;
+					border: none;
+					border-radius: 5px;
+					padding: 10px 15px;
+					margin-left: 10px;
+					cursor: pointer;
+					transition: all 0.3s ease;
+				}
+
+					.search-bar button:hover {
+						background-color: #34495e;
+					}
+
+			.table {
+				overflow-x: auto;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 20px 0;
+			}
+
+				table thead {
+					background-color: #2980b9;
+					color: #fff;
+				}
+
+				table th,
+				table td {
+					padding: 10px;
+					text-align: left;
+					border: 1px solid #ccc;
+				}
+
+				table tr:nth-child(even) {
+					background-color: #f5f5f5;
+				}
+
+			```
 		</style>
 
 		<!-- Custom styles for this template -->
@@ -40,76 +233,85 @@
 
 
 		<main>
-			<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark managebar" style="width: 18rem;">
-				<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-					<i class="fa-solid fa-bars" style="font-size: 2rem;"></i>
-					<strong class="fs-4" style="padding-left: 10px;">Bảng điều khiển</strong>
+			<div class="sidebar">
+				<a href="/" class="logo">
+					<i class="fa-solid fa-bars"></i>
+					<span>Bảng điều khiển</span>
 				</a>
-				<hr>
-				<ul class="nav nav-pills flex-column mb-auto">
-					<li>
-						<a href="#" class="nav-link text-white">
-							<i class="fa-solid fa-chart-line" style="font-size: 1rem;"></i>
-							<span style="padding-left: 10px;">Dashboard</span>
-						</a>
-					</li>
-					<li>
-						<a asp-controller="AccountManage" asp-action="Index" class="nav-link active">
-							<i class="fa-solid fa-users-gear" style="font-size: 1rem;"></i>
-							<span style="padding-left: 10px;">Quản lý tài khoản</span>
-						</a>
-					</li>
-					<li>
-						<a asp-controller="ProductManager" asp-action="Index" class="nav-link text-white">
-							<i class="fa-solid fa-cookie-bite" style="font-size: 1rem;"></i>
-							<span style="padding-left: 10px;">Quản lý sản phẩm</span>
-						</a>
-					</li>
-					<li>
-						<a asp-controller="OrderManager" asp-action="Index" class="nav-link text-white">
-							<i class="fa-solid fa-file-lines" style="font-size: 1rem;"></i>
-							<span style="padding-left: 10px;">Quản lý đơn hàng</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a asp-controller="BlogManager" asp-action="Index" class="nav-link text-white" aria-current="page">
-							<i class="fa-solid fa-blog" style="font-size: 1rem;"></i>
-							<span style="padding-left: 10px;">Quản lý Blog</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a asp-controller="FeedbackManager" asp-action="Index" class="nav-link text-white" aria-current="page">
-							<i class="fa-solid fa-message" style="font-size: 1rem;"></i>
-							<span style="padding-left: 10px;">Quản lý đánh giá</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a asp-controller="RefundsManage" asp-action="Index" class="nav-link text-white" aria-current="page">
-							<i class="fa-solid fa-phone-volume" style="font-size: 1rem;"></i>
-							<span style="padding-left: 10px;">Quản lý trả hàng</span>
-						</a>
-					</li>
-				</ul>
-				<hr>
-				<div class="dropdown">
+				<nav class="menu">
+					<ul>
+						<li>
+							<a asp-controller="AccountManage" asp-action="Index">
+								<i class="fa-solid fa-chart-line"></i>
+								<span>Dashboard</span>
+							</a>
+						</li>
+						<li>
+							<a asp-controller="AccountManage" asp-action="Index">
+								<i class="fa-solid fa-users-gear"></i>
+								<span>Quản lý tài khoản</span>
+							</a>
+						</li>
+						<li>
+							<a asp-controller="ProductManager" asp-action="Index">
+								<i class="fa-solid fa-cookie-bite"></i>
+								<span>Quản lý sản phẩm</span>
+							</a>
+						</li>
+						<li>
+							<a asp-controller="OrderManager" asp-action="Index">
+								<i class="fa-solid fa-file-lines"></i>
+								<span>Quản lý đơn hàng</span>
+							</a>
+						</li>
+						<li>
+							<a asp-controller="BlogManager" asp-action="Index">
+								<i class="fa-solid fa-blog"></i>
+								<span>Quản lý Blog</span>
+							</a>
+						</li>
+						<li>
+							<a asp-controller="FeedbackManager" asp-action="Index">
+								<i class="fa-solid fa-message"></i>
+								<span>Quản lý đánh giá</span>
+							</a>
+						</li>
+						<li>
+							<a asp-controller="RefundsManage" asp-action="Index">
+								<i class="fa-solid fa-phone-volume"></i>
+								<span>Quản lý trả hàng</span>
+							</a>
+						</li>
+						<li>
+							<a asp-controller="RoutingManager" asp-action="Index">
+								<i class="fa-solid fa-phone-volume"></i>
+								<span>Quản lý lộ trình ăn</span>
+							</a>
+						</li>
+						<li>
+							<a asp-controller="VoucherCodes" asp-action="VoucherManager">
+								<i class="fa-solid fa-phone-volume"></i>
+								<span>Quản lý Voucher</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="dropdown" style="margin-top: 60px" ;>
 					<a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
 						<i class="fa-regular fa-user" style="font-size: 32px;" class="rounded-circle me-2"></i>
 						<strong style="padding-left: 10px;">User</strong>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-						<li><a class="dropdown-item" href="#">New project...</a></li>
 						<li><a class="dropdown-item" href="#">Settings</a></li>
-						<li><a class="dropdown-item" href="#">Profile</a></li>
+						<li><a asp-controller="Account" asp-action="UserProfile" class="dropdown-item" >Profile</a></li>
 						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" asp-controller="Account" asp-action="Logout" >Sign out</a></li>
+						<li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Sign out</a></li>
 					</ul>
 				</div>
 			</div>
 
-			<div class="b-example-divider"></div>
-
-			<div class="container">
-				<div class="manage_account" style="width:50rem;">
+			<div class="content">
+				<div class="search-bar">
 					<form style=" display:flex;" class="col-9 header-searchform">
 						<div class="header-searchform--input">
 							<input class="header-search__form--input-field" style="margin-left:32px; width:70rem;" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Gõ từ khóa bạn muốn tìm kiếm...">
@@ -119,8 +321,8 @@
 						</button>
 					</form>
 				</div>
-				<div class="manage_account_table">
-					<table class="table">
+				<div class="table">
+					<table>
 						<thead class="bg-light">
 							@RenderBody()
 					</table>
@@ -133,7 +335,6 @@
 		<script src="~/ckeditor/ckeditor.js"></script>
 		<script src="sidebars.js"></script>
 		@RenderSection("scripts", false)
-		<ejs-scripts></ejs-scripts>
 	</body>
 	</html>
 

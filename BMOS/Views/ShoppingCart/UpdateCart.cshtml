@@ -54,7 +54,7 @@ else
 													onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
 												<i class="fas fa-minus"></i>
 											</button>
-
+											
 											<input data-id="@item._productId" input type="number" value="@item._quantity" name="cartItemQuantity"
 												   class="form-control form-control-sm product-quantity-form" />
 
@@ -64,9 +64,11 @@ else
 											</button>
 										</div>
 										<div class="col-md-3 col-lg-1 col-xl-1 offset-lg-1">
+											<span>Giá tiền</span>
 											<h6 class="mb-0">@Html.DisplayFor(modelItem => item._price)</h6>
 										</div>
 										<div class="col-md-3 col-lg-1 col-xl-1 offset-lg-1">
+											<span>Thành tiền</span>
 											<h6 class="mb-0">@_priceProduct</h6>
 										</div>
 										<div data-id="@item._productId" class="ajax-remove-item col-md-1 col-lg-1 col-xl-1 text-end">
@@ -92,7 +94,7 @@ else
 
 								<div class="d-flex justify-content-between mb-4">
 									<h5 class="text-uppercase">TỔNG</h5>
-									<h5 style="font-size: 2rem">@totalPrice .000 vnd</h5>
+									<h5 style="font-size: 2rem">@totalPrice vnd </h5>
 								</div>
 
 								<div class="d-flex justify-content-between mb-4">

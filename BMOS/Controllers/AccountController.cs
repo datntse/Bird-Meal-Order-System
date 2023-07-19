@@ -10,6 +10,7 @@ using Firebase.Auth;
 using Microsoft.EntityFrameworkCore;
 using BMOS.Models;
 using BMOS.Helpers;
+using X.PagedList;
 
 namespace BMOS.Controllers
 {
@@ -422,7 +423,7 @@ namespace BMOS.Controllers
 			return View();
 		}
 
-		public IActionResult UserHistoryOrder()
+		public IActionResult UserHistoryOrder(int? page)
 		{
 			ViewBag.ID = HttpContext.Session.GetString("id");
 			ViewBag.Fullname = HttpContext.Session.GetString("fullname");
@@ -436,7 +437,9 @@ namespace BMOS.Controllers
 			else
 			{
 				var orderList = _db.TblOrders.Where(p => p.UserId == userID).ToList();
-				return View(orderList);
+				int pageSize = 4;
+				int pageNumber = (page ?? 1);
+				return View(orderList.ToPagedList(pageNumber, pageSize));
 			}
 		}
 
