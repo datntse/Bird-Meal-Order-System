@@ -1463,6 +1463,7 @@ main {
 /*================Cart============*/
 .cart-wrapper {
     font-size: 1.6rem;
+    font-weight: bold;
 }
 
 .product-quantity-form {
@@ -2012,3 +2013,28 @@ main {
         background-color: transparent;
     }
 
+
+.discount-type-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.usepoint-btn {
+    width: 130px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.usecode-btn {
+    width: 130px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.checkout-btn {
+    width: 130px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
