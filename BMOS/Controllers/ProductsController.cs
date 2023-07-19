@@ -411,17 +411,26 @@ namespace BMOS.Controllers
 		public IActionResult Notify()
 		{
 			var user = HttpContext.Session.GetString("username");
+
 			if (user != null)
 			{
+
 				var tb = from n in _context.TblNotifies select n;
+				int q = tb.Count();
+				if (q == 0)
+				{
+					ViewBag.message = "Bạn không có thông báo nào!";
+				}
+
 				return View(tb);
+
 			}
 			else
 			{
 				return RedirectToAction("Login", "Account");
 			}
 		}
-        [HttpPost]
+		[HttpPost]
         public IActionResult Comment(string id, string textcontent, int starvalue)
         {
             var user = HttpContext.Session.GetString("username");
