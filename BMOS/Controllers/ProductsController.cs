@@ -112,6 +112,19 @@ namespace BMOS.Controllers
 
 			ViewBag.CurrentFilter = searchString;
 
+            //var blogs = from blog in _context.TblBlogs
+            //            from image in _context.TblImages
+            //            where blog.BlogId == image.RelationId && blog.Status != false
+            //            select new BlogInfoModel
+            //            {
+            //                blogId = blog.BlogId,
+            //                blogName = blog.Name,
+            //                blogDescription = blog.Description,
+            //                blogImage = image.Url,
+            //                Date = blog.Date,
+            //            };
+            //ViewData["BlogList"] = blogs;
+
 			var products = from product in _context.TblProducts 
 						   from image in _context.TblImages where product.ProductId.Equals(image.RelationId)
 						  select new ProductInfoModel()

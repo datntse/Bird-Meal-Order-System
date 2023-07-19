@@ -34,10 +34,10 @@ $(document).ready(function(){
       });
 
       $('.meal-wrapper').slick({
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 1,
+        slidesToScroll: 1,
         arrows: false,
-        autoplay: true,
+        autoplay: true, 
         autoplaySpeed: 2000,
         infinite: false,
         arrows: true,
