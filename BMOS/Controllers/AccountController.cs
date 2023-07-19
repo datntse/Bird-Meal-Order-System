@@ -11,13 +11,16 @@ using Microsoft.EntityFrameworkCore;
 using BMOS.Models;
 using BMOS.Helpers;
 using X.PagedList;
+using BMOS.Models.Services;
 
 namespace BMOS.Controllers
 {
 	public class AccountController : Controller
 	{
 		private BmosContext _db = new BmosContext();
-		public IActionResult Login()
+       
+
+        public IActionResult Login()
 		{
 			var user = HttpContext.Session.GetString("username");
 			ViewBag.Confirmed = HttpContext.Session.GetString("notice");
@@ -467,15 +470,15 @@ namespace BMOS.Controllers
 
 		}
 
-		[HttpPost]
 		public IActionResult ReceiveButton()
 		{
 			return new ChallengeResult("Google", null);
 		}
 
-		public IActionResult LoginWithGoogle()
+		public async Task<IActionResult> LoginWithGoogle(string code)
 		{
-			return RedirectToAction("Index", "Home");
+            HttpContext.Session.SetString("username", code);
+            return RedirectToAction("Index", "Home");
 		}
 
 		public IActionResult Refund()
