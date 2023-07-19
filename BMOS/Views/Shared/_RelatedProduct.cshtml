@@ -3,7 +3,7 @@
 *@
 @model List<BMOS.Models.RelatedProductModel>;
 
-		<span class="recommend-list__text">Recommend</span>
+		<span class="recommend-list__text">Sản phẩm liên quan</span>
 		@foreach (var item in Model)
 		{
 			string url = item._image;
@@ -16,7 +16,7 @@
 
 				<div class="col-8 recommend-product__desc" style="padding-left: 10px">
 					<div class="recommend-product__name">@item._prodName</div>
-					<div class="recommend-product__price">@item._prodPrice .000vnd</div>
+					<div class="recommend-product__price">@{@item._prodPrice}.000vnd</div>
 				</div>
 			</div>
 		}

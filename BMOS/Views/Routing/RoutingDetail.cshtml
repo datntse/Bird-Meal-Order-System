@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col-8 routing-list">
 				<div class="content_routing-list--product">
-					<div class="routing-list__banner" style="background: url(@routing.routingImage)">
+					<div class="routing-list__banner" style="background: url(@routing.routingImage); height: 300px; background-size: cover">
 					</div>
 					<div class="row g-0 routing-list__item">
 						<div class="col-12 routing-list__title">
@@ -40,14 +40,14 @@
 								</div>
 								<div class="col-9 routing-item__product-desc">
 									<div class="col-12 routing-item__product-desc--title">
-										<span>Product 1:</span> @item.productName
+										<span>Sản phẩm:</span> @item.productName
 									</div>
 									<div class="col-12 routing-item__product-desc--title">
-										<span>Price:</span> @item.productPrice
+										<span>Giá tiền:</span> @{@item.productPrice}.000vnd
 									</div>
 									<div class="col-12 routing-item__product-desc--title">
 										<span>Product description:</span>
-										@item.description
+										Product description: THÀNH PHẦN Trứng gà, đậu xanh, đậu tương, đậu đỏ, ngũ cốc, gạo lút, muỗi nước, kỳ tử, phấn hoa, mật ong, đường đào, Vitamin, khoáng tổng hợp. HƯỚNG DẦN SỬ DỤNG
 									</div>
 									<div class="edit-quantity-button">
 										<span>Quantity:</span>
@@ -73,18 +73,13 @@
 			<div class="col-4 routing-info">
 				<div class="row g-0">
 					<div class="col-12 routing-info__text routing-info__status">
-						<span>Status:</span>
-						<span class="routing-info__status-text">Available</span>
+						<span>Trạng thái:</span>
+						<span class="routing-info__status-text">Còn hàng</span>
 					</div>
 
 					<div class="col-12 routing-info__text routing-info__price">
-						<span>Price:</span>
-						<span class="routing-info__price-text">@totalPrice</span>
-					</div>
-
-					<div class="col-12 routing-info__text routing-info__weight">
-						<span>Weight:</span>
-						<span class="routing-info__weight-text">500g</span>
+						<span>Giá:</span>
+						<span class="routing-info__price-text">@{@totalPrice}.000vnd</span>
 					</div>
 
 					<div class="col-12 view-routing-process">
@@ -106,17 +101,12 @@
 						<a asp-controller="ShoppingCart" asp-action="AddProductInRoutingToCart">
 						<button type="button" class="btn btn-primary button-action button-action--add-cart">
 							<i class="fa-solid fa-cart-shopping"></i>
-							Add to cart
+							Thêm vào giỏ hàng
 						</button>
 						</a>
 						<i class="fa-solid fa-heart heart-icon" style="color: #d32a17;"></i>
 					</div>
-					<div class="col-12 routing-button buy-now--button ">
-						<button type="button" class="btn btn-primary button-action button-action--buy-now">
-							<i class="fa-sharp fa-solid fa-bag-shopping"></i>
-							Buy now
-						</button>
-					</div>
+					
 
 					<div class="col-12 recommend-list">
 						<span class="recommend-list__text">Recommend</span>
