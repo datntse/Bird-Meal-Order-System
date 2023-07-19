@@ -475,7 +475,7 @@ namespace BMOS.Controllers
 
 		public IActionResult LoginWithGoogle()
 		{
-			return View();
+			return RedirectToAction("Index", "Home");
 		}
 
 		public IActionResult Refund()
