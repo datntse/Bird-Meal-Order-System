@@ -262,49 +262,50 @@ namespace BMOS.Controllers
 
         public async Task<IActionResult> ConfirmOrder(string userId, string orderId, double point = 0)
         {
-            var myCart = Cart;
-            userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
-            var order = await _context.TblOrders.Where(o => o.OrderId == orderId).FirstOrDefaultAsync();
-            order.IsConfirm = true;
-            _context.Update(order);
+           
+			var myCart = Cart;
+			userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
+			var order = await _context.TblOrders.Where(o => o.OrderId == orderId).FirstOrDefaultAsync();
+			order.IsConfirm = true;
+			_context.Update(order);
 
-            var user = await _context.TblUsers.Where(u => u.Username.Equals(userId)).FirstOrDefaultAsync();
-            double? currentPoint = user.Point;
-            currentPoint += point;
-            user.Point = currentPoint;
-            _context.Update(user);
-            var orderDetailNum = _context.TblOrderDetails.Count(x => x.OrderDetailId != null);
-            foreach (var item in myCart.ToList())
-            {
-                var orderDetail = new TblOrderDetail
-                {
-                    OrderDetailId = "orderdetail" + orderDetailNum,
-                    OrderId = order.OrderId,
-                    ProductId = item._productId,
-                    Quantity = item._quantity,
-                    Price = item._price,
-                    Date = DateTime.Now,
-                };
-                orderDetailNum++;
+			var user = await _context.TblUsers.Where(u => u.Username.Equals(userId)).FirstOrDefaultAsync();
+			double? currentPoint = user.Point;
+			currentPoint += point;
+			user.Point = currentPoint;
+			_context.Update(user);
+			var orderDetailNum = _context.TblOrderDetails.Count(x => x.OrderDetailId != null);
+			foreach (var item in myCart.ToList())
+			{
+				var orderDetail = new TblOrderDetail
+				{
+					OrderDetailId = "orderdetail" + orderDetailNum,
+					OrderId = order.OrderId,
+					ProductId = item._productId,
+					Quantity = item._quantity,
+					Price = item._price,
+					Date = DateTime.Now,
+				};
+				orderDetailNum++;
 
-                var product = _context.TblProducts.Where(x => x.ProductId.Equals(item._productId)).FirstOrDefault();
-                if(product != null)
-                {
-                    var soldQuantity = product.SoldQuantity;
-                    soldQuantity += item._quantity;
-                    product.SoldQuantity = soldQuantity;
-                    _context.Update(product);
-                }
-                _context.Add(orderDetail);
-            }
+				var product = _context.TblProducts.Where(x => x.ProductId.Equals(item._productId)).FirstOrDefault();
+				if (product != null)
+				{
+					var soldQuantity = product.SoldQuantity;
+					soldQuantity += item._quantity;
+					product.SoldQuantity = soldQuantity;
+					_context.Update(product);
+				}
+				_context.Add(orderDetail);
+			}
 
-            _context.SaveChanges();
-            HttpContext.Session.Set("confirmOrderStatus", true);
+			_context.SaveChanges();
+			HttpContext.Session.Set("confirmOrderStatus", true);
 
-            myCart.Clear();
-            HttpContext?.Session.Set("Cart", myCart);
-            return RedirectToAction("Index", "Home");
-        }
+			myCart.Clear();
+			HttpContext?.Session.Set("Cart", myCart);
+			return RedirectToAction("Index", "Home");
+		}
         [HttpPost]
         public async Task<IActionResult> Payment(string address, string phone, string note, string pType = "COD", double point = 0)
         {
@@ -439,48 +440,49 @@ namespace BMOS.Controllers
 
         public IActionResult AddToCart(string id, int productQuantity = 1, string type = "Normal")
         {
-            var myCart = Cart;
-            var item = myCart.SingleOrDefault(p => p._productId.Equals(id));
-            var _loginStatus = HttpContext.Session.Get<TblUser>("user") != null ? true : false;
-            if (item == null)
-            {
-                var _product = _context.TblProducts.SingleOrDefault(p => p.ProductId.Equals(id));
-                var _productImge = _context.TblImages.FirstOrDefault(x => x.RelationId.Equals(id))?.Url;
+			var myCart = Cart;
+			var item = myCart.SingleOrDefault(p => p._productId.Equals(id));
+			var _loginStatus = HttpContext.Session.Get<TblUser>("user") != null ? true : false;
+			if (item == null)
+			{
+				var _product = _context.TblProducts.SingleOrDefault(p => p.ProductId.Equals(id));
+				var _productImge = _context.TblImages.FirstOrDefault(x => x.RelationId.Equals(id))?.Url;
 
-                if (_productImge != null)
-                {
-                    string[] delemeter = new string[] { "datnt" };
-                    string[] image = _productImge.Split(delemeter, StringSplitOptions.None);
-                    item = new CartModel()
-                    {
-                        _productId = id,
-                        _productName = _product.Name,
-                        _quantity = productQuantity,
-                        _weight = _product.Weight,
-                        _price = _product.Price,
-                        _productImage = image[0],
-                    };
-                }
-                myCart.Add(item);
-            }
-            else
-            {
-                item._quantity += productQuantity;
-            }
-            if (_loginStatus) HttpContext?.Session.Set("Cart", myCart);
-            if (type == "ajax")
-            {
-                return Json(new
-                {
-                    productId = id,
-                    productQuantity = myCart.Count(),
-                    loginStatus = _loginStatus,
-                });
-            }
-            return RedirectToAction("Index");
-        }
-        // GET: ShoppingCartController
-        public IActionResult Index()
+				if (_productImge != null)
+				{
+					string[] delemeter = new string[] { "datnt" };
+					string[] image = _productImge.Split(delemeter, StringSplitOptions.None);
+					item = new CartModel()
+					{
+						_productId = id,
+						_productName = _product.Name,
+						_quantity = productQuantity,
+						_weight = _product.Weight,
+						_price = _product.Price,
+						_productImage = image[0],
+					};
+				}
+				myCart.Add(item);
+			}
+			else
+			{
+				item._quantity += productQuantity;
+			}
+			if (_loginStatus) HttpContext?.Session.Set("Cart", myCart);
+			if (type == "ajax")
+			{
+				return Json(new
+				{
+					productId = id,
+					productQuantity = myCart.Count(),
+					loginStatus = _loginStatus,
+				});
+			}
+			return RedirectToAction("Index");
+
+		}
+		// GET: ShoppingCartController
+		public IActionResult Index()
         {
             // remove session totalPrice when use bonuspoint and voucher
             HttpContext.Session.Remove("resultPrice");

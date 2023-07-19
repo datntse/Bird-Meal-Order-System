@@ -99,6 +99,21 @@ main {
     overflow-y: auto;
 }
 
+
+
+
+.summary {
+    border: 1px solid;
+    border-radius: 20px;
+    background-color: #1a222b;
+    color: white;
+}
+
+.iconnn {
+    border-radius: 20px 0px 0px 20px;
+    background-color: dimgrey;
+}
+
 .fw-semibold {
     font-weight: 600;
 }
