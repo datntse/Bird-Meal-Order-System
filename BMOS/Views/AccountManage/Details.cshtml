@@ -34,7 +34,17 @@
             @Html.DisplayNameFor(model => model.IsConfirm)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IsConfirm)
+            @{
+                if ((Model.IsConfirm) == true)
+                {
+                    <p style="color:green;">Đã xác nhận </p>
+
+                }
+                else
+                {
+                    <p style="color:red">Chưa xác nhận </p>
+                }
+            }
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Firstname)
@@ -98,7 +108,24 @@
             @Html.DisplayNameFor(model => model.UserRoleId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserRoleId)
+                @{
+                    if ((Model.UserRoleId) == 1)
+                    {
+                        <p style="color:blue;">Quản lý </p>
+                    }
+                    else if ((Model.UserRoleId) == 2)
+                    {
+                        <p style="color:deeppink">Staff </p>
+                    }
+                    else if ((Model.UserRoleId) == 3)
+                    {
+                        <p style="color:saddlebrown">Khách hàng </p>
+                    }
+                    else
+                    {
+                        <p style="color:red">Không có chức vụ </p>
+                    }
+                }
         </dd>
     </dl>
 </div>
