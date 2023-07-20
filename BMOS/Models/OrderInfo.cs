@@ -10,7 +10,7 @@ namespace BMOS.Models
 
         public int Quantity { get; set; }
 
-        public DateTime date { get; set; }
+        public string? date { get; set; }
 
         public double? total { get; set; }
 
