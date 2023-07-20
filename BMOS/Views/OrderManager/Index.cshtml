@@ -8,7 +8,7 @@
     Layout = "~/Views/Shared/_ManagePage.cshtml";
 }
 
-<h1>Quản lý don hang</h1>
+<h1>Quản lý đơn hàng</h1>
 
 <table class="table">
     <thead>
@@ -48,7 +48,11 @@
                     @Html.DisplayFor(modelItem => item.date)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.orderID">Details</a>
+                    <a asp-action="Details" asp-route-id="@item.orderID">
+                        <button type="button" class="btn btn-info" >Chi Tiết</button>
+                    </a>
+                    
+                    
                 </td>
             </tr>
         }
