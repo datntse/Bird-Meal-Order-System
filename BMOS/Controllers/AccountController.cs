@@ -510,7 +510,7 @@ namespace BMOS.Controllers
 		{
 			var user = HttpContext.Session.GetString("username");
 			var userid = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
-			var check = _db.TblRefunds.Where(p=>p.OrderId == orderid).Select(p => p.OrderId).FirstOrDefault();
+				var check = _db.TblRefunds.Where(p=>p.OrderId == orderid).Select(p => p.OrderId).FirstOrDefault();
 
 			if (orderid.Equals(check))
 			{
@@ -532,9 +532,10 @@ namespace BMOS.Controllers
                 };
                 _db.TblRefunds.Add(refund);
                 _db.SaveChanges();
-            }
+				return RedirectToAction("Refund", "Account");
+			}
                
-			return RedirectToAction("Refund", "Account");
+			
 		}
 
 	}

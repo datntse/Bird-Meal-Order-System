@@ -44,19 +44,19 @@
                                 @foreach (var item in Model.OrderByDescending(x => x.date))
                                 {
                                     <div class="col-11 userprofile_info_wel_locationinfo" style="border:2px solid black; border-radius:1rem;margin:2rem;">
-                                        <h3 style="padding-top:10px"><b style="font-weight: bold;">Mã đơn hàng: </b> @item.orderId</h3>
+                                        <h3 style="padding-top:10px; font-weight:normal; " ><b style="font-weight:bold;">Mã đơn hàng: </b> @item.orderId</h3>
 
                                         @{
                                             if (item.status == true)
                                             {
-                                                <h3 style="color:green"><b style="font-weight:bold; color:black;">Trạng thái: </b>Đơn hoàn trả đã được xác nhận</h3>
+                                                <h3 style="color:green; font-weight:normal;"><b style=" color:black; font-weight:bold;">Trạng thái: </b> Đơn hoàn trả đã được xác nhận</h3>
                                             }
                                             else
                                             {
-                                                <h3 style="color:red"><b style="font-weight:bold;color:black;">Trạng thái: </b>Đơn hoàn trả không được xác nhận</h3>
+                                                <h3 style="color:red; font-weight:normal;"><b style="color:black;font-weight:bold;">Trạng thái: </b>Đơn hoàn trả không được xác nhận</h3>
                                             }
                                         }
-                                        <h3 style="padding-bottom:10px"><b style="font-weight:bold;">Lý do hoàn trả: </b> @item.content</h3>
+                                        <h3 style="padding-bottom:10px;font-weight:normal;"><b style="font-weight:bold;">Lý do hoàn trả: </b> @item.content</h3>
                                     </div>
                                 }
                             </div>
