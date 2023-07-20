@@ -29,6 +29,10 @@ html {
     border-radius: 10px;
 }
 
+.page-link span{
+    background: black;
+}
+
 /* HOME PAGE */
 .header-search {
     width: 100%;
