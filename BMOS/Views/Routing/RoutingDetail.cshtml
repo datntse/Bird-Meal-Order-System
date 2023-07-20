@@ -79,7 +79,9 @@
 
 					<div class="col-12 routing-info__text routing-info__price">
 						<span>Giá:</span>
-						<span class="routing-info__price-text">@{@totalPrice}.000vnd</span>
+						<span class="routing-info__price-text">
+							@string.Format("{0:#,0}", totalPrice)vnđ
+							</span>
 					</div>
 
 					<div class="col-12 view-routing-process">

@@ -470,11 +470,19 @@ namespace BMOS.Controllers
 			else
 			{
 
-				var orderListDetail = _db.TblOrderDetails.Where(p => p.OrderId.Equals(orderID)).ToList();
-				foreach(var item in orderListDetail)
-				{
-					
-				}
+				var orderListDetail = _db.TblOrderDetails.Where(p => p.OrderId.Equals(orderID));
+
+				var result = from _item in orderListDetail
+							 from product in _db.TblProducts
+							 from img in _db.TblImages
+							 where _item.ProductId.Equals(product.ProductId) && product.ProductId.Equals(img.RelationId)
+							 select new OrderDetailInfoModel
+							 {
+								 productName = product.Name,
+								 image = img.Url,
+								 Quantity = _item.Quantity,
+								 Price = _item.Price,
+							 };
 
 				var date = _db.TblOrderDetails.Where(p => p.OrderId == orderID).Select(p => p.Date).FirstOrDefault();
 				var total = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.TotalPrice).FirstOrDefault();
@@ -491,7 +499,7 @@ namespace BMOS.Controllers
 				ViewBag.Email = user;
 
 
-				return View(orderListDetail);
+				return View(result.ToList());
 			}
 
 		}
