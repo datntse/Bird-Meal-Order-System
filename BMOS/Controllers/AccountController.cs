@@ -480,7 +480,7 @@ namespace BMOS.Controllers
 
 
                 ViewBag.OrderID = orderID;
-				ViewBag.Date = date;
+				ViewBag.Date = date.ToString();
 				ViewBag.TotalPrice = total.ToString();
 				ViewBag.Email = user;
 
