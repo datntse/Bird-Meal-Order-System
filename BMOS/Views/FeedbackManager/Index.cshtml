@@ -14,7 +14,10 @@
 </a>
 <table class="table">
     <thead>
-        <tr>          
+        <tr>        
+            <th>
+                Ảnh sản phẩm
+            </th>
             <th>
                 Tên sản phẩm
             </th>
@@ -38,7 +41,10 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>           
+        <tr>    
+                <td>
+                    <img src="@item.urlImage" style="width: 100px; height: 100px" />
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

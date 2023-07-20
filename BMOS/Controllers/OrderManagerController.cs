@@ -110,10 +110,9 @@ namespace BMOS.Controllers
 							IsConfirm = f.IsConfirm
 						};
 			var orderdetails = from d in _context.TblOrderDetails
-							   join p in _context.TblProducts on d.ProductId equals p.ProductId
-							   join o in order on d.OrderId equals o.orderID
-							   join image in _context.TblImages
-							   where d.OrderId == o.orderID && d.ProductId.Equals(image.RelationId)
+							   from p in _context.TblProducts
+							   from image in _context.TblImages
+							   where (d.OrderId == id && p.ProductId.Equals(d.ProductId)) && (d.ProductId.Equals(image.RelationId))
 							   select new OrderdetailsInfo()
 							   {
 								   orderId = d.OrderId,

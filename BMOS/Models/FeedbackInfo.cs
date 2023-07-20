@@ -9,5 +9,6 @@
 
         public string userName { get; set; }
         public DateTime? date { get; set;}
+        public string urlImage { get; set; }
     }
 }

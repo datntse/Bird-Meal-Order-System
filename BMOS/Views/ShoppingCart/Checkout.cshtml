@@ -465,14 +465,28 @@
 		$('.ajax-payment').click(function (e) {
 			var _note = $("#noteOrder").val();
 			Swal.fire({
-				title: 'Bạn nhận được ' + bonusPoint + ' điểm. Vui lòng xác nhận đơn hàng ',
+				title: 'Bạn nhận được ' + bonusPoint + ' điểm. ',
+				text: 'Vui lòng xác nhận đơn hàng',
+				imageUrl: 'https://firebasestorage.googleapis.com/v0/b/bmosfile.appspot.com/o/Notify%2FShopping-Cart-Day-1.jpg?alt=media&token=a823f31d-40fa-4cb1-a49b-0d079e656331',
+				imageWidth: 400,
+				imageHeight: 200,
 				showCancelButton: true,
 				confirmButtonText: 'Xác nhận',
 				denyButtonText: `Không! Cảm ơn.`,
 			}).then((result) => {
 				/* Read more about isConfirmed, isDenied below */
 				if (result.isConfirmed) {
-					Swal.fire('Cảm ơn bạn đã mua sản phẩm tại BMOS', '<a href="https://mail.google.com/mail" target="_blank">Xác nhận</a>', 'success')
+
+					Swal.fire({
+						title: 'Cảm ơn bạn đã mua sản phẩm',
+						text: 'Click OK để xác nhận đơn hàng',
+						imageUrl: 'https://firebasestorage.googleapis.com/v0/b/bmosfile.appspot.com/o/Notify%2F601396d8de58e668a9664592_Cart%20abandonment%20Flagship.png?alt=media&token=4784f51e-9ea3-4be0-94c8-232bf512945d',
+						imageWidth: 400,
+						imageHeight: 200,
+						imageAlt: 'Custom image',
+						confirmButtonText: '<a href="https://mail.google.com/mail" style="color:white;text-decoration:none;">OK</a>',
+					})
+
 					$.ajax({
 						url: "/ShoppingCart/Payment",
 						data: {
@@ -484,7 +498,6 @@
 						},
 						type: "POST",
 						success: function (data) {
-
 						},
 					});
 				}

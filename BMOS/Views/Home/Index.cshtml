@@ -84,8 +84,11 @@
 			console.log(confirmStatus);
 			if(confirmStatus.length !=  0) {
 				Swal.fire({
+					imageUrl: 'https://firebasestorage.googleapis.com/v0/b/bmosfile.appspot.com/o/Notify%2FFM1.jpeg?alt=media&token=6b9dae82-0e7e-4889-b066-a7830ca8e9c0',
+					imageWidth: 600,
+					imageHeight: 400,
+					imageAlt: 'Custom image',
 					position: 'center',
-					icon: 'success',
 					title: 'Cảm ơn bạn đã xác nhận đơn hàng',
 					width: '50%',
 					height: '50%',
@@ -109,8 +112,12 @@
 						console.log(data);
 						if (data.loginStatus) {
 							Swal.fire({
+								imageUrl: 'https://firebasestorage.googleapis.com/v0/b/bmosfile.appspot.com/o/Notify%2FcHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL2pvYjE0MjgtZWxlbWVudC0xMDctdi5qcGc.jpg?alt=media&token=d8fc7f12-7174-46a0-9ec6-109a1036c9b2',
+								imageWidth: 200,
+								imageHeight: 200,
+								height: '50%',
+								imageAlt: 'Custom image',
 								position: 'center',
-								icon: 'success',
 								title: 'Sản phẩm đã được thêm vào giỏ hàng!',
 								showConfirmButton: false,
 								timer: 1500

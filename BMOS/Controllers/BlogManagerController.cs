@@ -1,4 +1,5 @@
-﻿using BMOS.Models.Entities;
+﻿using BMOS.Models;
+using BMOS.Models.Entities;
 using BMOS.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -36,11 +37,20 @@ namespace Demo.Controllers
 
 			ViewBag.CurrentFilter = searchString;
 
-			var blogs = from s in _context.TblBlogs
-						select s;
+			var blogs = from blog in _context.TblBlogs.ToList()
+						from image in _context.TblImages.ToList()
+									   where blog.BlogId == image.RelationId && blog.Status != false
+									   select new BlogInfoModel
+									   {
+										   blogId = blog.BlogId,
+										   blogName = blog.Name,
+										   blogDescription = blog.Description,
+										   blogImage = image.Url,
+										   Date = blog.Date,
+									   };
 			if (!String.IsNullOrEmpty(searchString))
 			{
-				blogs = blogs.Where(s => s.Name.Contains(searchString));
+				blogs = blogs.Where(s => s.blogName.Contains(searchString));
 				int count = blogs.Count();
 				if (count == 0)
 				{
@@ -56,10 +66,10 @@ namespace Demo.Controllers
 			switch (sortOrder)
 			{
 				case "name":
-					blogs = blogs.OrderBy(s => s.Name);
+					blogs = blogs.OrderBy(s => s.blogName);
 					break;
 				case "name_desc":
-					blogs = blogs.OrderByDescending(s => s.Name);
+					blogs = blogs.OrderByDescending(s => s.blogName);
 					break;
 				case "date":
 					blogs = blogs.OrderBy(s => s.Date);
@@ -68,7 +78,7 @@ namespace Demo.Controllers
 					blogs = blogs.OrderByDescending(s => s.Date);
 					break;
 				default:
-					blogs = blogs.OrderBy(s => s.BlogId);
+					blogs = blogs.OrderBy(s => s.blogId);
 					break;
 			}
 			int pageSize = 8;

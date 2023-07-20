@@ -42,14 +42,16 @@ namespace BMOS.Controllers
             var feedback = from f in _context.TblFeedbacks
                            join p in _context.TblProducts on f.ProductId equals p.ProductId
                            join u in _context.TblUsers on f.UserId equals u.UserId
+                           join i in _context.TblImages on p.ProductId equals i.RelationId
 									 select new FeedbackInfo()
                            {
                                FeedbackId = f.FeedbackId,
                                Name = p.Name,
-                               userName = u.Firstname + u.Lastname,
+                               userName = u.Firstname +" " + u.Lastname,
                                Content = f.Content,
                                Star = f.Star,
                                date = f.Date,
+                               urlImage = i.Url,
                            };
 
 
