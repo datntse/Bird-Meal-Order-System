@@ -5,8 +5,7 @@
     var id = ViewBag.ID;
 }
 
-@if (id.Equals("3"))
-{
+
 	<div class="container">
 		<div class="content">
 			<div class="row userprofile">
@@ -52,7 +51,7 @@
                         }
                     </style>
 
-
+                <div class="row" style="border: 1px solid black;">
                     <div class="col-12 user_history" style="padding: 10px 10px;">
                         <div class="order-detail-header" style="background-color: rgba(197, 123, 38, 0.822); display: flex; padding-left: 10px; border-top: 1px solid
                             black; border-left: 1px solid black; border-right: 1px solid black;">
@@ -93,7 +92,7 @@
                                                         @Html.DisplayFor(modelItem => item.ProductId)
                                                     </td>
                                                     <td>
-                                                        No
+                                                        
                                                     </td>
                                                     <td>
                                                         No
@@ -128,7 +127,7 @@
                                     </div>
                                     <div>
                                         <span>
-                                            <b>Địa chỉ: </b>
+                                            <b>Địa chỉ: </b>@ViewBag.Address
                                         </span>
                                     </div>
                                     <div>
@@ -157,9 +156,8 @@
 
 
 
-                    
-
-
+               
+                
                 </div>
 
 
@@ -191,11 +189,7 @@
 			</div>
 		</div>
 	</div>
-}
-else
-{
-	<h4>Tài khoản của bạn không thể thực hiện chức năng này</h4>
-}
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
