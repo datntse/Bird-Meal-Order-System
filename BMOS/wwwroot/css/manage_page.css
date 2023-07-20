@@ -105,8 +105,9 @@ main {
 .summary {
     border: 1px solid;
     border-radius: 20px;
-    background-color: #1a222b;
+    background-color: Background;
     color: white;
+    padding:0px
 }
 
 .iconnn {
