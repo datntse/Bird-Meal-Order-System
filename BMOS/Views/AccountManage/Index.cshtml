@@ -34,17 +34,16 @@
 <table class="table">
     <thead>
         <tr>
-            <th>User Id</th>
+            <th>Mã khách hàng</th>
+           
             <th>Tài khoản</th>
-            <th>Mật khẩu</th>
             <th>Xác nhận</th>
             <th>Họ</th>
             <th>Tên</th>
             <th>Số điện thoại</th>
-            <th>Địa chỉ</th>
-            <th>Ngày tạo</th>
+            
             <th>Thời gian hoạt động gần nhất</th>
-            <th>Điểm thưởng</th>
+            
             <th>Trạng thái</th>
             <th>Chức vụ</th>
             <th></th>
@@ -62,9 +61,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Username)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
+                
                 <td>
                     @{
                         if ((item.IsConfirm) == true)
@@ -87,18 +84,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Numberphone)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCreate)
-                </td>
+                
                 <td>
                     @Html.DisplayFor(modelItem => item.LastActivitty)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Point)
-                </td>
+                
                 <td>
                     @{
                         if ((item.Status) == true)
