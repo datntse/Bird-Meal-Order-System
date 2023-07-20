@@ -51,25 +51,22 @@
                         }
                     </style>
 
-                <div class="row" style="border: 1px solid black;">
-                    <div class="col-12 user_history" style="padding: 10px 10px;">
-                        <div class="order-detail-header" style="background-color: rgba(197, 123, 38, 0.822); display: flex; padding-left: 10px; border-top: 1px solid
-                            black; border-left: 1px solid black; border-right: 1px solid black;">
-                            <h2 style="font-weight: bold; font-size: 2rem;">Chi tết đơn hàng</h2>
+                <div class="row">
+                    <div class="col-12 user_history" style="padding: 3% 5%;">
+                        <div class="order-detail-header" style="background-color: rgba(197, 123, 38, 0.822); display: flex; border-top: 1px solid
+                            black; border-left: 1px solid black; border-right: 1px solid black; height: 15%; justify-content:left; align-items:center;">
+                            <h2 style="font-weight: bold; font-size: 2.5rem;  padding-left: 3%;">Chi tết đơn hàng</h2>
                         </div>
                         <div style="border: 1px solid black; display: flex; align-items: center; justify-content: center;">
-                            <div class="order-detail-body">
+                            <div class="order-detail-body" style="width: 95%">
                                 <div class="body-head" style="display: flex; align-items: center; justify-content: space-between;">
-                                    <h3 style="font-weight: bold; font-size: 2rem;  margin: 10px 0;"><b>Mã đơn hàng: </b>@ViewBag.OrderID</h3>
-                                    <h3 style="font-weight: bold; font-size: 2rem;  margin: 10px 0;"><b>Ngày đặt: </b>@ViewBag.Date</h3>
+                                    <h3 style="font-size: 2rem;  margin: 10px 0;"><b>Mã đơn hàng: </b>@ViewBag.OrderID</h3>
+                                    <h3 style="font-size: 2rem;  margin: 10px 0;"><b>Ngày đặt: </b>@ViewBag.Date</h3>
                                 </div>
                                 <div class="body-content" style="margin: 0 0 10px;">
                                     <table class="table" style="text-align: center; border: none; font-size: 2rem;  border-collapse: collapse;">
                                         <thead>
                                             <tr>
-                                                <th>
-                                                    <h4>Mã sản phẩm</h4>
-                                                </th>
                                                 <th>
                                                     <h4>Tên sản phẩm</h4>
                                                 </th>
@@ -89,28 +86,25 @@
                                             {
                                                 <tr>
                                                     <td>
-                                                        @Html.DisplayFor(modelItem => item.ProductId)
+                                                        Chưa làm
                                                     </td>
                                                     <td>
-                                                        
-                                                    </td>
-                                                    <td>
-                                                        No
+                                                        Chưa làm
                                                     </td>
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.Quantity)
                                                     </td>
                                                     <td>
-                                                        @Html.DisplayFor(modelItem => item.Price)
+                                                        @Html.DisplayFor(modelItem => item.Price) VND
                                                     </td>
                                                 </tr>
                                             }
                                             <tr>
-                                                <td colspan="4" style="text-align: left; padding-left: 10px;">
+                                                <td colspan="3" style="text-align: left; padding-left: 10px;">
                                                     <b>Tổng tiền: </b>
                                                 </td>
                                                 <td>
-                                                    @ViewBag.TotalPrice
+                                                    @ViewBag.TotalPrice VND
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -121,22 +115,22 @@
                                 </div>
                                 <div style="border: 1px solid black; padding: 10px; margin-bottom: 20px;">
                                     <div>
-                                        <span>
+                                        <span style="font-size: 1.5rem">
                                             <b>Người nhận: </b>@ViewBag.Fullname
                                         </span>
                                     </div>
                                     <div>
-                                        <span>
+                                        <span style="font-size: 1.5rem">
                                             <b>Địa chỉ: </b>@ViewBag.Address
                                         </span>
                                     </div>
                                     <div>
-                                        <span>
+                                        <span style="font-size: 1.5rem">
                                             <b>Số điện thoại: </b>@ViewBag.Phone
                                         </span>
                                     </div>
                                     <div>
-                                        <span>
+                                        <span style="font-size: 1.5rem">
                                             <b>Email: </b>@ViewBag.Email
                                         </span>
                                     </div>
@@ -146,7 +140,7 @@
 
                         </div>
 
-                        <div class="body-footer" style=" display:flex; align-items:center; justify-content: space-between; margin-top: 10px;">
+                        <div class="body-footer" style=" display:flex; align-items:center; justify-content: space-between; margin: 2% 0 5%;">
                             <a href="~/Account/UserHistoryOrder" class="btn-back">Trở lại</a>
                         </div>
                     </div>
@@ -159,7 +153,7 @@
                
                 
                 </div>
-
+                </div>
 
 				<div class="col-5">
 					<div class="userprofile_bar">
