@@ -1,72 +1,86 @@
-﻿@model IEnumerable<BMOS.Models.Entities.TblRouting>
-
+﻿@model X.PagedList.IPagedList<BMOS.Models.Entities.TblProduct>
+@using X.PagedList.Mvc;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
 @{
-    Layout = "_ManagePage";
-    ViewData["Title"] = "Index";
+	Layout = "_ManagePage";
+	ViewData["Title"] = "Index";
 }
-<h1 style="margin-bottom:2rem">Danh Sách Lộ trình ăn</h1>
+
+<h1 style="margin-bottom:2rem">Danh Sách Sản Phẩm</h1>
 
 <p>
-    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "RoutingManager")'">Tạo Lộ Trình Ăn Mới</button>
+	<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "ProductManager")'">Tạo Sản Phẩm Mới</button>
+	<button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index", "ProductManager")'">Xóa Tìm Kiếm</button>
 </p>
 <table class="table">
-    <thead>
-        <tr>
+	<thead>
+		<tr>
+			<th>STT</th>
+			<th><a style="text-decoration:none; color:white " asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Tên sản phẩm</a></th>
+			<th>Số Lương</th>
+			<th>Trạng Thái</th>
+			<th><a style="text-decoration:none; color: white" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Giá Tiền</a></th>
+			<th>Trọng lượng</th>
+			<th>Hành động</th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			int stt = 1;
+		}
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@(stt++)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Quantity)
+				</td>
+				<td>
+					@{
+						if ((item.Status) == true)
+						{
+							<p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center;">Còn Hàng </p>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @{
-                        if ((item.Status) == true)
-                        {
-                            <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center;">Còn Hàng </p>
-
-                        }
-                        else
-                        {
-                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Hết Hàng </p>
-                        }
-                    }
-                </td>
-                <td>
-                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", new { id = item.RoutingId })'">Chỉnh sữa</button>
-                    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", new { id = item.RoutingId })'">Chi Tiết</button>
-                    <button type="button" class="btn btn-danger" onclick="{ location.href='@Url.Action("Delete", new { id = item.RoutingId })' }">Xóa</button>
-                </td>
-            </tr>
-        }
-    </tbody>
+						}
+						else
+						{
+							<p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Hết Hàng </p>
+						}
+					}
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Price)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Weight)
+				</td>
+				<td>
+					<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", new { id = item.ProductId })'">Chỉnh sữa</button>
+					<button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", new { id = item.ProductId })'">Chi Tiết</button>
+					<button type="button" class="btn btn-danger" onclick="{ location.href='@Url.Action("Delete", new { id = item.ProductId })' }">Xóa</button>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
+<br />
+<br />
+<div style="font-size:0.8rem; margin-bottom:1rem; margin-left:1rem;">
+	Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
+</div>
 
+<div style="font-size:0.5rem; margin-bottom:2rem; margin-left:0.5rem;">
+	@Html.PagedListPager(Model, page => Url.Action("Index",
+	new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+	new PagedListRenderOptions {
+	LiElementClasses = new string[] { "page-item" },
+	PageClasses = new string[] { "page-link" }
+	})
+
+</div>
