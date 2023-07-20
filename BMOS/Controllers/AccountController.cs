@@ -449,9 +449,10 @@ namespace BMOS.Controllers
 			else
 			{
 				var orderList = _db.TblOrders.Where(p => p.UserId == userID).ToList();
+				var resultOrderList = orderList.OrderByDescending(x => x.Date).ToList();
 				int pageSize = 4;
 				int pageNumber = (page ?? 1);
-				return View(orderList.ToPagedList(pageNumber, pageSize));
+				return View(resultOrderList.ToPagedList(pageNumber, pageSize));
 			}
 		}
 
@@ -468,7 +469,13 @@ namespace BMOS.Controllers
 			}
 			else
 			{
+
 				var orderListDetail = _db.TblOrderDetails.Where(p => p.OrderId.Equals(orderID)).ToList();
+				foreach(var item in orderListDetail)
+				{
+					
+				}
+
 				var date = _db.TblOrderDetails.Where(p => p.OrderId == orderID).Select(p => p.Date).FirstOrDefault();
 				var total = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.TotalPrice).FirstOrDefault();
 
@@ -478,13 +485,10 @@ namespace BMOS.Controllers
 				var address = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Address).FirstOrDefault();
 				ViewBag.Address = address;
 
-
                 ViewBag.OrderID = orderID;
-				ViewBag.Date = date.ToString();
+				ViewBag.Date = date;
 				ViewBag.TotalPrice = total.ToString();
 				ViewBag.Email = user;
-
-				
 
 
 				return View(orderListDetail);
