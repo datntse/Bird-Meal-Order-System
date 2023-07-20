@@ -4,15 +4,15 @@
     Layout = "_ManagePage";
     ViewData["Title"] = "Index";
 }
-
+<h1 style="margin-bottom:2rem">Danh Sách Lộ trình ăn</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "RoutingManager")'">Tạo Lộ Trình Ăn Mới</button>
 </p>
 <table class="table">
     <thead>
         <tr>
-  
+
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -32,30 +32,41 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RoutingId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RoutingId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RoutingId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @{
+                        if ((item.Status) == true)
+                        {
+                            <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center;">Còn Hàng </p>
+
+                        }
+                        else
+                        {
+                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Hết Hàng </p>
+                        }
+                    }
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", new { id = item.RoutingId })'">Chỉnh sữa</button>
+                    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", new { id = item.RoutingId })'">Chi Tiết</button>
+                    <button type="button" class="btn btn-danger" onclick="{ location.href='@Url.Action("Delete", new { id = item.RoutingId })' }">Xóa</button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
