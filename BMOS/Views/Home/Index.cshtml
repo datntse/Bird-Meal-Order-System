@@ -47,7 +47,7 @@
 										}
 										<div class="product-desc">
 											<div class="product-desc__title">@item.productName</div>
-											<div class="product-desc__price">@item.productPrice.000vnd</div>
+											<div class="product-desc__price">@string.Format("{0:#,0}", @item.productPrice)vnđ</div>
 											<button id="@itemnumber" data-id="@item.productId" type="button" class="ajax-add-to-cart btn btn-outline-warning add-to-cart-btn">Thêm vào giỏ hàng</button>
 										</div>
 									</div>

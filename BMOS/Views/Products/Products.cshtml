@@ -143,7 +143,7 @@
 
 								<div class="product-detail__content--title product-detail--price">
 									<span>Price:</span>
-									<div class="product-detail--price_value">@mainProduct.Price</div>
+									<div class="product-detail--price_value">@string.Format("{0:#,0}", @mainProduct.Price)vnđ</div>
 								</div>
 								<div class="product-detail__content--title product-detail--weight">
 									<span>Weight:</span>
@@ -172,7 +172,7 @@
 								<div class="col-12 product-detail__content routing-button add-to-cart--button">
 									<button type="button" class="btn btn-primary button-action button-action--add-cart">
 										<i class="fa-solid fa-cart-shopping"></i>
-										Add to cart
+										Thêm vào giỏ hàng
 									</button>
 									@{
 										bool love = (mainProduct.IsLoved) ?? false;
@@ -205,7 +205,7 @@
 					</div>
 
 					<div class="col-4 recommend-list">
-						<span class="recommend-list__text">Recommend</span>
+						<span class="recommend-list__text">Sản phẩm liên quan</span>
 						@{
 							var listRelated = @Model.getRelateProduct(mainProduct.ProductId);
 						}

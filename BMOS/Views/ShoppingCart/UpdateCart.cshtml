@@ -52,10 +52,10 @@ else
 									<div class="col-xl-2">
 										Số lượng
 									</div>
-									<div class="col-xl-2 ">
+									<div class="col-xl-2">
 										Thành Tiền
 									</div>
-									<div class="col-xl-2 ">
+									<div class="col-xl-1">
 									</div>
 								</div>
 								<hr class="my-4">
@@ -71,9 +71,7 @@ else
 										</div>
 										<div class="col-xl-2">
 											<h6 class="mb-0">
-												@{
-													@item._price
-												}.000vnđ
+												@string.Format("{0:#,0}", item._price)vnđ
 											</h6>
 										</div>
 										<div class="col-xl-2 d-flex">
@@ -92,12 +90,10 @@ else
 										</div>
 										<div class="col-xl-2">
 											<h6 class="mb-0">
-												@{
-													@_priceProduct
-												}.000vnđ
+												@string.Format("{0:#,0}", _priceProduct)vnđ
 											</h6>
 										</div>
-										<div data-id="@item._productId" class="ajax-remove-item col-xl-2 text-end">
+										<div data-id="@item._productId" class="ajax-remove-item col-xl-1 text-end">
 											<a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
 										</div>
 									</div>
@@ -120,29 +116,35 @@ else
 
 								<div class="d-flex justify-content-between mb-4">
 									<h5 class="text-uppercase">TỔNG</h5>
-									<h5 style="font-size: 2rem">@{@totalPrice}.000vnđ </h5>
+									<h5 style="font-size: 2rem">@string.Format("{0:#,0}", @totalPrice)vnđ </h5>
 								</div>
 
 								<div class="d-flex justify-content-between mb-4">
 									<h5 class="text-uppercase">Điểm nhận được</h5>
-									<h5 style="font-size: 2rem">@bonusPoint điểm</h5>
+									<h5 style="font-size: 2rem">@{
+											var point = (double?)userPoint / 100;
+										} @point điểm
+									</h5>
 								</div>
 
 								<hr class="my-4">
 								<div class="d-flex justify-content-between mb-4">
 									<h5 class="text-uppercase">Điểm tích lũy của bạn</h5>
-									<h5 style="font-size: 2rem">@userPoint điểm</h5>
+									@{
+										var userPointPrice = (double?)userPoint;
+									}
+									<h5 style="font-size: 2rem">@userPoint điểm (@string.Format("{0:#,0}", @userPointPrice)vnđ)</h5>
 								</div>
 								<hr class="my-4">
 								<div class="mb-5">
 									<div class="form-outline discount-type-option">
 										<label class="form-label" for="form3Examplea2">Bạn có muốn giảm giá bằng:</label>
 										<div class="discount-type-wrapper">
-											<button type="button" class="btn btn-dark btn-block btn-lg usepoint-btn"
+											<button type="button" class="btn btn-success btn-lg usepoint-btn"
 													data-mdb-ripple-color="blue">
 												Điểm tích lũy
 											</button>
-											<button type="button" class="btn btn-dark btn-block btn-lg usecode-btn"
+											<button type="button" class="btn btn-info btn-block btn-lg usecode-btn"
 													data-mdb-ripple-color="green">
 												Code
 											</button>
@@ -188,8 +190,8 @@ else
 								<hr class="my-4">
 
 								<div class="d-flex justify-content-between mb-5">
-									<h5 class="text-uppercase">Total price</h5>
-									<h5 class="totalPrice" style="color: red; font-size: 2rem">@totalPrice .000 vnd</h5>
+									<h5 class="text-uppercase">Tổng Cộng</h5>
+									<h5 class="totalPrice" style="color: red; font-size: 2rem">		@string.Format("{0:#,0}", @totalPrice)vnđ	</h5>
 									@if (totalPrice > resultPrice && resultPrice > 0)
 									{
 										<h5 class="resultPriceAfterUsePoint" style="color: red; font-size: 2rem">@resultPrice .000 vnd</h5>
@@ -197,7 +199,7 @@ else
 								</div>
 
 								<a asp-controller="ShoppingCart" asp-action="Checkout">
-									<button type="button" class="btn btn-dark btn-block btn-lg"
+									<button type="button" class="btn btn-warning btn-block btn-lg"
 											data-mdb-ripple-color="dark">
 										Thanh Toán
 									</button>

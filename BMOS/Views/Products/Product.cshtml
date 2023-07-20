@@ -71,7 +71,8 @@
 						</div>
 						<div class="product-detail__content--title product-detail--price">
 							<span>Giá:</span>
-							<div class="product-detail--price_value">@{@Model.Price}.000vnd</div>
+							<div class="product-detail--price_value">
+								@string.Format("{0:#,0}", @Model.Price)vnđ</div>
 						</div>
 						<div class="product-detail__content--title product-detail--weight">
 							<span>Trọng lượng:</span>

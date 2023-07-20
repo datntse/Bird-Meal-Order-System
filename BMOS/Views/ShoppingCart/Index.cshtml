@@ -39,10 +39,10 @@ else
 											<div class="col-xl-2">
 												Ảnh sản phẩm
 											</div>
-											<div class="col-xl-2">
+											<div class="col-xl-3">
 												Tên sản phẩm
 											</div>
-											
+
 											<div class="col-xl-2 ">
 												Giá sản phẩm
 											</div>
@@ -52,7 +52,7 @@ else
 											<div class="col-xl-2 ">
 												Thành Tiền
 											</div>
-											<div class="col-xl-2 ">
+											<div class="col-xl-1 ">
 											</div>
 										</div>
 										<hr class="my-4">
@@ -63,14 +63,11 @@ else
 												<div class="col-xl-2">
 													<img src="@Html.DisplayFor(modelItem => item._productImage)" style="width: 100px; height: 100px" />
 												</div>
-												<div class="col-xl-2">
+												<div class="col-xl-3">
 													<h6 class="text-muted">@Html.DisplayFor(xx => item._productName)</h6>
 												</div>
 												<div class="col-xl-2">
-													@string.Format("{0:#,000vnđ}", @item._price)
-												@*	<h6 class="mb-0">@{
-															@item._price
-														}.000vnđ</h6>*@
+													@string.Format("{0:#,0}", item._price)vnđ
 												</div>
 												<div class="col-xl-2 d-flex">
 													<button data-id="@item._productId" class="btn btn-link px-2 decrease-prodQuantity-btn"
@@ -87,11 +84,10 @@ else
 													</button>
 												</div>
 												<div class="col-xl-2">
-													<h6 class="mb-0">@{
-															@_priceProduct
-														}.000vnđ</h6>
+													<h6 class="mb-0">
+														@string.Format("{0:#,0}", _priceProduct)vnđ
 												</div>
-												<div data-id="@item._productId" class="ajax-remove-item col-xl-2 text-end">
+												<div data-id="@item._productId" class="ajax-remove-item col-xl-1 text-end">
 													<a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
 												</div>
 											</div>
@@ -115,7 +111,10 @@ else
 
 										<div class="d-flex justify-content-between mb-4">
 											<h5 class="text-uppercase">TỔNG</h5>
-											<h5 style="font-size: 2rem">@{@totalPrice}.000 vnd</h5>
+											<h5 style="font-size: 2rem">
+												@string.Format("{0:#,0}", @totalPrice)vnđ
+											</h5>
+
 										</div>
 
 										<div class="d-flex justify-content-between mb-4">
@@ -128,7 +127,10 @@ else
 
 										<div class="d-flex justify-content-between mb-4">
 											<h5 class="text-uppercase">Điểm tích lũy của bạn</h5>
-											<h5 style="font-size: 2rem">@userPoint điểm</h5>
+											@{
+												var userPointPrice = (double?)userPoint ;
+											}
+											<h5 style="font-size: 2rem">@userPoint điểm (@string.Format("{0:#,0}", @userPointPrice)vnđ)</h5>
 										</div>
 										<hr class="my-4">
 										<div class="mb-5">
@@ -164,7 +166,9 @@ else
 
 										<div class="d-flex justify-content-between mb-5">
 											<h5 class="text-uppercase">Tổng Cộng</h5>
-											<h5 style="color: red; font-size: 2rem">@{@totalPrice}.000 vnd</h5>
+											<h5 style="color: red; font-size: 2rem">
+												@string.Format("{0:#,0}", @totalPrice)vnđ
+											</h5>
 										</div>
 
 										<a asp-controller="ShoppingCart" asp-action="Checkout">
