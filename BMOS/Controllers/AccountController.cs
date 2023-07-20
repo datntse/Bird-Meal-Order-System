@@ -472,15 +472,21 @@ namespace BMOS.Controllers
 				var date = _db.TblOrderDetails.Where(p => p.OrderId == orderID).Select(p => p.Date).FirstOrDefault();
 				var total = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.TotalPrice).FirstOrDefault();
 
+				var phone = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Phone).FirstOrDefault();
+				ViewBag.Phone = phone;
 
-				
-				
-				ViewBag.OrderID = orderID;
+				var address = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Address).FirstOrDefault();
+				ViewBag.Address = address;
+
+
+                ViewBag.OrderID = orderID;
 				ViewBag.Date = date;
 				ViewBag.TotalPrice = total.ToString();
 				ViewBag.Email = user;
-				var phone = _db.TblUsers.Where(p => p.Username == user).Select(p => p.Numberphone).First();
-				ViewBag.Phone = phone;
+
+				
+
+
 				return View(orderListDetail);
 			}
 

@@ -206,12 +206,12 @@ html {
     color: orange;
 }
 
-.user_history{
+/*.user_history{
     border: 2px solid black;
     border-radius: 20px;
     width: 99%;
     margin-top: 20px;
-}
+}*/
 
 .user_history_details {
     display: flex;
