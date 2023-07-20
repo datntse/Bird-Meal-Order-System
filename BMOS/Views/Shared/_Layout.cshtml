@@ -46,10 +46,23 @@
                     <div class="col-4">
                         <div class="row header-option">
                             <div class="col header-option-notify ">
-                                <img src="" alt="">
+                                <a asp-action="Notify" asp-controller="Products">
+                                    <img src="/images/bell.png" alt="">
+                                </a>
                             </div>
                             <div class="col header-option-cart">
-                                <img src="images/cart.png" alt="" srcset="">
+                                <a asp-controller="ShoppingCart" asp-action="Index">
+                                    <img src="/images/cart.png" alt="" srcset="">
+                                    @using BMOS.Helpers
+                                    @{
+                                        var data = Context.Session.Get<List<CartModel>>("Cart");
+                                        if (data == null)
+                                        {
+                                            data = new List<CartModel>();
+                                        }
+                                        <div class="cart-quantity">@data.Count</div>
+                                    }
+                                </a>
                             </div>
                             <div class="col header-option-profile">
                                 <a href="~/Account/UserProfile"><img src="~/images/user-icon.png" alt=""></a>                               
