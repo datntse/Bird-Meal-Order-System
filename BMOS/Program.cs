@@ -1,5 +1,9 @@
 using BMOS.Models.Entities;
+using BMOS.Models.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -16,8 +20,8 @@ builder.Services.AddDbContext<BmosContext>(options =>
 
 services.AddAuthentication().AddGoogle(googleOptions =>
 {
-    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+	googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+	googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
 	googleOptions.CallbackPath = "/Account/LoginWithGoogle";
 });
 

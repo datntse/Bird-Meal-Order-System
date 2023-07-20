@@ -11,14 +11,23 @@ using Microsoft.EntityFrameworkCore;
 using BMOS.Models;
 using BMOS.Helpers;
 using X.PagedList;
-using BMOS.Models.Services;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+using Google.Apis.Oauth2.v2.Data;
 
 namespace BMOS.Controllers
 {
-	public class AccountController : Controller
-	{
+    public class AccountController : Controller
+    {
 		private BmosContext _db = new BmosContext();
-       
+        //private readonly GoogleAuthService _googleAuthService;
+        ////private readonly IHttpContextAccessor _httpContextAccessor;
+
+        //public AccountController(GoogleAuthService googleAuthService)
+        //{
+        //    _googleAuthService = googleAuthService;
+        //    //_httpContextAccessor = httpContextAccessor;
+        //}
 
         public IActionResult Login()
 		{
@@ -462,23 +471,41 @@ namespace BMOS.Controllers
 				var orderListDetail = _db.TblOrderDetails.Where(p => p.OrderId.Equals(orderID)).ToList();
 				var date = _db.TblOrderDetails.Where(p => p.OrderId == orderID).Select(p => p.Date).FirstOrDefault();
 				var total = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.TotalPrice).FirstOrDefault();
+
+
+				
+				
 				ViewBag.OrderID = orderID;
 				ViewBag.Date = date.ToString();
 				ViewBag.TotalPrice = total.ToString();
+				ViewBag.Email = user;
+				var phone = _db.TblUsers.Where(p => p.Username == user).Select(p => p.Numberphone).First();
+				ViewBag.Phone = phone;
 				return View(orderListDetail);
 			}
 
 		}
 
-		public IActionResult ReceiveButton()
+		public IActionResult ReceiveButton(string returnUrl = "/")
 		{
-			return new ChallengeResult("Google", null);
-		}
+            var properties = new AuthenticationProperties { RedirectUri = returnUrl };
+            return Challenge(properties, "Google");
+            //return new ChallengeResult("Google", null);
+        }
 
-		public async Task<IActionResult> LoginWithGoogle(string code)
+		public IActionResult LoginWithGoogle(string code)
 		{
-            HttpContext.Session.SetString("username", code);
-            return RedirectToAction("Index", "Home");
+			//var userInfo = await _googleAuthService.GetUserInfoAsync(code);
+			//if (userInfo != null)
+			//{
+
+			//    //_httpContextAccessor.HttpContext.Session.SetString("GoogleUserId", userInfo.Id);
+			//    //_httpContextAccessor.HttpContext.Session.SetString("GoogleUserName", userInfo.UserName);
+			//    //_httpContextAccessor.HttpContext.Session.SetString("GoogleUserEmail", userInfo.Email);
+			//    HttpContext.Session.SetString("username", userInfo.Email);
+			//}
+			HttpContext.Session.SetString("username", code);
+			return RedirectToAction("Index", "Home");
 		}
 
 		public IActionResult Refund()
