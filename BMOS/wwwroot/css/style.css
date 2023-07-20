@@ -16,6 +16,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    transition: ease-in 0.1s all;
 }
 
 html {
@@ -46,12 +47,32 @@ html {
 }
 
 #preloader {
-    background: #fff url(/images/preloader.gif) no-repeat center center;
-    background-size: 30%;
+    background: #fff url(/images/preloaderv2.gif) no-repeat center center;
+    background-size: 20%;
     height: 100vh;
     width: 100%;
     position: fixed;
     z-index: 100;
+}
+
+.disapear {
+    animation: vanish 1s forwards;
+}
+
+
+@keyframes vanish {
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+.voucher-discount-btn, .point-discount-btn {
+    font-size: 1.3rem;
+    width: 70px;
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    font-weight: bold;
 }
 
 

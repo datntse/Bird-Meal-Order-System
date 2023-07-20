@@ -84,7 +84,6 @@ namespace BMOS.Controllers
 			return View(routingSession);
 		}
 
-
 		public IActionResult EditRoutingDetail(string id, string status, int productQuantity = 1)
 		{
 			var totalPrice = getTotalPrice();

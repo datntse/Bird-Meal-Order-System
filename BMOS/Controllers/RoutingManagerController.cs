@@ -180,85 +180,86 @@ namespace BMOS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-    //    public async Task<IActionResult> Edit(string id, TblRouting model, List<IFormFile> files)
-    //    {
+		//    public async Task<IActionResult> Edit(string id, TblRouting model, List<IFormFile> files)
+		//    {
 
-    //        var routing = await _context.TblRoutings.FindAsync(id);
-
-
-    //        if (routing == null)
-    //        {
-    //            return NotFound();
-    //        }
+		//        var routing = await _context.TblRoutings.FindAsync(id);
 
 
-    //        _context.TblProductInRoutings.RemoveRange(_context.TblProductInRoutings.Where(rp => rp.RoutingId == id));
+		//        if (routing == null)
+		//        {
+		//            return NotFound();
+		//        }
 
 
-    //        var productList = model.listProductId;
+		//        _context.TblProductInRoutings.RemoveRange(_context.TblProductInRoutings.Where(rp => rp.RoutingId == id));
 
 
-    //        foreach (var productId in productList)
-    //        {
-    //            routing.TblProductInRoutings.Add(new TblProductInRoutings
-				//{
-				//	Id = 0,
-				//	RoutingId = id,
-    //                ProductId = productId,
-
-    //            });;
-    //        }
+		//        var productList = model.listProductId;
 
 
-    //        _context.TblRoutings.Update(routing);
-    //        await _context.SaveChangesAsync();
+		//        foreach (var productId in productList)
+		//        {
+		//            routing.TblProductInRoutings.Add(new TblProductInRoutings
+		//{
+		//	Id = 0,
+		//	RoutingId = id,
+		//                ProductId = productId,
+
+		//            });;
+		//        }
 
 
-    //        return RedirectToAction(nameof(Index));
-    //    }
+		//        _context.TblRoutings.Update(routing);
+		//        await _context.SaveChangesAsync();
 
-        // GET: RoutingManager/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null || _context.TblRoutings == null)
-            {
-                return NotFound();
-            }
 
-            var tblRouting = await _context.TblRoutings
-                .FirstOrDefaultAsync(m => m.RoutingId == id);
-            if (tblRouting == null)
-            {
-                return NotFound();
-            }
+		//        return RedirectToAction(nameof(Index));
+		//    }
 
-            return View(tblRouting);
-        }
+		// GET: RoutingManager/Delete/5
+		public async Task<IActionResult> Delete(string id)
+		{
+			if (id == null || _context.TblRoutings == null)
+			{
+				return NotFound();
+			}
 
-        // POST: RoutingManager/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            if (_context.TblRoutings == null)
-            {
-                return Problem("Entity set 'BmosContext.TblRoutings'  is null.");
-            }
-            var tblRouting = await _context.TblRoutings.FindAsync(id);
-            var tblProductInRouting = _context.TblProductInRoutings.Where(x => x.RoutingId.Equals(id));
-            if (tblRouting != null && tblProductInRouting != null)
-            {
-                _context.TblRoutings.Remove(tblRouting);
-                foreach(var tbl in tblProductInRouting) {
-                _context.TblProductInRoutings.Remove(tbl);
-                }
-            }
+			var tblRouting = await _context.TblRoutings
+				.FirstOrDefaultAsync(m => m.RoutingId == id);
+			if (tblRouting == null)
+			{
+				return NotFound();
+			}
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+			return View(tblRouting);
+		}
 
-        private bool TblRoutingExists(string id)
+		// POST: RoutingManager/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeleteConfirmed(string id)
+		{
+			if (_context.TblRoutings == null)
+			{
+				return Problem("Entity set 'BmosContext.TblRoutings'  is null.");
+			}
+			var tblRouting = await _context.TblRoutings.FindAsync(id);
+			var tblProductInRouting = _context.TblProductInRoutings.Where(x => x.RoutingId.Equals(id));
+			if (tblRouting != null && tblProductInRouting != null)
+			{
+				_context.TblRoutings.Remove(tblRouting);
+				foreach (var tbl in tblProductInRouting)
+				{
+					_context.TblProductInRoutings.Remove(tbl);
+				}
+			}
+
+			await _context.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
+
+		private bool TblRoutingExists(string id)
         {
             return (_context.TblRoutings?.Any(e => e.RoutingId == id)).GetValueOrDefault();
         }

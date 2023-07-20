@@ -28,7 +28,7 @@
 else
 {
 	<div class="row d-flex justify-content-center align-items-center">
-		<div class="col-12">
+		<div class="col-12" style="padding: 0 100px">
 			<div class="card card-registration card-registration-2" style="border-radius: 15px;">
 				<div class="card-body p-0">
 					<div class="row g-0">
@@ -42,20 +42,20 @@ else
 									<div class="col-xl-2">
 										Ảnh sản phẩm
 									</div>
-									<div class="col-xl-2">
+									<div class="col-xl-3">
 										Tên sản phẩm
 									</div>
 
 									<div class="col-xl-2 ">
 										Giá sản phẩm
 									</div>
-									<div class="col-xl-2">
+									<div class="col-xl-2" style="text-align: center">
 										Số lượng
 									</div>
-									<div class="col-xl-2">
+									<div class="col-xl-2 ">
 										Thành Tiền
 									</div>
-									<div class="col-xl-1">
+									<div class="col-xl-1 ">
 									</div>
 								</div>
 								<hr class="my-4">
@@ -66,13 +66,11 @@ else
 										<div class="col-xl-2">
 											<img src="@Html.DisplayFor(modelItem => item._productImage)" style="width: 100px; height: 100px" />
 										</div>
-										<div class="col-xl-2">
+										<div class="col-xl-3">
 											<h6 class="text-muted">@Html.DisplayFor(xx => item._productName)</h6>
 										</div>
 										<div class="col-xl-2">
-											<h6 class="mb-0">
-												@string.Format("{0:#,0}", item._price)vnđ
-											</h6>
+											@string.Format("{0:#,0}", item._price)vnđ
 										</div>
 										<div class="col-xl-2 d-flex">
 											<button data-id="@item._productId" class="btn btn-link px-2 decrease-prodQuantity-btn"
@@ -91,7 +89,6 @@ else
 										<div class="col-xl-2">
 											<h6 class="mb-0">
 												@string.Format("{0:#,0}", _priceProduct)vnđ
-											</h6>
 										</div>
 										<div data-id="@item._productId" class="ajax-remove-item col-xl-1 text-end">
 											<a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
@@ -121,9 +118,11 @@ else
 
 								<div class="d-flex justify-content-between mb-4">
 									<h5 class="text-uppercase">Điểm nhận được</h5>
-									<h5 style="font-size: 2rem">@{
-											var point = (double?)userPoint / 100;
-										} @point điểm
+									<h5 style="font-size: 2rem">
+										@{
+											var point = (double?)totalPrice / 1000;
+											var resultPoint = Math.Round((decimal)point, MidpointRounding.AwayFromZero);
+										} @resultPoint điểm
 									</h5>
 								</div>
 
@@ -131,7 +130,7 @@ else
 								<div class="d-flex justify-content-between mb-4">
 									<h5 class="text-uppercase">Điểm tích lũy của bạn</h5>
 									@{
-										var userPointPrice = (double?)userPoint;
+										var userPointPrice = (double?)userPoint * 10;
 									}
 									<h5 style="font-size: 2rem">@userPoint điểm (@string.Format("{0:#,0}", @userPointPrice)vnđ)</h5>
 								</div>
@@ -140,50 +139,56 @@ else
 									<div class="form-outline discount-type-option">
 										<label class="form-label" for="form3Examplea2">Bạn có muốn giảm giá bằng:</label>
 										<div class="discount-type-wrapper">
-											<button type="button" class="btn btn-success btn-lg usepoint-btn"
+											<button type="button" class="btn btn-success usepoint-btn"
 													data-mdb-ripple-color="blue">
 												Điểm tích lũy
 											</button>
-											<button type="button" class="btn btn-info btn-block btn-lg usecode-btn"
+											<button type="button" class="btn btn-info usecode-btn"
 													data-mdb-ripple-color="green">
 												Code
 											</button>
 										</div>
 									</div>
 								</div>
+
 								<div class="mb-5 usepoint-input">
-									<div class="form-outline">
+									<div class="form-outline" style="position: relative">
 										<label class="form-label" for="form3Examplea2">Sử dụng điểm tích lũy</label>
+										<label style="font-size: 1.3rem; color: #6c757d!important;" class="form-label" for="form3Examplea2">Áp dụng cho đơn hàng 100.000vnđ trở lên, 100 điểm sẽ được giảm 1.000vnđ</label>
+										<button type="button" class="btn btn-warning point-discount-btn">Áp dụng</button>
 										@if (TempData["errorPoint"] == null)
 										{
-											<input type="text" id="form3Examplea2" name="usePoint" value="@pointInput" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
+											<input style ="padding: 10px" type="text" id="form3Examplea2" name="usePoint" value="@pointInput" class="form-control form-control-lg" />
 										}
 										else
 										{
 											<label style="color: red" class="form-label error-message" for="form3Examplea2">@TempData["errorPoint"]</label>
 											if (@pointInput == 0)
 											{
-												<input type="text" id="form3Examplea2" name="usePoint" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
+												<input style="padding: 10px" type="text" id="form3Examplea2" name="usePoint" class="form-control form-control-lg" />
 											}
 											else
 											{
-												<input type="text" id="form3Examplea2" name="usePoint" value="@pointInput" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
+												<input style="padding: 10px" type="text" id="form3Examplea2" name="usePoint" value="@pointInput" class="form-control form-control-lg"  />
 											}
 										}
 									</div>
 								</div>
 
 								<div class="mb-5 usecode-input">
-									<div class="form-outline">
-										<label class="form-label" for="form3Examplea2">Code giảm giá</label>
+									<div class="form-outline" style="position: relative">
+										<label class="form-label" for="form3Examplea2">Code giảm giá</label> 
+										<label style="font-size: 1.3rem ;color: #6c757d!important;" class="form-label" for="form3Examplea2">Áp dụng cho đơn hàng 100.000vnđ trở lên, 100 điểm sẽ được giảm 1.000vnđ</label>
+										<button type="button" class="btn btn-warning voucher-discount-btn">Áp dụng</button>
+
 										@if (TempData["errorVoucher"] == null)
 										{
-											<input type="text" id="form3Examplea2" name="useVoucher" value="@voucherInput" class="form-control form-control-lg" placeholder="" />
+											<input style="padding: 10px" type="text" id="form3Examplea2" name="useVoucher" value="@voucherInput" class="form-control form-control-lg" placeholder="" />
 										}
 										else
 										{
-											<label style="color: red" class="form-label error-voucher-message" for="form3Examplea2">@TempData["errorVoucher"]</label>
-											<input type="text" id="form3Examplea2" name="useVoucher" value="@voucherInput" class="form-control form-control-lg" placeholder="" />
+											<label  style="font-size: 1.5rem;  color: red" class="form-label error-voucher-message" for="form3Examplea2">@TempData["errorVoucher"]</label>
+											<input style="padding: 10px" type="text" id="form3Examplea2" name="useVoucher" value="@voucherInput" class="form-control form-control-lg" placeholder="" />
 										}
 									</div>
 								</div>
@@ -194,12 +199,12 @@ else
 									<h5 class="totalPrice" style="color: red; font-size: 2rem">		@string.Format("{0:#,0}", @totalPrice)vnđ	</h5>
 									@if (totalPrice > resultPrice && resultPrice > 0)
 									{
-										<h5 class="resultPriceAfterUsePoint" style="color: red; font-size: 2rem">@resultPrice .000 vnd</h5>
+										<h5 class="resultPriceAfterUsePoint" style="color: red; font-size: 2rem">@string.Format("{0:#,0}", @resultPrice)vnđ</h5>
 									}
 								</div>
 
 								<a asp-controller="ShoppingCart" asp-action="Checkout">
-									<button type="button" class="btn btn-warning btn-block btn-lg"
+									<button style="font-weight: bold" type="button" class="btn btn-warning btn-block btn-lg"
 											data-mdb-ripple-color="dark">
 										Thanh Toán
 									</button>
@@ -219,6 +224,10 @@ else
 }
 <script>
 	$(document).ready(function () {
+
+		var usePointBtn = $('.point-discount-btn');
+		var useVoucherBtn = $('.voucher-discount-btn');
+
 		var discountType = false;
 		var errorCode = $('.error-message');
 		var errorCodeVoucher = $('.error-voucher-message');
@@ -236,8 +245,14 @@ else
 
 		console.log("usercode Input", usecodeBtn);
 		console.log("discountType ", discountType);
+		console.log("errorCodeVoucher", errorCodeVoucher);
 		if (errorCodeVoucher.length > 0) {
 			discountType = true;
+		} 
+
+		if (inputVoucher.val().length > 1 && errorCodeVoucher.length == 0) {
+			discountType = true;
+			console.log("length", inputVoucher.val().length);
 		}
 
 
@@ -276,7 +291,7 @@ else
 
 
 
-		inputVoucher.blur(function (e) {
+		useVoucherBtn.click(function (e) {
 			$.ajax({
 				url: "/ShoppingCart/useBonusCode",
 				data: {
@@ -289,7 +304,7 @@ else
 			})
 		});
 
-		inputPoint.blur(function (e) {
+		usePointBtn.click(function (e) {
 			$.ajax({
 				url: "/ShoppingCart/useBonusPoint",
 				data: {

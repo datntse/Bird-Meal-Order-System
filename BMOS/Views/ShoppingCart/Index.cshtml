@@ -25,7 +25,7 @@ else
 	<body>
 		<div class="cart-wrapper">
 			<div class="row d-flex justify-content-center align-items-center">
-				<div class="col-12">
+				<div class="col-12" style="padding: 0 100px">
 					<div class="card card-registration card-registration-2" style="border-radius: 15px;">
 						<div class="card-body p-0">
 							<div class="row g-0">
@@ -46,7 +46,7 @@ else
 											<div class="col-xl-2 ">
 												Giá sản phẩm
 											</div>
-											<div class="col-xl-2">
+											<div class="col-xl-2" style="text-align: center">
 												Số lượng
 											</div>
 											<div class="col-xl-2 ">
@@ -119,7 +119,12 @@ else
 
 										<div class="d-flex justify-content-between mb-4">
 											<h5 class="text-uppercase">Điểm nhận được</h5>
-											<h5 style="font-size: 2rem">@bonusPoint điểm</h5>
+											<h5 style="font-size: 2rem">
+												@{
+													var point = (double?)totalPrice / 1000;
+													var resultPoint = Math.Round((decimal)point, MidpointRounding.AwayFromZero);
+												} @resultPoint điểm
+											</h5>
 										</div>
 
 
@@ -128,7 +133,7 @@ else
 										<div class="d-flex justify-content-between mb-4">
 											<h5 class="text-uppercase">Điểm tích lũy của bạn</h5>
 											@{
-												var userPointPrice = (double?)userPoint ;
+												var userPointPrice = (double?)userPoint * 10;
 											}
 											<h5 style="font-size: 2rem">@userPoint điểm (@string.Format("{0:#,0}", @userPointPrice)vnđ)</h5>
 										</div>
@@ -149,18 +154,24 @@ else
 											</div>
 										</div>
 										<div class="mb-5 usepoint-input">
-											<div class="form-outline">
+											<div class="form-outline" style="position: relative">
 												<label class="form-label" for="form3Examplea2">Sử dụng điểm tích lũy</label>
-												<input type="text" id="form3Examplea2" name="usePoint" class="form-control form-control-lg" placeholder="Áp dụng cho đơn hàng 100.000vnd trở lên. 100 điểm sẽ được giảm 1.000vnd" />
+												<label style="font-size: 1.3rem; color: #6c757d!important;" class="form-label" for="form3Examplea2">Áp dụng cho đơn hàng 100.000vnđ trở lên, 100 điểm sẽ được giảm 1.000vnđ</label>
+												<input style="padding: 10px" type="text" id="form3Examplea2" name="usePoint" class="form-control form-control-lg" />
+												<button type="button" class="btn btn-warning point-discount-btn">Áp dụng</button>
 											</div>
 										</div>
 
 										<div class="mb-5 usecode-input">
-											<div class="form-outline">
+											<div class="form-outline" style="position: relative">
 												<label class="form-label" for="form3Examplea2">Code giảm giá</label>
-												<input type="text" id="form3Examplea2" name="useVoucher" class="form-control form-control-lg" />
+												<label style="font-size: 1.3rem ;color: #6c757d!important;" class="form-label" for="form3Examplea2">Áp dụng cho đơn hàng 100.000vnđ trở lên, 100 điểm sẽ được giảm 1.000vnđ</label>
+												<input style="padding: 10px" type="text" id="form3Examplea2" name="useVoucher" class="form-control form-control-lg" />
+												<button type="button" class="btn btn-warning voucher-discount-btn">Áp dụng</button>
 											</div>
 										</div>
+
+
 
 										<hr class="my-4">
 
@@ -172,7 +183,7 @@ else
 										</div>
 
 										<a asp-controller="ShoppingCart" asp-action="Checkout">
-											<button type="button" class="btn btn-warning checkout-btn btn-block btn-lg"
+											<button style="font-weight: bold" type="button" class="btn btn-warning checkout-btn btn-block btn-lg"
 													data-mdb-ripple-color="dark">
 												Thanh Toán
 											</button>
@@ -193,6 +204,9 @@ else
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		$(document).ready(function () {
+			var usePointBtn = $('.point-discount-btn');
+			var useVoucherBtn = $('.voucher-discount-btn');
+
 			var usepointInput = $(".usepoint-input");
 			var usecodeInput = $(".usecode-input");
 
@@ -229,7 +243,7 @@ else
 			var inputPoint = $('input[name="usePoint"]');
 			var inputVoucher = $('input[name="useVoucher"]')
 
-			inputVoucher.blur(function (e) {
+			useVoucherBtn.click(function (e) {
 				$.ajax({
 					url: "/ShoppingCart/useBonusCode",
 					data: {
@@ -242,7 +256,7 @@ else
 				})
 			});
 
-			inputPoint.blur(function (e) {
+			usePointBtn.click(function (e) {
 				$.ajax({
 					url: "/ShoppingCart/useBonusPoint",
 					data: {

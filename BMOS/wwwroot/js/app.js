@@ -48,9 +48,9 @@ $(document).ready(function () {
 
 });
 var loader = document.getElementById("preloader");
-window.addEventListener("load", function () {
-    loader.style.display = "none";
-})
+    window.addEventListener("load", function () {
+    loader.classList.add("disapear");
+    })
 function increaseValue() {
     var value = parseInt(document.getElementById('number').value, 10);
     value = isNaN(value) ? 0 : value;

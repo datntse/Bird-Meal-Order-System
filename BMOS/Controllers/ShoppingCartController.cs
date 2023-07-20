@@ -131,7 +131,7 @@ namespace BMOS.Controllers
             }
 
 
-            if (totalPrice >= 100)
+            if (totalPrice >= 100000)
             {
                 var checkVoucher = _context.TblVoucherCodes.Where(x => x.VoucherCode.Equals(code)).FirstOrDefault();
 
@@ -196,15 +196,15 @@ namespace BMOS.Controllers
                 //check userpoint 
 
                 //validate price >= 100k
-                if (totalPrice >= 100)
+                if (totalPrice >= 100000)
                 {
                     //validate point >= 1000d && <= 10000d	
                     if (point >= 1000 && point <= 10000)
                     {
-                        resultPrice = totalPrice - (point / 100);
+                        resultPrice = totalPrice - (point * 10);
 
                         HttpContext.Session.Set("resultPrice", resultPrice);
-                        HttpContext.Session.Set("discountPrice", point / 100);
+                        HttpContext.Session.Set("discountPrice", point * 10);
                         HttpContext.Session.Set("pointInput", point);
 
                         //user.Point = userPoint - point;
@@ -236,9 +236,9 @@ namespace BMOS.Controllers
             var Address = _context.TblAddresses.Where(x => x.UserId == user.UserId).FirstOrDefault();
             decimal? bonusPoint = 0;
 
-            if (_priceProduct >= 100)
+            if (_priceProduct >= 100000)
             {
-                bonusPoint = Math.Round((decimal)_priceProduct, MidpointRounding.AwayFromZero);
+                bonusPoint = Math.Round((decimal)_priceProduct/1000, MidpointRounding.AwayFromZero);
             }
             var usePointPrice = HttpContext.Session.Get<double>("resultPrice");
             if (usePointPrice > 0)
@@ -370,6 +370,7 @@ namespace BMOS.Controllers
             return View();
         }
 
+
         public IActionResult RemoveItem(string id)
         {
             var myCart = Cart;
@@ -419,7 +420,7 @@ namespace BMOS.Controllers
 
             double? userPoint = user.Point;
             decimal? bonusPoint = 0;
-            if (totalPrice >= 100)
+            if (totalPrice >= 100000)
             {
                 bonusPoint = Math.Round((decimal)totalPrice, MidpointRounding.AwayFromZero);
             }
@@ -493,7 +494,7 @@ namespace BMOS.Controllers
             double? userPoint = user.Point;
             var _priceProduct = getTotalCartPrice();
             decimal? bonusPoint = 0;
-            if (_priceProduct >= 100)
+            if (_priceProduct >= 100000)
             {
                 bonusPoint = Math.Round((decimal)_priceProduct, MidpointRounding.AwayFromZero);
             }

@@ -9,7 +9,7 @@
 	var routing = ViewData["Routing"] as BMOS.Models.RoutingHomePageModel;
 }
 <div class="content">
-<input name="totalPrice" value="@totalPrice" />
+
 	<div class="container">
 		<div class="content__navigation">
 			<div>
@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col-8 routing-list">
 				<div class="content_routing-list--product">
-					<div class="routing-list__banner" style="background: url(@routing.routingImage); height: 300px; background-size: cover">
+					<div class="routing-list__banner" style="background: url(@routing.routingImage); height: 200px; background-size: cover">
 					</div>
 					<div class="row g-0 routing-list__item">
 						<div class="col-12 routing-list__title">
@@ -35,19 +35,19 @@
 							string[] delemeter = new string[] { "datnt" };
 							string[] image = url.Split(delemeter, StringSplitOptions.None);
 							<div class="row g-0 routing-list__item--list">
-								<div class="col-3 routing-item__product-img">
+								<div class="col-2 routing-item__product-img">
 									<img src="@image[0]" style="width: 100%" alt="" srcset="">
 								</div>
-								<div class="col-9 routing-item__product-desc">
+								<div class="col-10 routing-item__product-desc">
 									<div class="col-12 routing-item__product-desc--title">
-										<span>Sản phẩm:</span> @item.productName
+										<span>Sản phẩm:</span>
+										<span>@item.productName</span>
 									</div>
 									<div class="col-12 routing-item__product-desc--title">
-										<span>Giá tiền:</span> @{@item.productPrice}.000vnd
-									</div>
-									<div class="col-12 routing-item__product-desc--title">
-										<span>Product description:</span>
-										Product description: THÀNH PHẦN Trứng gà, đậu xanh, đậu tương, đậu đỏ, ngũ cốc, gạo lút, muỗi nước, kỳ tử, phấn hoa, mật ong, đường đào, Vitamin, khoáng tổng hợp. HƯỚNG DẦN SỬ DỤNG
+										<span>Giá tiền:</span>
+										<span style="color: red">
+											@string.Format("{0:#,0}", item.productPrice)vnđ
+										</span>
 									</div>
 									<div class="edit-quantity-button">
 										<span>Quantity:</span>
@@ -89,13 +89,6 @@
 						</button>
 					</div>
 
-					<div class="col-12 rating-buy-star">
-						<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-						<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-						<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-						<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-						<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-					</div>
 
 					<div class="col-12 routing-button add-to-cart--button">
 						<a asp-controller="ShoppingCart" asp-action="AddProductInRoutingToCart">
