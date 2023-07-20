@@ -17,7 +17,9 @@ public partial class TblAddress
 
     public string? BlockVillage { get; set; }
 
-    public bool? IsDefault { get; set; }
+    public bool? IsDefault { get; set; } = false;
 
     public virtual TblUser? User { get; set; }
+
+
 }
