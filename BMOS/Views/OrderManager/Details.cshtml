@@ -7,39 +7,50 @@
 
 <h1>Thông tin chi tiết</h1>
 
-<div>
+<div style="padding:0px 10px;">
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            Mã đơn hàng
+        <dt class="col-sm-5">
+            Mã đơn hàng: 
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-7">
             @Html.DisplayFor(model => model.orderID)
         </dd>
-        <dt class="col-sm-2">
-            Tên tài khoản
+        <dt class="col-sm-5">
+            Tên tài khoản:
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-7">
             @Html.DisplayFor(model => model.UserName)
         </dd>
-        <dt class="col-sm-2">
-            Số lượng
+        <dt class="col-sm-5">
+            Số lượng:
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-7">
             @Html.DisplayFor(model => model.Quantity)
-        </dd>      
-        <dt class="col-sm-2">
-            Tổng tiền
+        </dd>  
+        <dt class="col-sm-12">
+            Thông tin chi tiêt sản phẩm:
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.total)vnd
+        <dd>
+            @await Html.PartialAsync("Orderdetails")
         </dd>
-        <dt class="col-sm-2">
-            Thời gian
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.date)
-        </dd>
+        <div style="display:flex">
+            <dt class="col-sm-5">
+                Tổng tiền:
+            </dt>
+            <dd class="col-sm-7">
+                @string.Format("{0:#,0}", Model.total)vnđ
+            </dd>
+        </div>
+        <div style="display:flex">
+            <dt class="col-sm-5">
+                Thời gian:
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.date)
+            </dd>
+        </div>       
+        
     </dl>
 </div>
 <div>
