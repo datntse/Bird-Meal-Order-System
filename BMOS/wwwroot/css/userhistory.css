@@ -29,6 +29,10 @@ html {
     border-radius: 10px;
 }
 
+.page-link span{
+    background: black;
+}
+
 /* HOME PAGE */
 .header-search {
     width: 100%;
@@ -227,7 +231,7 @@ html {
 
 .user_history h4{
     font-size: 2rem;
-    padding: 10px 0px 10px 10px ;
+    padding: 5px 0px 10px 5px ;
 }
 
 .user_history_details_price {

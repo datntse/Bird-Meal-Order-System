@@ -33,9 +33,9 @@
 <table class="table">
 	<thead>
 		<tr>
-			<th>ID</th>
+			
 			<th>Tên Blog</th>
-			<th>Thời gian</th>
+			<th>Ngày tạo</th>
 			<th>Trạng Thái</th>
 			<th></th>
 
@@ -46,9 +46,7 @@
 		@foreach (var item in Model)
 		{
 			<tr>
-				<td>
-					@Html.DisplayFor(xx => item.BlogId)
-				</td>
+				
 				<td>
 					@Html.DisplayFor(modelItem => item.Name)
 				</td>

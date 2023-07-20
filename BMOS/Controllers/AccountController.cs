@@ -11,13 +11,25 @@ using Microsoft.EntityFrameworkCore;
 using BMOS.Models;
 using BMOS.Helpers;
 using X.PagedList;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+using Google.Apis.Oauth2.v2.Data;
 
 namespace BMOS.Controllers
 {
-	public class AccountController : Controller
-	{
+    public class AccountController : Controller
+    {
 		private BmosContext _db = new BmosContext();
-		public IActionResult Login()
+        //private readonly GoogleAuthService _googleAuthService;
+        ////private readonly IHttpContextAccessor _httpContextAccessor;
+
+        //public AccountController(GoogleAuthService googleAuthService)
+        //{
+        //    _googleAuthService = googleAuthService;
+        //    //_httpContextAccessor = httpContextAccessor;
+        //}
+
+        public IActionResult Login()
 		{
 			var user = HttpContext.Session.GetString("username");
 			ViewBag.Confirmed = HttpContext.Session.GetString("notice");
@@ -424,8 +436,8 @@ namespace BMOS.Controllers
 		}
 
 		public IActionResult UserHistoryOrder(int? page)
-		{
-			ViewBag.ID = HttpContext.Session.GetString("id");
+		{          
+            ViewBag.ID = HttpContext.Session.GetString("id");
 			ViewBag.Fullname = HttpContext.Session.GetString("fullname");
 			var user = HttpContext.Session.GetString("username");
 			var userID = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).FirstOrDefault();
@@ -459,22 +471,46 @@ namespace BMOS.Controllers
 				var orderListDetail = _db.TblOrderDetails.Where(p => p.OrderId.Equals(orderID)).ToList();
 				var date = _db.TblOrderDetails.Where(p => p.OrderId == orderID).Select(p => p.Date).FirstOrDefault();
 				var total = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.TotalPrice).FirstOrDefault();
-				ViewBag.OrderID = orderID;
+
+				var phone = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Phone).FirstOrDefault();
+				ViewBag.Phone = phone;
+
+				var address = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Address).FirstOrDefault();
+				ViewBag.Address = address;
+
+
+                ViewBag.OrderID = orderID;
 				ViewBag.Date = date.ToString();
 				ViewBag.TotalPrice = total.ToString();
+				ViewBag.Email = user;
+
+				
+
+
 				return View(orderListDetail);
 			}
 
 		}
 
-		[HttpPost]
-		public IActionResult ReceiveButton()
+		public IActionResult ReceiveButton(string returnUrl = "/")
 		{
-			return new ChallengeResult("Google", null);
-		}
+            var properties = new AuthenticationProperties { RedirectUri = returnUrl };
+            return Challenge(properties, "Google");
+            //return new ChallengeResult("Google", null);
+        }
 
-		public IActionResult LoginWithGoogle()
+		public IActionResult LoginWithGoogle(string code)
 		{
+			//var userInfo = await _googleAuthService.GetUserInfoAsync(code);
+			//if (userInfo != null)
+			//{
+
+			//    //_httpContextAccessor.HttpContext.Session.SetString("GoogleUserId", userInfo.Id);
+			//    //_httpContextAccessor.HttpContext.Session.SetString("GoogleUserName", userInfo.UserName);
+			//    //_httpContextAccessor.HttpContext.Session.SetString("GoogleUserEmail", userInfo.Email);
+			//    HttpContext.Session.SetString("username", userInfo.Email);
+			//}
+			HttpContext.Session.SetString("username", code);
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -510,18 +546,32 @@ namespace BMOS.Controllers
 		{
 			var user = HttpContext.Session.GetString("username");
 			var userid = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
-			TblRefund refund = new TblRefund()
+				var check = _db.TblRefunds.Where(p=>p.OrderId == orderid).Select(p => p.OrderId).FirstOrDefault();
+
+			if (orderid.Equals(check))
 			{
-				OrderId = orderid,
-				RefundId = Guid.NewGuid().ToString(),
-				Description = note,
-				Date = DateTime.Now,
-				UserId = userid,
-				IsConfirm = false,
-			};
-			_db.TblRefunds.Add(refund);
-			_db.SaveChanges();
-			return RedirectToAction("Refund");
+				return Json(new
+				{
+					messge = "Bạn đã yêu cầu hoàn trã này trong hệ thống",
+				});
+			}
+			else
+			{
+                TblRefund refund = new TblRefund()
+                {
+                    OrderId = orderid,
+                    RefundId = Guid.NewGuid().ToString(),
+                    Description = note,
+                    Date = DateTime.Now,
+                    UserId = userid,
+                    IsConfirm = false,
+                };
+                _db.TblRefunds.Add(refund);
+                _db.SaveChanges();
+				return RedirectToAction("Refund", "Account");
+			}
+               
+			
 		}
 
 	}

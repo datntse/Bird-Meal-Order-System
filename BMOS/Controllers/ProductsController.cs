@@ -101,12 +101,13 @@ namespace BMOS.Controllers
         {
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
-            ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price" : "";
-            ViewData["PriceDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
+			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+            ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
+            ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
-            if (searchString != null)
+
+			if (searchString != null)
             {
                 page = 1;
             }
@@ -185,12 +186,12 @@ namespace BMOS.Controllers
         {
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
-            ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price" : "";
-            ViewData["PriceDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+			ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
+			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+			ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
+			ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
-            if (searchString != null)
+			if (searchString != null)
             {
                 page = 1;
             }
@@ -259,12 +260,12 @@ namespace BMOS.Controllers
         {
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
-            ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price" : "";
-            ViewData["PriceDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+			ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
+			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+			ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
+			ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
-            if (searchString != null)
+			if (searchString != null)
             {
                 page = 1;
             }
@@ -332,12 +333,12 @@ namespace BMOS.Controllers
         {
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
-            ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price" : "";
-            ViewData["PriceDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+			ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
+			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+			ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
+			ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
-            if (searchString != null)
+			if (searchString != null)
             {
                 page = 1;
             }

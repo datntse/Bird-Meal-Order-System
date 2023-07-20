@@ -12,7 +12,7 @@ main {
     flex-wrap: nowrap;
     height: 100vh;
     height: -webkit-fill-available;
-   
+
     overflow-x: auto;
     overflow-y: hidden;
 }
@@ -105,8 +105,9 @@ main {
 .summary {
     border: 1px solid;
     border-radius: 20px;
-    background-color: #1a222b;
+    background-color: Background;
     color: white;
+    padding:0px
 }
 
 .iconnn {

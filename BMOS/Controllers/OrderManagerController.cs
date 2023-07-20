@@ -42,16 +42,18 @@ namespace BMOS.Controllers
             var order = from f in _context.TblOrders 
                         join u in _context.TblUsers on f.UserId equals u.UserId                                    
                         select new OrderInfo()
-            {
+                        {
                 orderID = f.OrderId,
                 UserName = u.Firstname + u.Lastname,                
-                date = (DateTime)f.Date,
-                total = f.TotalPrice
-            };
+                date = f.Date.Value.ToString("dddd, dd MMMM yyyy"),
+                total = f.TotalPrice,
+                IsConfirm = f.IsConfirm
+                        };
                            
+            
 
 
-            if (!String.IsNullOrEmpty(searchString))
+			if (!String.IsNullOrEmpty(searchString))
             {
                 order = order.Where(s => s.UserName.Contains(searchString));
                 int count = order.Count();
@@ -103,11 +105,25 @@ namespace BMOS.Controllers
                             orderID = f.OrderId,
                             UserName = u.Firstname + u.Lastname,
                             Quantity = (int)_context.TblOrderDetails.Where(x => x.OrderId == f.OrderId).Sum(x => x.Quantity),
-                            date = (DateTime)f.Date,
+                            date = f.Date.Value.ToString("dddd, dd MMMM yyyy"),
                             total = f.TotalPrice,
-                            
+                            IsConfirm = f.IsConfirm
                         };
-            var tblFeedback = await order
+            var orderdetails = from d in _context.TblOrderDetails
+                               join p in _context.TblProducts on d.ProductId equals p.ProductId
+                               join o in order on d.OrderId equals o.orderID
+                               where d.OrderId == o.orderID
+                               select new OrderdetailsInfo()
+                               {   
+								   orderId = d.OrderId,
+								   namepro = p.Name,
+								   quantity = (int)d.Quantity,
+								   price = (double)(d.Price * d.Quantity)
+							   };
+			var orderdetail = orderdetails.Where(p=>p.orderId == id).ToList();
+			ViewData["OrderDetails"] = orderdetail.ToList();
+
+			var tblFeedback = await order
                 .FirstOrDefaultAsync(m => m.orderID == id);
             if (tblFeedback == null)
             {

@@ -47,6 +47,7 @@ $(document).ready(function () {
     });
 
 });
+
 var loader = document.getElementById("preloader");
     window.addEventListener("load", function () {
     loader.classList.add("disapear");

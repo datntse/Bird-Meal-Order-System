@@ -8,46 +8,31 @@
 }
 
 
-<ul style="font-size:1rem;list-style:none; display:flex;">
-    <span>Sắp xếp:</span>
-    <li style="padding-left: 5px;">
-        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">A-Z</a> |
-    </li>
-    <li style="padding-left: 5px;">
-        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Z-A</a> |
-    </li>
-    <li style="padding-left: 5px;">
-        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Cũ nhất</a> |
-    </li>
-    <li style="padding-left: 5px;">
-        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Mới nhất</a>
-    </li>
-    <li>
-        <a style="font-size: 1rem; text-decoration: none;margin-left:47rem;" asp-controller="AccountManage" asp-action="Index">Xóa tìm kiếm</a>
-    </li>
-</ul>
 <h1>Quản lý tài khoản</h1>
+<br></br>
+<a style="text-decoration:none;color:darkorange" asp-controller="AccountManage" asp-action="Index">
+    <button type="button" class="btn btn-primary">Tạo Sản Phẩm Mới</button>
+</a>
+<a style="text-decoration:none;color:darkorange" asp-controller="AccountManage" asp-action="Index">
+    <button type="button" class="btn btn-warning">Làm mới</button>
+</a>
 
-<p>
-    <a  asp-controller="AccountManage" asp-action="Create" >Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-            <th>User Id</th>
-            <th>Tài khoản</th>
-            <th>Mật khẩu</th>
+            <th>Mã khách hàng</th>
+           
+            <th><a style="text-decoration:none; color:darkorange" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Tài khoản</a></th>
             <th>Xác nhận</th>
             <th>Họ</th>
             <th>Tên</th>
             <th>Số điện thoại</th>
-            <th>Địa chỉ</th>
-            <th>Ngày tạo</th>
-            <th>Thời gian hoạt động gần nhất</th>
-            <th>Điểm thưởng</th>
+            
+            <th><a style="text-decoration:none; color:darkorange" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Thời gian hoạt động gần nhất</a></th>
+            
             <th>Trạng thái</th>
             <th>Chức vụ</th>
-            <th></th>
+            <th class="col-2">Hành động</th>
 
 
         </tr>
@@ -62,19 +47,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Username)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
+                
                 <td>
                     @{
                         if ((item.IsConfirm) == true)
                         {
-                            <p style="color:green;">Đã xác nhận </p>
+                            <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center;">Đã xác nhận </p>
 
                         }
                         else
                         {
-                            <p style="color:red">Chưa xác nhận </p>
+                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Chưa xác nhận </p>
                         }
                     }
                 </td>
@@ -87,28 +70,21 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Numberphone)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCreate)
-                </td>
+                
                 <td>
                     @Html.DisplayFor(modelItem => item.LastActivitty)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Point)
-                </td>
+                
                 <td>
                     @{
                         if ((item.Status) == true)
                         {
-                            <p style="color:green;">Hoạt động </p>
+                            <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center; ">Hoạt động </p>
 
                         }
                         else
                         {
-                            <p style="color:red">Không hoạt động </p>
+                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Không hoạt động </p>
                         }
                     }
                 </td>
@@ -116,24 +92,29 @@
                     @{
                         if ((item.UserRoleId) == 1)
                         {
-                            <p style="color:blue;">Quản lý </p>
+                            <p style="color:darkblue; border-radius: 25px; background-color: cornflowerblue; inline-size: 100%;text-align:center;">Quản lý </p>
                         }
                         else if ((item.UserRoleId) == 2)
                         {
-                            <p style="color:deeppink">Staff </p>
+                            <p style="color:black; border-radius: 25px; background-color: hotpink; inline-size: 100%;text-align:center;">Staff </p>
                         }
                         else if ((item.UserRoleId) == 3)
                         {
-                            <p style="color:saddlebrown">Khách hàng </p>
+                            <p style="color:black; border-radius: 25px; background-color: blanchedalmond; inline-size: 100%;text-align:center;">Khách hàng </p>
                         }
                         else
                         {
-                            <p style="color:red">Không có chức vụ </p>
+                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center;">Không có chức vụ </p>
                         }
                     }
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.UserId">Details</a>
+                    <a style="text-decoration:none;" asp-action="Edit" asp-route-id="@item.UserId">
+                        <button type="button" class="btn btn-primary">Chỉnh sửa</button>
+                    </a>
+                    <a style="text-decoration:none;" asp-action="Details" asp-route-id="@item.UserId">
+                        <button type="button" class="btn btn-info">Chi Tiết</button>
+                    </a>
+                    
 
                 </td>
             </tr>

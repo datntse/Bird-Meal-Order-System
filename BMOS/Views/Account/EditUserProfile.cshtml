@@ -1,11 +1,9 @@
 ﻿@model BMOS.Models.Entities.TblUser
 @{
-    Layout = "_HeaderFooter";
+    Layout = "_Layout";
     var id = ViewBag.ID;
 }
 
-@if (id.Equals("3"))
-{
     <div class="container">
         <div class="content">
             <div class="row userprofile">
@@ -126,9 +124,4 @@
     </div>
 
     <script src="~/js/site.js"></script>
-}
-else
-{
-    <h4>Tài khoản của bạn không thể thực hiện chức năng này</h4>
-}
 

@@ -5,12 +5,10 @@
 
 @{
     ViewData["Title"] = "UserHistoryOrder";
-    Layout = "_HeaderFooter";
+    Layout = "_Layout";
     var id = ViewBag.ID;
 }
 
-@if (id.Equals("3"))
-{
     <div class="container">
         <div class="content">
             <div class="row userprofile">
@@ -39,15 +37,30 @@
 
                             @foreach (var item in Model)
                             {
-                                <form action="~/Account/OrderDetail" method="post" class="user_history_details">
+                                <form action="~/Account/OrderDetail" method="post" class="user_history_details" style="background: none;">
                                     <div class="col-8 user_history_details_tt">
-                                        <h4><b>Mã đơn hàng: </b>@Html.DisplayFor(modelItem => item.OrderId)<br></h4>
-                                        <input type="hidden" value="@Html.DisplayFor(modelItem => item.OrderId)" name="orderid" required>
-                                        <h4><b>Ngày: </b>@Html.DisplayFor(modelItem => item.Date)<br></h4>
+                                        <div style="display: flex; justify-content: space-between; align-items:center;">
+                                            <h4><b>Mã đơn hàng: </b>@Html.DisplayFor(modelItem => item.OrderId)<br></h4>
+                                            <input type="hidden" value="@Html.DisplayFor(modelItem => item.OrderId)" name="orderid" required>
+                                            <h4><b>Ngày: </b>@Html.DisplayFor(modelItem => item.Date)<br></h4>
+                                        </div>
+                                        <div style="display: flex;">
+                                            @if (item.IsConfirm == true)
+                                            {
+                                                <h4><b>Trạng thái: </b></h4><h4 style="color: forestgreen;">Đã nhận hàng</h4>
+                                            }
+                                            else
+                                            {
+                                                <h4><b>Trạng thái: </b></h4><h4 style="color: red;">Chưa nhận hàng</h4>
+                                            }
+                                        </div>
                                     </div>
                                     <div class="col-4 user_history_details_price">
-                                        <h4><b>Tổng tiền: </b>@Html.DisplayFor(modelItem => item.TotalPrice)</h4>
-                                        <div style="display: flex; align-items: center; justify-content: center;">
+                                        <div>
+                                            <h4><b>Tổng tiền: </b>@Html.DisplayFor(modelItem => item.TotalPrice) VND</h4>
+                                        </div>
+                                        
+                                        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 5px;">
                                             <button type="submit" class="submit" style="display: flex; justify-content: center; align-items: center; width: 30%;
     height: 4rem;
     border-radius: 10px;
@@ -57,6 +70,7 @@
     font-size: 2rem;">
                                                 Chi tiết
                                             </button>
+                                            
                                         </div>
                                     </div>
 
@@ -64,41 +78,13 @@
 
                             }
 
-                            <!--Modal
-                            <style>
-                                #modal {
-                                    height: 100vh;
-                                    width: 100%;
-                                    background-color: rgba(0, 0, 0, 0.5);
-                                    position: fixed;
-                                    top: 0;
-                                    left 0;
-                                }
-
-                                #order-detail {
-                                    background-color: yellow;
-                                    width: 40%;
-                                    position: relative;
-                                    left: 50%;
-                                    transform: translateX(-50%);
-                                }
-                            </style>
-                            <div id="modal">
-                                <div id="order-detail">
-                                    <div class="order-detail-header">
-                                        <h3>Chi tết đơn hàng</h3>
-                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                                    </div>
-                                    <div class="order-detail-body">
-                                    </div>
-                                </div>
-                            </div>-->
+                            
 
 
                             <br />
                             <br />
-                            <div style="font-size:2rem; margin-bottom:2rem; margin-left:1rem;">
-                                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) tren @Model.PageCount
+                            <div style="font-size:1.5rem; margin-bottom:0.5rem; margin-left:1rem;">
+                                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
                             </div>
 
                             <div style="font-size:2rem; margin-bottom:2rem; margin-left:1rem;">
@@ -122,7 +108,7 @@
                     <div class="userprofile_bar">
                         <div class="userprofile_bar_profile">
                             <img src="~/images/user-icon.png" alt="" srcset="">
-                            <a href="~/Account/UserProfile" target="" style="color: #e38a41; font-weight: bold;">Hồ sơ</a>
+                            <a href="~/Account/UserProfile" target="">Hồ sơ</a>
                         </div>
                         <div class="userprofile_bar_profile">
                             <img src="~/images/locationmanege.png" alt="" srcset="">
@@ -146,8 +132,3 @@
             </div>
         </div>
     </div>
-}
-else
-{
-    <h4>Tài khoản của bạn không thể thực hiện chức năng này</h4>
-}

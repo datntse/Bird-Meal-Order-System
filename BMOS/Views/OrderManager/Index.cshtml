@@ -8,8 +8,10 @@
     Layout = "~/Views/Shared/_ManagePage.cshtml";
 }
 
-<h1>Quản lý don hang</h1>
-
+<h1>Quản lý đơn hàng</h1>
+<a style="text-decoration:none;color:darkorange" asp-controller="OrderManager" asp-action="Index">
+    <button type="button" class="btn btn-warning">Làm mới</button>
+</a>
 <table class="table">
     <thead>
         <tr>
@@ -20,15 +22,18 @@
                 Tên tài khoản
             </th>
             <th>
-                <a style="text-decoration:none;" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Tổng tiền</a>
+                Trạng thái đơn hàng
+            </th>
+            <th>
+                <a style="text-decoration:none; color:darkorange" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Tổng tiền</a>
             </th>
             <th>
                 Thời gian
             </th>
             <th>
-                <a style="text-decoration:none;" asp-controller="OrderManager" asp-action="Index">Xóa tìm kiếm</a>
+                Hành động
             </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
@@ -42,13 +47,30 @@
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
+                    @{
+                        if ((item.IsConfirm) == true)
+                        {
+                            <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center;">Đơn hàng đã giao </p>
+
+                        }
+                        else
+                        {
+                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Đơn hàng chưa giao </p>
+                        }
+                    }
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.total)vnd
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.date)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.orderID">Details</a>
+                    <a asp-action="Details" asp-route-id="@item.orderID">
+                        <button type="button" class="btn btn-info" >Chi Tiết</button>
+                    </a>
+                    
+                    
                 </td>
             </tr>
         }

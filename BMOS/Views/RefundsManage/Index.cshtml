@@ -6,66 +6,53 @@
     Layout = "_ManagePage";
     ViewData["Title"] = "Index";
 }
-<ul style="font-size:1rem;list-style:none; display:flex;">
-    <span>Sắp xếp:</span>
-    <li style="padding-left: 5px;">
-        <a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">A-Z</a> |
-    </li>
-    <li style="padding-left: 5px;">
-        <a asp-action="Index" asp-route-sortOrder="@ViewData["IdDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Z-A</a> |
-    </li>
-    <li style="padding-left: 5px;">
-        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Cũ nhất</a> |
-    </li>
-    <li style="padding-left: 5px;">
-        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Mới nhất</a>
-    </li>
-    <li>
-        <a style="font-size: 1rem; text-decoration: none;margin-left:47rem;" asp-controller="RefundsManage" asp-action="Index">Xóa tìm kiếm</a>
-    </li>
-</ul>
-<h1>Quản lý trả hàng</h1>
 
+<h1>Quản lý trả hàng</h1>
+<a style="text-decoration:none;color:darkorange" asp-controller="RefundsManage" asp-action="Index">
+    <button type="button" class="btn btn-warning">Làm mới</button>
+</a>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                Refunds Id
+                Tên người dùng
+            </th>
+            <th class="col-4">
+                Thông tin hoàn trả
             </th>
             <th>
-                User Id
+                Mã đơn hàng
             </th>
+            
             <th>
-                Order Id
-            </th>
-            <th>
-                Miêu tả
-            </th>
-            <th>
-                Ngày tạo
+                <a style="text-decoration:none; color:darkorange" asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Thời gian</a>
             </th>
             <th>
                 Xác nhận của Staff
             </th>
-            <th></th>
+            <th>
+                Hành động
+                
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RefundId)
+                    @Html.DisplayFor(modelItem => item.UserName)
                 </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+            <td >
+                <div style="display:-webkit-box;-webkit-box-orient: vertical;
+                            -webkit-line-clamp: 2;overflow:hidden;">
+                        @Html.DisplayFor(modelItem => item.Description)
+                </div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OrderId)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
@@ -73,25 +60,29 @@
                     @{
                         if ((item.IsConfirm) == true)
                         {
-                            <p style="color:green;">Đã phê duyệt </p>
+                            <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center;">Đã phê duyệt </p>
 
                         }
                         else
                         {
-                            <p style="color:red">Chưa phê duyệt </p>
+                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Chưa phê duyệt </p>
                         }
                     }
                 </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.RefundId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RefundId">Details</a> |
-                
+                <a style="text-decoration:none;" asp-action="Edit" asp-route-id="@item.RefundId">
+                        <button type="button" class="btn btn-primary" >Chỉnh sửa</button>
+                </a> 
+                <a style="text-decoration:none;" asp-action="Details" asp-route-id="@item.RefundId">
+                        <button type="button" class="btn btn-info" >Chi tiết</button>
+                </a> 
+
             </td>
         </tr>
 }
     </tbody>
 </table>
-<div style="font-size:2rem; margin-bottom:2rem; margin-left:1rem;">
+<div style="font-size:0.8rem; margin-bottom:2rem; margin-left:1rem;">
     Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
 </div>
 <div style="font-size:1rem; margin-bottom:2rem; margin-left:1rem;">

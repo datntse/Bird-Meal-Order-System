@@ -70,10 +70,10 @@ namespace BMOS.Controllers
             switch (sortOrder)
             {
                 case "name":
-                    feedback = feedback.OrderBy(s => s.Name);
+                    feedback = feedback.OrderBy(s => s.date);
                     break;
                 case "name_desc":
-                    feedback = feedback.OrderByDescending(s => s.Name);
+                    feedback = feedback.OrderByDescending(s => s.date);
                     break;
                 case "price":
                     feedback = feedback.OrderBy(s => s.Star);

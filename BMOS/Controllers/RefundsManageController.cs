@@ -26,10 +26,7 @@ namespace BMOS.Controllers
         {
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Id" : "";
-            ViewData["IdDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Id_desc" : "";
-            ViewData["DateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "date" : "";
-            ViewData["DateDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
 
             if (searchString != null)
             {
@@ -43,10 +40,12 @@ namespace BMOS.Controllers
 
             var refunds = from f in _context.TblRefunds
                           from o in _context.TblOrders
+                          join u in _context.TblUsers on f.UserId equals u.UserId
                           where f.UserId.Equals(o.UserId) && f.OrderId.Equals(o.OrderId)
                           select new RefundsInfoModel()
                           {
                               RefundId = f.RefundId,
+                              UserName = u.Firstname + u.Lastname,
                               UserId = o.UserId,
                               OrderId = o.OrderId,
                               Description = f.Description,
@@ -69,13 +68,7 @@ namespace BMOS.Controllers
 
 
             switch (sortOrder)
-            {
-                case "Id":
-                    refunds = refunds.OrderBy(s => s.RefundId);
-                    break;
-                case "Id_desc":
-                    refunds = refunds.OrderByDescending(s => s.RefundId);
-                    break;
+            {              
                 case "date":
                     refunds = refunds.OrderBy(s => s.Date);
                     break;
@@ -92,15 +85,43 @@ namespace BMOS.Controllers
         }
 
         // GET: RefundsManage/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(string id )
         {
+            var refunds = from f in _context.TblRefunds
+                          from o in _context.TblOrders
+                          join u in _context.TblUsers on f.UserId equals u.UserId
+                          where f.UserId.Equals(o.UserId) && f.OrderId.Equals(o.OrderId)
+                          select new RefundsInfoModel()
+                          {
+                              RefundId = f.RefundId,
+                              UserName = u.Firstname + u.Lastname,
+                              UserId = o.UserId,
+                              OrderId = o.OrderId,
+                              Description = f.Description,
+                              Date = f.Date,
+                              IsConfirm = f.IsConfirm,
+                          };
+            
             if (id == null || _context.TblRefunds == null)
             {
                 return NotFound();
             }
-
-            var tblRefund = await _context.TblRefunds
+            
+            var tblRefund = await refunds
                 .FirstOrDefaultAsync(m => m.RefundId == id);
+            var orderdetails = from d in _context.TblOrderDetails
+                               join p in _context.TblProducts on d.ProductId equals p.ProductId
+                               join o in refunds on d.OrderId equals o.OrderId
+                               where d.OrderId == o.OrderId
+                               select new OrderdetailsInfo()
+                               {
+                                   orderId = d.OrderId,
+                                   namepro = p.Name,
+                                   quantity = (int)d.Quantity,
+                                   price = (double)(d.Price * d.Quantity)
+                               };
+            var infoorder = orderdetails.Where(m => m.orderId == tblRefund.OrderId).ToList();
+            ViewData["OrderDetails"] = infoorder.ToList();
             if (tblRefund == null)
             {
                 return NotFound();
@@ -118,8 +139,31 @@ namespace BMOS.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Confirm = new List<string>() {"Chưa xác nhận đơn hàng", "Xác nhận đơn hàng"};
 
-            var tblRefund = await _context.TblRefunds.FindAsync(id);
+            var refunds = from f in _context.TblRefunds
+                          from o in _context.TblOrders
+                          join u in _context.TblUsers on f.UserId equals u.UserId
+                          where f.UserId.Equals(o.UserId) && f.OrderId.Equals(o.OrderId)
+                          select new RefundsInfoModel()
+                          {
+                              RefundId = f.RefundId,
+                              UserName = u.Firstname + u.Lastname,
+                              UserId = o.UserId,
+                              OrderId = o.OrderId,
+                              Description = f.Description,
+                              Date = f.Date,
+                              IsConfirm = f.IsConfirm,
+                          };
+
+            if (id == null || _context.TblRefunds == null)
+            {
+                return NotFound();
+            }
+
+            var tblRefund = await refunds
+                .FirstOrDefaultAsync(m => m.RefundId == id);
+            
             if (tblRefund == null)
             {
                 return NotFound();
