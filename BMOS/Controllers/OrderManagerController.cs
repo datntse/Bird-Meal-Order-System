@@ -112,13 +112,15 @@ namespace BMOS.Controllers
 			var orderdetails = from d in _context.TblOrderDetails
 							   join p in _context.TblProducts on d.ProductId equals p.ProductId
 							   join o in order on d.OrderId equals o.orderID
-							   where d.OrderId == o.orderID
+							   join image in _context.TblImages
+							   where d.OrderId == o.orderID && d.ProductId.Equals(image.RelationId)
 							   select new OrderdetailsInfo()
 							   {
 								   orderId = d.OrderId,
 								   namepro = p.Name,
 								   quantity = (int)d.Quantity,
-								   price = (double)(d.Price * d.Quantity)
+								   price = (double)(d.Price * d.Quantity),
+								   urlImage = image.Url,
 							   };
 			var orderdetail = orderdetails.Where(p => p.orderId == id).ToList();
 			ViewData["OrderDetails"] = orderdetail.ToList();

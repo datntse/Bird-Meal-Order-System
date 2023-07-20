@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
 using BMOS.Models.Services;
 using X.PagedList;
+using BMOS.Models;
 
 namespace BMOS.Controllers
 {
@@ -39,8 +40,22 @@ namespace BMOS.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var feedback = from p in _context.TblProducts select p;
-            if (!String.IsNullOrEmpty(searchString))
+            var productwithImage = from product in _context.TblProducts.ToList()
+                                   from image in _context.TblImages.ToList()
+                         where product.ProductId.Equals(image.RelationId)
+                         select new ProductInfoModel
+                         {
+                             ProductId = product.ProductId,
+                             Name = product.Name,
+                             UrlImage = image.Url,
+                             Quantity = product.Quantity,
+                             Status = product.Status,
+                             Price = product.Price,
+                             SoldQuantity = product.SoldQuantity,
+                             Weight = product.Weight,
+                         };
+            var feedback = productwithImage;
+			if (!String.IsNullOrEmpty(searchString))
             {
                 feedback = feedback.Where(s => s.Name.Contains(searchString));
                 int count = feedback.Count();
@@ -53,7 +68,7 @@ namespace BMOS.Controllers
                     ViewBag.Message = "Có " + count + " kết quả tìm kiếm với từ khóa: " + searchString;
                 }
             }
-            
+
             switch (sortOrder)
             {
                 case "name":
@@ -75,10 +90,11 @@ namespace BMOS.Controllers
             int pageSize = 8;
             int pageNumber = (page ?? 1);
             return View(feedback.ToPagedList(pageNumber, pageSize));
+            //return View(feedback.ToList());
         }
 
-        // GET: ProductManager/Details/5
-        public async Task<IActionResult> Details(string id)
+		// GET: ProductManager/Details/5
+		public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.TblProducts == null)
             {
