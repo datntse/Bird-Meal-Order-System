@@ -7,41 +7,41 @@
 
 @if (id.Equals("3"))
 {
-    <div class="container">
-        <div class="content">
-            <div class="row userprofile">
-                <div class="col-12 userprofile_title">Trang chủ/ Chỉnh sửa người dùng</div>
-            </div>
-            <div class="row userinfo">
-                <div class="col-7 userprofile_info">
-                    <div class="row userprofile_info_wel">
-                        <div class="col-6">
-                            <div class="userprofile_info_wel_history" style="background-color: #e38a41;">
-                                <img src="~/images/history.png" alt="" srcset="">
-                                <a href="~/Account/UserHistoryOrder" style="text-decoration: none; color: black;"><h3 style="font-weight: bold; margin-top: 10px;">Lịch sử đơn hàng</h3></a>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="userprofile_info_wel_welcome">
-                                <img src="~/images/user-icon.png" alt="" srcset="">
-                                <h3 style="font-weight: bold; margin-top: 10px;">Xin chào, <Span>@ViewBag.Fullname</Span></h3>
-                            </div>
-                        </div>
-                    </div>
-                    <style>
-                        .btn-back {
-                            width: 20%;
-                            font-weight: bold;
-                            font-size: 2rem;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            text-decoration: none;
-                            color: black;
-                            background-color: orange;          
-                            height: 5rem;
-                            border-radius: 10px;                                                        
-                        }
+	<div class="container">
+		<div class="content">
+			<div class="row userprofile">
+				<div class="col-12 userprofile_title">Trang chủ/ Chỉnh sửa người dùng</div>
+			</div>
+			<div class="row userinfo">
+				<div class="col-7 userprofile_info">
+					<div class="row userprofile_info_wel">
+						<div class="col-6">
+							<div class="userprofile_info_wel_history" style="background-color: #e38a41;">
+								<img src="~/images/history.png" alt="" srcset="">
+								<a href="~/Account/UserHistoryOrder" style="text-decoration: none; color: black;"><h3 style="font-weight: bold; margin-top: 10px;">Lịch sử đơn hàng</h3></a>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="userprofile_info_wel_welcome">
+								<img src="~/images/user-icon.png" alt="" srcset="">
+								<h3 style="font-weight: bold; margin-top: 10px;">Xin chào, <Span>@ViewBag.Fullname</Span></h3>
+							</div>
+						</div>
+					</div>
+					<style>
+						.btn-back {
+							width: 20%;
+							font-weight: bold;
+							font-size: 2rem;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							text-decoration: none;
+							color: black;
+							background-color: orange;
+							height: 5rem;
+							border-radius: 10px;
+						}
 
                             .btn-back:hover {
                                 color: #b48010;
@@ -163,37 +163,78 @@
                 </div>
 
 
-                <div class="col-5">
-                    <div class="userprofile_bar">
-                        <div class="userprofile_bar_profile">
-                            <img src="~/images/user-icon.png" alt="" srcset="">
-                            <a href="~/Account/UserProfile" target="" style="color: #e38a41; font-weight: bold;">Hồ sơ</a>
-                        </div>
-                        <div class="userprofile_bar_profile">
-                            <img src="~/images/locationmanege.png" alt="" srcset="">
-                            <a href="~/Account/UserLocation" target="">Cài đặt địa chỉ</a>
-                        </div>
-                        <div class="userprofile_bar_profile">
-                            <img src="~/images/reset-password.png" alt="" srcset="">
-                            <a href="~/Account/UserChangePassword" target="">Đổi mật khẩu</a>
-                        </div>
-                        <div class="userprofile_bar_profile">
-                            <img src="~/images/logout.png" alt="" srcset="">
-                            <a href="~/Account/Refund" target="">Hoàn trả sản phẩm</a>
-                        </div>
-                        <div class="userprofile_bar_profile">
-                            <img src="~/images/logout.png" alt="" srcset="">
-                            <a href="~/Account/Logout" target="">Đăng xuất</a>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+				<div class="col-5">
+					<div class="userprofile_bar">
+						<div class="userprofile_bar_profile">
+							<img src="~/images/user-icon.png" alt="" srcset="">
+							<a href="~/Account/UserProfile" target="" style="color: #e38a41; font-weight: bold;">Hồ sơ</a>
+						</div>
+						<div class="userprofile_bar_profile">
+							<img src="~/images/locationmanege.png" alt="" srcset="">
+							<a href="~/Account/UserLocation" target="">Cài đặt địa chỉ</a>
+						</div>
+						<div class="userprofile_bar_profile">
+							<img src="~/images/reset-password.png" alt="" srcset="">
+							<a href="~/Account/UserChangePassword" target="">Đổi mật khẩu</a>
+						</div>
+						<div class="userprofile_bar_profile">
+							<img src="~/images/logout.png" alt="" srcset="">
+							<a href="~/Account/Refund" target="">Hoàn trả sản phẩm</a>
+						</div>
+						<div class="userprofile_bar_profile">
+							<img src="~/images/logout.png" alt="" srcset="">
+							<a href="~/Account/Logout" target="">Đăng xuất</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 }
 else
 {
-    <h4>Tài khoản của bạn không thể thực hiện chức năng này</h4>
+	<h4>Tài khoản của bạn không thể thực hiện chức năng này</h4>
 }
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	$(document).ready(function () {
+		var submitBtn = $('.ajax-submit-form-refund');
+		var orderId = $('input[name="orderid"]').val();
+		
+		submitBtn.click(function () {
+			var descrip = $('#note').val();
+			
+			$.ajax({
+				url: "/Account/AddRefund",
+				data: {
+					orderid: orderId,
+					note: descrip
+				},
+				success: function (data) {
+					if (data.messge != null) {
+						Swal.fire({
+							icon: 'error',
+							title: 'Oops...',
+							text: 'Bạn đã có đơn hàng này trong hệ thống!',
+						});
+					} else {
+						
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: 'Oke bạn tui sẽ duyệt cho bạn',
+							showConfirmButton: true,
+							confirmButtonColor: '#3085d6',
+							confirmButtonText: '<a href="/Account/Refund" style="color:white;text-decoration:none;">OK</a>',
+						});
+						
+						
+						
+					}
+				}
+			});
+		});
+	});
+</script>

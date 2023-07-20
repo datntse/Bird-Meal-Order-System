@@ -436,8 +436,8 @@ namespace BMOS.Controllers
 		}
 
 		public IActionResult UserHistoryOrder(int? page)
-		{
-			ViewBag.ID = HttpContext.Session.GetString("id");
+		{          
+            ViewBag.ID = HttpContext.Session.GetString("id");
 			ViewBag.Fullname = HttpContext.Session.GetString("fullname");
 			var user = HttpContext.Session.GetString("username");
 			var userID = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).FirstOrDefault();
@@ -476,7 +476,7 @@ namespace BMOS.Controllers
 				
 				
 				ViewBag.OrderID = orderID;
-				ViewBag.Date = date.ToString();
+				ViewBag.Date = date;
 				ViewBag.TotalPrice = total.ToString();
 				ViewBag.Email = user;
 				var phone = _db.TblUsers.Where(p => p.Username == user).Select(p => p.Numberphone).First();
@@ -540,18 +540,32 @@ namespace BMOS.Controllers
 		{
 			var user = HttpContext.Session.GetString("username");
 			var userid = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
-			TblRefund refund = new TblRefund()
+				var check = _db.TblRefunds.Where(p=>p.OrderId == orderid).Select(p => p.OrderId).FirstOrDefault();
+
+			if (orderid.Equals(check))
 			{
-				OrderId = orderid,
-				RefundId = Guid.NewGuid().ToString(),
-				Description = note,
-				Date = DateTime.Now,
-				UserId = userid,
-				IsConfirm = false,
-			};
-			_db.TblRefunds.Add(refund);
-			_db.SaveChanges();
-			return RedirectToAction("Refund");
+				return Json(new
+				{
+					messge = "Bạn đã yêu cầu hoàn trã này trong hệ thống",
+				});
+			}
+			else
+			{
+                TblRefund refund = new TblRefund()
+                {
+                    OrderId = orderid,
+                    RefundId = Guid.NewGuid().ToString(),
+                    Description = note,
+                    Date = DateTime.Now,
+                    UserId = userid,
+                    IsConfirm = false,
+                };
+                _db.TblRefunds.Add(refund);
+                _db.SaveChanges();
+				return RedirectToAction("Refund", "Account");
+			}
+               
+			
 		}
 
 	}

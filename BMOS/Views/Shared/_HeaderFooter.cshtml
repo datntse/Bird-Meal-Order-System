@@ -34,7 +34,7 @@
 		  rel="stylesheet">
 </head>
 <body>
-	<div id="preloader"></div>
+	@*<div id="preloader"></div>*@
 	<div class="wrapper">
 		<!-- Header -->
 		<div class="header">
@@ -109,7 +109,7 @@
 						<a class="header-navbar__page-list-item-link" asp-controller="Products" asp-action="Index">Favorite</a>
 					</li>
 					<li class="header-navbar__page-list-item">
-						<a href="routing.html"
+						<a asp-controller="Routing"
 						   class="header-navbar__page-list-item-link">Lộ trình ăn</a>
 					</li>
 					<li class="header-navbar__page-list-item">
@@ -143,13 +143,13 @@
 			<div class="container">
 				<div class="row g-0">
 					<div class="col-3 footer-item">
-						<div class="footer-item__title">Gioi thieu</div>
+						<div class="footer-item__title">Giới thiệu</div>
 						<ui class="footer-item__list">
 							<li class="footer-item__list--item">
 								<a href="#"
 								   class="footer-item__list--item-link">
 									Trang
-									chu
+									chủ
 								</a>
 							</li>
 							<li class="footer-item__list--item">
@@ -160,7 +160,7 @@
 								</a>
 							</li>
 							<li class="footer-item__list--item">
-								<a class="header-navbar__page-list-item-link" asp-controller="Products" asp-action="ListProduct">Sản Phẩm</a>
+								<a class="footer-item__list--item-link" asp-controller="Products" asp-action="ListProduct">Sản Phẩm</a>
 							</li>
 							<li class="footer-item__list--item">
 								<a href="#" class="footer-item__list--item-link">
@@ -176,7 +176,7 @@
 					</div>
 
 					<div class="col-3 footer-item">
-						<div class="footer-item__title">Chinh sach</div>
+						<div class="footer-item__title">Chính sách</div>
 						<ui class="footer-item__list">
 							<li class="footer-item__list--item">
 								<a href="#"
@@ -210,7 +210,7 @@
 					</div>
 
 					<div class="col-3 footer-item">
-						<div class="footer-item__title">Huong Dan</div>
+						<div class="footer-item__title">Hướng Dẫn</div>
 						<ui class="footer-item__list">
 							<li class="footer-item__list--item">
 								<a href="#"
@@ -237,7 +237,7 @@
 					</div>
 
 					<div class="col-3 footer-item">
-						<div class="footer-item__title">Ho tro khach hang</div>
+						<div class="footer-item__title">Hỗ trợ khách hàng</div>
 						<ui class="footer-item__list">
 							<li class="footer-item__list--item">
 								<a href="#" class="footer-item__list--item-link">
@@ -270,11 +270,11 @@
 				</div>
 				<div class="row g-0">
 					<div class="col-6 footer-item">
-						<div class="footer-item__title">Gioi thieu</div>
+						<div class="footer-item__title">Giới thiệu</div>
 						<ui class="footer-item__list">
 							<li class="footer-item__list--item">
 								<a href="#" class="footer-item__list--item-link">
-									<span>Dia chi: </span>
+									<span>Địa chỉ: </span>
 									C11-01, so 473 Man Thien, Thu Duc, KDT Geleximco Le Trong Tan, Phuong Duong
 									Noi,
 									Quan Ha
@@ -299,10 +299,20 @@
 						<div class="footer-item__title">Liên hệ với chúng tôi</div>
 						<ui class="footer-item__list">
 							<li class="contact-item__list-icon--contact">
-								<img src="/images/facebook.png" alt="facebook-store">
+								<a href="https://www.messenger.com/t/106039682146352" id="linkMess" target="_blank" rel="noopener noreferrer" >
+
+									<img id="fcta-zalo-tracking" frameborder="0" allowfullscreen="" scrolling="no" width="60" height="60" src="~/images/messenger_1.png" >
+
+
+								</a>
 							</li>
 							<li class="contact-item__list-icon--contact">
-								<img src="/images/twiter.png" alt="" srcset="">
+								<a href="https://chat.zalo.me/?phone=0947507007" id="linkzalo" target="_blank" rel="noopener noreferrer" >
+
+									<img id="fcta-zalo-tracking" frameborder="0" allowfullscreen="" scrolling="no" width="60" height="60" src="~/images/icons8-zalo-96.png" >
+
+
+								</a>
 							</li>
 						</ui>
 					</div>

@@ -34,17 +34,16 @@
 <table class="table">
     <thead>
         <tr>
-            <th>User Id</th>
+            <th>Mã khách hàng</th>
+           
             <th>Tài khoản</th>
-            <th>Mật khẩu</th>
             <th>Xác nhận</th>
             <th>Họ</th>
             <th>Tên</th>
             <th>Số điện thoại</th>
-            <th>Địa chỉ</th>
-            <th>Ngày tạo</th>
+            
             <th>Thời gian hoạt động gần nhất</th>
-            <th>Điểm thưởng</th>
+            
             <th>Trạng thái</th>
             <th>Chức vụ</th>
             <th></th>
@@ -62,19 +61,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Username)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
+                
                 <td>
                     @{
                         if ((item.IsConfirm) == true)
                         {
-                            <p style="color:green;">Đã xác nhận </p>
+                            <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center;">Đã xác nhận </p>
 
                         }
                         else
                         {
-                            <p style="color:red">Chưa xác nhận </p>
+                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Chưa xác nhận </p>
                         }
                     }
                 </td>
@@ -87,28 +84,21 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Numberphone)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCreate)
-                </td>
+                
                 <td>
                     @Html.DisplayFor(modelItem => item.LastActivitty)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Point)
-                </td>
+                
                 <td>
                     @{
                         if ((item.Status) == true)
                         {
-                            <p style="color:green;">Hoạt động </p>
+                            <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center; ">Hoạt động </p>
 
                         }
                         else
                         {
-                            <p style="color:red">Không hoạt động </p>
+                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Không hoạt động </p>
                         }
                     }
                 </td>
@@ -116,19 +106,19 @@
                     @{
                         if ((item.UserRoleId) == 1)
                         {
-                            <p style="color:blue;">Quản lý </p>
+                            <p style="color:darkblue; border-radius: 25px; background-color: cornflowerblue; inline-size: 100%;text-align:center;">Quản lý </p>
                         }
                         else if ((item.UserRoleId) == 2)
                         {
-                            <p style="color:deeppink">Staff </p>
+                            <p style="color:black; border-radius: 25px; background-color: hotpink; inline-size: 100%;text-align:center;">Staff </p>
                         }
                         else if ((item.UserRoleId) == 3)
                         {
-                            <p style="color:saddlebrown">Khách hàng </p>
+                            <p style="color:black; border-radius: 25px; background-color: blanchedalmond; inline-size: 100%;text-align:center;">Khách hàng </p>
                         }
                         else
                         {
-                            <p style="color:red">Không có chức vụ </p>
+                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center;">Không có chức vụ </p>
                         }
                     }
                 <td>
