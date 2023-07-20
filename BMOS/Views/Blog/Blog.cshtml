@@ -64,55 +64,26 @@
 								</li>
 							</ul>
 						</div>
-						<div class="container-sidebar__list">
+						@*<div class="container-sidebar__list">
 							<div class="col-12 sidebar__list-category--title">Blog</div>
 							<ul class="col-12 container-sidebar__list--category">
+								@foreach (var item in Model)
+									{
 								<li class="sidebar__list--category-item sidebar__blog-item">
-									<a href="#" class="sidebar__list--category-link">
-										<div class="blog-sidebar__img">
-											<img src="images/blog.png" alt="" srcset="">
-										</div>
+									
+
+										<a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.blogId" class="sidebar__list--category-link">
+											<div class="blog-sidebar__img" style="background-image: url('@item.blogImage')"></div>
 										<div class="blog-sidebar__text">
-											Tràm chim nơi xuất hiện nhiều loại chim quý hiếm, có nhiều loài đang nằm trong sách Đỏ Việt Nam.
+												@Html.DisplayFor(modelItem => item.blogName)
 										</div>
 
 									</a>
+									
 								</li>
-								<li class="sidebar__list--category-item sidebar__blog-item">
-									<a href="#" class="sidebar__list--category-link">
-										<div class="blog-sidebar__img">
-											<img src="images/blog.png" alt="" srcset="">
-										</div>
-										<div class="blog-sidebar__text">
-											Tràm chim nơi xuất hiện nhiều loại chim quý hiếm, có nhiều loài đang nằm trong sách Đỏ Việt Nam.
-										</div>
-
-									</a>
-								</li>
-								<li class="sidebar__list--category-item sidebar__blog-item">
-									<a href="#" class="sidebar__list--category-link">
-										<div class="blog-sidebar__img">
-											<img src="images/blog.png" alt="" srcset="">
-										</div>
-										<div class="blog-sidebar__text">
-											Tràm chim nơi xuất hiện nhiều loại chim quý hiếm, có nhiều loài đang nằm trong sách Đỏ Việt Nam.
-										</div>
-
-									</a>
-								</li>
-								<li class="sidebar__list--category-item sidebar__blog-item">
-									<a href="#" class="sidebar__list--category-link">
-										<div class="blog-sidebar__img">
-											<img src="images/blog.png" alt="" srcset="">
-										</div>
-										<div class="blog-sidebar__text">
-											Tràm chim nơi xuất hiện nhiều loại chim quý hiếm, có nhiều loài đang nằm trong sách Đỏ Việt Nam.
-										</div>
-
-									</a>
-								</li>
+									}
 							</ul>
-						</div>
+						</div>*@
 
 					</div>
 					<div class="col-9 content__routing-list">
