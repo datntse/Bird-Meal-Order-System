@@ -13,6 +13,7 @@ namespace BMOS.Models
         public string? date { get; set; }
 
         public double? total { get; set; }
+        public bool? IsConfirm { get; set; }
 
         public List<TblProduct>? proname { get; set; }
 

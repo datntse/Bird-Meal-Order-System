@@ -24,10 +24,8 @@ namespace BMOS.Controllers
 		{
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name" : "";
-            ViewData["NameDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["DateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "date" : "";
-            ViewData["DateDescSortParm"] = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
+            ViewData["PriceSortParm"] = sortOrder == "price" ? "price_desc" : "price";
 
             if (searchString != null)
             {

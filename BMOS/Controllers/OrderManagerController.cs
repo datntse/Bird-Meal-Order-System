@@ -46,7 +46,8 @@ namespace BMOS.Controllers
                 orderID = f.OrderId,
                 UserName = u.Firstname + u.Lastname,                
                 date = f.Date.Value.ToString("dddd, dd MMMM yyyy"),
-                total = f.TotalPrice
+                total = f.TotalPrice,
+                IsConfirm = f.IsConfirm
                         };
                            
             
@@ -106,7 +107,7 @@ namespace BMOS.Controllers
                             Quantity = (int)_context.TblOrderDetails.Where(x => x.OrderId == f.OrderId).Sum(x => x.Quantity),
                             date = f.Date.Value.ToString("dddd, dd MMMM yyyy"),
                             total = f.TotalPrice,
-                            
+                            IsConfirm = f.IsConfirm
                         };
             var orderdetails = from d in _context.TblOrderDetails
                                join p in _context.TblProducts on d.ProductId equals p.ProductId

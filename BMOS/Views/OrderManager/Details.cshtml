@@ -23,6 +23,22 @@
             @Html.DisplayFor(model => model.UserName)
         </dd>
         <dt class="col-sm-3">
+            Trạng thái đơn hàng:
+        </dt>
+        <dd class="col-sm-9" style="padding-right: 40rem;">
+            @{
+                if ((Model.IsConfirm) == true)
+                {
+                    <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center;">Đơn hàng đã giao </p>
+
+                }
+                else
+                {
+                    <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Đơn hàng chưa giao </p>
+                }
+            }
+        </dd>
+        <dt class="col-sm-3">
             Số lượng:
         </dt>
         <dd class="col-sm-9">
