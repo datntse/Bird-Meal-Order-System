@@ -424,8 +424,8 @@ namespace BMOS.Controllers
 		}
 
 		public IActionResult UserHistoryOrder(int? page)
-		{
-			ViewBag.ID = HttpContext.Session.GetString("id");
+		{          
+            ViewBag.ID = HttpContext.Session.GetString("id");
 			ViewBag.Fullname = HttpContext.Session.GetString("fullname");
 			var user = HttpContext.Session.GetString("username");
 			var userID = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).FirstOrDefault();
@@ -460,7 +460,7 @@ namespace BMOS.Controllers
 				var date = _db.TblOrderDetails.Where(p => p.OrderId == orderID).Select(p => p.Date).FirstOrDefault();
 				var total = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.TotalPrice).FirstOrDefault();
 				ViewBag.OrderID = orderID;
-				ViewBag.Date = date.ToString();
+				ViewBag.Date = date;
 				ViewBag.TotalPrice = total.ToString();
 				return View(orderListDetail);
 			}
@@ -475,7 +475,7 @@ namespace BMOS.Controllers
 
 		public IActionResult LoginWithGoogle()
 		{
-			return View();
+			return RedirectToAction("Index", "Home");
 		}
 
 		public IActionResult Refund()
@@ -510,18 +510,31 @@ namespace BMOS.Controllers
 		{
 			var user = HttpContext.Session.GetString("username");
 			var userid = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
-			TblRefund refund = new TblRefund()
+			var check = _db.TblRefunds.Where(p=>p.OrderId == orderid).Select(p => p.OrderId).FirstOrDefault();
+
+			if (orderid.Equals(check))
 			{
-				OrderId = orderid,
-				RefundId = Guid.NewGuid().ToString(),
-				Description = note,
-				Date = DateTime.Now,
-				UserId = userid,
-				IsConfirm = false,
-			};
-			_db.TblRefunds.Add(refund);
-			_db.SaveChanges();
-			return RedirectToAction("Refund");
+				return Json(new
+				{
+					messge = "Bạn đã yêu cầu hoàn trã này trong hệ thống",
+				});
+			}
+			else
+			{
+                TblRefund refund = new TblRefund()
+                {
+                    OrderId = orderid,
+                    RefundId = Guid.NewGuid().ToString(),
+                    Description = note,
+                    Date = DateTime.Now,
+                    UserId = userid,
+                    IsConfirm = false,
+                };
+                _db.TblRefunds.Add(refund);
+                _db.SaveChanges();
+            }
+               
+			return RedirectToAction("Refund", "Account");
 		}
 
 	}

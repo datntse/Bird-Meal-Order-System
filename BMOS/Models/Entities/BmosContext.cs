@@ -50,7 +50,17 @@ public partial class BmosContext : DbContext
     public virtual DbSet<TblVoucherUsed> TblVoucherUseds { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=SMILEE\\SQLEXPRESS;Initial Catalog=BMOS;User ID=sa;Password=12345;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        => optionsBuilder.UseSqlServer(GetConnectionString());
+
+    private string GetConnectionString()
+    {
+        IConfiguration config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
+        var strConn = config["ConnectionStrings:ConnectDB"];
+        return strConn;
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
