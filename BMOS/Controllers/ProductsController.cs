@@ -63,7 +63,12 @@ namespace BMOS.Controllers
                                    Content = feedback.Content,
                                    date = feedback.Date,
                                };
+            var averageStart = (from feedback in feedbackList where feedback.FeedbackId != null select feedback.Star).Average();
+            ViewData["AverageStartFeedback"] = averageStart;
+			ViewData["FeedbackQuantity"] = feedbackList.ToList().Count();
             ViewData["Feedback"] = feedbackList.ToList();
+
+
 
 
             var productItem = from product in _context.TblProducts

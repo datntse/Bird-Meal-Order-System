@@ -3,6 +3,8 @@
 @{
 	Layout = "_HeaderFooter";
 	ViewData["Title"] = "Index";
+	var averageStart = ViewData["AverageStartFeedback"] as double?;
+	var feedbackQuantity = ViewData["FeedbackQuantity"];
 	var id = ViewBag.ID;
 
 }
@@ -60,46 +62,50 @@
 						</div>
 					</div>
 					<div class="col-6 product-detail__content-desc">
-						<div class="product-detail__content--title product-detail--status">
-							<span>Trạng thái:</span>
-							@if((bool)Model.Status) {
-								<div class="product-detail--status_value">Còn hàng</div>
-							} else
-							{
-								<div class="product-detail--status_value">Hết hàng</div>
-							}
+						<div class="product-detail__content--title product-detail--status product-info">
+							<div class="info-product">Số sao: @averageStart <i class="fa-solid fa-star star-icon" style="color: #f4ec10; font-size: 2.4rem"></i></div>
+							<div class="info-product">@feedbackQuantity đánh giá</div>
+							<div class="info-product">Đã bán: @Model.SoldQuantity</div>
 						</div>
+						
+						@*<div class="product-detail__content--title product-detail--status">
+						<span>Trạng thái:</span>
+						@if((bool)Model.Status) {
+						<div class="product-detail--status_value">Còn hàng</div>
+						} else
+						{
+						<div class="product-detail--status_value">Hết hàng</div>
+						}
+						</div>*@
 						<div class="product-detail__content--title product-detail--price">
 							<span>Giá:</span>
 							<div class="product-detail--price_value">
-								@string.Format("{0:#,0}", @Model.Price)vnđ</div>
+								@string.Format("{0:#,0}", @Model.Price)vnđ
+							</div>
 						</div>
 						<div class="product-detail__content--title product-detail--weight">
 							<span>Trọng lượng:</span>
-							<div class="product-detail--weight_value">@{@Model.Weight}g</div>
+							<div class="product-detail--weight_value">@{
+									@Model.Weight
+								}g</div>
 						</div>
 						<form>
+							<div class="product-detail__content--title product-detail--status product-info">
+								<div class="info-product">Sản phầm tồn kho: @Model.SoldQuantity</i></div>
+							</div>
 							<div class="product-detail__content edit-quantity-button">
 								<span>Số lượng:</span>
-								
+
 								<img src="/images/minus-icon.png" alt="" class="value-button minus" id="decrease" onclick="decreaseValue()"
 									 value="Decrease Value">
-								<input name="productQuantity" type="number" id="number" value="1" min="1" max="10"/>
+								<input name="productQuantity" type="number" id="number" value="1" min="1" max="@Model.SoldQuantity" />
 								<img src="/images/plus-icon.png" alt="" class="value-button plus" id="increase" onclick="increaseValue()"
 									 value="Decrease Value">
-							
-								 </div>
-							<div class="product-detail__content edit-quantity-button">
-							<span>Đã bán: @Model.SoldQuantity</span> 
+
 							</div>
-							
-							<div class="col-12 product-detail__content rating-buy-star">
-								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-								<i class="fa-solid fa-star star-icon" style="color: #f4ec10;"></i>
-							</div>
+
+
+
 
 							<div class="col-12 product-detail__content routing-button add-to-cart--button">
 								<button data-id="@Model.ProductId" class="ajax-add-to-cart btn btn-primary button-action button-action--add-cart">
@@ -216,7 +222,7 @@
 
 			@await Html.PartialAsync("Feedback")
 
-			
+
 		</div>
 	</div>
 </div>
@@ -237,7 +243,7 @@
 
 		$(document).ready(function () {
 			$('.ajax-add-to-cart').click(function (e) {
-				var _id = $(this).data("id");	
+				var _id = $(this).data("id");
 				e.preventDefault();
 				var quantity = $('input[name="productQuantity"]').val();
 				console.log(quantity);
