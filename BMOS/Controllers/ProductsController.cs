@@ -424,14 +424,36 @@ namespace BMOS.Controllers
             });
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult RemoveLoved(string id)
         {
-            var products = _context.TblProducts.Where(p => p.IsLoved == true).ToList();
 
-
-            return View(products);
+            var result = _context.TblProducts.FirstOrDefault(x => x.ProductId.Equals(id));
+            result.IsLoved = !result.IsLoved;
+            _context.SaveChanges();
+            return RedirectToAction("FavouriteList");
         }
 
+        public async Task<IActionResult> FavouriteList(int? page)
+        {
+            var products = from prod in _context.TblProducts
+                           from img in _context.TblImages
+                           where prod.IsLoved == true && prod.ProductId.Equals(img.RelationId)
+                           select new ProductInfoModel
+                           {
+                               ProductId = prod.ProductId,
+                               Name = prod.Name,
+                               Price = prod.Price,
+                               Description = prod.Description,
+                               UrlImage = img.Url
+                           };
+
+
+
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+
+            return View(products.ToPagedList(pageNumber, pageSize));
+        }
         public IActionResult Notify()
         {
             var user = HttpContext.Session.GetString("username");
