@@ -65,9 +65,7 @@ namespace BMOS.Controllers
             return View(model);
         }
 
-        // POST: RoutingManager/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TblRouting model, List<IFormFile> files)
@@ -180,44 +178,7 @@ namespace BMOS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-		//    public async Task<IActionResult> Edit(string id, TblRouting model, List<IFormFile> files)
-		//    {
-
-		//        var routing = await _context.TblRoutings.FindAsync(id);
-
-
-		//        if (routing == null)
-		//        {
-		//            return NotFound();
-		//        }
-
-
-		//        _context.TblProductInRoutings.RemoveRange(_context.TblProductInRoutings.Where(rp => rp.RoutingId == id));
-
-
-		//        var productList = model.listProductId;
-
-
-		//        foreach (var productId in productList)
-		//        {
-		//            routing.TblProductInRoutings.Add(new TblProductInRoutings
-		//{
-		//	Id = 0,
-		//	RoutingId = id,
-		//                ProductId = productId,
-
-		//            });;
-		//        }
-
-
-		//        _context.TblRoutings.Update(routing);
-		//        await _context.SaveChangesAsync();
-
-
-		//        return RedirectToAction(nameof(Index));
-		//    }
-
-		// GET: RoutingManager/Delete/5
+	
 		public async Task<IActionResult> Delete(string id)
 		{
 			if (id == null || _context.TblRoutings == null)

@@ -86,7 +86,7 @@
                 <a style="text-decoration:none;" asp-action="Details" asp-route-id="@item.FeedbackId">
                         <button type="button" class="btn btn-info">Chi tiết</button>
                 </a>
-                    <a style="text-decoration:none;" asp-action="Details" asp-route-id="@item.FeedbackId">
+                    <a style="text-decoration:none;" asp-action="Delete" asp-route-id="@item.FeedbackId">
                         <button type="button" class="btn btn-danger">Delete</button>
                     </a> 
                             
@@ -97,11 +97,11 @@
 </table>
 <br />
 <br />
-<div style="font-size:2rem; margin-bottom:2rem; margin-left:1rem;">
+<div style="font-size:0.8rem; margin-left:1rem;">
     Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) tren @Model.PageCount
 </div>
 
-<div style="font-size:0.8rem; margin-bottom:2rem; margin-left:1rem;">
+<div style="font-size:0.8rem;  margin-left:1rem;">
     @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
     new PagedListRenderOptions {

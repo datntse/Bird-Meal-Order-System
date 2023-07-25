@@ -87,7 +87,7 @@ namespace BMOS.Controllers
                     feedback = feedback.OrderBy(s => s.FeedbackId);
                     break;
             }
-            int pageSize = 8;
+            int pageSize = 4;
             int pageNumber = (page ?? 1);
             return View(feedback.ToPagedList(pageNumber, pageSize));
         }
