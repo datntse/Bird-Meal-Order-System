@@ -9,6 +9,7 @@ using BMOS.Models.Entities;
 using BMOS.Models;
 using BMOS.Models.Services;
 using X.PagedList;
+using BMOS.Helpers;
 
 namespace BMOS.Controllers
 {
@@ -28,12 +29,18 @@ namespace BMOS.Controllers
 
         public async Task<IActionResult> Product(String id)
         {
-            var userSession = HttpContext.Session.GetString("username");
+			ViewBag.BuyStatus = false;
+			var userSession = HttpContext.Session.Get<TblUser>("user");
             if (userSession != null)
             {
-                ViewBag.ID = "Login";
+                var checkBought = _context.TblOrderDetails.Where(x => x.ProductId.Equals(id)).FirstOrDefault();
+                if (checkBought != null)
+                {
+                    ViewBag.BuyStatus = true;
+                } 
             }
-            var recom = _context.TblProducts.Where(x => x.ProductId.Equals(id)).FirstOrDefault();
+			
+			var recom = _context.TblProducts.Where(x => x.ProductId.Equals(id)).FirstOrDefault();
 
             var _relatedProduct = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom.Type && x.ProductId != id).Take(3);
             var result = from img in _context.TblImages
@@ -64,6 +71,11 @@ namespace BMOS.Controllers
                                    date = feedback.Date,
                                };
             var averageStart = (from feedback in feedbackList where feedback.FeedbackId != null select feedback.Star).Average();
+
+
+
+            
+
             ViewData["AverageStartFeedback"] = averageStart;
 			ViewData["FeedbackQuantity"] = feedbackList.ToList().Count();
             ViewData["Feedback"] = feedbackList.ToList();
@@ -456,12 +468,12 @@ namespace BMOS.Controllers
         }
         public IActionResult Notify()
         {
-            var user = HttpContext.Session.GetString("username");
+            var user = HttpContext.Session.Get<TblUser>("user");
 
             if (user != null)
             {
 
-                var tb = from n in _context.TblNotifies select n;
+                var tb = _context.TblNotifies.Where(x => x.UserId.Equals(user.UserId)).ToList();
                 int q = tb.Count();
                 if (q == 0)
                 {
