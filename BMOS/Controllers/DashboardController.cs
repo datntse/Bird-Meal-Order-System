@@ -1,4 +1,5 @@
-﻿using BMOS.Models;
+﻿using BMOS.Helpers;
+using BMOS.Models;
 using BMOS.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,19 @@ namespace BMOS.Controllers
 		}
 		public IActionResult Index()
 		{
-			DateTime startdate = DateTime.Today.AddYears(-1);
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 2)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            DateTime startdate = DateTime.Today.AddYears(-1);
 			DateTime enddate = DateTime.Today;
 			var listorder = _context.TblOrders.Where(x => x.Date >= startdate && x.Date <= enddate).ToList();
 			var listrefund = _context.TblRefunds.Where(x => x.IsConfirm == true).ToList();

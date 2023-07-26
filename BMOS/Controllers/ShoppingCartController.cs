@@ -228,6 +228,7 @@ namespace BMOS.Controllers
         public IActionResult Checkout()
         {
             var user = HttpContext.Session.Get<TblUser>("user");
+            if(user != null) { RedirectToAction("Index"); }
             var discountPrice = HttpContext.Session.Get<double>("discountPrice");
 
             var totalPriceBeforeUseDiscount = getTotalCartPrice();
@@ -490,7 +491,7 @@ namespace BMOS.Controllers
             HttpContext.Session.Remove("discountPrice");
 
             var user = HttpContext.Session.Get<TblUser>("user");
-            if (user == null) { return RedirectToAction("Login", "Account"); }
+            if (user!= null && user.UserRoleId == 1) { return RedirectToAction("Login", "Account"); }
             double? userPoint = user.Point;
             var _priceProduct = getTotalCartPrice();
             decimal? bonusPoint = 0;

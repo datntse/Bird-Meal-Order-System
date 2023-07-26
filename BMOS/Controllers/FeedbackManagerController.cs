@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
 using BMOS.Models;
 using X.PagedList;
+using BMOS.Helpers;
 
 namespace BMOS.Controllers
 {
@@ -17,12 +18,18 @@ namespace BMOS.Controllers
 
         public FeedbackManagerController(BmosContext context)
         {
+
             _context = context;
         }
 
         // GET: FeedbackManager
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null && user.UserRoleId != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
@@ -96,6 +103,11 @@ namespace BMOS.Controllers
         // GET: FeedbackManager/Details/5
         public async Task<IActionResult> Details(string id)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null && user.UserRoleId != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null || _context.TblFeedbacks == null)
             {
                 return NotFound();
@@ -125,6 +137,11 @@ namespace BMOS.Controllers
 
         public async Task<IActionResult> Delete(string id)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null && user.UserRoleId != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null || _context.TblFeedbacks == null)
             {
                 return NotFound();
@@ -157,6 +174,11 @@ namespace BMOS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null && user.UserRoleId != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var feedback = from f in _context.TblFeedbacks
                            join p in _context.TblProducts on f.ProductId equals p.ProductId
                            //join u in _context.TblUsers on f.UserId equals u.UserId

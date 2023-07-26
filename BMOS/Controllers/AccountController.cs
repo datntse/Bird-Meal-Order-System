@@ -53,18 +53,22 @@ namespace BMOS.Controllers
 				var check = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).Select(p => p.UserRoleId);
 				if (check.Count() > 0)
 				{
-					var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
+                    var userManager = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).First();
+
+                    var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
 					var id = check.First();
 					//string sid = Convert.ToString(id);
 					HttpContext.Session.SetString("id", id.ToString());
 					if (id == 1)
 					{
-						HttpContext.Session.SetString("username", username);
-						return RedirectToAction("Index", "ProductManager");
+                        HttpContext.Session.Set("userManager", userManager);
+                        HttpContext.Session.SetString("username", username);
+						return RedirectToAction("Index", "Dashboard");
 					}
 					else if (id == 2 && checkStatus.Count() > 0)
 					{
-						HttpContext.Session.SetString("username", username);
+                        HttpContext.Session.Set("userManager", userManager);
+                        HttpContext.Session.SetString("username", username);
 						return RedirectToAction("Index", "ProductManager");
 					}
 					else if (id == 3 && checkStatus.Count() > 0)

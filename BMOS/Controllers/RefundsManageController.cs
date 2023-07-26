@@ -9,6 +9,7 @@ using BMOS.Models.Entities;
 using X.PagedList;
 using BMOS.Models;
 using Org.BouncyCastle.Asn1.X9;
+using BMOS.Helpers;
 
 namespace BMOS.Controllers
 {
@@ -24,6 +25,18 @@ namespace BMOS.Controllers
         // GET: RefundsManage
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
             ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
@@ -87,6 +100,18 @@ namespace BMOS.Controllers
         // GET: RefundsManage/Details/5
         public async Task<IActionResult> Details(string id )
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var refunds = from f in _context.TblRefunds
                           from o in _context.TblOrders
                           join u in _context.TblUsers on f.UserId equals u.UserId
@@ -135,6 +160,18 @@ namespace BMOS.Controllers
 		// GET: RefundsManage/Edit/5
 		public async Task<IActionResult> Edit(string id)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null || _context.TblRefunds == null)
             {
                 return NotFound();

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
 using BMOS.Models;
 using X.PagedList;
+using BMOS.Helpers;
 
 namespace BMOS.Controllers
 {
@@ -23,8 +24,19 @@ namespace BMOS.Controllers
 		// GET: FeedbackManager
 		public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
 		{
-
-			ViewData["SearchParameter"] = searchString;
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ViewData["SearchParameter"] = searchString;
 			ViewBag.CurrentSort = sortOrder;
 			ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
 			ViewData["PriceSortParm"] = sortOrder == "price" ? "price_desc" : "price";
@@ -94,7 +106,19 @@ namespace BMOS.Controllers
 		// GET: FeedbackManager/Details/5
 		public async Task<IActionResult> Details(string id)
 		{
-			if (id == null || _context.TblFeedbacks == null)
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null || _context.TblFeedbacks == null)
 			{
 				return NotFound();
 			}
