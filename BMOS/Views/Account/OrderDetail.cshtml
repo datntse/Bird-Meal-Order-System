@@ -95,7 +95,7 @@
 														@Html.DisplayFor(modelItem => item.Quantity)
 													</td>
 													<td>
-														@string.Format("{0:#,0}", item.Price)vnđ
+														@string.Format("{0:#,0}", item.Price) VND
 													</td>
 												</tr>
 											}
@@ -150,7 +150,6 @@
 							@if (@ViewBag.Date >= date)
 							{
 								<button class="btn-back" asp-action="AddRefund" asp-controller="Account" data-bs-toggle="modal" data-bs-target="#refund">
-
 									Hoàn trả
 								</button>
 								<div class="modal" tabindex="-1" id="refund">
