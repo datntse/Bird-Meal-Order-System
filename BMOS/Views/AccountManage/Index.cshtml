@@ -11,7 +11,7 @@
 <h1>Quản lý tài khoản</h1>
 <br></br>
 <a style="text-decoration:none;color:darkorange" asp-controller="AccountManage" asp-action="Create">
-    <button type="button" class="btn btn-primary">Tạo tài khoản mới</button>
+    <button type="button" class="btn btn-primary">Tạo tài khoản nhân viên</button>
 </a>
 <a style="text-decoration:none;color:darkorange" asp-controller="AccountManage" asp-action="Index">
     <button type="button" class="btn btn-warning">Làm mới</button>
@@ -20,16 +20,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Mã khách hàng</th>
-           
             <th><a style="text-decoration:none; color:darkorange" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Tài khoản</a></th>
             <th>Xác nhận</th>
             <th>Họ</th>
-            <th>Tên</th>
-            <th>Số điện thoại</th>
-            
-            <th><a style="text-decoration:none; color:darkorange" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Thời gian hoạt động gần nhất</a></th>
-            
+            <th>Tên</th>         
+            <th><a style="text-decoration:none; color:darkorange" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Thời gian hoạt động gần nhất</a></th>           
             <th>Trạng thái</th>
             <th>Chức vụ</th>
             <th class="col-2">Hành động</th>
@@ -41,9 +36,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserId)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Username)
                 </td>
@@ -67,9 +59,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Lastname)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Numberphone)
-                </td>
                 
                 <td>
                     @Html.DisplayFor(modelItem => item.LastActivitty)
@@ -90,11 +79,7 @@
                 </td>
                 <td>
                     @{
-                        if ((item.UserRoleId) == 1)
-                        {
-                            <p style="color:darkblue; border-radius: 25px; background-color: cornflowerblue; inline-size: 100%;text-align:center;">Quản lý </p>
-                        }
-                        else if ((item.UserRoleId) == 2)
+                        if ((item.UserRoleId) == 2)
                         {
                             <p style="color:black; border-radius: 25px; background-color: hotpink; inline-size: 100%;text-align:center;">Staff </p>
                         }

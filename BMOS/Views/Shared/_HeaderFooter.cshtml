@@ -79,10 +79,13 @@
 								</a>
 							</div>
 							<div class="col header-option-profile">
-								<a href="~/Account/UserProfile"><img src="~/images/user-icon.png" alt=""></a>
 								@if (username != null)
-								{
-									<div style="color: #ffce3e; font-size: 1.4rem; font-weight: 500">Welcome @username </div>
+								{								
+									<a href="~/Account/UserProfile"><img src="~/images/AlreadyLogged.png" alt=""></a>
+								}
+								else
+								{								
+									<a href="~/Account/UserProfile"><img src="~/images/user-icon.png" alt=""></a>
 								}
 							</div>
 						</div>
