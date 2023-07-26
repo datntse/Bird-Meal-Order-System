@@ -52,6 +52,7 @@ namespace BMOS.Controllers
                               Date = f.Date,
                               IsConfirm = f.IsConfirm,  
                           };
+            
             if (!String.IsNullOrEmpty(searchString))
             {
                 refunds = refunds.Where(s => s.RefundId.Contains(searchString));
