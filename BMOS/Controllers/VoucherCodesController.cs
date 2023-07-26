@@ -80,33 +80,7 @@ namespace BMOS.Controllers
           
         }
 
-        // GET: VoucherCodesController/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            var user = HttpContext.Session.Get<TblUser>("userManager");
-            if (user != null)
-            {
-                if (user.UserRoleId == 1)
-                {
-                    return View("ErrorPage");
-                }
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            if (id == null || _context.TblVoucherCodes == null)
-            {
-                return NotFound();
-            }
 
-            var TblVoucherCodes = await _context.TblVoucherCodes.FindAsync(id);
-            if (TblVoucherCodes == null)
-            {
-                return NotFound();
-            }
-            return View(TblVoucherCodes);
-        }
         // POST: VoucherCodesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -124,7 +98,7 @@ namespace BMOS.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(VoucherManager));
             }
-            return View(tblVoucherCode);
+            return RedirectToAction("VoucherManager");
         }
 
         // GET: VoucherCodesController/Delete/5

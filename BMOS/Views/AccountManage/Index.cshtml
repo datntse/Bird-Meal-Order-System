@@ -111,10 +111,10 @@
                     <a style="text-decoration:none;" asp-action="Edit" asp-route-id="@item.UserId">
                         <button type="button" class="btn btn-primary">Chỉnh sửa</button>
                     </a>
-                    <a style="text-decoration:none;" asp-route-id="@item.UserId" data-bs-toggle="modal" data-bs-target="#fbdetail-@item.UserId">
+                    <a style="text-decoration:none;" asp-route-id="@item.UserId" data-bs-toggle="modal" data-bs-target="#accdetail-@item.UserId">
                         <button type="button" class="btn btn-info">Chi Tiết</button>
                     </a>
-                    <div class="modal" tabindex="-1" id="fbdetail-@item.UserId">
+                    <div class="modal" tabindex="-1" id="accdetail-@item.UserId">
                         <div class="modal-dialog modal-xl modal-fullscreen-xl-down">
                             <div class="modal-content ">
                                 <div class="modal-header">
