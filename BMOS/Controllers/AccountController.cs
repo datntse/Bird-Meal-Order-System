@@ -14,27 +14,42 @@ using X.PagedList;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Google.Apis.Oauth2.v2.Data;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace BMOS.Controllers
 {
     public class AccountController : Controller
     {
 		private BmosContext _db = new BmosContext();
-        //private readonly GoogleAuthService _googleAuthService;
-        ////private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMemoryCache _cache;
+		//private readonly GoogleAuthService _googleAuthService;
+		////private readonly IHttpContextAccessor _httpContextAccessor;
 
-        //public AccountController(GoogleAuthService googleAuthService)
-        //{
-        //    _googleAuthService = googleAuthService;
-        //    //_httpContextAccessor = httpContextAccessor;
-        //}
+		//public AccountController(GoogleAuthService googleAuthService)
+		//{
+		//    _googleAuthService = googleAuthService;
+		//    //_httpContextAccessor = httpContextAccessor;
+		//}
 
-        public IActionResult Login()
+		public AccountController(IMemoryCache memoryCache)
+		{
+            _cache = memoryCache;
+        }
+
+		public IActionResult Login()
 		{
 			var user = HttpContext.Session.GetString("username");
-			ViewBag.Confirmed = HttpContext.Session.GetString("notice");
+            ViewBag.Confirmed = HttpContext.Session.GetString("notice");
 			HttpContext.Session.Remove("notice");
-			if (user != null)
+            ViewBag.InvalidCode = HttpContext.Session.GetString("noticecode");
+            HttpContext.Session.Remove("noticecode");
+            ViewBag.InvalidCode1 = "để gửi lại mã xác nhận.";
+            ViewBag.IsConfirmed = HttpContext.Session.GetString("noticeisconfirm");
+            HttpContext.Session.Remove("noticeisconfirm");
+            ViewBag.ReSend = HttpContext.Session.GetString("noticeReSend");
+            HttpContext.Session.Remove("noticeReSend");
+
+            if (user != null)
 			{
 				return RedirectToAction("UserProfile");
 			}
@@ -110,7 +125,8 @@ namespace BMOS.Controllers
 			HttpContext.Session.Remove("username");
 			HttpContext.Session.Remove("fullname");
 			HttpContext.Session.Remove("user");
-			return RedirectToAction("Index", "Home");
+            HttpContext.Session.Remove("email");
+            return RedirectToAction("Index", "Home");
 		}
 
 		public IActionResult Register()
@@ -127,9 +143,14 @@ namespace BMOS.Controllers
 		public async Task<IActionResult> RegisterAsync(TblUser model)
 		{
 			var userId = model.Username;
-			var code = "qwert";
+			var code = GenerateVerificationCode();
 			code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-			userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(userId));
+            _cache.Set(userId, code, TimeSpan.FromMinutes(10));
+            
+
+            //var code = "qwert";
+            //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(userId));
 			var content = Url.Action("ConfirmEmail", "Account", new { userId = userId, code = code }, protocol: Request.Scheme);
 			var check = _db.TblUsers.FirstOrDefault(p => p.Username == model.Username);
 
@@ -139,7 +160,9 @@ namespace BMOS.Controllers
 				await EmailSender.SendEmailAsync(model.Username, "Xác thực tài khoản", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Kích hoạt tài khoản</a>");
 				_db.SaveChanges();
 
-				ViewBag.RegisterSuccess = "*Đăng ký tài khoản thành công, vui lòng kiểm tra ";
+                HttpContext.Session.SetString("email", model.Username);
+
+                ViewBag.RegisterSuccess = "*Đăng ký tài khoản thành công, vui lòng kiểm tra ";
 				return View();
 			}
 			else
@@ -149,30 +172,83 @@ namespace BMOS.Controllers
 			}
 		}
 
-		public IActionResult ConfirmEmail(string userId, string code)
+
+		public async Task<IActionResult> ReSendEmail()
 		{
-			var user = HttpContext.Session.GetString("username");
-			if (user != null)
+			var email = HttpContext.Session.GetString("email");
+			if (email != null)
+			{
+                var code = GenerateVerificationCode();
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                _cache.Set(email, code, TimeSpan.FromMinutes(10));
+                var email1 = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(email));
+
+                var content = Url.Action("ConfirmEmail", "Account", new { userId = email1, code = code }, protocol: Request.Scheme);
+
+                await EmailSender.SendEmailAsync(email, "Xác thực tài khoản", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Kích hoạt tài khoản</a>");
+                string notice = "Hệ thống đã gửi lại mã xác nhận, vui lòng kiểm tra ";
+                HttpContext.Session.SetString("noticeReSend", notice);
+
+            }
+            return RedirectToAction("Login");
+
+        }
+
+
+		public IActionResult ConfirmEmailAsync(string userId, string code)
+		{
+            userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
+            var user = HttpContext.Session.GetString("username");
+            string cachedVerificationCode = _cache.Get<string>(userId);
+            if (user != null)
 			{
 				return RedirectToAction("UserProfile");
 			}
-			if (userId == null || code == null)
+			if (userId != null && code == cachedVerificationCode)
 			{
-				return RedirectToAction("Index", "Home");
-			}
-			userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
-			var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId);
-			if (check != null)
+                var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId);
+                if (check != null)
+                {
+                    check.IsConfirm = true;
+                    _db.SaveChanges();
+                    var notice = "*Cảm ơn bạn đã đăng ký tài khoản.";
+                    HttpContext.Session.SetString("notice", notice);
+                }
+                return RedirectToAction("Login");
+            }
+			else
 			{
-				check.IsConfirm = true;
-				_db.SaveChanges();
-				var notice = "*Cảm ơn bạn đã đăng ký tài khoản.";
-				HttpContext.Session.SetString("notice", notice);
-			}
-			return RedirectToAction("Login");
+                var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId && p.IsConfirm == true);
+				if (check != null)
+				{
+                    string isConfirmed = "Tài khoản của bạn đã được xác thực trước đó.";
+                    HttpContext.Session.SetString("noticeisconfirm", isConfirmed);
+                }
+				else
+				{
+                    string invalidCode = "Mã xác nhận đã hết thời gian hiệu lực, nhấn ";
+                    HttpContext.Session.SetString("noticecode", invalidCode);
+                }				
+                return RedirectToAction("Login");
+            }
+			
 		}
 
-		public IActionResult ForgotPassword()
+        private string GenerateVerificationCode()
+        {
+            // Tạo mã xác minh ngẫu nhiên.
+            string verificationCode = "";
+
+            Random random = new Random();
+            for (int i = 0; i < 6; i++)
+            {
+                verificationCode += random.Next(0, 9);
+            }
+
+            return verificationCode;
+        }
+
+        public IActionResult ForgotPassword()
 		{
 			//var user = HttpContext.Session.GetString("username");
 			//if (user != null)
