@@ -236,7 +236,19 @@ namespace BMOS.Controllers
 							notify.UserId = tblRefund.UserId;
 							notify.Date = tblRefund.Date;
 							notify.Type = "refund";
-							notify.Message = "don hang " + tblRefund.OrderId + "da duoc xac nhan";
+							notify.Message = "Đơn hàng " + tblRefund.OrderId + " của bạn đã được xác nhận hoàn trả";
+							_context.Add(notify);
+							_context.SaveChanges();
+						}
+					}if (tblRefund.IsConfirm == false)
+                    {
+						TblNotify notify = new TblNotify();
+						{
+							notify.NotifyId = Guid.NewGuid().ToString();
+							notify.UserId = tblRefund.UserId;
+							notify.Date = tblRefund.Date;
+							notify.Type = "refund";
+							notify.Message = "Đơn hàng " + tblRefund.OrderId + " của bạn đã bị từ chối";
 							_context.Add(notify);
 							_context.SaveChanges();
 						}
