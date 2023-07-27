@@ -70,20 +70,27 @@ namespace BMOS.Controllers
                                    Content = feedback.Content,
                                    date = feedback.Date,
                                };
-            var averageStart = (from feedback in feedbackList where feedback.FeedbackId != null select feedback.Star).Average();
+			if (feedbackList.ToList().Count() >= 0)
+			{
+				var averageStart = (from feedback in feedbackList where feedback.FeedbackId != null select feedback.Star).Average();
+				if (averageStart >= 0)
+				{
+					ViewData["AverageStartFeedback"] = Math.Round((decimal)averageStart);
+
+				}
+				else
+				{
+					ViewData["AverageStartFeedback"] = 0;
+
+				}
+				ViewData["FeedbackQuantity"] = feedbackList.ToList().Count();
+				ViewData["Feedback"] = feedbackList.ToList();
+			}
 
 
 
-            
 
-            ViewData["AverageStartFeedback"] = averageStart;
-			ViewData["FeedbackQuantity"] = feedbackList.ToList().Count();
-            ViewData["Feedback"] = feedbackList.ToList();
-
-
-
-
-            var productItem = from product in _context.TblProducts
+			var productItem = from product in _context.TblProducts
                               from image in _context.TblImages
                               where product.ProductId == image.RelationId
                               select new ProductInfoModel()
