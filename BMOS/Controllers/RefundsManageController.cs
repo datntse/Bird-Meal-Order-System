@@ -233,8 +233,8 @@ namespace BMOS.Controllers
 							notify.NotifyId = Guid.NewGuid().ToString();
 							notify.UserId = tblRefund.UserId;
 							notify.Date = tblRefund.Date;
-							notify.Type = "refund";
-							notify.Message = "don hang " + tblRefund.OrderId + "da duoc xac nhan";
+							notify.Type = "Refund";
+							notify.Message = "Đơn hàng " + tblRefund.OrderId + " đã được xác nhận";
 							_context.Add(notify);
 							_context.SaveChanges();
 						}
