@@ -9,6 +9,7 @@ using BMOS.Models.Entities;
 using X.PagedList;
 using BMOS.Models;
 using Org.BouncyCastle.Asn1.X9;
+using BMOS.Helpers;
 
 namespace BMOS.Controllers
 {
@@ -24,6 +25,18 @@ namespace BMOS.Controllers
         // GET: RefundsManage
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
             ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
@@ -52,6 +65,7 @@ namespace BMOS.Controllers
                               Date = f.Date,
                               IsConfirm = f.IsConfirm,  
                           };
+            
             if (!String.IsNullOrEmpty(searchString))
             {
                 refunds = refunds.Where(s => s.RefundId.Contains(searchString));
@@ -87,6 +101,18 @@ namespace BMOS.Controllers
         // GET: RefundsManage/Details/5
         public async Task<IActionResult> Details(string id )
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var refunds = from f in _context.TblRefunds
                           from o in _context.TblOrders
                           join u in _context.TblUsers on f.UserId equals u.UserId
@@ -112,13 +138,15 @@ namespace BMOS.Controllers
             var orderdetails = from d in _context.TblOrderDetails
                                join p in _context.TblProducts on d.ProductId equals p.ProductId
                                join o in refunds on d.OrderId equals o.OrderId
-                               where d.OrderId == o.OrderId
+                               from image in _context.TblImages
+                               where (d.OrderId == o.OrderId && p.ProductId.Equals(d.ProductId)) && (d.ProductId.Equals(image.RelationId))
                                select new OrderdetailsInfo()
                                {
                                    orderId = d.OrderId,
                                    namepro = p.Name,
                                    quantity = (int)d.Quantity,
-                                   price = (double)(d.Price * d.Quantity)
+                                   price = (double)(d.Price * d.Quantity),
+                                   urlImage = image.Url,
                                };
             var infoorder = orderdetails.Where(m => m.orderId == tblRefund.OrderId).ToList();
             ViewData["OrderDetails"] = infoorder.ToList();
@@ -135,6 +163,18 @@ namespace BMOS.Controllers
 		// GET: RefundsManage/Edit/5
 		public async Task<IActionResult> Edit(string id)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null || _context.TblRefunds == null)
             {
                 return NotFound();
@@ -196,7 +236,19 @@ namespace BMOS.Controllers
 							notify.UserId = tblRefund.UserId;
 							notify.Date = tblRefund.Date;
 							notify.Type = "refund";
-							notify.Message = "don hang " + tblRefund.OrderId + "da duoc xac nhan";
+							notify.Message = "Đơn hàng " + tblRefund.OrderId + " của bạn đã được xác nhận hoàn trả";
+							_context.Add(notify);
+							_context.SaveChanges();
+						}
+					}if (tblRefund.IsConfirm == false)
+                    {
+						TblNotify notify = new TblNotify();
+						{
+							notify.NotifyId = Guid.NewGuid().ToString();
+							notify.UserId = tblRefund.UserId;
+							notify.Date = tblRefund.Date;
+							notify.Type = "refund";
+							notify.Message = "Đơn hàng " + tblRefund.OrderId + " của bạn đã bị từ chối";
 							_context.Add(notify);
 							_context.SaveChanges();
 						}

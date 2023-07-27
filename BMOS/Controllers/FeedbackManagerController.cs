@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
 using BMOS.Models;
 using X.PagedList;
+using BMOS.Helpers;
 
 namespace BMOS.Controllers
 {
@@ -17,14 +18,27 @@ namespace BMOS.Controllers
 
         public FeedbackManagerController(BmosContext context)
         {
+
             _context = context;
         }
 
         // GET: FeedbackManager
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page, string id)
         {
+			var user = HttpContext.Session.Get<TblUser>("userManager");
+			if (user != null)
+			{
+				if (user.UserRoleId == 1)
+				{
+					return View("ErrorPage");
+				}
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
 
-            ViewData["SearchParameter"] = searchString;
+			ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             ViewData["PriceSortParm"] = sortOrder == "price" ? "price_desc" : "price";
@@ -91,73 +105,26 @@ namespace BMOS.Controllers
             int pageNumber = (page ?? 1);
             return View(feedback.ToPagedList(pageNumber, pageSize));
         }
-    
 
-        // GET: FeedbackManager/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null || _context.TblFeedbacks == null)
-            {
-                return NotFound();
-            }
-            var feedback = from f in _context.TblFeedbacks
-                           join p in _context.TblProducts on f.ProductId equals p.ProductId
-                           join u in _context.TblUsers on f.UserId equals u.UserId
-                           select new FeedbackInfo()
-                           {
-                               FeedbackId = f.FeedbackId,
-                               Name = p.Name,
-                               userName = u.Firstname + u.Lastname,
-                               Content = f.Content,
-                               Star = f.Star,
-                               date = f.Date,
-                           };
-            var tblFeedback = await feedback
-                .FirstOrDefaultAsync(m => m.FeedbackId == id);
-            if (tblFeedback == null)
-            {
-                return NotFound();
-            }
-
-            return View(tblFeedback);
-        }
-
-
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null || _context.TblFeedbacks == null)
-            {
-                return NotFound();
-            }
-
-            var feedback = from f in _context.TblFeedbacks
-                           join p in _context.TblProducts on f.ProductId equals p.ProductId
-                           //join u in _context.TblUsers on f.UserId equals u.UserId
-                           select new FeedbackInfo()
-                           {
-                               FeedbackId = f.FeedbackId,
-                               Name = p.Name,
-                               Content = f.Content,
-                               Star = f.Star,
-                               date = f.Date,
-                           };
-
-            var tblFeedback = await feedback
-                .FirstOrDefaultAsync(m => m.FeedbackId == id);
-            if (tblFeedback == null)
-            {
-                return NotFound();
-            }
-
-            return View(tblFeedback);
-        }
 
         // POST: FeedbackManager/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var feedback = from f in _context.TblFeedbacks
+			var user = HttpContext.Session.Get<TblUser>("userManager");
+			if (user != null)
+			{
+				if (user.UserRoleId == 1)
+				{
+					return View("ErrorPage");
+				}
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			var feedback = from f in _context.TblFeedbacks
                            join p in _context.TblProducts on f.ProductId equals p.ProductId
                            //join u in _context.TblUsers on f.UserId equals u.UserId
                            select new FeedbackInfo()

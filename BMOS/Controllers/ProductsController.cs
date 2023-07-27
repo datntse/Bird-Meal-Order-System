@@ -9,6 +9,7 @@ using BMOS.Models.Entities;
 using BMOS.Models;
 using BMOS.Models.Services;
 using X.PagedList;
+using BMOS.Helpers;
 
 namespace BMOS.Controllers
 {
@@ -28,11 +29,17 @@ namespace BMOS.Controllers
 
         public async Task<IActionResult> Product(String id)
         {
-            var userSession = HttpContext.Session.GetString("username");
+            ViewBag.BuyStatus = false;
+            var userSession = HttpContext.Session.Get<TblUser>("user");
             if (userSession != null)
             {
-                ViewBag.ID = "Login";
+                var checkBought = _context.TblOrderDetails.Where(x => x.ProductId.Equals(id)).FirstOrDefault();
+                if (checkBought != null)
+                {
+                    ViewBag.BuyStatus = true;
+                }
             }
+
             var recom = _context.TblProducts.Where(x => x.ProductId.Equals(id)).FirstOrDefault();
 
             var _relatedProduct = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom.Type && x.ProductId != id).Take(3);
@@ -48,7 +55,6 @@ namespace BMOS.Controllers
                          });
             var _listProductRelated = result.ToList();
 
-
             var feedbackList = from feedback in _context.TblFeedbacks
                                from product in _context.TblProducts
                                from user in _context.TblUsers
@@ -63,15 +69,27 @@ namespace BMOS.Controllers
                                    Content = feedback.Content,
                                    date = feedback.Date,
                                };
-            var averageStart = (from feedback in feedbackList where feedback.FeedbackId != null select feedback.Star).Average();
-            ViewData["AverageStartFeedback"] = averageStart;
-			ViewData["FeedbackQuantity"] = feedbackList.ToList().Count();
-            ViewData["Feedback"] = feedbackList.ToList();
+
+
+            if (feedbackList.ToList().Count() >= 0)
+            {
+                var averageStart = (from feedback in feedbackList where feedback.FeedbackId != null select feedback.Star).Average();
+                if (averageStart >= 0)
+                {
+                ViewData["AverageStartFeedback"] = Math.Round((decimal)averageStart);
+
+                }else
+                {
+                    ViewData["AverageStartFeedback"] = 0;
+
+                }
+                ViewData["FeedbackQuantity"] = feedbackList.ToList().Count();
+                ViewData["Feedback"] = feedbackList.ToList();
+            }
 
 
 
-
-            var productItem = from product in _context.TblProducts
+			var productItem = from product in _context.TblProducts
                               from image in _context.TblImages
                               where product.ProductId == image.RelationId
                               select new ProductInfoModel()
@@ -102,12 +120,12 @@ namespace BMOS.Controllers
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
             ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
-			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+            ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
             ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
             ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
 
-			if (searchString != null)
+            if (searchString != null)
             {
                 page = 1;
             }
@@ -186,12 +204,12 @@ namespace BMOS.Controllers
         {
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-			ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
-			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
-			ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
-			ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
+            ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+            ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
+            ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
-			if (searchString != null)
+            if (searchString != null)
             {
                 page = 1;
             }
@@ -260,12 +278,12 @@ namespace BMOS.Controllers
         {
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-			ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
-			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
-			ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
-			ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
+            ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+            ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
+            ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
-			if (searchString != null)
+            if (searchString != null)
             {
                 page = 1;
             }
@@ -333,12 +351,12 @@ namespace BMOS.Controllers
         {
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-			ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
-			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
-			ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
-			ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
+            ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+            ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
+            ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
-			if (searchString != null)
+            if (searchString != null)
             {
                 page = 1;
             }
@@ -454,29 +472,29 @@ namespace BMOS.Controllers
 
             return View(products.ToPagedList(pageNumber, pageSize));
         }
-        public IActionResult Notify()
-        {
-            var user = HttpContext.Session.GetString("username");
+		public IActionResult Notify()
+		{
+			var user = HttpContext.Session.Get<TblUser>("user");
 
-            if (user != null)
-            {
+			if (user != null)
+			{
 
-                var tb = from n in _context.TblNotifies select n;
-                int q = tb.Count();
-                if (q == 0)
-                {
-                    ViewBag.message = "Bạn không có thông báo nào!";
-                }
+				var tb = _context.TblNotifies.Where(x => x.UserId.Equals(user.UserId)).ToList();
+				int q = tb.Count();
+				if (q == 0)
+				{
+					ViewBag.message = "Bạn không có thông báo nào!";
+				}
 
-                return View(tb);
+				return View(tb);
 
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-        }
-        [HttpPost]
+			}
+			else
+			{
+				return RedirectToAction("Login", "Account");
+			}
+		}
+		[HttpPost]
         public IActionResult Comment(string id, string textcontent, int starvalue)
         {
             var user = HttpContext.Session.GetString("username");

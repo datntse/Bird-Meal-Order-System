@@ -9,6 +9,7 @@ using BMOS.Models.Entities;
 using BMOS.Models.Services;
 using X.PagedList;
 using BMOS.Models;
+using BMOS.Helpers;
 
 namespace BMOS.Controllers
 {
@@ -24,6 +25,19 @@ namespace BMOS.Controllers
         // GET: ProductManager
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
@@ -42,20 +56,21 @@ namespace BMOS.Controllers
 
             var productwithImage = from product in _context.TblProducts.ToList()
                                    from image in _context.TblImages.ToList()
-                         where product.ProductId.Equals(image.RelationId)
-                         select new ProductInfoModel
-                         {
-                             ProductId = product.ProductId,
-                             Name = product.Name,
-                             UrlImage = image.Url,
-                             Quantity = product.Quantity,
-                             Status = product.Status,
-                             Price = product.Price,
-                             SoldQuantity = product.SoldQuantity,
-                             Weight = product.Weight,
-                         };
+                                   where product.ProductId.Equals(image.RelationId)
+                                   select new ProductInfoModel
+                                   {
+                                       ProductId = product.ProductId,
+                                       Name = product.Name,
+                                       UrlImage = image.Url,
+                                       Quantity = product.Quantity,
+                                       Status = product.Status,
+                                       Price = product.Price,
+                                       SoldQuantity = product.SoldQuantity,
+                                       Weight = product.Weight,
+                                       Description = product.Description,
+                                   };
             var feedback = productwithImage;
-			if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 feedback = feedback.Where(s => s.Name.Contains(searchString));
                 int count = feedback.Count();
@@ -93,9 +108,21 @@ namespace BMOS.Controllers
             //return View(feedback.ToList());
         }
 
-		// GET: ProductManager/Details/5
-		public async Task<IActionResult> Details(string id)
+        // GET: ProductManager/Details/5
+        public async Task<IActionResult> Details(string id)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null || _context.TblProducts == null)
             {
                 return NotFound();
@@ -114,6 +141,18 @@ namespace BMOS.Controllers
         // GET: ProductManager/Create
         public IActionResult Create()
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -124,12 +163,37 @@ namespace BMOS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,Name, Quantity, Price, Description,Weight,IsAvailable,IsLoved,Status,Type")] TblProduct tblProduct, List<IFormFile> files)
         {
-
+            bool isFailt = false;
             string url = "";
             if (ModelState.IsValid)
             {
+                // validate
+                var duplicateProductName = _context.TblProducts.Where(x => x.Name.Equals(tblProduct.Name)).FirstOrDefault();
+				if (duplicateProductName != null)
+                {
+                    ViewData["erorrProductName"] = "Sản phẩm này đã tồn tại vui lòng nhập tên khác";
+                    isFailt = true;
+                } else if (tblProduct.Price <= 0)
+                {
+					ViewData["errorProductPrice"] = "Giá sản phẩm không được bé hơn 0";
+                    isFailt = true;
+                }
+                else if(tblProduct.Weight <= 0)
+                {
+                    ViewData["errorProductWeight"] = "Cân nặng không được bé hơn 0";
+                    isFailt = true;
+                } else if (tblProduct.Quantity <= 0)
+                {
+                    ViewData["errorProductQuantity"] = "Số lượng không được bé hơn 0";
+                    isFailt = true;
+                }
+
+                if (isFailt) return View(tblProduct);
+
+
                 url = await FirebaseService.UploadImage(files, "products");
                 tblProduct.IsLoved = false;
+                tblProduct.SoldQuantity = 0;
                 _context.Add(tblProduct);
                 TblImage tblImage = new TblImage
                 {
@@ -171,6 +235,18 @@ namespace BMOS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("ProductId,Name,Quantity,Description,Weight,IsAvailable,IsLoved,Status,Price,ImagelInk")] TblProduct tblProduct)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id != tblProduct.ProductId)
             {
                 return NotFound();
@@ -197,11 +273,24 @@ namespace BMOS.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(tblProduct);
-        }   
+        }
 
         // GET: ProductManager/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
             if (id == null || _context.TblProducts == null)
             {
                 return NotFound();

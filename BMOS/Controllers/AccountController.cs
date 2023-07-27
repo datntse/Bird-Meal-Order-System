@@ -68,18 +68,22 @@ namespace BMOS.Controllers
 				var check = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).Select(p => p.UserRoleId);
 				if (check.Count() > 0)
 				{
-					var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
+                    var userManager = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).First();
+
+                    var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
 					var id = check.First();
 					//string sid = Convert.ToString(id);
 					HttpContext.Session.SetString("id", id.ToString());
 					if (id == 1)
 					{
-						HttpContext.Session.SetString("username", username);
-						return RedirectToAction("Index", "ProductManager");
+                        HttpContext.Session.Set("userManager", userManager);
+                        HttpContext.Session.SetString("username", username);
+						return RedirectToAction("Index", "Dashboard");
 					}
 					else if (id == 2 && checkStatus.Count() > 0)
 					{
-						HttpContext.Session.SetString("username", username);
+                        HttpContext.Session.Set("userManager", userManager);
+                        HttpContext.Session.SetString("username", username);
 						return RedirectToAction("Index", "ProductManager");
 					}
 					else if (id == 3 && checkStatus.Count() > 0)
@@ -576,7 +580,7 @@ namespace BMOS.Controllers
 			else
 			{
 				var orderList = _db.TblOrders.Where(p => p.UserId == userID).ToList();
-				var resultOrderList = orderList.OrderByDescending(x => x.Date).ToList();
+				var resultOrderList = orderList.OrderByDescending(x => x.Date.ToString()).ToList();
 				int pageSize = 4;
 				int pageNumber = (page ?? 1);
 				return View(resultOrderList.ToPagedList(pageNumber, pageSize));
@@ -616,8 +620,9 @@ namespace BMOS.Controllers
 
 				var phone = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Phone).FirstOrDefault();
 				ViewBag.Phone = phone;
-
-				var address = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Address).FirstOrDefault();
+                var status = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.IsConfirm).FirstOrDefault();
+                ViewBag.status = status;
+                var address = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Address).FirstOrDefault();
 				ViewBag.Address = address;
 
                 ViewBag.OrderID = orderID;
@@ -664,20 +669,20 @@ namespace BMOS.Controllers
 			}
 			else
 			{
-				var refund = from r in _db.TblRefunds
-							 join u in _db.TblUsers on r.UserId equals u.UserId
-							 select new RefundForm()
-							 {
-								 refundId = r.RefundId,
-								 userId = u.UserId,
-								 content = r.Description,
-								 status = (bool)r.IsConfirm,
-								 orderId = r.OrderId,
-								 date = (DateTime)r.Date
-							 }
-						 ;
 
-				return View(refund.Where(x => x.userId == userid).ToList());
+				var refundd = from r in _db.TblRefunds
+							  join u in _db.TblUsers on r.UserId equals u.UserId
+							  select new RefundForm()
+							  {
+								  refundId = r.RefundId,
+								  userId = u.UserId,
+								  content = r.Description,
+								  status = r.IsConfirm,
+								  orderId = r.OrderId,
+								  date = r.Date
+							  };
+				
+                return View(refundd.Where(p=>p.userId == userid));
 			}
 
 		}
@@ -703,7 +708,7 @@ namespace BMOS.Controllers
                     Description = note,
                     Date = DateTime.Now,
                     UserId = userid,
-                    IsConfirm = false,
+                    IsConfirm = null,
                 };
                 _db.TblRefunds.Add(refund);
                 _db.SaveChanges();

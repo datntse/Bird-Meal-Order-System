@@ -11,6 +11,7 @@ using System.Diagnostics.Metrics;
 using System.Collections;
 using BMOS.Models.Services;
 using System.Security.Policy;
+using BMOS.Helpers;
 
 namespace BMOS.Controllers
 {
@@ -27,6 +28,18 @@ namespace BMOS.Controllers
         // GET: RoutingManager
         public async Task<IActionResult> Index()
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return _context.TblRoutings != null ?
                         View(await _context.TblRoutings.ToListAsync()) :
                         Problem("Entity set 'BmosContext.TblRoutings'  is null.");
@@ -35,6 +48,18 @@ namespace BMOS.Controllers
         // GET: RoutingManager/Details/5
         public async Task<IActionResult> Details(string id)
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null || _context.TblRoutings == null)
             {
                 return NotFound();
@@ -51,6 +76,18 @@ namespace BMOS.Controllers
         // GET: RoutingManager/Create
         public async Task<IActionResult> Create()
         {
+            var user = HttpContext.Session.Get<TblUser>("userManager");
+            if (user != null)
+            {
+                if (user.UserRoleId == 1)
+                {
+                    return View("ErrorPage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var productData = await _context.TblProducts.ToListAsync();
             var model = new TblRouting();
             model.listProduct = new List<SelectListItem>();
