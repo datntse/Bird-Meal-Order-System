@@ -163,10 +163,34 @@ namespace BMOS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,Name, Quantity, Price, Description,Weight,IsAvailable,IsLoved,Status,Type")] TblProduct tblProduct, List<IFormFile> files)
         {
-
+            bool isFailt = false;
             string url = "";
             if (ModelState.IsValid)
             {
+                // validate
+                var duplicateProductName = _context.TblProducts.Where(x => x.Name.Equals(tblProduct.Name)).FirstOrDefault();
+				if (duplicateProductName != null)
+                {
+                    ViewData["erorrProductName"] = "Sản phẩm này đã tồn tại vui lòng nhập tên khác";
+                    isFailt = true;
+                } else if (tblProduct.Price <= 0)
+                {
+					ViewData["errorProductPrice"] = "Giá sản phẩm không được bé hơn 0";
+                    isFailt = true;
+                }
+                else if(tblProduct.Weight <= 0)
+                {
+                    ViewData["errorProductWeight"] = "Cân nặng không được bé hơn 0";
+                    isFailt = true;
+                } else if (tblProduct.Quantity <= 0)
+                {
+                    ViewData["errorProductQuantity"] = "Số lượng không được bé hơn 0";
+                    isFailt = true;
+                }
+
+                if (isFailt) return View(tblProduct);
+
+
                 url = await FirebaseService.UploadImage(files, "products");
                 tblProduct.IsLoved = false;
                 tblProduct.SoldQuantity = 0;
