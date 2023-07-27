@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var username = Context.Session.GetString("username");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -65,7 +68,14 @@
                                 </a>
                             </div>
                             <div class="col header-option-profile">
-                                <a href="~/Account/UserProfile"><img src="~/images/user-icon.png" alt=""></a>                               
+                                @if (username != null)
+                                {
+                                    <a href="~/Account/UserProfile"><img src="~/images/AlreadyLogged.png" alt=""></a>
+                                }
+                                else
+                                {
+                                    <a href="~/Account/UserProfile"><img src="~/images/user-icon.png" alt=""></a>
+                                }
                             </div>
 						</div>
                     </div>
