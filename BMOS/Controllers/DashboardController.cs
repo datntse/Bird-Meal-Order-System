@@ -56,13 +56,16 @@ namespace BMOS.Controllers
 
 			var top3pro = from top in toppro
 						  join top3 in _context.TblProducts on top.id equals top3.ProductId
-						  select new top3final()
+                          from image in _context.TblImages.ToList()
+                          where top.id.Equals(image.RelationId)
+                          select new top3final()
 						  {
 							  id = top.id,
 							  name = top3.Name,
 							  price = top.price,
-							  quantity = top.quantity,							 
-						  };
+							  quantity = top.quantity,
+                              UrlImage = image.Url,
+                          };
 
 			top3pro = top3pro.OrderByDescending(x=>x.price).Take(3).ToList();
 
