@@ -246,28 +246,42 @@ namespace BMOS.Controllers
 
         public IActionResult ForgotPassword()
 		{
-			//var user = HttpContext.Session.GetString("username");
-			//if (user != null)
-			//{
-			//return RedirectToAction("UserProfile");
-			//}
-			return View();
+            //var user = HttpContext.Session.GetString("username");
+            //if (user != null)
+            //{
+            //return RedirectToAction("UserProfile");
+            //}
+            ViewBag.InvalidCode = HttpContext.Session.GetString("noticecode");
+            HttpContext.Session.Remove("noticecode");
+            ViewBag.InvalidCode1 = "để gửi lại mã xác nhận.";
+            ViewBag.IsConfirmed = HttpContext.Session.GetString("noticeisconfirm");
+            HttpContext.Session.Remove("noticeisconfirm");
+            ViewBag.ReSend = HttpContext.Session.GetString("noticeReSend");
+            HttpContext.Session.Remove("noticeReSend");
+            return View();
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> ForgotPasswordAsync(string username)
 		{
 			var userId = username;
-			var code = "qwert";
+			var code = GenerateVerificationCode();
 			code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-			userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(userId));
+            _cache.Set(userId, code, TimeSpan.FromMinutes(10));
+            
+
+            //var code = "qwert";
+            //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(userId));
 			var content = Url.Action("ChangePassword", "Account", new { userId = userId, code = code }, protocol: Request.Scheme);
 			var check = _db.TblUsers.FirstOrDefault(p => p.Username == username);
 
 			if (check != null)
 			{
 				await EmailSender.SendEmailAsync(username, "Quên mật khẩu", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Thay đổi mật khẩu</a>");
-				ViewBag.ConfirmForgotSuccess = "*Vui lòng kiểm tra ";
+                HttpContext.Session.SetString("email", username);
+
+                ViewBag.ConfirmForgotSuccess = "*Vui lòng kiểm tra ";
 				return View();
 			}
 			else
@@ -277,28 +291,65 @@ namespace BMOS.Controllers
 			}
 		}
 
+        public async Task<IActionResult> ReSendEmailForgot()
+        {
+            var email = HttpContext.Session.GetString("email");
+            if (email != null)
+            {
+                var code = GenerateVerificationCode();
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                _cache.Set(email, code, TimeSpan.FromMinutes(10));
+                var email1 = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(email));
+
+                var content = Url.Action("ChangePassword", "Account", new { userId = email1, code = code }, protocol: Request.Scheme);
+
+                await EmailSender.SendEmailAsync(email, "Quên mật khẩu", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Thay đổi mật khẩu</a>");
+                string notice = "Hệ thống đã gửi lại mã xác nhận, vui lòng kiểm tra ";
+                HttpContext.Session.SetString("noticeReSend", notice);
+
+            }
+            return RedirectToAction("ForgotPassword");
+
+        }
 
 
-		public IActionResult ChangePassword(string userId, string code)
+
+        public IActionResult ChangePassword(string userId, string code)
 		{
-			//var user = HttpContext.Session.GetString("username");
-			//if (user != null)
-			//{
-			//return RedirectToAction("UserProfile");
-			//}
-			if (userId == null || code == null)
-			{
-				return RedirectToAction("Index", "Home");
+            //var user = HttpContext.Session.GetString("username");
+            //if (user != null)
+            //{
+            //return RedirectToAction("UserProfile");
+            //}
+            userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
+            var user = HttpContext.Session.GetString("username");
+            string cachedVerificationCode = _cache.Get<string>(userId);
+            if (userId != null && code == cachedVerificationCode)
+            {
+                var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId);
+                if (check != null)
+                {
+                    ViewBag.User = userId;
+                    return View();
+                }
+                
 			}
-			userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
-			var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId);
-			if (check != null)
-			{
-				ViewBag.User = userId;
-				return View();
-			}
-			return View();
-		}
+            else
+            {
+                //var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId && p.IsConfirm == true);
+                //if (check != null)
+                //{
+                //    string isConfirmed = "Tài khoản của bạn đã được xác thực trước đó.";
+                //    HttpContext.Session.SetString("noticeisconfirm", isConfirmed);
+                //}
+                //else
+                //{
+                    string invalidCode = "Mã xác nhận đã hết thời gian hiệu lực, nhấn ";
+                    HttpContext.Session.SetString("noticecode", invalidCode);
+                //}               
+            }
+            return RedirectToAction("ForgotPassword");
+        }
 
 		[HttpPost]
 		public IActionResult ChangePassword(TblUser user)
