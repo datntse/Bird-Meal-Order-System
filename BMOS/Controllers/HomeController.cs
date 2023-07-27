@@ -72,7 +72,6 @@ namespace BMOS.Controllers
 			}
 
             // check point point
-            var user = HttpContext?.Session.Get<TblUser>("user");
             if (user != null)
             {
                 var orderList = _context.TblOrders.Where(p => p.UserId == user.UserId).ToList();
