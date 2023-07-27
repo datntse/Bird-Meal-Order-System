@@ -82,7 +82,7 @@ namespace BMOS.Controllers
                 }
                 foreach (var order in resultOrderList)
                 {
-                    var twoDayAgo = DateTime.Now.AddDays(-2);
+                    var twoDayAgo = DateTime.Now.AddDays(-5);
                     if (order.Date < twoDayAgo && order.Point > 0)
                     {
                         if ((bool)order.IsConfirm)
@@ -117,7 +117,6 @@ namespace BMOS.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
     }
 
 }

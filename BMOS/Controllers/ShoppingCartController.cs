@@ -280,7 +280,6 @@ namespace BMOS.Controllers
 			return View(user);
 		}
 
-
 		public async Task<IActionResult> ConfirmOrder(string userId, string orderId, double point = 0)
 		{
 
