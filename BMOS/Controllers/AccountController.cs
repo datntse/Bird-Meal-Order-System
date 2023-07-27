@@ -569,8 +569,9 @@ namespace BMOS.Controllers
 
 				var phone = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Phone).FirstOrDefault();
 				ViewBag.Phone = phone;
-
-				var address = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Address).FirstOrDefault();
+                var status = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.IsConfirm).FirstOrDefault();
+                ViewBag.status = status;
+                var address = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Address).FirstOrDefault();
 				ViewBag.Address = address;
 
                 ViewBag.OrderID = orderID;
@@ -617,20 +618,20 @@ namespace BMOS.Controllers
 			}
 			else
 			{
-				var refund = from r in _db.TblRefunds
-							 join u in _db.TblUsers on r.UserId equals u.UserId
-							 select new RefundForm()
-							 {
-								 refundId = r.RefundId,
-								 userId = u.UserId,
-								 content = r.Description,
-								 status = (bool)r.IsConfirm,
-								 orderId = r.OrderId,
-								 date = (DateTime)r.Date
-							 }
-						 ;
 
-				return View(refund.Where(x => x.userId == userid).ToList());
+				var refundd = from r in _db.TblRefunds
+							  join u in _db.TblUsers on r.UserId equals u.UserId
+							  select new RefundForm()
+							  {
+								  refundId = r.RefundId,
+								  userId = u.UserId,
+								  content = r.Description,
+								  status = r.IsConfirm,
+								  orderId = r.OrderId,
+								  date = r.Date
+							  };
+				
+                return View(refundd.Where(p=>p.userId == userid));
 			}
 
 		}
@@ -656,7 +657,7 @@ namespace BMOS.Controllers
                     Description = note,
                     Date = DateTime.Now,
                     UserId = userid,
-                    IsConfirm = false,
+                    IsConfirm = null,
                 };
                 _db.TblRefunds.Add(refund);
                 _db.SaveChanges();

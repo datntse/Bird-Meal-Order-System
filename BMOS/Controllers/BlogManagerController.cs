@@ -60,6 +60,7 @@ namespace Demo.Controllers
 										   blogDescription = blog.Description,
 										   blogImage = image.Url,
 										   Date = blog.Date,
+										   Status = blog.Status,
 									   };
 			if (!String.IsNullOrEmpty(searchString))
 			{

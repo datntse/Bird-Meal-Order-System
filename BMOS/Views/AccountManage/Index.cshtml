@@ -96,10 +96,140 @@
                     <a style="text-decoration:none;" asp-action="Edit" asp-route-id="@item.UserId">
                         <button type="button" class="btn btn-primary">Chỉnh sửa</button>
                     </a>
-                    <a style="text-decoration:none;" asp-action="Details" asp-route-id="@item.UserId">
+                    <a style="text-decoration:none;" asp-route-id="@item.UserId" data-bs-toggle="modal" data-bs-target="#accdetail-@item.UserId">
                         <button type="button" class="btn btn-info">Chi Tiết</button>
                     </a>
-                    
+                    <div class="modal" tabindex="-1" id="accdetail-@item.UserId">
+                        <div class="modal-dialog modal-xl modal-fullscreen-xl-down">
+                            <div class="modal-content ">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold" style="font-size:3rem;">chi tiết đánh giá</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                                </div>
+
+                                <div class="info">
+                                    <dl class="row" style="margin-left:300px;">
+                                        <dt class="col-sm-3">
+                                                Mã người dùng
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @item.UserId
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Username
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @item.Username
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Password
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @item.Password
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Xác nhận tài khoản
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @{
+                                                    if ((item.IsConfirm) == true)
+                                                    {
+                                                    <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 50%;text-align:center;">Đã xác nhận </p>
+
+                                                    }
+                                                    else
+                                                    {
+                                                    <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 50%;text-align:center; ">Chưa xác nhận </p>
+                                                    }
+                                                }
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Họ
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @item.Firstname
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Tên
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                 @item.Lastname
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Số điện thoại
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @item.Numberphone
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Địa chỉ
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @item.Address
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Ngày tạo
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @item.DateCreate
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Hoạt động gần nhất
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @item.LastActivitty
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Số điểm
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @item.Point
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Trạng thái
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @{
+                                                    if ((item.Status) == true)
+                                                    {
+                                                    <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 50%;text-align:center; ">Hoạt động </p>
+
+                                                    }
+                                                    else
+                                                    {
+                                                    <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 50%;text-align:center; ">Không hoạt động </p>
+                                                    }
+                                                }
+                                        </dd>
+                                        <dt class="col-sm-3">
+                                                Vai trò
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                                @{
+                                                    if ((item.UserRoleId) == 1)
+                                                    {
+                                                    <p style="color:darkblue; border-radius: 25px; background-color: cornflowerblue; inline-size: 50%;text-align:center;">Quản lý </p>
+                                                    }
+                                                    else if ((item.UserRoleId) == 2)
+                                                    {
+                                                    <p style="color:black; border-radius: 25px; background-color: hotpink; inline-size: 50%;text-align:center;">Staff </p>
+                                                    }
+                                                    else if ((item.UserRoleId) == 3)
+                                                    {
+                                                    <p style="color:black; border-radius: 25px; background-color: blanchedalmond; inline-size: 50%;text-align:center;">Khách hàng </p>
+                                                    }
+                                                    else
+                                                    {
+                                                    <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 50%;text-align:center;">Không có chức vụ </p>
+                                                    }
+                                                }
+                                        </dd>
+                                    </dl>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
 
                 </td>
             </tr>

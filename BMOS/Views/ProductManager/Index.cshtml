@@ -70,11 +70,92 @@
 					@Html.DisplayFor(modelItem => item.Weight)g
 				</td>
 				<td>
-					@*	<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", new { id = item.ProductId })'">Chỉnh sữa</button>
-				<button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", new { id = item.ProductId })'">Chi Tiết</button>
-				<button type="button" class="btn btn-danger" onclick="{ location.href='@Url.Action("Delete", new { id = item.ProductId })' }">Xóa</button>*@
+
 					<a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ProductId">Chỉnh sữa</a>
-					<a type="button" class="btn btn-info" asp-action="Details" asp-route-id="@item.ProductId">Chi Tiết</a>
+                    <a style="text-decoration:none;" asp-route-id="@item.ProductId" data-bs-toggle="modal" data-bs-target="#fbdetail-@item.ProductId">
+                        <button type="button" class="btn btn-info">Chi tiết</button>
+                    </a>
+
+                    <div class="modal" tabindex="-1" id="fbdetail-@item.ProductId">
+                        <div class="modal-dialog modal-xl modal-fullscreen-xl-down">
+                            <div class="modal-content ">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold" style="font-size:3rem;">chi tiết đánh giá</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                                </div>
+
+                                <div class="info">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">
+                                            Hình ảnh
+                                        </dt>
+                                        <dd class="col-sm-10">
+											<img src="@item.UrlImage" width="200px" height="200px" />
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Tên
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @item.Name
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Số lượng
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @item.Quantity
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Đã bán
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @item.SoldQuantity
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Thông tin
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @Html.Raw(item.Description)
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Cân nặng
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @item.Weight g
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Trạng thái
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @{
+                                                if ((item.Status) == true)
+                                                {
+                                                    <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 120px;text-align:center;">Còn Hàng </p>
+
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 120px;text-align:center; ">Hết Hàng </p>
+                                                }
+                                            }
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Giá tiền
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @string.Format("{0:#,0}", item.Price)vnđ
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    <form method="post" asp-action="Delete" asp-route-id="@item.ProductId">
+
+                                        <input type="submit" value="Delete" class="btn btn-danger" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 					<a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProductId">Xóa</a>
 				</td>
 			</tr>

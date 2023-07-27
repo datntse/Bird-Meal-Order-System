@@ -7,29 +7,14 @@
 	ViewData["Title"] = "Blog Manage";
 }
 
-<ul style="font-size:1rem;list-style:none; display:flex;">
-	<span>Sắp xếp:</span>
-	<li style="padding-left: 5px;">
-		<a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">A-Z</a> |
-	</li>
-	<li style="padding-left: 5px;">
-		<a asp-action="Index" asp-route-sortOrder="@ViewData["NameDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Z-A</a> |
-	</li>
-	<li style="padding-left: 5px;">
-		<a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Cũ nhất</a> |
-	</li>
-	<li style="padding-left: 5px;">
-		<a asp-action="Index" asp-route-sortOrder="@ViewData["DateDescSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Mới nhất</a>
-	</li>
-	<li>
-		<a style="font-size: 1rem; text-decoration: none;margin-left:47rem;" asp-controller="BlogManager" asp-action="Index">Xóa tìm kiếm</a>
-	</li>
-</ul>
 <h1>Quản lý blog</h1>
 
-<p>
-	<a asp-action="Create">Create New</a>
-</p>
+<a style="text-decoration:none;color:darkorange" asp-action="Create">
+    <button type="button" class="btn btn-primary">Tạo Blog</button>
+</a>
+<a style="text-decoration:none;color:darkorange" asp-controller="BlogManager" asp-action="Index">
+    <button type="button" class="btn btn-warning">Làm mới</button>
+</a>
 <table class="table">
 	<thead>
 		<tr>
@@ -37,7 +22,6 @@
 			<th>Tên Blog</th>
 			<th>Ngày tạo</th>
 			<th>Trạng Thái</th>
-			<th></th>
 
 
 		</tr>
@@ -56,10 +40,77 @@
 					@Html.DisplayFor(modelItem => item.Date)
 				</td>
 
-				<td>
-					<a asp-action="Edit" asp-route-id="@item.blogId">Edit</a> |
-					<a asp-action="Details" asp-route-id="@item.blogId">Details</a> |
-					<a asp-action="Delete" asp-route-id="@item.blogId">Delete</a>
+				<td>					
+                    <a style="text-decoration:none;" asp-action="Edit" asp-route-id="@item.blogId">
+                        <button type="button" class="btn btn-primary">Chỉnh sửa</button>
+                    </a>
+                    <a style="text-decoration:none;" asp-route-id="@item.blogId" data-bs-toggle="modal" data-bs-target="#fbdetail-@item.blogId">
+                        <button type="button" class="btn btn-info">Chi tiết</button>
+                    </a>
+
+                    <div class="modal" tabindex="-1" id="fbdetail-@item.blogId">
+                        <div class="modal-dialog modal-xl modal-fullscreen-xl-down">
+                            <div class="modal-content ">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold" style="font-size:3rem;">chi tiết đánh giá</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                                </div>
+
+                                <div class="info">
+                                    <dl class="info" style="margin-left:300px;">
+                                        <dt class="col-sm-2">
+                                          Hình Blog
+                                        </dt>
+                                        <dd class="col-sm-10">
+											<img src="@item.blogImage" width="200px" height="200px" />
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Tên Blog
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @item.blogName
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Nội dung Blog
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @Html.Raw(item.blogDescription)
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Ngày
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @item.Date
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Trạng thái
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @{
+                                                if ((item.Status) == true)
+                                                {
+                                                    <p style="color:green;">Hoạt động </p>
+
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:red">Không hoạt động </p>
+                                                }
+                                            }
+                                        </dd>
+
+                                    </dl>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    <form method="post" asp-action="Delete" asp-route-id="@item.blogId">
+
+                                        <input type="submit" value="Delete" class="btn btn-danger" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 				</td>
 
 			</tr>

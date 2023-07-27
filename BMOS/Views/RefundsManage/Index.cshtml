@@ -62,21 +62,31 @@
                         {
                             <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center;">Đã phê duyệt </p>
 
-                        }
-                        else
+                        }if((item.IsConfirm) == null)
                         {
-                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Chưa phê duyệt </p>
+                            <p style="color:white; border-radius: 25px; background-color: orange; inline-size: 100%;text-align:center;">Chờ xử lý</p>
+                        }
+                        if ((item.IsConfirm) == false)
+                        {
+                            <p style="color:black; border-radius: 25px; background-color: red; inline-size: 100%;text-align:center; ">Đã từ chối</p>
                         }
                     }
                 </td>
-            <td>
-                <a style="text-decoration:none;" asp-action="Edit" asp-route-id="@item.RefundId">
-                        <button type="button" class="btn btn-primary" >Chỉnh sửa</button>
-                </a> 
-                <a style="text-decoration:none;" asp-action="Details" asp-route-id="@item.RefundId">
+                <td>
+                    @if (item.IsConfirm == null)
+                    {
+                        <a style="text-decoration:none;" asp-action="Edit" asp-route-id="@item.RefundId">
+                            <button type="button" class="btn btn-primary">Chỉnh sửa</button>
+                        </a>
+                    }
+                    else
+                    {
+                        
+                    }
+                    <a style="text-decoration:none;" asp-action="Details" asp-route-id="@item.RefundId">
                         <button type="button" class="btn btn-info" >Chi tiết</button>
                 </a> 
-
+                    
             </td>
         </tr>
 }

@@ -80,7 +80,7 @@ namespace BMOS.Controllers
           
         }
 
-        // GET: VoucherCodesController/Edit/5
+
         public async Task<IActionResult> Edit(string id)
         {
             var user = HttpContext.Session.Get<TblUser>("userManager");

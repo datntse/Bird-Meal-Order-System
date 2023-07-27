@@ -89,7 +89,7 @@ namespace BMOS.Controllers
 
 
 
-            var productItem = from product in _context.TblProducts
+			var productItem = from product in _context.TblProducts
                               from image in _context.TblImages
                               where product.ProductId == image.RelationId
                               select new ProductInfoModel()
@@ -472,29 +472,29 @@ namespace BMOS.Controllers
 
             return View(products.ToPagedList(pageNumber, pageSize));
         }
-        public IActionResult Notify()
-        {
-            var user = HttpContext.Session.Get<TblUser>("user");
+		public IActionResult Notify()
+		{
+			var user = HttpContext.Session.Get<TblUser>("user");
 
-            if (user != null)
-            {
+			if (user != null)
+			{
 
-                var tb = _context.TblNotifies.Where(x => x.UserId.Equals(user.UserId)).ToList();
-                int q = tb.Count();
-                if (q == 0)
-                {
-                    ViewBag.message = "Bạn không có thông báo nào!";
-                }
+				var tb = _context.TblNotifies.Where(x => x.UserId.Equals(user.UserId)).ToList();
+				int q = tb.Count();
+				if (q == 0)
+				{
+					ViewBag.message = "Bạn không có thông báo nào!";
+				}
 
-                return View(tb);
+				return View(tb);
 
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-        }
-        [HttpPost]
+			}
+			else
+			{
+				return RedirectToAction("Login", "Account");
+			}
+		}
+		[HttpPost]
         public IActionResult Comment(string id, string textcontent, int starvalue)
         {
             var user = HttpContext.Session.GetString("username");

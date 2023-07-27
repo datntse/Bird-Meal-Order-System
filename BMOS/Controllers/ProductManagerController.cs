@@ -67,6 +67,7 @@ namespace BMOS.Controllers
                                        Price = product.Price,
                                        SoldQuantity = product.SoldQuantity,
                                        Weight = product.Weight,
+                                       Description = product.Description,
                                    };
             var feedback = productwithImage;
             if (!String.IsNullOrEmpty(searchString))
