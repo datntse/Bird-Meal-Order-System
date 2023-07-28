@@ -173,18 +173,18 @@ namespace BMOS.Controllers
                 {
                     ViewData["erorrProductName"] = "Sản phẩm này đã tồn tại vui lòng nhập tên khác";
                     isFailt = true;
-                } else if (tblProduct.Price <= 0)
+                } else if (tblProduct.Price <= 0 || tblProduct.Price > 10000000)
                 {
-					ViewData["errorProductPrice"] = "Giá sản phẩm không được bé hơn 0";
+					ViewData["errorProductPrice"] = "Giá sản phẩm không được bé hơn 0 và lớn hơn 10000000";
                     isFailt = true;
                 }
-                else if(tblProduct.Weight <= 0)
+                else if(tblProduct.Weight <= 0 || tblProduct.Weight >= 1000)
                 {
-                    ViewData["errorProductWeight"] = "Cân nặng không được bé hơn 0";
+                    ViewData["errorProductWeight"] = "Cân nặng không được bé hơn 0 và hơn 1000g";
                     isFailt = true;
-                } else if (tblProduct.Quantity <= 0)
+                } else if (tblProduct.Quantity <= 0 || tblProduct.Quantity >= 10000)
                 {
-                    ViewData["errorProductQuantity"] = "Số lượng không được bé hơn 0";
+                    ViewData["errorProductQuantity"] = "Số lượng không được bé hơn 0 và lớn hơn 10000";
                     isFailt = true;
                 }
 
@@ -235,6 +235,7 @@ namespace BMOS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("ProductId,Name,Quantity,Description,Weight,IsAvailable,IsLoved,Status,Price,ImagelInk")] TblProduct tblProduct)
         {
+
             var user = HttpContext.Session.Get<TblUser>("userManager");
             if (user != null)
             {
@@ -256,6 +257,26 @@ namespace BMOS.Controllers
             {
                 try
                 {
+                    bool isFailt = false;
+                    var duplicateProductName = _context.TblProducts.Where(x => x.Name.Equals(tblProduct.Name)).FirstOrDefault();
+                    if (tblProduct.Price <= 0 || tblProduct.Price > 10000000)
+                    {
+                        ViewData["errorProductPrice"] = "Giá sản phẩm không được bé hơn 0 và lớn hơn 10000000";
+                        isFailt = true;
+                    }
+                    else if (tblProduct.Weight <= 0 || tblProduct.Weight >= 1000)
+                    {
+                        ViewData["errorProductWeight"] = "Cân nặng không được bé hơn 0 và hơn 1000g";
+                        isFailt = true;
+                    }
+                    else if (tblProduct.Quantity <= 0 || tblProduct.Quantity >= 10000)
+                    {
+                        ViewData["errorProductQuantity"] = "Số lượng không được bé hơn 0 và lớn hơn 10000";
+                        isFailt = true;
+                    }
+
+                    if (isFailt) return View(tblProduct);
+
                     _context.Update(tblProduct);
                     await _context.SaveChangesAsync();
                 }
