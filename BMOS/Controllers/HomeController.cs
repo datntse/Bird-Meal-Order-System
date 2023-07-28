@@ -64,12 +64,6 @@ namespace BMOS.Controllers
                                  productPrice = product.Price,
                                  productImage = image.Url
                              };
-			var user = HttpContext?.Session.Get<TblUser>("user");
-			if (user != null)
-			{
-				var tblNotify = _context.TblNotifies.Where(x => x.UserId.Equals(user.UserId)).ToList();
-				ViewData["Notify"] = tblNotify;
-			}
 
 			var user = HttpContext?.Session.Get<TblUser>("user");
 			if (user != null)
