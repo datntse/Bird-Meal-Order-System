@@ -44,6 +44,8 @@ namespace BMOS.Controllers
             ViewBag.InvalidCode = HttpContext.Session.GetString("noticecode");
             HttpContext.Session.Remove("noticecode");
             ViewBag.InvalidCode1 = "để gửi lại mã xác nhận.";
+            ViewBag.InvalidCode2 = HttpContext.Session.GetString("noticeincode");
+            HttpContext.Session.Remove("noticeincode");
             ViewBag.IsConfirmed = HttpContext.Session.GetString("noticeisconfirm");
             HttpContext.Session.Remove("noticeisconfirm");
             ViewBag.ReSend = HttpContext.Session.GetString("noticeReSend");
@@ -234,7 +236,7 @@ namespace BMOS.Controllers
 			else
 			{
 				string invalid = "Mã xác nhận không tồn tại.";
-                HttpContext.Session.SetString("noticecode", invalid);
+                HttpContext.Session.SetString("noticeincode", invalid);
                 return RedirectToAction("Login");
             }
 			
@@ -263,6 +265,8 @@ namespace BMOS.Controllers
             //}
             ViewBag.InvalidCode = HttpContext.Session.GetString("noticecode");
             HttpContext.Session.Remove("noticecode");
+            ViewBag.InvalidCode2 = HttpContext.Session.GetString("noticeincode");
+            HttpContext.Session.Remove("noticeincode");
             ViewBag.InvalidCode1 = "để gửi lại mã xác nhận.";
             ViewBag.IsConfirmed = HttpContext.Session.GetString("noticeisconfirm");
             HttpContext.Session.Remove("noticeisconfirm");
@@ -344,7 +348,7 @@ namespace BMOS.Controllers
                 }
                 
 			}
-            else
+            else if (userId != null && cachedVerificationCode == null)
             {
                 //var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId && p.IsConfirm == true);
                 //if (check != null)
@@ -358,6 +362,12 @@ namespace BMOS.Controllers
                     HttpContext.Session.SetString("noticecode", invalidCode);
                 //}               
             }
+            else
+            {
+                string invalid = "Mã xác nhận không tồn tại.";
+                HttpContext.Session.SetString("noticeincode", invalid);
+            }
+
             return RedirectToAction("ForgotPassword");
         }
 
