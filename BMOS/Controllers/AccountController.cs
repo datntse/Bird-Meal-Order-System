@@ -333,6 +333,7 @@ namespace BMOS.Controllers
 				return View(profile);
 			}
 			return RedirectToAction("Login");
+
 		}
 
 		public IActionResult EditUserProfile()
