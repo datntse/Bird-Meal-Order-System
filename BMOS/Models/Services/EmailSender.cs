@@ -180,7 +180,7 @@ p:last-of-type {
           </tr>
       
         </table>
-        <p>Đơn hàng của bạn sẽ được tích điểm sau <b>2 ngày</b>, <i><b>nếu trong vòng 2 ngày tới bạn hoàn trả sản phẩm, thì điểm này sẽ không được tích.</b></i></p>
+        <p>Đơn hàng của bạn sẽ được tích điểm sau <b>5 ngày</b>, <i><b>nếu trong vòng 5 ngày tới bạn hoàn trả sản phẩm, thì điểm này sẽ không được tích.</b></i></p>
         <p>Cảm ơn sự lựa chọn của bạn dành cho [<b>>BMOS</b>]!</p>        
         <p>Bạn có thể xem lại lịch sử đơn hàng của bạn trong phần [<b>Trang cá nhân</b>]!</p>
        
