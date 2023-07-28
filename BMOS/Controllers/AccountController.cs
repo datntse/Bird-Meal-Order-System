@@ -204,7 +204,7 @@ namespace BMOS.Controllers
 			{
 				return RedirectToAction("UserProfile");
 			}
-			if (userId != null && code == cachedVerificationCode)
+			if (userId != null && cachedVerificationCode == code)
 			{
                 var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId);
                 if (check != null)
@@ -216,7 +216,7 @@ namespace BMOS.Controllers
                 }
                 return RedirectToAction("Login");
             }
-			else
+			else if (userId != null && cachedVerificationCode == null)
 			{
                 var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId && p.IsConfirm == true);
 				if (check != null)
@@ -229,6 +229,12 @@ namespace BMOS.Controllers
                     string invalidCode = "Mã xác nhận đã hết thời gian hiệu lực, nhấn ";
                     HttpContext.Session.SetString("noticecode", invalidCode);
                 }				
+                return RedirectToAction("Login");
+            }
+			else
+			{
+				string invalid = "Mã xác nhận không tồn tại.";
+                HttpContext.Session.SetString("noticecode", invalid);
                 return RedirectToAction("Login");
             }
 			
