@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BMOS.Models.Entities;
 using X.PagedList;
 using BMOS.Helpers;
+using Syncfusion.EJ2.Linq;
 
 namespace BMOS.Controllers
 {
@@ -123,8 +124,16 @@ namespace BMOS.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create([Bind("UserId,Username,Password,IsConfirm,Firstname,Lastname,Numberphone,Address,DateCreate,LastActivitty,Point,Status,UserRoleId")] TblUser tblUser)
 		{
+
 			if (ModelState.IsValid)
 			{
+				var userDuplicate = _context.TblUsers.Where(u => u.Username.Equals(tblUser.Username)).FirstOrDefault();
+				if(userDuplicate != null)
+				{
+					ViewData["ErrorUser"] = "Tài khoản này đã tồn tại vui lòng thử lại";
+					return View(tblUser);
+
+				}
 				_context.Add(tblUser);
 				await _context.SaveChangesAsync();
 				return RedirectToAction(nameof(Index));

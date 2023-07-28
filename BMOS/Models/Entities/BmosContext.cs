@@ -50,17 +50,7 @@ public partial class BmosContext : DbContext
     public virtual DbSet<TblVoucherUsed> TblVoucherUseds { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
-
-    private string GetConnectionString()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", true, true)
-            .Build();
-        var strConn = config["ConnectionStrings:ConnectDB"];
-        return strConn;
-    }
+        => optionsBuilder.UseSqlServer("Data Source=PHAT\\SQLEXPRESS;Initial Catalog=BMOS;User ID=sa;Password=12345;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -247,6 +237,7 @@ public partial class BmosContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("phone");
+            entity.Property(e => e.Point).HasColumnName("point");
             entity.Property(e => e.TotalPrice).HasColumnName("total_price");
             entity.Property(e => e.UserId).HasColumnName("user_id");
         });

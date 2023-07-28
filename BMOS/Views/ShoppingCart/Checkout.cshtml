@@ -449,8 +449,6 @@
 
 	$(document).ready(function () {
 
-
-
 		var bonusPoint = $('input[name="bonuspoint"]').val();
 		var _pType = "COD";
 		//select options payment
@@ -468,27 +466,17 @@
 			console.log(_address);
 			if (_address.length > 1 && _phone.length > 1) {
 				Swal.fire({
-					title: 'Bạn nhận được ' + bonusPoint + ' điểm. ',
+					title: 'Cảm ơn bạn đã mua sản phẩm của chúng tôi',
 					text: 'Vui lòng xác nhận đơn hàng',
 					imageUrl: 'https://firebasestorage.googleapis.com/v0/b/bmosfile.appspot.com/o/Notify%2FShopping-Cart-Day-1.jpg?alt=media&token=a823f31d-40fa-4cb1-a49b-0d079e656331',
 					imageWidth: 400,
 					imageHeight: 200,
 					showCancelButton: true,
-					confirmButtonText: 'Xác nhận',
-					denyButtonText: `Không! Cảm ơn.`,
+					confirmButtonText: '<a href="https://mail.google.com/mail" style="color:white;text-decoration:none;">Xác nhận</a>',
+					denyButtonText: 'Đóng',
 				}).then((result) => {
 					/* Read more about isConfirmed, isDenied below */
 					if (result.isConfirmed) {
-
-						Swal.fire({
-							title: 'Cảm ơn bạn đã mua sản phẩm',
-							text: 'Click OK để xác nhận đơn hàng',
-							imageUrl: 'https://firebasestorage.googleapis.com/v0/b/bmosfile.appspot.com/o/Notify%2F601396d8de58e668a9664592_Cart%20abandonment%20Flagship.png?alt=media&token=4784f51e-9ea3-4be0-94c8-232bf512945d',
-							imageWidth: 400,
-							imageHeight: 200,
-							imageAlt: 'Custom image',
-							confirmButtonText: '<a href="https://mail.google.com/mail" style="color:white;text-decoration:none;">OK</a>',
-						})
 
 						$.ajax({
 							url: "/ShoppingCart/Payment",
@@ -511,7 +499,6 @@
 					icon: 'error',
 					title: 'Oops...',
 					text: 'Bạn vui lòng nhập đầy đủ thông tin giao hàng!',
-				
 				})
 			}
 		});

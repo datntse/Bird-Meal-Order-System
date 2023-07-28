@@ -89,6 +89,8 @@ namespace BMOS.Controllers
 							_productId = _rprod.productId,
 							_productName = _rprod.productName,
 							_quantity = _rprod.productQuantity,
+							productAvailable = _rprod.quantity,
+							sold = _rprod.sold,
 							_price = _rprod.productPrice,
 							_weight = _product.Weight,
 							_productImage = image[0]
@@ -102,6 +104,10 @@ namespace BMOS.Controllers
 					if (item != null)
 					{
 						item._quantity += _rprod.productQuantity;
+						if(item._quantity >= item.getProductAvailable())
+						{
+							item._quantity = item.getProductAvailable();
+						}
 					}
 					else
 					{
@@ -117,6 +123,8 @@ namespace BMOS.Controllers
 								_productId = _rprod.productId,
 								_productName = _rprod.productName,
 								_quantity = _rprod.productQuantity,
+								productAvailable = _rprod.quantity,
+								sold = _rprod.sold,
 								_price = _rprod.productPrice,
 								_weight = _product.Weight,
 								_productImage = image[0]
@@ -272,7 +280,6 @@ namespace BMOS.Controllers
 			return View(user);
 		}
 
-
 		public async Task<IActionResult> ConfirmOrder(string userId, string orderId, double point = 0)
 		{
 
@@ -283,10 +290,10 @@ namespace BMOS.Controllers
 			_context.Update(order);
 
 			var user = await _context.TblUsers.Where(u => u.Username.Equals(userId)).FirstOrDefaultAsync();
-			double? currentPoint = user.Point;
-			currentPoint += point;
-			user.Point = currentPoint;
-			_context.Update(user);
+			//double? currentPoint = user.Point;
+			//currentPoint += point;
+			//user.Point = currentPoint;
+			//_context.Update(user);
 			var orderDetailNum = _context.TblOrderDetails.Count(x => x.OrderDetailId != null);
 			foreach (var item in myCart.ToList())
 			{
@@ -348,6 +355,7 @@ namespace BMOS.Controllers
 				Phone = phone,
 				Note = note,
 				PaymentType = pType,
+				Point = point,
 			};
 			_context.Add(order);
 
@@ -404,11 +412,8 @@ namespace BMOS.Controllers
 
 		public IActionResult UpdateCart(string id, string status, int productQuantity = 1)
 		{
-
-
 			double? totalPrice = 0;
 			var myCart = Cart;
-
 
 			foreach (var item in myCart.ToList())
 			{
@@ -417,6 +422,10 @@ namespace BMOS.Controllers
 					if (status.Equals("increase"))
 					{
 						item._quantity += productQuantity;
+						if(item._quantity >= item.getProductAvailable())
+						{
+							item._quantity = item.getProductAvailable();
+						}
 					}
 					else if (status.Equals("decrease"))
 					{
@@ -488,6 +497,8 @@ namespace BMOS.Controllers
 						_quantity = productQuantity,
 						_weight = _product.Weight,
 						_price = _product.Price,
+						sold = _product.SoldQuantity,
+						productAvailable = _product.Quantity,
 						_productImage = image[0],
 					};
 				}

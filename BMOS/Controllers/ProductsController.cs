@@ -29,18 +29,18 @@ namespace BMOS.Controllers
 
         public async Task<IActionResult> Product(String id)
         {
-			ViewBag.BuyStatus = false;
-			var userSession = HttpContext.Session.Get<TblUser>("user");
+            ViewBag.BuyStatus = false;
+            var userSession = HttpContext.Session.Get<TblUser>("user");
             if (userSession != null)
             {
                 var checkBought = _context.TblOrderDetails.Where(x => x.ProductId.Equals(id)).FirstOrDefault();
                 if (checkBought != null)
                 {
                     ViewBag.BuyStatus = true;
-                } 
+                }
             }
-			
-			var recom = _context.TblProducts.Where(x => x.ProductId.Equals(id)).FirstOrDefault();
+
+            var recom = _context.TblProducts.Where(x => x.ProductId.Equals(id)).FirstOrDefault();
 
             var _relatedProduct = _context.TblProducts.OrderByDescending(s => s.ProductId).Where(x => x.Type == recom.Type && x.ProductId != id).Take(3);
             var result = from img in _context.TblImages
@@ -54,7 +54,6 @@ namespace BMOS.Controllers
                              _image = img.Url
                          });
             var _listProductRelated = result.ToList();
-
 
             var feedbackList = from feedback in _context.TblFeedbacks
                                from product in _context.TblProducts
@@ -70,23 +69,23 @@ namespace BMOS.Controllers
                                    Content = feedback.Content,
                                    date = feedback.Date,
                                };
-			if (feedbackList.ToList().Count() >= 0)
-			{
-				var averageStart = (from feedback in feedbackList where feedback.FeedbackId != null select feedback.Star).Average();
-				if (averageStart >= 0)
-				{
-					ViewData["AverageStartFeedback"] = Math.Round((decimal)averageStart);
 
-				}
-				else
-				{
-					ViewData["AverageStartFeedback"] = 0;
 
-				}
-				ViewData["FeedbackQuantity"] = feedbackList.ToList().Count();
-				ViewData["Feedback"] = feedbackList.ToList();
-			}
+            if (feedbackList.ToList().Count() >= 0)
+            {
+                var averageStart = (from feedback in feedbackList where feedback.FeedbackId != null select feedback.Star).Average();
+                if (averageStart >= 0)
+                {
+                ViewData["AverageStartFeedback"] = Math.Round((decimal)averageStart);
 
+                }else
+                {
+                    ViewData["AverageStartFeedback"] = 0;
+
+                }
+                ViewData["FeedbackQuantity"] = feedbackList.ToList().Count();
+                ViewData["Feedback"] = feedbackList.ToList();
+            }
 
 
 
@@ -121,12 +120,12 @@ namespace BMOS.Controllers
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
             ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
-			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+            ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
             ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
             ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
 
-			if (searchString != null)
+            if (searchString != null)
             {
                 page = 1;
             }
@@ -205,12 +204,12 @@ namespace BMOS.Controllers
         {
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-			ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
-			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
-			ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
-			ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
+            ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+            ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
+            ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
-			if (searchString != null)
+            if (searchString != null)
             {
                 page = 1;
             }
@@ -279,12 +278,12 @@ namespace BMOS.Controllers
         {
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-			ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
-			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
-			ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
-			ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
+            ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+            ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
+            ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
-			if (searchString != null)
+            if (searchString != null)
             {
                 page = 1;
             }
@@ -352,12 +351,12 @@ namespace BMOS.Controllers
         {
             ViewData["SearchParameter"] = searchString;
             ViewBag.CurrentSort = sortOrder;
-			ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
-			ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
-			ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
-			ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "" : "name";
+            ViewData["NameDescSortParm"] = sortOrder == "name_desc" ? "" : "name_desc";
+            ViewData["PriceSortParm"] = sortOrder == "price" ? "" : "price";
+            ViewData["PriceDescSortParm"] = sortOrder == "price_desc" ? "" : "price_desc";
 
-			if (searchString != null)
+            if (searchString != null)
             {
                 page = 1;
             }
