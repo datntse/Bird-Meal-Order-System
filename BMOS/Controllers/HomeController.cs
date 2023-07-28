@@ -54,16 +54,22 @@ namespace BMOS.Controllers
 				return RedirectToAction("ListProduct", "Products", new { searchString });
 			}
 
-			var listProdct = from product in _context.TblProducts
-							 from image in _context.TblImages
-							 where product.ProductId == image.RelationId && product.Status != false
-							 select new
-							 {
-								 productId = product.ProductId,
-								 productName = product.Name,
-								 productPrice = product.Price,
-								 productImage = image.Url
-							 };
+            var listProdct = from product in _context.TblProducts
+                             from image in _context.TblImages
+                             where product.ProductId == image.RelationId && product.Status != false
+                             select new
+                             {
+                                 productId = product.ProductId,
+                                 productName = product.Name,
+                                 productPrice = product.Price,
+                                 productImage = image.Url
+                             };
+			var user = HttpContext?.Session.Get<TblUser>("user");
+			if (user != null)
+			{
+				var tblNotify = _context.TblNotifies.Where(x => x.UserId.Equals(user.UserId)).ToList();
+				ViewData["Notify"] = tblNotify;
+			}
 
 			var user = HttpContext?.Session.Get<TblUser>("user");
 			if (user != null)
