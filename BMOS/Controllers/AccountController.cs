@@ -188,10 +188,8 @@ namespace BMOS.Controllers
                 await EmailSender.SendEmailAsync(email, "Xác thực tài khoản", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Kích hoạt tài khoản</a>");
                 string notice = "Hệ thống đã gửi lại mã xác nhận, vui lòng kiểm tra ";
                 HttpContext.Session.SetString("noticeReSend", notice);
-
             }
             return RedirectToAction("Login");
-
         }
 
 

@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using OpenQA.Selenium.DevTools.V112.DOM;
 using System.Drawing;
+using System.Net.WebSockets;
 using System.Text;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
@@ -350,7 +351,7 @@ namespace BMOS.Controllers
 				UserId = user.UserId,
 				TotalPrice = cartPrice,
 				Date = DateTime.Now,
-				IsConfirm = false,
+				IsConfirm = null,
 				Address = address,
 				Phone = phone,
 				Note = note,
