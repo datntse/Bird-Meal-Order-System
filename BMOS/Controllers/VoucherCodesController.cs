@@ -67,11 +67,13 @@ namespace BMOS.Controllers
                 {
                     ViewData["errorLengthCode"] = "Code chỉ được phép đúng 10 kí tự";
                     return View(model);
-                } else if (model.Value >= 10000 || model.Value <= 100000)
-                {
-                    ViewData["errorCodeValue"] = "Code chỉ được phép giảm giá từ 10.000vnd đến 100.000vnđ";
-                    return View(model);
-                } else if(model.Quantity <= 0 || model.Quantity >= 100)
+                }
+				else if (model.Value <= 10000 || model.Value >= 100000)
+				{
+					ViewData["errorCodeValue"] = "Code chỉ được phép giảm giá từ 10.000vnd đến 100.000vnđ";
+					return View(model);
+				
+			} else if(model.Quantity <= 0 || model.Quantity >= 100)
                 {
                     ViewData["errorCodeQuantity"] = "Số lượng phải lớn hơn 0 và bé hơn 100 voucher";
                     return View(model);
@@ -139,7 +141,7 @@ namespace BMOS.Controllers
                     ViewData["errorLengthCode"] = "Code chỉ được phép đúng 10 kí tự";
                     return View(tblVoucherCode);
                 }
-                else if (tblVoucherCode.Value >= 10000 || tblVoucherCode.Value <= 100000)
+                else if (tblVoucherCode.Value <= 10000 || tblVoucherCode.Value >= 100000)
                 {
                     ViewData["errorCodeValue"] = "Code chỉ được phép giảm giá từ 10.000vnd đến 100.000vnđ";
                     return View(tblVoucherCode);
