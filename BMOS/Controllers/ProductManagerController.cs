@@ -168,6 +168,7 @@ namespace BMOS.Controllers
             {
                 url = await FirebaseService.UploadImage(files, "products");
                 tblProduct.IsLoved = false;
+                tblProduct.SoldQuantity = 0;
                 _context.Add(tblProduct);
                 TblImage tblImage = new TblImage
                 {

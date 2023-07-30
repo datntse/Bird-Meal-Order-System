@@ -529,7 +529,7 @@ namespace BMOS.Controllers
 			else
 			{
 				var orderList = _db.TblOrders.Where(p => p.UserId == userID).ToList();
-				var resultOrderList = orderList.OrderByDescending(x => x.Date).ToList();
+				var resultOrderList = orderList.OrderByDescending(x => x.Date.ToString()).ToList();
 				int pageSize = 4;
 				int pageNumber = (page ?? 1);
 				return View(resultOrderList.ToPagedList(pageNumber, pageSize));

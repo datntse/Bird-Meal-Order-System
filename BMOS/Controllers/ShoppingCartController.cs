@@ -291,10 +291,10 @@ namespace BMOS.Controllers
 			_context.Update(order);
 
 			var user = await _context.TblUsers.Where(u => u.Username.Equals(userId)).FirstOrDefaultAsync();
-			double? currentPoint = user.Point;
-			currentPoint += point;
-			user.Point = currentPoint;
-			_context.Update(user);
+			//double? currentPoint = user.Point;
+			//currentPoint += point;
+			//user.Point = currentPoint;
+			//_context.Update(user);
 			var orderDetailNum = _context.TblOrderDetails.Count(x => x.OrderDetailId != null);
 			foreach (var item in myCart.ToList())
 			{
@@ -356,6 +356,7 @@ namespace BMOS.Controllers
 				Phone = phone,
 				Note = note,
 				PaymentType = pType,
+				Point = point,
 			};
 			_context.Add(order);
 
