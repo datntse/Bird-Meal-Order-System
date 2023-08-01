@@ -36,12 +36,12 @@ namespace BMOS.Services
                     <div class=""form"" style=""width: 600px; height: 450px; border: 1px solid black; border-radius: 10px;"">
                         <div class=""header"" style=""border: 1px solid gray; border-radius: 10px; background-color: #EFC15F;"">
                             <div class=""logo"" style=""height: 90px; width: 200px; background-color: white; margin: 10px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center;"">
-                                <h1>LOGO</h1>
+                                <img src=""https://firebasestorage.googleapis.com/v0/b/bmosfile.appspot.com/o/Logo.png?alt=media&token=bec2eac4-0dea-4f53-b881-4dda53481ae5"" alt=""Logo"" srcset="""" style=""width: 100px; height: 100%; margin: 0 auto;"">
                             </div>
                             <div class=""text"" style=""text-align: center;"">
                                 <h1>Chào mừng bạn đến với BMOS</h1>
                                 <div class=""link"" style=""width: 150px; height: 30px; background-color: aliceblue; border-radius: 5px; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: 1px solid black;"">"
-								+ htmlMessage +
+                                + htmlMessage +
 								@"</div>
                                 <div class=""headertext"" style=""margin-top: 5px; margin-bottom: 10px;"">
                                     <span>(Chúng tôi cần xác thực địa chỉ email của bạn để kích hoạt tài khoản)</span>
@@ -180,7 +180,7 @@ p:last-of-type {
           </tr>
       
         </table>
-        <p>Đơn hàng của bạn sẽ được tích điểm sau <b>2 ngày</b>, <i><b>nếu trong vòng 2 ngày tới bạn hoàn trả sản phẩm, thì điểm này sẽ không được tích.</b></i></p>
+        <p>Đơn hàng của bạn sẽ được tích điểm sau <b>5 ngày</b>, <i><b>nếu trong vòng 5 ngày tới bạn hoàn trả sản phẩm, thì điểm này sẽ không được tích.</b></i></p>
         <p>Cảm ơn sự lựa chọn của bạn dành cho [<b>>BMOS</b>]!</p>        
         <p>Bạn có thể xem lại lịch sử đơn hàng của bạn trong phần [<b>Trang cá nhân</b>]!</p>
        

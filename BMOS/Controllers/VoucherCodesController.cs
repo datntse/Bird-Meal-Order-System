@@ -3,6 +3,7 @@ using BMOS.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OpenQA.Selenium.DevTools.V112.Emulation;
 
 namespace BMOS.Controllers
 {
@@ -66,13 +67,15 @@ namespace BMOS.Controllers
                 {
                     ViewData["errorLengthCode"] = "Code chỉ được phép đúng 10 kí tự";
                     return View(model);
-                } else if (model.Value >= 10000 || model.Value <= 100000)
+                }
+				else if (model.Value <= 10000 || model.Value >= 100000)
+				{
+					ViewData["errorCodeValue"] = "Code chỉ được phép giảm giá từ 10.000vnd đến 100.000vnđ";
+					return View(model);
+				
+			} else if(model.Quantity <= 0 || model.Quantity >= 100)
                 {
-                    ViewData["errorCodeValue"] = "Code chỉ được phép giảm giá từ 10.000vnd đến 100.000vnđ";
-                    return View(model);
-                } else if(model.Quantity <= 0)
-                {
-                    ViewData["errorCodeQuantity"] = "Số lượng phải lớn hơn 0";
+                    ViewData["errorCodeQuantity"] = "Số lượng phải lớn hơn 0 và bé hơn 100 voucher";
                     return View(model);
                 }
                 var voucherNum = _context.TblVoucherCodes.Count(x => x.VoucherCode != null);
@@ -133,7 +136,21 @@ namespace BMOS.Controllers
 
             if (ModelState.IsValid)
             {
-
+                if (tblVoucherCode.VoucherCode.Length != 10)
+                {
+                    ViewData["errorLengthCode"] = "Code chỉ được phép đúng 10 kí tự";
+                    return View(tblVoucherCode);
+                }
+                else if (tblVoucherCode.Value <= 10000 || tblVoucherCode.Value >= 100000)
+                {
+                    ViewData["errorCodeValue"] = "Code chỉ được phép giảm giá từ 10.000vnd đến 100.000vnđ";
+                    return View(tblVoucherCode);
+                }
+                else if (tblVoucherCode.Quantity <= 0 || tblVoucherCode.Quantity >= 100)
+                {
+                    ViewData["errorCodeQuantity"] = "Số lượng phải lớn hơn 0 và bé hơn 100 voucher";
+                    return View(tblVoucherCode);
+                }
                 _context.Update(tblVoucherCode);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(VoucherManager));

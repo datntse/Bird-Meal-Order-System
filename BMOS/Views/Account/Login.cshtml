@@ -289,6 +289,12 @@
                         {
                             <span class="notice_text">@ViewBag.IsConfirmed</span>
                         }
+                        else if (ViewBag.InvalidCode2 != null)
+                        {
+                            <div class="notice">
+                                <span class="notice_text">@ViewBag.InvalidCode2</span>
+                            </div>
+                        }
                     </div>
 
                     <div class="form-group">

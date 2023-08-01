@@ -466,7 +466,7 @@
 			console.log(_address);
 			if (_address.length > 1 && _phone.length > 1) {
 				Swal.fire({
-					title: 'Cảm ơn bạn đã mua sản phẩm của chúng tôi',
+					title: 'Cảm ơn bạn đã mua sản phẩm',
 					text: 'Vui lòng xác nhận đơn hàng',
 					imageUrl: 'https://firebasestorage.googleapis.com/v0/b/bmosfile.appspot.com/o/Notify%2FShopping-Cart-Day-1.jpg?alt=media&token=a823f31d-40fa-4cb1-a49b-0d079e656331',
 					imageWidth: 400,
@@ -477,7 +477,6 @@
 				}).then((result) => {
 					/* Read more about isConfirmed, isDenied below */
 					if (result.isConfirmed) {
-
 						$.ajax({
 							url: "/ShoppingCart/Payment",
 							data: {
