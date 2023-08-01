@@ -50,7 +50,8 @@ public partial class BmosContext : DbContext
     public virtual DbSet<TblVoucherUsed> TblVoucherUseds { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=CUONGPHAN;Initial Catalog=BMOS;User ID=sa;Password=12345;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=DATNT\\SQLEXPRESS;Initial Catalog=BMOS;User ID=sa;Password=12345;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -220,10 +221,10 @@ public partial class BmosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("order_id");
             entity.Property(e => e.Address)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("address");
             entity.Property(e => e.Date)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("date");
             entity.Property(e => e.IsConfirm).HasColumnName("is_confirm");
             entity.Property(e => e.Note)
@@ -238,6 +239,7 @@ public partial class BmosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("phone");
             entity.Property(e => e.Point).HasColumnName("point");
+            entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TotalPrice).HasColumnName("total_price");
             entity.Property(e => e.UserId).HasColumnName("user_id");
         });

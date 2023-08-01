@@ -178,7 +178,6 @@ p:last-of-type {
             <td></td>
             <td>["+ price + @"vnđ]</td>
           </tr>
-      
         </table>
         <p>Đơn hàng của bạn sẽ được tích điểm sau <b>5 ngày</b>, <i><b>nếu trong vòng 5 ngày tới bạn hoàn trả sản phẩm, thì điểm này sẽ không được tích.</b></i></p>
         <p>Cảm ơn sự lựa chọn của bạn dành cho [<b>>BMOS</b>]!</p>        

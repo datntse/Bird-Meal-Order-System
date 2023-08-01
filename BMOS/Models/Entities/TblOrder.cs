@@ -25,6 +25,8 @@ public partial class TblOrder
 
     public double? Point { get; set; }
 
+    public int? Status { get; set; }
+
     public virtual ICollection<TblOrderDetail> TblOrderDetails { get; set; } = new List<TblOrderDetail>();
 
     public virtual ICollection<TblRefund> TblRefunds { get; set; } = new List<TblRefund>();
