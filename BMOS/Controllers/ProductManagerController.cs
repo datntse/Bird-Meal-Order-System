@@ -233,7 +233,7 @@ namespace BMOS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ProductId,Name,Quantity,Description,Weight,IsAvailable,IsLoved,Status,Price,ImagelInk")] TblProduct tblProduct)
+        public async Task<IActionResult> Edit(string id, [Bind("ProductId,Name,Quantity,Description,Weight,SoldQuantity,IsAvailable,IsLoved,Status,Price,ImagelInk")] TblProduct tblProduct)
         {
 
             var user = HttpContext.Session.Get<TblUser>("userManager");

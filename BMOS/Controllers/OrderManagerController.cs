@@ -62,7 +62,20 @@ namespace BMOS.Controllers
 							IsConfirm = f.IsConfirm
 						};
 
-
+			//var orderdetails = from d in _context.TblOrderDetails
+			//				   from p in _context.TblProducts
+			//				   from image in _context.TblImages
+			//				   where (d.OrderId == id && p.ProductId.Equals(d.ProductId)) && (d.ProductId.Equals(image.RelationId))
+			//				   select new OrderdetailsInfo()
+			//				   {
+			//					   orderId = d.OrderId,
+			//					   namepro = p.Name,
+			//					   quantity = (int)d.Quantity,
+			//					   price = (double)(d.Price * d.Quantity),
+			//					   urlImage = image.Url,
+			//				   };
+			//var orderdetail = orderdetails.Where(p => p.orderId == id).ToList();
+			//ViewData["OrderDetails"] = orderdetail.ToList();
 
 
 			if (!String.IsNullOrEmpty(searchString))
