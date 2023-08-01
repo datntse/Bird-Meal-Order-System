@@ -97,7 +97,7 @@ namespace BMOS.Controllers
                             user.Point = currentPoint;
                             TblNotify notify = new TblNotify
                             {
-                                NotifyId = new Guid().ToString(),
+                                NotifyId = Guid.NewGuid().ToString(),
                                 UserId = user.UserId,
                                 Message = "Bạn được tích " + order.Point + " điểm ở đơn hàng " + order.OrderId,
                                 Type = "Point",
