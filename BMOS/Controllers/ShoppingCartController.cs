@@ -298,17 +298,6 @@ namespace BMOS.Controllers
 			var orderDetailNum = _context.TblOrderDetails.Count(x => x.OrderDetailId != null);
 			foreach (var item in myCart.ToList())
 			{
-				var orderDetail = new TblOrderDetail
-				{
-					OrderDetailId = "orderdetail" + orderDetailNum,
-					OrderId = order.OrderId,
-					ProductId = item._productId,
-					Quantity = item._quantity,
-					Price = item._price,
-					Date = DateTime.Now,
-				};
-				orderDetailNum++;
-
 				var product = _context.TblProducts.Where(x => x.ProductId.Equals(item._productId)).FirstOrDefault();
 				if (product != null)
 				{
@@ -317,7 +306,6 @@ namespace BMOS.Controllers
 					product.SoldQuantity = soldQuantity;
 					_context.Update(product);
 				}
-				_context.Add(orderDetail);
 			}
 
 			_context.SaveChanges();
@@ -357,8 +345,25 @@ namespace BMOS.Controllers
 				Note = note,
 				PaymentType = pType,
 				Point = point,
+				Status = 0,
 			};
 			_context.Add(order);
+
+			foreach(var item in myCart.ToList())
+			{
+				var orderDetail = new TblOrderDetail
+				{
+					OrderDetailId = "orderdetail" + orderDetailNum,
+					OrderId = order.OrderId,
+					ProductId = item._productId,
+					Quantity = item._quantity,
+					Price = item._price,
+					Date = DateTime.Now,
+				};
+				orderDetailNum++;	
+				_context.Add(orderDetail);
+
+			}
 
 			//add to voucehr used
 			var isUsedVoucher = HttpContext.Session.Get<bool>("useVoucher");

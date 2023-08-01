@@ -62,9 +62,6 @@ namespace BMOS.Controllers
 							IsConfirm = f.IsConfirm
 						};
 
-
-
-
 			if (!String.IsNullOrEmpty(searchString))
 			{
 				order = order.Where(s => s.UserName.Contains(searchString));
