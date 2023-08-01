@@ -158,7 +158,7 @@
 												<h5 class="modal-title fw-bold" style="font-size:3rem;">Hoàn trả</h5>
 												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
 											</div>
-											@*<form method="post" asp-action="addr	efund" asp-controller="account">*@
+											<form method="post" asp-action="addrefund" asp-controller="account">
 											<input type="hidden" class="form-control" name="userid" value="" required />
 											<div class="form-group" style="padding:0px 5rem;">
 												<label for="recipient-name" class="col-form-label fw-bold" style="font-size:3rem;">Mã đơn hàng</label>
@@ -167,14 +167,14 @@
 											<input type="hidden" class="form-control" name="userid" value="@id" required />
 											<div class="form-group" style="padding:0px 5rem;">
 												<label for="recipient-name" class="col-form-label fw-bold" style="font-size:3rem;">Lý do hoàn trả</label>
-												<textarea id="note" class="form-control" style="font-size:2rem;" required></textarea>
+												<textarea id="note" name="note" class="form-control" style="font-size:2rem;" required></textarea>
 											</div>
 
 											<div class="modal-footer">
-												<button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
 												<button type="submit" class="btn btn-primary ajax-submit-form-refund">Gửi đơn</button>
 											</div>
-											@*</form>*@
+											</form>
 										</div>
 									</div>
 								</div>
@@ -273,3 +273,11 @@
 		});
 	});
 </script>
+@section Scripts {
+	<script src="https://cdn.ckeditor.com/4.2/standard/ckeditor.js"></script>
+	<script>
+		$(document).ready(function () {
+			CKEDITOR.replace('note');
+		});
+	</script>
+}
