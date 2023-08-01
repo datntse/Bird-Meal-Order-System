@@ -701,6 +701,7 @@ namespace BMOS.Controllers
 			}
 
 		}
+		[HttpPost]
 		public IActionResult AddRefund(string orderid, string note)
 		{
 			var user = HttpContext.Session.GetString("username");
