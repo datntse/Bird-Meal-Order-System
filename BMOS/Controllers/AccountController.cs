@@ -18,10 +18,10 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace BMOS.Controllers
 {
-    public class AccountController : Controller
-    {
+	public class AccountController : Controller
+	{
 		private BmosContext _db = new BmosContext();
-        private readonly IMemoryCache _cache;
+		private readonly IMemoryCache _cache;
 		//private readonly GoogleAuthService _googleAuthService;
 		////private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -33,23 +33,23 @@ namespace BMOS.Controllers
 
 		public AccountController(IMemoryCache memoryCache)
 		{
-            _cache = memoryCache;
-        }
+			_cache = memoryCache;
+		}
 
 		public IActionResult Login()
 		{
 			var user = HttpContext.Session.GetString("username");
-            ViewBag.Confirmed = HttpContext.Session.GetString("notice");
+			ViewBag.Confirmed = HttpContext.Session.GetString("notice");
 			HttpContext.Session.Remove("notice");
-            ViewBag.InvalidCode = HttpContext.Session.GetString("noticecode");
-            HttpContext.Session.Remove("noticecode");
-            ViewBag.InvalidCode1 = "để gửi lại mã xác nhận.";
-            ViewBag.IsConfirmed = HttpContext.Session.GetString("noticeisconfirm");
-            HttpContext.Session.Remove("noticeisconfirm");
-            ViewBag.ReSend = HttpContext.Session.GetString("noticeReSend");
-            HttpContext.Session.Remove("noticeReSend");
+			ViewBag.InvalidCode = HttpContext.Session.GetString("noticecode");
+			HttpContext.Session.Remove("noticecode");
+			ViewBag.InvalidCode1 = "để gửi lại mã xác nhận.";
+			ViewBag.IsConfirmed = HttpContext.Session.GetString("noticeisconfirm");
+			HttpContext.Session.Remove("noticeisconfirm");
+			ViewBag.ReSend = HttpContext.Session.GetString("noticeReSend");
+			HttpContext.Session.Remove("noticeReSend");
 
-            if (user != null)
+			if (user != null)
 			{
 				return RedirectToAction("UserProfile");
 			}
@@ -68,22 +68,22 @@ namespace BMOS.Controllers
 				var check = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).Select(p => p.UserRoleId);
 				if (check.Count() > 0)
 				{
-                    var userManager = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).First();
+					var userManager = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Password.Equals(password)).First();
 
-                    var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
+					var checkStatus = _db.TblUsers.Where(p => p.Username.Equals(username) && p.Status == true);
 					var id = check.First();
 					//string sid = Convert.ToString(id);
 					HttpContext.Session.SetString("id", id.ToString());
 					if (id == 1)
 					{
-                        HttpContext.Session.Set("userManager", userManager);
-                        HttpContext.Session.SetString("username", username);
+						HttpContext.Session.Set("userManager", userManager);
+						HttpContext.Session.SetString("username", username);
 						return RedirectToAction("Index", "Dashboard");
 					}
 					else if (id == 2 && checkStatus.Count() > 0)
 					{
-                        HttpContext.Session.Set("userManager", userManager);
-                        HttpContext.Session.SetString("username", username);
+						HttpContext.Session.Set("userManager", userManager);
+						HttpContext.Session.SetString("username", username);
 						return RedirectToAction("Index", "ProductManager");
 					}
 					else if (id == 3 && checkStatus.Count() > 0)
@@ -125,8 +125,8 @@ namespace BMOS.Controllers
 			HttpContext.Session.Remove("username");
 			HttpContext.Session.Remove("fullname");
 			HttpContext.Session.Remove("user");
-            HttpContext.Session.Remove("email");
-            return RedirectToAction("Index", "Home");
+			HttpContext.Session.Remove("email");
+			return RedirectToAction("Index", "Home");
 		}
 
 		public IActionResult Register()
@@ -145,12 +145,12 @@ namespace BMOS.Controllers
 			var userId = model.Username;
 			var code = GenerateVerificationCode();
 			code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            _cache.Set(userId, code, TimeSpan.FromMinutes(10));
-            
+			_cache.Set(userId, code, TimeSpan.FromMinutes(10));
 
-            //var code = "qwert";
-            //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(userId));
+
+			//var code = "qwert";
+			//code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+			userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(userId));
 			var content = Url.Action("ConfirmEmail", "Account", new { userId = userId, code = code }, protocol: Request.Scheme);
 			var check = _db.TblUsers.FirstOrDefault(p => p.Username == model.Username);
 
@@ -160,9 +160,9 @@ namespace BMOS.Controllers
 				await EmailSender.SendEmailAsync(model.Username, "Xác thực tài khoản", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Kích hoạt tài khoản</a>");
 				_db.SaveChanges();
 
-                HttpContext.Session.SetString("email", model.Username);
+				HttpContext.Session.SetString("email", model.Username);
 
-                ViewBag.RegisterSuccess = "*Đăng ký tài khoản thành công, vui lòng kiểm tra ";
+				ViewBag.RegisterSuccess = "*Đăng ký tài khoản thành công, vui lòng kiểm tra ";
 				return View();
 			}
 			else
@@ -178,77 +178,77 @@ namespace BMOS.Controllers
 			var email = HttpContext.Session.GetString("email");
 			if (email != null)
 			{
-                var code = GenerateVerificationCode();
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                _cache.Set(email, code, TimeSpan.FromMinutes(10));
-                var email1 = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(email));
+				var code = GenerateVerificationCode();
+				code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+				_cache.Set(email, code, TimeSpan.FromMinutes(10));
+				var email1 = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(email));
 
-                var content = Url.Action("ConfirmEmail", "Account", new { userId = email1, code = code }, protocol: Request.Scheme);
+				var content = Url.Action("ConfirmEmail", "Account", new { userId = email1, code = code }, protocol: Request.Scheme);
 
-                await EmailSender.SendEmailAsync(email, "Xác thực tài khoản", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Kích hoạt tài khoản</a>");
-                string notice = "Hệ thống đã gửi lại mã xác nhận, vui lòng kiểm tra ";
-                HttpContext.Session.SetString("noticeReSend", notice);
+				await EmailSender.SendEmailAsync(email, "Xác thực tài khoản", "<a href=\"" + content + "\" class=\"linkdetail\" style=\"text-decoration: none; margin: 0 auto; color: black;\">Kích hoạt tài khoản</a>");
+				string notice = "Hệ thống đã gửi lại mã xác nhận, vui lòng kiểm tra ";
+				HttpContext.Session.SetString("noticeReSend", notice);
 
-            }
-            return RedirectToAction("Login");
+			}
+			return RedirectToAction("Login");
 
-        }
+		}
 
 
 		public IActionResult ConfirmEmailAsync(string userId, string code)
 		{
-            userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
-            var user = HttpContext.Session.GetString("username");
-            string cachedVerificationCode = _cache.Get<string>(userId);
-            if (user != null)
+			userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
+			var user = HttpContext.Session.GetString("username");
+			string cachedVerificationCode = _cache.Get<string>(userId);
+			if (user != null)
 			{
 				return RedirectToAction("UserProfile");
 			}
 			if (userId != null && code == cachedVerificationCode)
 			{
-                var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId);
-                if (check != null)
-                {
-                    check.IsConfirm = true;
-                    _db.SaveChanges();
-                    var notice = "*Cảm ơn bạn đã đăng ký tài khoản.";
-                    HttpContext.Session.SetString("notice", notice);
-                }
-                return RedirectToAction("Login");
-            }
-			else
-			{
-                var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId && p.IsConfirm == true);
+				var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId);
 				if (check != null)
 				{
-                    string isConfirmed = "Tài khoản của bạn đã được xác thực trước đó.";
-                    HttpContext.Session.SetString("noticeisconfirm", isConfirmed);
-                }
+					check.IsConfirm = true;
+					_db.SaveChanges();
+					var notice = "*Cảm ơn bạn đã đăng ký tài khoản.";
+					HttpContext.Session.SetString("notice", notice);
+				}
+				return RedirectToAction("Login");
+			}
+			else
+			{
+				var check = _db.TblUsers.FirstOrDefault(p => p.Username == userId && p.IsConfirm == true);
+				if (check != null)
+				{
+					string isConfirmed = "Tài khoản của bạn đã được xác thực trước đó.";
+					HttpContext.Session.SetString("noticeisconfirm", isConfirmed);
+				}
 				else
 				{
-                    string invalidCode = "Mã xác nhận đã hết thời gian hiệu lực, nhấn ";
-                    HttpContext.Session.SetString("noticecode", invalidCode);
-                }				
-                return RedirectToAction("Login");
-            }
-			
+					string invalidCode = "Mã xác nhận đã hết thời gian hiệu lực, nhấn ";
+					HttpContext.Session.SetString("noticecode", invalidCode);
+				}
+				return RedirectToAction("Login");
+			}
+
 		}
 
-        private string GenerateVerificationCode()
-        {
-            // Tạo mã xác minh ngẫu nhiên.
-            string verificationCode = "";
+		private string GenerateVerificationCode()
+		{
+			// Tạo mã xác minh ngẫu nhiên.
+			string verificationCode = "";
 
-            Random random = new Random();
-            for (int i = 0; i < 6; i++)
-            {
-                verificationCode += random.Next(0, 9);
-            }
+			Random random = new Random();
+			for (int i = 0; i < 6; i++)
+			{
+				verificationCode += random.Next(0, 9);
+			}
 
-            return verificationCode;
-        }
+			return verificationCode;
+		}
 
-        public IActionResult ForgotPassword()
+		public IActionResult ForgotPassword()
 		{
 			//var user = HttpContext.Session.GetString("username");
 			//if (user != null)
@@ -516,8 +516,8 @@ namespace BMOS.Controllers
 		}
 
 		public IActionResult UserHistoryOrder(int? page)
-		{          
-            ViewBag.ID = HttpContext.Session.GetString("id");
+		{
+			ViewBag.ID = HttpContext.Session.GetString("id");
 			ViewBag.Fullname = HttpContext.Session.GetString("fullname");
 			var user = HttpContext.Session.GetString("username");
 			var userID = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).FirstOrDefault();
@@ -529,8 +529,8 @@ namespace BMOS.Controllers
 			else
 			{
 				var orderList = _db.TblOrders.Where(p => p.UserId == userID).ToList();
-				var resultOrderList = orderList.OrderByDescending(x => x.Date.ToString()).ToList();
-				int pageSize = 4;
+				var resultOrderList = orderList.OrderByDescending(x => x.Date).ToList();
+                int pageSize = 4;
 				int pageNumber = (page ?? 1);
 				return View(resultOrderList.ToPagedList(pageNumber, pageSize));
 			}
@@ -569,12 +569,12 @@ namespace BMOS.Controllers
 
 				var phone = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Phone).FirstOrDefault();
 				ViewBag.Phone = phone;
-                var status = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.IsConfirm).FirstOrDefault();
-                ViewBag.status = status;
-                var address = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Address).FirstOrDefault();
+				var status = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.IsConfirm).FirstOrDefault();
+				ViewBag.status = status;
+				var address = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Address).FirstOrDefault();
 				ViewBag.Address = address;
 
-                ViewBag.OrderID = orderID;
+				ViewBag.OrderID = orderID;
 				ViewBag.Date = date;
 				ViewBag.TotalPrice = total.ToString();
 				ViewBag.Email = user;
@@ -587,10 +587,10 @@ namespace BMOS.Controllers
 
 		public IActionResult ReceiveButton(string returnUrl = "/")
 		{
-            var properties = new AuthenticationProperties { RedirectUri = returnUrl };
-            return Challenge(properties, "Google");
-            //return new ChallengeResult("Google", null);
-        }
+			var properties = new AuthenticationProperties { RedirectUri = returnUrl };
+			return Challenge(properties, "Google");
+			//return new ChallengeResult("Google", null);
+		}
 
 		public IActionResult LoginWithGoogle(string code)
 		{
@@ -606,7 +606,7 @@ namespace BMOS.Controllers
 			HttpContext.Session.SetString("username", code);
 			return RedirectToAction("Index", "Home");
 		}
-
+		
 		public IActionResult Refund()
 		{
 			var user = HttpContext.Session.GetString("username");

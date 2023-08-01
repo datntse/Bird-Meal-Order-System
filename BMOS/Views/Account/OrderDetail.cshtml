@@ -159,7 +159,7 @@
 												<h5 class="modal-title fw-bold" style="font-size:3rem;">Hoàn trả</h5>
 												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
 											</div>
-											@*<form method="post" asp-action="addrefund" asp-controller="account">*@
+											@*<form method="post" asp-action="AddRefund" asp-controller="Account">*@
 											<input type="hidden" class="form-control" name="userid" value="" required />
 											<div class="form-group" style="padding:0px 5rem;">
 												<label for="recipient-name" class="col-form-label fw-bold" style="font-size:3rem;">Mã đơn hàng</label>
@@ -273,3 +273,8 @@
 		});
 	});
 </script>
+@section scripts{
+	<script>
+		CKEDITOR.replace('note')
+	</script>
+}

@@ -42,7 +42,7 @@
                                         <div style="display: flex; justify-content: space-between; align-items:center;">
                                             <h4><b>Mã đơn hàng: </b>@Html.DisplayFor(modelItem => item.OrderId)<br></h4>
                                             <input type="hidden" value="@Html.DisplayFor(modelItem => item.OrderId)" name="orderid" required>
-                                        <h4><b>Ngày: </b>@item.Date<br></h4>
+                                        <h4><b>Ngày: </b>@item.Date)<br></h4>
                                         </div>
                                         <div style="display: flex;">
                                             @if (item.IsConfirm == true)
