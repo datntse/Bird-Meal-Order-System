@@ -88,7 +88,13 @@ namespace BMOS.Controllers
 						HttpContext.Session.SetString("username", username);
 						return RedirectToAction("Index", "ProductManager");
 					}
-					else if (id == 3 && checkStatus.Count() > 0)
+                    else if (id == 4 && checkStatus.Count() > 0)
+                    {
+                        HttpContext.Session.Set("userManager", userManager);
+                        HttpContext.Session.SetString("username", username);
+                        return RedirectToAction("Index", "Delivery");
+                    }
+                    else if (id == 3 && checkStatus.Count() > 0)
 					{
 						var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).ToList();
 						//string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();

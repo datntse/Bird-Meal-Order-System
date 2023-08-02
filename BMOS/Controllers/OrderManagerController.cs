@@ -57,7 +57,7 @@ namespace BMOS.Controllers
 						{
 							orderID = f.OrderId,
 							UserName = u.Firstname + u.Lastname,
-							date = f.Date.Value.ToString("dddd, dd MMMM yyyy"),
+							date = f.Date,
 							total = f.TotalPrice,
 							IsConfirm = f.IsConfirm
 						};
@@ -96,7 +96,7 @@ namespace BMOS.Controllers
 			}
 			int pageSize = 8;
 			int pageNumber = (page ?? 1);
-			return View(order.ToPagedList(pageNumber, pageSize));
+			return View(order.OrderByDescending(x => x.date).ToPagedList(pageNumber, pageSize));
 		}
 
 
@@ -126,7 +126,7 @@ namespace BMOS.Controllers
 							orderID = f.OrderId,
 							UserName = u.Firstname + u.Lastname,
 							Quantity = (int)_context.TblOrderDetails.Where(x => x.OrderId == f.OrderId).Sum(x => x.Quantity),
-							date = f.Date.Value.ToString("dddd, dd MMMM yyyy"),
+							date = f.Date,
 							total = f.TotalPrice,
 							IsConfirm = f.IsConfirm
 						};
