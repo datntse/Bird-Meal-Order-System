@@ -69,7 +69,7 @@
                     @*<a asp-action="Details" asp-route-id="@item.orderID">
                         <button type="button" class="btn btn-info" >Chi Tiết</button>
                     </a>*@
-                    <a style="text-decoration:none;" asp-route-id="@item.orderID" data-bs-toggle="modal" data-bs-target="#fbdetail-@item.orderID">
+                    <a style="text-decoration:none;" asp-action="Details" asp-route-id="@item.orderID" data-bs-toggle="modal" data-bs-target="#fbdetail-@item.orderID">
                         <button type="button" class="btn btn-info">Chi tiết</button>
                     </a>
 
@@ -83,6 +83,7 @@
 
                                 <div class="info" style="text-align:center;">
                                     <div class="form-group">
+                                        
                                         <b>Mã đơn hàng :</b> @item.orderID
                                     <div class="form-group">
                                             <b>Tên tài khoản :</b> @item.UserName
@@ -118,8 +119,6 @@
                                             <b>Thời gian :</b> @item.date
                                         </div>
                                     </div>
-                                    
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>

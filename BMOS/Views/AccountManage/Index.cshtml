@@ -5,14 +5,72 @@
 @{
 	Layout = "_ManagePage";
 	ViewData["Title"] = "Account Manage";
+	var errorUserName = ViewData["ErrorUser"];
 }
 
 
 <h1>Quản lý tài khoản</h1>
 <br></br>
-<a style="text-decoration:none;color:darkorange" asp-controller="AccountManage" asp-action="Create">
+@*<a style="text-decoration:none;color:darkorange" asp-controller="AccountManage" asp-action="Create">
 	<button type="button" class="btn btn-primary">Tạo tài khoản nhân viên</button>
+</a>*@
+<a style="text-decoration:none;" data-bs-toggle="modal" data-bs-target="#add">
+	<button type="button" class="btn btn-primary">Tạo tài khoản mới</button>
 </a>
+<div class="modal" tabindex="-1" id="add">
+	<div class="modal-dialog modal-xl modal-fullscreen-xl-down">
+		<div class="modal-content" style="background-color:white;">
+			<div class="modal-header">
+				<h5 class="modal-title fw-bold" style="font-size:3rem;">Chỉnh sửa sản phẩm</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+			</div>
+			<form method="post" asp-action="Create">
+				<div class="info" style="margin:1rem;">
+					<div class="form-group">
+						<label class="control-label">Username</label>
+						@if (errorUserName != null)
+						{
+							<span style="color: red;">@errorUserName</span>
+						}
+						<input name="Username" class="form-control" required />
+					</div>
+					<div class="form-group">
+						<label class="control-label">Password</label>
+						<input name="Password" class="form-control" required />
+					</div>
+					<div class="form-group">
+						<label class="control-label">First name</label>
+						<input name="Firstname" class="form-control" required />
+					</div>
+					<div class="form-group">
+						<label class="control-label">Last name</label>
+						<input name="Lastname" class="form-control" required />
+					</div>
+					<div class="form-group">
+						<label class="control-label">Số điện thoại</label>
+						<input name="Numberphone" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" required />
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">Địa chỉ</label>
+						<input name="Address" class="form-control" required />
+					</div>
+					<input type="hidden" name="Status" value="true" />
+					<input type="hidden" name="IsConfirm" value="true" />
+					<div class="form-group">
+						<input type="hidden" name="UserRoleId" value="2" class="form-control"/>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+					<input type="submit" value="Thêm mới" class="btn btn-primary" />
+				</div>
+			</form>
+		</div>
+	</div>
+
+</div>
 <a style="text-decoration:none;color:darkorange" asp-controller="AccountManage" asp-action="Index">
 	<button type="button" class="btn btn-warning">Làm mới</button>
 </a>
@@ -21,7 +79,6 @@
 	<thead>
 		<tr>
 			<th><a style="text-decoration:none; color:darkorange" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Tài khoản</a></th>
-			<th>Xác nhận</th>
 			<th>Họ</th>
 			<th>Tên</th>
 			<th><a style="text-decoration:none; color:darkorange" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-searchString="@ViewData["SearchParameter"]">Thời gian hoạt động gần nhất</a></th>
@@ -42,19 +99,6 @@
 						@Html.DisplayFor(modelItem => item.Username)
 					</td>
 
-					<td>
-						@{
-							if ((item.IsConfirm) == true)
-							{
-								<p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center;">Đã xác nhận </p>
-
-							}
-							else
-							{
-								<p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Chưa xác nhận </p>
-							}
-						}
-					</td>
 					<td>
 						@Html.DisplayFor(modelItem => item.Firstname)
 					</td>
@@ -95,9 +139,71 @@
 							}
 						}
 					<td>
-						<a style="text-decoration:none;" asp-action="Edit" asp-route-id="@item.UserId">
+						<a style="text-decoration:none;" asp-route-id="@item.UserId" data-bs-toggle="modal" data-bs-target="#fbedit-@item.UserId">
 							<button type="button" class="btn btn-primary">Chỉnh sửa</button>
 						</a>
+						<div class="modal" tabindex="-1" id="fbedit-@item.UserId">
+							<div class="modal-dialog modal-xl modal-fullscreen-xl-down">
+								<div class="modal-content ">
+									<div class="modal-header">
+										<h5 class="modal-title fw-bold" style="font-size:3rem;">Chỉnh sửa sản phẩm</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+									</div>
+									<form method="post" asp-action="Edit" asp-route-id="@item.UserId">
+										<div class="info" style="margin:1rem;">
+											<input type="hidden" name="UserId" value="@item.UserId" />
+											<input type="hidden" name="IsConfirm" asp-for="@item.IsConfirm" />
+											<input type="hidden" name="DateCreate" value="@item.DateCreate"  />
+											<input type="hidden" name="LastActivitty" value="@item.LastActivitty"  />
+											<input type="hidden" name="Point" value="@item.Point"  />
+											<div class="form-group">
+												<label class="control-label">Username</label>
+												<input name="Username" value="@item.Username" class="form-control" readonly />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Password</label>
+												<input name="Password" value="@item.Password" type="password" class="form-control" readonly />
+											</div>
+											<div class="form-group">
+												<label class="control-label">First name</label>
+												<input name="Firstname" value="@item.Firstname" class="form-control" readonly />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Last name</label>
+												<input name="Lastname" value="@item.Lastname" class="form-control" readonly />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Số điện thoại</label>
+												<input name="Numberphone" value="@item.Numberphone" class="form-control" readonly />
+											</div>
+
+											<div class="form-group">
+												<label class="control-label">Địa chỉ</label>
+												<input name="Address" value="@item.Address" class="form-control" readonly />
+											</div>
+
+											<div class="form-group">
+												<label class="control-label">Trạng thái</label>
+												<select name="Status" id="Status" value="@item.Status" class="form-control">
+													<option selected="@(item.Status == false)" value="False">Ngừng hoạt động</option>
+													<option selected="@(item.Status == true)" value="True">Hoạt động</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label class="control-label">Vai trò</label>
+												<input name="UserRoleId" value="@item.UserRoleId" class="form-control" readonly />
+											</div>
+
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+											<input type="submit" value="Lưu" class="btn btn-primary" />
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
 						<a style="text-decoration:none;" asp-route-id="@item.UserId" data-bs-toggle="modal" data-bs-target="#accdetail-@item.UserId">
 							<button type="button" class="btn btn-info">Chi Tiết</button>
 						</a>
@@ -112,38 +218,10 @@
 									<div class="info">
 										<dl class="row" style="margin-left:300px;">
 											<dt class="col-sm-3">
-												Mã người dùng
-											</dt>
-											<dd class="col-sm-9">
-													@item.UserId
-											</dd>
-											<dt class="col-sm-3">
 												Username
 											</dt>
 											<dd class="col-sm-9">
 													@item.Username
-											</dd>
-											<dt class="col-sm-3">
-												Password
-											</dt>
-											<dd class="col-sm-9">
-													@item.Password
-											</dd>
-											<dt class="col-sm-3">
-												Xác nhận tài khoản
-											</dt>
-											<dd class="col-sm-9">
-													@{
-														if ((item.IsConfirm) == true)
-														{
-														<p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 50%;text-align:center;">Đã xác nhận </p>
-
-														}
-														else
-														{
-														<p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 50%;text-align:center; ">Chưa xác nhận </p>
-														}
-													}
 											</dd>
 											<dt class="col-sm-3">
 												Họ

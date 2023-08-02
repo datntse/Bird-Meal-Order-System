@@ -144,7 +144,7 @@ namespace Demo.Controllers
 			return View(tblBlog);
 		}
 		[HttpPost]
-		public async Task<IActionResult> Create([Bind("BlogId, Name, Description, Date, Status")] TblBlog tblBlog, List<IFormFile> files)
+		public async Task<IActionResult> Create([Bind("BlogId, Name, Description, Date, Status,files")] TblBlog tblBlog, List<IFormFile> files)
 		{
             var user = HttpContext.Session.Get<TblUser>("userManager");
             if (user != null)

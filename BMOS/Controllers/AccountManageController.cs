@@ -142,20 +142,20 @@ namespace BMOS.Controllers
 		}
 
 		// GET: UsersManage/Edit/5
-		public async Task<IActionResult> Edit(int? id)
-		{
-			if (id == null || _context.TblUsers == null)
-			{
-				return NotFound();
-			}
+		//public async Task<IActionResult> Edit(int? id)
+		//{
+		//	if (id == null || _context.TblUsers == null)
+		//	{
+		//		return NotFound();
+		//	}
 
-			var tblUser = await _context.TblUsers.FindAsync(id);
-			if (tblUser == null)
-			{
-				return NotFound();
-			}
-			return View(tblUser);
-		}
+		//	var tblUser = await _context.TblUsers.FindAsync(id);
+		//	if (tblUser == null)
+		//	{
+		//		return NotFound();
+		//	}
+		//	return View(tblUser);
+		//}
 
 		// POST: UsersManage/Edit/5
 		// To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -168,28 +168,12 @@ namespace BMOS.Controllers
 			{
 				return NotFound();
 			}
-
-			if (ModelState.IsValid)
-			{
-				try
-				{
-					_context.Update(tblUser);
-					await _context.SaveChangesAsync();
-				}
-				catch (DbUpdateConcurrencyException)
-				{
-					if (!TblUserExists(tblUser.UserId))
-					{
-						return NotFound();
-					}
-					else
-					{
-						throw;
-					}
-				}
-				return RedirectToAction(nameof(Index));
+			else {
+				_context.Update(tblUser);
+				await _context.SaveChangesAsync();
+				
 			}
-			return View(tblUser);
+			return RedirectToAction("Index");
 		}
 
 

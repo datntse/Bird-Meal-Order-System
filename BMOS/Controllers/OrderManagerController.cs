@@ -50,6 +50,8 @@ namespace BMOS.Controllers
 				searchString = currentFilter;
 			}
 
+
+
 			ViewBag.CurrentFilter = searchString;
 			var order = from f in _context.TblOrders
 						join u in _context.TblUsers on f.UserId equals u.UserId
@@ -61,11 +63,10 @@ namespace BMOS.Controllers
 							total = f.TotalPrice,
 							IsConfirm = f.IsConfirm
 						};
-
 			//var orderdetails = from d in _context.TblOrderDetails
 			//				   from p in _context.TblProducts
 			//				   from image in _context.TblImages
-			//				   where (d.OrderId == id && p.ProductId.Equals(d.ProductId)) && (d.ProductId.Equals(image.RelationId))
+			//				   where (d.OrderId == detail.OrderId && p.ProductId.Equals(d.ProductId)) && (d.ProductId.Equals(image.RelationId))
 			//				   select new OrderdetailsInfo()
 			//				   {
 			//					   orderId = d.OrderId,
@@ -74,7 +75,7 @@ namespace BMOS.Controllers
 			//					   price = (double)(d.Price * d.Quantity),
 			//					   urlImage = image.Url,
 			//				   };
-			//var orderdetail = orderdetails.Where(p => p.orderId == id).ToList();
+			//var orderdetail = orderdetails.Where(p => p.orderId == detail.OrderId).ToList();
 			//ViewData["OrderDetails"] = orderdetail.ToList();
 
 
