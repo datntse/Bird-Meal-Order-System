@@ -13,10 +13,73 @@
 
 <h1 style="margin-bottom:2rem">Danh Sách Sản Phẩm</h1>
 
-<p>
-	<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "ProductManager")'">Tạo Sản Phẩm Mới</button>
+	<a style="text-decoration:none;" data-bs-toggle="modal" data-bs-target="#blogadd">
+		<button type="button" class="btn btn-primary">Thêm sản phẩm mới</button>
+	</a>
+	<div class="modal fade" id="blogadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl modal-fullscreen-xl-down">
+			<div class="modal-content" style="background-color:white;">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Thêm sản phẩm mới</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form method="post" asp-action="Create" enctype="multipart/form-data">
+					<div class="modal-body">
+						<input name="ProductId" type="hidden" class="form-control" value="@Guid.NewGuid().ToString()" />
+						<input type="hidden" value="@DateTime.Now" name="Date" class="form-control" />
+						<input type="hidden" value="True" name="Status" class="form-control" />
+						<div class="form-group">
+							<label class="control-label">Tên sản phẩm</label>
+							<input name="Name" class="form-control" required />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Số lượng</label>
+							<input name="Quantity" class="form-control" required />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Giá Tiền(vnd)</label>
+							<input name="Price" class="form-control" required />
+						</div>
+						<div class="form-group">
+							<label for="recipient-name">Mô tả sản phẩm</label>
+							<textarea id="Description" name="Description" class="form-control" style="font-size:2rem;" required></textarea>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Cân nặng(g)</label>
+							<input name="Weight" class="form-control" required />
+						</div>
+						<div class="form-group">
+							<label name="Type" class="control-label">Loại</label>
+							<select name="Type" class="form-control">
+								<option value="1">Thức ăn khô</option>
+								<option value="2">Thức ăn tổng hợp</option>
+								<option value="3">Thức ăn hạt</option>
+								<option value="4">Thức ăn tự nhiên</option>
+							</select>
+
+						</div>
+						<div class="form-group">
+							<label name="Status" class="control-label">Trạng thái</label>
+							<select name="Status" class="form-control">
+								<option value="true">Còn hàng</option>
+								<option value="false">Hết hàng</option>
+							</select>
+
+						</div>
+						<div class="form-group">
+							<span>Image</span>
+							<input type="file" name="files" class="form-control" accept="image/*" required multiple />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+						<button type="submit" class="btn btn-primary">Thêm mới</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index", "ProductManager")'">Xóa Tìm Kiếm</button>
-</p>
 <table class="table">
 	<thead>
 		<tr>
@@ -112,7 +175,7 @@
 										<input type="hidden" name="SoldQuantity" value="@item.SoldQuantity" class="form-control" />
 										<div class="form-group">
 											<label class="control-label">Thông Tin</label>
-											<textarea asp-for="@item.Description" name="Description" class="font-control"></textarea>
+											<textarea id="Description-@item.ProductId" name="Description" class="font-control ckeditor-field">@Html.Raw(item.Description)</textarea>
 										</div>
 										<div class="form-group">
 											<label class="control-label">Cân nặng(g)</label>
@@ -252,8 +315,17 @@
 	})
 
 </div>
-@section scripts{
+@section Scripts {
+	<script src="~/ckeditor/ckeditor.js"></script>
 	<script>
-		CKEDITOR.replace('Description')
+		CKEDITOR.replace('Description');
 	</script>
-}
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var ckeditorFields = document.getElementsByClassName('ckeditor-field');
+			for (var i = 0; i < ckeditorFields.length; i++) {
+				CKEDITOR.replace(ckeditorFields[i].id);
+			}
+		});
+	</script>
+    }

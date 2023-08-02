@@ -63,12 +63,7 @@ namespace BMOS.Controllers
             ModelState.Remove("Status");
             if (ModelState.IsValid) { 
 
-                if(model.VoucherCode.Length != 10)
-                {
-                    ViewData["errorLengthCode"] = "Code chỉ được phép đúng 10 kí tự";
-                    return View(model);
-                }
-				else if (model.Value <= 10000 || model.Value >= 100000)
+                 if (model.Value <= 10000 || model.Value >= 100000)
 				{
 					ViewData["errorCodeValue"] = "Code chỉ được phép giảm giá từ 10.000vnd đến 100.000vnđ";
 					return View(model);

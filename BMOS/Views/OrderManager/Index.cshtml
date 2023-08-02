@@ -66,10 +66,10 @@
                     @Html.DisplayFor(modelItem => item.date)
                 </td>
                 <td>
-                    @*<a asp-action="Details" asp-route-id="@item.orderID">
+                    <a asp-action="Details" asp-route-id="@item.orderID">
                         <button type="button" class="btn btn-info" >Chi Tiết</button>
-                    </a>*@
-                    <a style="text-decoration:none;" asp-action="Details" asp-route-id="@item.orderID" data-bs-toggle="modal" data-bs-target="#fbdetail-@item.orderID">
+                    </a>
+                    @*<a style="text-decoration:none;" asp-action="Details" asp-route-id="@item.orderID" data-bs-toggle="modal" data-bs-target="#fbdetail-@item.orderID">
                         <button type="button" class="btn btn-info">Chi tiết</button>
                     </a>
 
@@ -125,7 +125,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                     
                 </td>
             </tr>
