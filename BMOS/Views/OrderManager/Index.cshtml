@@ -48,13 +48,29 @@
                 </td>
                 <td>
                     @{
-                        if ((item.IsConfirm) == true)
+                        if (item.Status == 0 || item.Status == 1)
                         {
-                            <p style="color:green; border-radius: 25px; background-color: lightgreen; inline-size: 100%;text-align:center;">Đơn hàng đã giao </p>
+                            <p style="color:green; border-radius: 25px; background-color: lightyellow; inline-size: 100%;text-align:center;">Đơn hàng đang xử lí</p>
                         }
-                        else
+                        else if (item.Status == 2)
                         {
-                            <p style="color:black; border-radius: 25px; background-color: orangered; inline-size: 100%;text-align:center; ">Đơn hàng chưa giao </p>
+                            <p style="color:black; border-radius: 25px; background-color: green; inline-size: 100%;text-align:center; ">Đơn hàng đã giao</p>
+                        }
+                        else if (item.Status == 3)
+                        {
+                            <p style="color:black; border-radius: 25px; background-color: red; inline-size: 100%;text-align:center; ">Đơn hàng bị hủy</p>
+                        }
+                        else if (item.Status == 4)
+                        {
+                            <p style="color:black; border-radius: 25px; background-color: yellow; inline-size: 100%;text-align:center; ">Yêu cầu hoàn trả</p>
+                        }
+                        else if (item.Status == 5)
+                        {
+                            <p style="color:black; border-radius: 25px; background-color: palevioletred; inline-size: 100%;text-align:center; ">Đơn hoàn trả</p>
+                        }
+                        else if (item.Status == 7 || item.Status == 6)
+                        {
+                            <p style="color:black; border-radius: 25px; background-color: deepskyblue; inline-size: 100%;text-align:center; ">Hoàn thành</p>
                         }
                     }
                 </td>

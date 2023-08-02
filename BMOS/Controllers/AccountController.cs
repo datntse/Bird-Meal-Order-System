@@ -723,6 +723,7 @@ namespace BMOS.Controllers
 			}
 			else
 			{
+				
                 TblRefund refund = new TblRefund()
                 {
                     OrderId = orderid,
@@ -732,6 +733,14 @@ namespace BMOS.Controllers
                     UserId = userid,
                     IsConfirm = null,
                 };
+
+				var tblOrder = _db.TblOrders.Where(p => p.OrderId == orderid).FirstOrDefault();
+				if(tblOrder != null)
+				{
+					tblOrder.Status = 4;
+					_db.Update(tblOrder);
+
+                }
                 _db.TblRefunds.Add(refund);
                 _db.SaveChanges();
 				return RedirectToAction("Refund", "Account");

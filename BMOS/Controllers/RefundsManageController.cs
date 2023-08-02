@@ -227,22 +227,26 @@ namespace BMOS.Controllers
             {
                 try
                 {
+                    var order = _context.TblOrders.Where(x => x.OrderId.Equals(tblRefund.OrderId)).FirstOrDefault();
                     _context.Update(tblRefund);
 					if (tblRefund.IsConfirm == true)
 					{
-						TblNotify notify = new TblNotify();
+                        order.Status = 5;
+                        TblNotify notify = new TblNotify();
 						{
 							notify.NotifyId = Guid.NewGuid().ToString();
 							notify.UserId = tblRefund.UserId;
 							notify.Date = tblRefund.Date;
 							notify.Type = "refund";
 							notify.Message = "Đơn hàng " + tblRefund.OrderId + " của bạn đã được xác nhận hoàn trả";
+							_context.Update(order);
 							_context.Add(notify);
-							_context.SaveChanges();
+                            _context.SaveChanges();
 						}
 					}if (tblRefund.IsConfirm == false)
                     {
-						TblNotify notify = new TblNotify();
+                        order.Status = 6;
+                        TblNotify notify = new TblNotify();
 						{
 							notify.NotifyId = Guid.NewGuid().ToString();
 							notify.UserId = tblRefund.UserId;
@@ -250,7 +254,8 @@ namespace BMOS.Controllers
 							notify.Type = "refund";
 							notify.Message = "Đơn hàng " + tblRefund.OrderId + " của bạn đã bị từ chối";
 							_context.Add(notify);
-							_context.SaveChanges();
+                            _context.Update(order);
+                            _context.SaveChanges();
 						}
 					}
 					await _context.SaveChangesAsync();
