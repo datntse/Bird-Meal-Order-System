@@ -146,7 +146,7 @@
 							@{
 								DateTime date = DateTime.Today.AddDays(-5);
 							}
-							@if (@ViewBag.Date >= date && @ViewBag.status == true)
+							@if (@ViewBag.Date >= date && @ViewBag.status != null)
 							{
 								<button class="btn-back" asp-action="AddRefund" asp-controller="Account" data-bs-toggle="modal" data-bs-target="#refund">
 									Hoàn trả

@@ -231,7 +231,7 @@ namespace BMOS.Controllers
                     _context.Update(tblRefund);
 					if (tblRefund.IsConfirm == true)
 					{
-                        order.Status = 5;
+                        order.Status = 6;
                         TblNotify notify = new TblNotify();
 						{
 							notify.NotifyId = Guid.NewGuid().ToString();
@@ -245,7 +245,7 @@ namespace BMOS.Controllers
 						}
 					}if (tblRefund.IsConfirm == false)
                     {
-                        order.Status = 6;
+                        order.Status = 5;
                         TblNotify notify = new TblNotify();
 						{
 							notify.NotifyId = Guid.NewGuid().ToString();

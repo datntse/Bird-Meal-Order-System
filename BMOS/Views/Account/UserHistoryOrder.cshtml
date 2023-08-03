@@ -45,19 +45,47 @@
 										<h4><b>Ngày: </b>@item.Date<br></h4>
 									</div>
 									<div style="display: flex;">
-										@if (item.IsConfirm == true)
+										@if (item.Status == 2)
 										{
 											<h4><b>Trạng thái: </b></h4>
 
 											<h4 style="color: forestgreen;">Đã nhận hàng</h4>
 										}
-										else
+										else if (item.Status == 1)
 										{
 											<h4><b>Trạng thái: </b></h4>
 
-											<h4 style="color: red;">Chưa nhận hàng</h4>
+											<h4 style="color: lightyellow;">Đang trong quá trình vận chuyển</h4>
 										}
-									</div>
+										else if (item.Status == 1)
+										{
+											<h4><b>Trạng thái: </b></h4>
+
+											<h4 style="color: red;">Đơn hàng không thành công</h4>
+										}
+										else if (item.Status == 4)
+										{
+											<h4><b>Trạng thái: </b></h4>
+
+											<h4 style="color: pink;">Yêu cầu hoàn trả đơn hàng</h4>
+										}
+										else if (item.Status == 5)
+										{
+											<h4><b>Trạng thái: </b></h4>
+
+											<h4 style="color: red;">Đơn hàng bị từ chối hoàn trả</h4>
+										}
+										else if (item.Status == 6)
+										{
+											<h4><b>Trạng thái: </b></h4>
+											<h4 style="color: blue;">Đơn hàng đang trong quá trình hoàn trả</h4>
+										}
+										else if (item.Status == 8)
+										{
+											<h4><b>Trạng thái: </b></h4>
+											<h4 style="color: forestgreen;">Đơn hàng hoàn thành</h4>
+										}
+									</div> 
 								</div>
 								<div class="col-4 user_history_details_price">
 									<div>

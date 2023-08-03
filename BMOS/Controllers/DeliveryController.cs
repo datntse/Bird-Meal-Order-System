@@ -33,8 +33,12 @@ namespace BMOS.Controllers
 				{
 					order.Status = 3;
                     order.Note = note;
-                }
-                _context.Update(order);
+                } else if (status.Equals("refund"))
+                {
+					order.Status = 7;
+					order.Note = "Đơn hoàn trả";
+				}
+					_context.Update(order);
                 _context.SaveChanges();
             }
             return RedirectToAction("Index");
@@ -57,8 +61,8 @@ namespace BMOS.Controllers
             }
             var orderDelivery = from order in _context.TblOrders
                                 from u in _context.TblUsers
-                                where order.UserId.Equals(u.UserId) && order.Status != 0
-                                select new OrderInfo
+                                where order.UserId.Equals(u.UserId) && (order.Status != 0 && order.Status != 4)
+								select new OrderInfo
                                 {
                                     orderID = order.OrderId,
                                     UserName = u.Firstname + u.Lastname,
@@ -67,12 +71,215 @@ namespace BMOS.Controllers
                                     Status = order.Status,
                                     Note = order.Note,
                                 };
+
+            var orderSucess = _context.TblOrders.Where(x => x.Status == 8 || x.Status == 5).Count();
+            var orderDelivered = _context.TblOrders.Where(x => x.Status == 2).Count();
+            var orderDelivering = _context.TblOrders.Where(x => x.Status == 1).Count();
+			var orderFailed = _context.TblOrders.Where(x => x.Status == 3).Count();
+            var orderRefund = _context.TblOrders.Where(x => x.Status == 6).Count();
+            var orderRefunded = _context.TblOrders.Where(x => x.Status == 7).Count();
+
+			ViewData["orderSuccess"] = orderSucess;
+			ViewData["orderDelivery"] = orderDelivering;
+			ViewData["orderDelivered"] = orderDelivered;
+            ViewData["orderRefund"] = orderRefund;
+            ViewData["orderRefunded"] = orderRefunded;
+            ViewData["orderFailed"] = orderFailed;
+
 			var orderSort = orderDelivery.OrderByDescending(x => x.date).ToList();
 			return View(orderSort.ToList());
         }
 
+		// Đơn hàng cần được đi giao
+		public IActionResult OrderDelivery()
+		{
+			var user = HttpContext.Session.Get<TblUser>("userManager");
+			if (user != null)
+			{
+				if (user.UserRoleId == 1)
+				{
+					return View("ErrorPage");
+				}
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			var orderDelivery = from order in _context.TblOrders
+								from u in _context.TblUsers
+								where order.UserId.Equals(u.UserId) &&  order.Status == 1
+								select new OrderInfo
+								{
+									orderID = order.OrderId,
+									UserName = u.Firstname + u.Lastname,
+									date = order.Date,
+									total = order.TotalPrice,
+									Status = order.Status,
+									Note = order.Note,
+								};
 
-        public async Task<IActionResult> Details(string id)
+			var orderSort = orderDelivery.OrderByDescending(x => x.date).ToList();
+			return View(orderSort.ToList());
+		}
+
+		// đơn hàng đã giao
+		public IActionResult OrderDelivered()
+		{
+			var user = HttpContext.Session.Get<TblUser>("userManager");
+			if (user != null)
+			{
+				if (user.UserRoleId == 1)
+				{
+					return View("ErrorPage");
+				}
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			var orderDelivery = from order in _context.TblOrders
+								from u in _context.TblUsers
+								where order.UserId.Equals(u.UserId) && order.Status == 2
+								select new OrderInfo
+								{
+									orderID = order.OrderId,
+									UserName = u.Firstname + u.Lastname,
+									date = order.Date,
+									total = order.TotalPrice,
+									Status = order.Status,
+									Note = order.Note,
+								};
+
+			var orderSort = orderDelivery.OrderByDescending(x => x.date).ToList();
+			return View(orderSort.ToList());
+		}
+		// Tạo view đơn hàng thành công
+		public IActionResult OrderSuccuess()
+		{
+			var user = HttpContext.Session.Get<TblUser>("userManager");
+			if (user != null)
+			{
+				if (user.UserRoleId == 1)
+				{
+					return View("ErrorPage");
+				}
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			var orderDelivery = from order in _context.TblOrders
+								from u in _context.TblUsers
+								where order.UserId.Equals(u.UserId) && order.Status == 5 || order.Status == 8
+								select new OrderInfo
+								{
+									orderID = order.OrderId,
+									UserName = u.Firstname + u.Lastname,
+									date = order.Date,
+									total = order.TotalPrice,
+									Status = order.Status,
+									Note = order.Note,
+								};
+
+			var orderSort = orderDelivery.OrderByDescending(x => x.date).ToList();
+			return View(orderSort.ToList());
+		}
+
+        // Đơn hàng thất bại
+		public IActionResult OrderFailed()
+		{
+			var user = HttpContext.Session.Get<TblUser>("userManager");
+			if (user != null)
+			{
+				if (user.UserRoleId == 1)
+				{
+					return View("ErrorPage");
+				}
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			var orderDelivery = from order in _context.TblOrders
+								from u in _context.TblUsers
+								where order.UserId.Equals(u.UserId) && order.Status == 3
+								select new OrderInfo
+								{
+									orderID = order.OrderId,
+									UserName = u.Firstname + u.Lastname,
+									date = order.Date,
+									total = order.TotalPrice,
+									Status = order.Status,
+									Note = order.Note,
+								};
+
+			var orderSort = orderDelivery.OrderByDescending(x => x.date).ToList();
+			return View(orderSort.ToList());
+		}
+        // Đơn hàng đợi xác nhận , nhận hàng refund
+		public IActionResult OrderRefunding()
+		{
+			var user = HttpContext.Session.Get<TblUser>("userManager");
+			if (user != null)
+			{
+				if (user.UserRoleId == 1)
+				{
+					return View("ErrorPage");
+				}
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			var orderDelivery = from order in _context.TblOrders
+								from u in _context.TblUsers
+								where order.UserId.Equals(u.UserId) && order.Status == 6
+								select new OrderInfo
+								{
+									orderID = order.OrderId,
+									UserName = u.Firstname + u.Lastname,
+									date = order.Date,
+									total = order.TotalPrice,
+									Status = order.Status,
+									Note = order.Note,
+								};
+
+			var orderSort = orderDelivery.OrderByDescending(x => x.date).ToList();
+			return View(orderSort.ToList());
+		}
+		// Đơn hàng nhận hàng refund rồi
+		public IActionResult OrderRefunded()
+		{
+			var user = HttpContext.Session.Get<TblUser>("userManager");
+			if (user != null)
+			{
+				if (user.UserRoleId == 1)
+				{
+					return View("ErrorPage");
+				}
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			var orderDelivery = from order in _context.TblOrders
+								from u in _context.TblUsers
+								where order.UserId.Equals(u.UserId) && order.Status == 7
+								select new OrderInfo
+								{
+									orderID = order.OrderId,
+									UserName = u.Firstname + u.Lastname,
+									date = order.Date,
+									total = order.TotalPrice,
+									Status = order.Status,
+									Note = order.Note,
+								};
+
+			var orderSort = orderDelivery.OrderByDescending(x => x.date).ToList();
+			return View(orderSort.ToList());
+		}
+
+		public async Task<IActionResult> Details(string id)
         {
             var user = HttpContext.Session.Get<TblUser>("userManager");
             if (user != null)

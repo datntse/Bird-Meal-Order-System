@@ -641,8 +641,8 @@ namespace BMOS.Controllers
 
 				var phone = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Phone).FirstOrDefault();
 				ViewBag.Phone = phone;
-				var status = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.IsConfirm).FirstOrDefault();
-				ViewBag.status = status;
+				var status = _db.TblOrders.Where(p => p.OrderId == orderID && p.Status == 2).FirstOrDefault();
+				ViewBag.status = status;	
 				var address = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Address).FirstOrDefault();
 				ViewBag.Address = address;
 
@@ -723,7 +723,6 @@ namespace BMOS.Controllers
 			}
 			else
 			{
-				
                 TblRefund refund = new TblRefund()
                 {
                     OrderId = orderid,

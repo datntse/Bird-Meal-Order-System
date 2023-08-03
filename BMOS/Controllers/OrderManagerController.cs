@@ -57,10 +57,10 @@ namespace BMOS.Controllers
             var orderList = _context.TblOrders.ToList();
             foreach (var _order in orderList)
             {
-                var twoDayAgo = DateTime.Now.AddDays(-5);
-                if (_order.Date < twoDayAgo && _order.Status == 2)
+                var fiveDay = DateTime.Now.AddDays(-5);
+                if (_order.Date <= fiveDay && _order.Status == 2)
                 {
-                    _order.Status = 7;
+                    _order.Status = 8;
                     _context.Update(_order);
                 }
             }

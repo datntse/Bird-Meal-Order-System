@@ -340,7 +340,7 @@ namespace BMOS.Controllers
 				UserId = user.UserId,
 				TotalPrice = cartPrice,
 				Date = DateTime.Now,
-				IsConfirm = null,
+				IsConfirm = false,
 				Address = address,
 				Phone = phone,
 				Note = note,
