@@ -88,7 +88,13 @@ namespace BMOS.Controllers
 						HttpContext.Session.SetString("username", username);
 						return RedirectToAction("Index", "ProductManager");
 					}
-					else if (id == 3 && checkStatus.Count() > 0)
+                    else if (id == 4 && checkStatus.Count() > 0)
+                    {
+                        HttpContext.Session.Set("userManager", userManager);
+                        HttpContext.Session.SetString("username", username);
+                        return RedirectToAction("Index", "Delivery");
+                    }
+                    else if (id == 3 && checkStatus.Count() > 0)
 					{
 						var checkConfirm = _db.TblUsers.Where(p => p.Username.Equals(username) && p.IsConfirm == true).ToList();
 						//string fullname = _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Firstname).First() + " " + _db.TblUsers.Where(p => p.Username.Equals(username)).Select(p => p.Lastname).First();
@@ -635,8 +641,8 @@ namespace BMOS.Controllers
 
 				var phone = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Phone).FirstOrDefault();
 				ViewBag.Phone = phone;
-				var status = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.IsConfirm).FirstOrDefault();
-				ViewBag.status = status;
+				var status = _db.TblOrders.Where(p => p.OrderId == orderID && p.Status == 2).FirstOrDefault();
+				ViewBag.status = status;	
 				var address = _db.TblOrders.Where(p => p.OrderId == orderID).Select(p => p.Address).FirstOrDefault();
 				ViewBag.Address = address;
 
@@ -726,6 +732,14 @@ namespace BMOS.Controllers
                     UserId = userid,
                     IsConfirm = null,
                 };
+
+				var tblOrder = _db.TblOrders.Where(p => p.OrderId == orderid).FirstOrDefault();
+				if(tblOrder != null)
+				{
+					tblOrder.Status = 4;
+					_db.Update(tblOrder);
+
+                }
                 _db.TblRefunds.Add(refund);
                 _db.SaveChanges();
 				return RedirectToAction("Refund", "Account");

@@ -141,12 +141,12 @@
 						</div>
 						<div class="body-footer" style=" display:flex; align-items:center; justify-content: space-between; margin: 2% 0 5%;">
 							<a href="~/Account/UserHistoryOrder" class="btn-back">Trở lại</a>
-
+								
 
 							@{
 								DateTime date = DateTime.Today.AddDays(-5);
 							}
-							@if (@ViewBag.Date >= date && @ViewBag.status == true)
+							@if (@ViewBag.Date >= date && @ViewBag.status != null)
 							{
 								<button class="btn-back" asp-action="AddRefund" asp-controller="Account" data-bs-toggle="modal" data-bs-target="#refund">
 									Hoàn trả
@@ -187,11 +187,6 @@
 						</div>
 						
 					</div>
-
-
-
-
-
 
 
 
@@ -255,8 +250,7 @@
 							text: 'Bạn đã có đơn hàng này trong hệ thống!',
 						});
 					} else {
-
-						Swal.fire({
+							Swal.fire({
 							title: 'Cảm ơn bạn đã phản hồi, chúng tôi sẽ xem xét trường hợp của bạn!',
 							imageUrl: 'https://firebasestorage.googleapis.com/v0/b/bmosfile.appspot.com/o/Notify%2Fproduct-refund-australia-726x412.png?alt=media&token=baac39f4-7d7c-4b72-88de-d015880b8e43',
 							imageWidth: 400,

@@ -31,15 +31,15 @@ namespace BMOS.Controllers
             DateTime startdate = DateTime.Today.AddYears(-1);
 			DateTime enddate = DateTime.Today;
 			var listorder = _context.TblOrders.Where(x => x.Date >= startdate && x.Date <= enddate).ToList();
-			var listrefund = _context.TblRefunds.Where(x => x.IsConfirm == true).ToList();
+			var listrefund = _context.TblOrders.Where(x => x.Status == 7).ToList();
 			var listdetail = _context.TblOrderDetails.ToList();
 
 
-			var totalprice = listorder.Where(x => x.IsConfirm == true).Sum(t => t.TotalPrice);
+			var totalprice = listorder.Where(x => x.Status == 8).Sum(t => t.TotalPrice);
 			ViewBag.TotalPrice = totalprice;
-			var totalorder = listorder.Count(x => x.IsConfirm == true);
+			var totalorder = listorder.Count(x => x.Status == 8);
 			ViewBag.Totalorder = totalorder;
-			var totalrefund = listrefund.Count(x => x.IsConfirm == true);
+			var totalrefund = listrefund.Count();
 			ViewBag.Totalrefund = totalrefund;
 			var chartdb = listorder.Where(x => x.IsConfirm == true).GroupBy(a => a.Date.Value.Month).Select(k => new LineChart()
 			{
@@ -62,8 +62,8 @@ namespace BMOS.Controllers
 						  {
 							  id = top.id,
 							  name = top3.Name,
-							  price = top.price,
-							  quantity = top.quantity,
+							  price = top3.Price,
+							  quantity = top3.SoldQuantity,
                               UrlImage = image.Url,
                           };
 

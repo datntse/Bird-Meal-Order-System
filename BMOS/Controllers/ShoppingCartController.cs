@@ -105,7 +105,7 @@ namespace BMOS.Controllers
 					if (item != null)
 					{
 						item._quantity += _rprod.productQuantity;
-						if(item._quantity >= item.getProductAvailable())
+						if (item._quantity >= item.getProductAvailable())
 						{
 							item._quantity = item.getProductAvailable();
 						}
@@ -288,6 +288,7 @@ namespace BMOS.Controllers
 			userId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
 			var order = await _context.TblOrders.Where(o => o.OrderId == orderId).FirstOrDefaultAsync();
 			order.IsConfirm = true;
+			order.Status = 1;
 			_context.Update(order);
 
 			var user = await _context.TblUsers.Where(u => u.Username.Equals(userId)).FirstOrDefaultAsync();
@@ -298,17 +299,6 @@ namespace BMOS.Controllers
 			var orderDetailNum = _context.TblOrderDetails.Count(x => x.OrderDetailId != null);
 			foreach (var item in myCart.ToList())
 			{
-				var orderDetail = new TblOrderDetail
-				{
-					OrderDetailId = "orderdetail" + orderDetailNum,
-					OrderId = order.OrderId,
-					ProductId = item._productId,
-					Quantity = item._quantity,
-					Price = item._price,
-					Date = DateTime.Now,
-				};
-				orderDetailNum++;
-
 				var product = _context.TblProducts.Where(x => x.ProductId.Equals(item._productId)).FirstOrDefault();
 				if (product != null)
 				{
@@ -317,7 +307,6 @@ namespace BMOS.Controllers
 					product.SoldQuantity = soldQuantity;
 					_context.Update(product);
 				}
-				_context.Add(orderDetail);
 			}
 
 			_context.SaveChanges();
@@ -351,14 +340,31 @@ namespace BMOS.Controllers
 				UserId = user.UserId,
 				TotalPrice = cartPrice,
 				Date = DateTime.Now,
-				IsConfirm = null,
+				IsConfirm = false,
 				Address = address,
 				Phone = phone,
 				Note = note,
 				PaymentType = pType,
 				Point = point,
+				Status = 0,
 			};
 			_context.Add(order);
+
+			foreach (var item in myCart.ToList())
+			{
+				var orderDetail = new TblOrderDetail
+				{
+					OrderDetailId = "orderdetail" + orderDetailNum,
+					OrderId = order.OrderId,
+					ProductId = item._productId,
+					Quantity = item._quantity,
+					Price = item._price,
+					Date = DateTime.Now,
+				};
+				orderDetailNum++;
+				_context.Add(orderDetail);
+
+			}
 
 			//add to voucehr used
 			var isUsedVoucher = HttpContext.Session.Get<bool>("useVoucher");
@@ -396,6 +402,10 @@ namespace BMOS.Controllers
 		}
 
 
+
+
+
+		// handle with cart
 		public IActionResult RemoveItem(string id)
 		{
 			var myCart = Cart;
@@ -423,7 +433,7 @@ namespace BMOS.Controllers
 					if (status.Equals("increase"))
 					{
 						item._quantity += productQuantity;
-						if(item._quantity >= item.getProductAvailable())
+						if (item._quantity >= item.getProductAvailable())
 						{
 							item._quantity = item.getProductAvailable();
 						}
@@ -531,8 +541,9 @@ namespace BMOS.Controllers
 			double? userPoint = 0;
 
 			var user = HttpContext.Session.Get<TblUser>("user");
-			if (user != null) { 
-				if(user.UserRoleId == 2 || user.UserRoleId == 1)
+			if (user != null)
+			{
+				if (user.UserRoleId == 2 || user.UserRoleId == 1)
 				{
 					return View("ErrorPage");
 				}
