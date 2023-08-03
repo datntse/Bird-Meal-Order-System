@@ -140,7 +140,7 @@ namespace BMOS.Controllers
 			var orderSort = orderDelivery.OrderByDescending(x => x.date).ToList();
 			return View(orderSort.ToList());
 		}
-
+		
 		// đơn hàng đã giao
 		public IActionResult OrderDelivered()
 		{

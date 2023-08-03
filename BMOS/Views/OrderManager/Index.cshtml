@@ -48,9 +48,13 @@
                 </td>
                 <td>
                     @{
-                        if (item.Status == 0 || item.Status == 1)
+                        if (item.Status == 0)
                         {
-                            <p style="color:green; border-radius: 25px; background-color: lightyellow; inline-size: 100%;text-align:center;">Đơn hàng đang xử lí</p>
+                            <p style="color:green; border-radius: 25px; background-color: red; inline-size: 100%;text-align:center;">Đơn hàng chưa xác nhận</p>
+                        }
+                         else if (item.Status == 1)
+                        {
+                            <p style="color:green; border-radius: 25px; background-color: lightyellow; inline-size: 100%;text-align:center;">Đơn hàng đang vận chuyển</p>
                         }
                         else if (item.Status == 2)
                         {
