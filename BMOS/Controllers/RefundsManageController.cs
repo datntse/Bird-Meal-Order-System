@@ -116,8 +116,9 @@ namespace BMOS.Controllers
             var refunds = from f in _context.TblRefunds
                           from o in _context.TblOrders
                           join u in _context.TblUsers on f.UserId equals u.UserId
-                          where f.UserId.Equals(o.UserId) && f.OrderId.Equals(o.OrderId)
-                          select new RefundsInfoModel()
+						  from image in _context.TblImages
+						  where f.OrderId == image.RelationId && f.UserId.Equals(o.UserId) && f.OrderId.Equals(o.OrderId)
+						  select new RefundsInfoModel()
                           {
                               RefundId = f.RefundId,
                               UserName = u.Firstname + u.Lastname,
@@ -126,7 +127,8 @@ namespace BMOS.Controllers
                               Description = f.Description,
                               Date = f.Date,
                               IsConfirm = f.IsConfirm,
-                          };
+                              urlImage = image.Url
+						  };
             
             if (id == null || _context.TblRefunds == null)
             {

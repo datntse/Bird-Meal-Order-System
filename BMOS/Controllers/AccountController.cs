@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Google.Apis.Oauth2.v2.Data;
 using Microsoft.Extensions.Caching.Memory;
+using BMOS.Models.Services;
 
 namespace BMOS.Controllers
 {
@@ -708,8 +709,9 @@ namespace BMOS.Controllers
 
 		}
 		[HttpPost]
-		public IActionResult AddRefund(string orderid, string note)
+		public async Task<IActionResult> AddRefundAsync(string orderid, string note, List<IFormFile> files)
 		{
+			string url = "";
 			var user = HttpContext.Session.GetString("username");
 			var userid = _db.TblUsers.Where(p => p.Username.Equals(user)).Select(p => p.UserId).First();
 				var check = _db.TblRefunds.Where(p=>p.OrderId == orderid).Select(p => p.OrderId).FirstOrDefault();
@@ -741,7 +743,18 @@ namespace BMOS.Controllers
 
                 }
                 _db.TblRefunds.Add(refund);
-                _db.SaveChanges();
+				_db.TblRefunds.Add(refund);
+				url = await FirebaseService.UploadImage(files, "products");
+				TblImage tblImage = new TblImage
+				{
+					ImageId = Guid.NewGuid().ToString(),
+					Name = "Refund img",
+					RelationId = refund.OrderId,
+					Type = "Product",
+					Url = url
+				};
+				_db.TblImages.Add(tblImage);
+				_db.SaveChanges();
 				return RedirectToAction("Refund", "Account");
 			}
                
