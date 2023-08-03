@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using BMOS.Helpers;
 using Microsoft.AspNetCore.Http;
 using Google.Apis.PeopleService.v1.Data;
+using X.PagedList;
 
 namespace BMOS.Controllers
 {
@@ -60,11 +61,11 @@ namespace BMOS.Controllers
 					_context.Update(order);
                 _context.SaveChanges();
             }
-            return RedirectToAction("Index");
+			return RedirectToAction("Index");
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder, int? page, string currentFilter)
         {
             var user = HttpContext.Session.Get<TblUser>("userManager");
             if (user != null)
@@ -78,7 +79,15 @@ namespace BMOS.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var orderDelivery = from order in _context.TblOrders
+			ViewBag.CurrentSort = sortOrder;
+			ViewData["Sortsucces"] = sortOrder == "sc" ? "" : "sc";
+			ViewData["Sortfail"] = sortOrder == "sf" ? "" : "sf";
+			ViewData["Sortchuagiao"] = sortOrder == "scg" ? "" : "scg";
+			ViewData["Sortdagiao"] = sortOrder == "sdg" ? "" : "sdg";
+			ViewData["Sortrefund"] = sortOrder == "sr" ? "" : "sr";
+			ViewData["Sortrefundsc"] = sortOrder == "srs" ? "" : "srs";
+
+			var orderDelivery = from order in _context.TblOrders
                                 from u in _context.TblUsers
                                 where order.UserId.Equals(u.UserId) && (order.Status != 0 && order.Status != 4)
 								select new OrderInfo
@@ -105,8 +114,36 @@ namespace BMOS.Controllers
             ViewData["orderRefunded"] = orderRefunded;
             ViewData["orderFailed"] = orderFailed;
 
+			switch (sortOrder)
+			{
+				case "sc":
+					orderDelivery = orderDelivery.Where(x => x.Status == 8 || x.Status == 5);
+					break;
+				case "sdg":
+					orderDelivery = orderDelivery.Where(x => x.Status == 2);
+					break;
+				case "sf":
+					orderDelivery = orderDelivery.Where(x => x.Status == 3);
+					break;
+				case "scg":
+					orderDelivery = orderDelivery.Where(x => x.Status == 1);
+					break;
+				case "sr":
+					orderDelivery = orderDelivery.Where(x => x.Status == 6);
+					break;
+				case "srs":
+					orderDelivery = orderDelivery.Where(x => x.Status == 7);
+					break;
+				default:
+					orderDelivery = orderDelivery.OrderByDescending(x => x.date);
+					break;
+			}
+
+
+			int pageSize = 5;
+			int pageNumber = (page ?? 1);
 			var orderSort = orderDelivery.OrderByDescending(x => x.date).ToList();
-			return View(orderSort.ToList());
+			return View(orderSort.ToPagedList(pageNumber, pageSize));
         }
 
 		// Đơn hàng cần được đi giao
