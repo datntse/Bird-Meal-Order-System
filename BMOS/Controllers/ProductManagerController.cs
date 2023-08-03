@@ -233,7 +233,7 @@ namespace BMOS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ProductId,Name,Quantity,Description,Weight,IsAvailable,IsLoved,Status,Price,ImagelInk")] TblProduct tblProduct)
+        public async Task<IActionResult> Edit(string id, [Bind("ProductId,Name,Quantity,Description,Weight,SoldQuantity,IsAvailable,IsLoved,Status,Price,ImagelInk")] TblProduct tblProduct)
         {
 
             var user = HttpContext.Session.Get<TblUser>("userManager");
@@ -274,12 +274,25 @@ namespace BMOS.Controllers
                         ViewData["errorProductQuantity"] = "Số lượng không được bé hơn 0 và lớn hơn 10000";
                         isFailt = true;
                     }
+					if (isFailt) return View(tblProduct);
 
-                    if (isFailt) return View(tblProduct);
+					// Tải đối tượng từ cơ sở dữ liệu
+					var product = await _context.TblProducts.FindAsync(id);
 
-                    _context.Update(tblProduct);
-                    await _context.SaveChangesAsync();
-                }
+					// Sao chép các giá trị từ đối tượng truyền vào
+					product.Name = tblProduct.Name;
+					product.Quantity = tblProduct.Quantity;
+					product.Description = tblProduct.Description;
+					product.Weight = tblProduct.Weight;
+					product.SoldQuantity = tblProduct.SoldQuantity;
+					product.IsLoved = tblProduct.IsLoved;
+					product.Status = tblProduct.Status;
+					product.Price = tblProduct.Price;
+
+					// Cập nhật đối tượng trong cơ sở dữ liệu
+					_context.Update(product);
+					await _context.SaveChangesAsync();
+				}
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!TblProductExists(tblProduct.ProductId))
