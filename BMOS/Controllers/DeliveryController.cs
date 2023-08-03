@@ -37,6 +37,25 @@ namespace BMOS.Controllers
                 {
 					order.Status = 7;
 					order.Note = "Đơn hoàn trả";
+
+					var tblOrderDetail = _context.TblOrderDetails.Where(x => x.OrderId.Equals(orderId)).ToList();
+					if(tblOrderDetail.Count > 0) { 
+						foreach(var _order in tblOrderDetail)
+						{
+							var productQuantity = _order.Quantity;
+							var productId = _order.ProductId;
+
+							var tblProduct = _context.TblProducts.Where(x => x.ProductId.Equals(productId)).FirstOrDefault();
+							if(tblProduct != null)
+							{
+								var currentSold = tblProduct.SoldQuantity;
+								var result = currentSold - productQuantity;
+								tblProduct.SoldQuantity = result;
+								_context.Update(tblProduct);
+								_context.SaveChanges();
+							}
+						}
+					}
 				}
 					_context.Update(order);
                 _context.SaveChanges();
