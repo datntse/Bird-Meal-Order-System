@@ -133,40 +133,43 @@
 					}
 					else
 					{
-						@if ((item.Status) != 3)
+						@if ((item.Status) != 6)
 						{
-							<a asp-action="ConfirmDeliveryStatus" asp-route-orderId="@item.orderID" asp-route-status="success">
-								<button type="button" class="btn btn-success">Đã giao hàng</button>
-							</a>
-						}
-						@if ((item.Status) != 2)
-						{
-							<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#form-@item.orderID">Thất bại</button>
-							<div class="modal" tabindex="-1" id="form-@item.orderID">
-								<div class="modal-dialog modal-xl modal-fullscreen-xl-down" style="margin-top:10rem;">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title fw-bold" style="font-size:1.8rem;">Lí do giao hàng thất bại</h5>
-											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-										</div>
-										<input type="hidden" class="form-control" name="userid" value="" required />
-										<div class="form-group" style="padding:0px 5rem;">
-											<label for="recipient-name" class="col-form-label fw-bold" style="font-size:1.8rem;">Mã đơn hàng</label>
-											<input type="text" class="form-control" style="font-size:2rem;" value="@item.orderID" readonly />
-										</div>
+							@if ((item.Status) != 3)
+							{
+								<a asp-action="ConfirmDeliveryStatus" asp-route-orderId="@item.orderID" asp-route-status="success">
+									<button type="button" class="btn btn-success">Đã giao hàng</button>
+								</a>
+							}
+							@if ((item.Status) != 2)
+							{
+								<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#form-@item.orderID">Thất bại</button>
+								<div class="modal" tabindex="-1" id="form-@item.orderID">
+									<div class="modal-dialog modal-xl modal-fullscreen-xl-down" style="margin-top:10rem;">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title fw-bold" style="font-size:1.8rem;">Lí do giao hàng thất bại</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+											</div>
+											<input type="hidden" class="form-control" name="userid" value="" required />
+											<div class="form-group" style="padding:0px 5rem;">
+												<label for="recipient-name" class="col-form-label fw-bold" style="font-size:1.8rem;">Mã đơn hàng</label>
+												<input type="text" class="form-control" style="font-size:2rem;" value="@item.orderID" readonly />
+											</div>
 
-										<div class="form-group" style="padding:0px 5rem;">
-											<label for="recipient-name" class="col-form-label fw-bold" style="font-size:1.8rem;">Lí do đơn hàng thất bại</label>
-											<input name="note-@item.orderID" class="form-control" style="font-size:2rem;" value="@item.Note" required />
-										</div>
+											<div class="form-group" style="padding:0px 5rem;">
+												<label for="recipient-name" class="col-form-label fw-bold" style="font-size:1.8rem;">Lí do đơn hàng thất bại</label>
+												<input name="note-@item.orderID" class="form-control" style="font-size:2rem;" value="@item.Note" required />
+											</div>
 
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-											<button data-orderid="@item.orderID" class="btn btn-primary ajax-submit-form-status-delivery">Lưu</button>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+												<button data-orderid="@item.orderID" class="btn btn-primary ajax-submit-form-status-delivery">Lưu</button>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							}
 						}
 					}
 				</td>
