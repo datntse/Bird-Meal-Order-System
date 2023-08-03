@@ -23,7 +23,7 @@ namespace Demo.Controllers
             var user = HttpContext.Session.Get<TblUser>("userManager");
             if (user != null)
             {
-                if (user.UserRoleId == 1)
+                if (user.UserRoleId == 1 || user.UserRoleId == 4)
                 {
                     return View("ErrorPage");
                 }
